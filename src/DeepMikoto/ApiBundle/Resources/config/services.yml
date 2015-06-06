@@ -1,0 +1,4 @@
+services:
+    deepmikoto.api:
+        class: DeepMikoto\ApiBundle\Services\ApiService
+        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack" ]

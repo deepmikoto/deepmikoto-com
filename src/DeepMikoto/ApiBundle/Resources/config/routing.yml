@@ -1,0 +1,3 @@
+deep_mikoto_api_homepage:
+    path:     /
+    defaults: { _controller: DeepMikotoApiBundle:Api:index }

@@ -1,0 +1,33 @@
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="eng">
+    <head>
+        {% stylesheets
+            'bundles/deepmikotoapi/scss/deepmikotoapi.scss'
+        output='css/app.css' filter='cssrewrite'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+        <title>deepmikoto.com</title>
+    </head>
+    <body>
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'DeepMikotoApiBundle:Api:x_templates.html.twig' %}
+
+    {% javascripts
+        '@DeepMikotoApiBundle/Resources/public/js/jquery-2.1.4.js'
+    output='js/app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}" ></script>
+    {% endjavascripts %}
+    <div id="npp-area"></div>
+    <div id="ui-area"></div>
+    </body>
+    </html>
+{% endspaceless %}
