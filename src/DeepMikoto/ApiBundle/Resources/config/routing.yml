@@ -1,3 +1,7 @@
-deep_mikoto_api_homepage:
-    path:     /
-    defaults: { _controller: DeepMikotoApiBundle:Api:index }
+deepmikoto_app:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/_app.yml"
+    prefix:   /
+
+deepmikoto_api:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/_api.yml"
+    prefix:   /_api

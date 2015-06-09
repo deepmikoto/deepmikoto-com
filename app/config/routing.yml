@@ -1,4 +1,4 @@
-deep_mikoto_api:
+deepmikoto_app:
     resource: "@DeepMikotoApiBundle/Resources/config/routing.yml"
     prefix:   /
 

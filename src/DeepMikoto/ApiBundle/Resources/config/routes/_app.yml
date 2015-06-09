@@ -1,0 +1,6 @@
+deepmikoto_app_homepage:
+    path:     /
+    defaults: { _controller: DeepMikotoApiBundle:Api:index }
+
+deepmikoto_app_logout:
+    path:     /logout
