@@ -2,9 +2,6 @@
  * Created by MiKoRiza-OnE on 6/9/2015.
  */
 
-/** initialize app variable */
-var deepmikoto = { };
-
 /** define the model that will hold our user */
 deepmikoto.User = Backbone.Model.extend({
     isLoggedIn: function() {
@@ -34,7 +31,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         Backbone.history.navigate('', { trigger: true });
     },
     homeAction: function(){
-        console.log('home');
+        this.showMainHeader('home');
     },
     loginAction: function(){
         if (deepmikoto.app.user.isLoggedIn()) {
@@ -59,6 +56,18 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     showLogin: function(){
 
+    },
+    showMainHeader: function(currentPage){
+        if(deepmikoto.app.mainHeader.hasView()){
+            deepmikoto.app.mainHeader.currentView.model.set({ currentPage: currentPage });
+        } else {
+            var mainHeaderView = new deepmikoto.MainHeaderView({
+                model: new deepmikoto.MainHeaderModel({
+                    currentPage: currentPage
+                })
+            });
+            deepmikoto.app.mainHeader.show(mainHeaderView);
+        }
     }
 });
 
@@ -71,7 +80,8 @@ deepmikoto.app = new Marionette.Application();
  * The main regions of our app
  */
 deepmikoto.app.addRegions({
-
+    mainHeader: '#main-header',
+    mainContent: '#main-content'
 });
 
 /**
@@ -100,7 +110,7 @@ deepmikoto.app.addInitializer(function() {
 
 /** we start the route filter */
 deepmikoto.app.addInitializer(function() {
-    NoHashTagsPlease(deepmikoto.app.router);
+    deepmikoto.NoHashTagsPlease(deepmikoto.app.router);
 });
 
 /**

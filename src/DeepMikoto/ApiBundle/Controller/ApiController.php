@@ -27,8 +27,7 @@ class ApiController extends FOSRestController
     public function indexAction()
     {
         $data = [
-            'user' => $this->getUser(),
-            'test' => 'lalalla'
+            'user' => $this->getUser()
         ];
         $view = $this->view($data, 200)
             ->setTemplate('DeepMikotoApiBundle:Api:index.html.twig')

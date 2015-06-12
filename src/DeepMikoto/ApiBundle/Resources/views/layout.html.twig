@@ -5,7 +5,7 @@
         {% stylesheets
             'bundles/deepmikotoapi/css/bootstrap.css'
             'bundles/deepmikotoapi/scss/deepmikotoapi.scss'
-        output='css/app.css' filter='cssrewrite'
+            output='css/app.css' filter='cssrewrite'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
@@ -14,22 +14,14 @@
         {% endimage %}
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
-        <title>deepmikoto.com</title>
+        <title>{{ site_title }}</title>
     </head>
     <body>
-
-    {% block content %}
-
-    {% endblock %}
+    {% block content %}{% endblock %}
 
     {% include 'DeepMikotoApiBundle:Api:x_templates.html.twig' %}
 
-    {% autoescape false %}
-        <script type="text/javascript">
-            var root = '{{ path('deepmikoto_app_homepage') }}';
-            {% if user is defined %}var user = {{ user | serialize | raw }};{% endif %}
-        </script>
-    {% endautoescape %}
+    {% include 'DeepMikotoApiBundle:Api:variables_bootstrap.html.twig' %}
     {% javascripts
         '@DeepMikotoApiBundle/Resources/public/js/jquery-2.1.4.js'
         '@DeepMikotoApiBundle/Resources/public/js/json2.js'
@@ -37,6 +29,8 @@
         '@DeepMikotoApiBundle/Resources/public/js/backbone.js'
         '@DeepMikotoApiBundle/Resources/public/js/backbone.marionette.js'
         '@DeepMikotoApiBundle/Resources/public/js/backbone.wreqr.js'
+        '@DeepMikotoApiBundle/Resources/public/js/app.js'
+        '@DeepMikotoApiBundle/Resources/public/js/views/*'
         '@DeepMikotoApiBundle/Resources/public/js/deepmikoto_functions.js'
         '@DeepMikotoApiBundle/Resources/public/js/deepmikoto.js'
         output='js/app.js' filter='yui_js'

@@ -6,7 +6,7 @@
  * here we provide support for symfony app_dev in ajax calls
  */
 $.ajaxPrefilter(function(options) {
-    if(root == undefined) var root = '';
+    if(root === undefined) var root = '';
     options.url = root + options.url;
 });
 
@@ -15,7 +15,7 @@ $.ajaxPrefilter(function(options) {
  *  we define a route filter that handles all application links and passes it
  *  through out router, this is done to eliminate the use of "#/" in our links and URL's
  */
-NoHashTagsPlease = function(router){
+deepmikoto.NoHashTagsPlease = function(router){
     /**
      * Use absolute URLs to navigate to anything not in your Router.
      * Note: this version works with IE. Backbone.history.navigate will automatically route the IE user to the appropriate hash URL
