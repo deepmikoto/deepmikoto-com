@@ -27,5 +27,10 @@ html {
         }
       }
     }
+    .container {
+      .under-construction {
+        @extend %under-construction;
+      }
+    }
   }
 }

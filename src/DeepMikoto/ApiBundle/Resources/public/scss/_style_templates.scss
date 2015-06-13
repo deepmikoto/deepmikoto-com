@@ -1,3 +1,31 @@
+// temporary
+%under-construction {
+  float: none;
+  margin: 30% auto 0 auto;
+  img {
+    max-width: 100%;
+  }
+  .uc {
+    position: absolute;
+    top: -80px;
+    -webkit-animation: under_construction 1s infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+    animation: under_construction 1s infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+  }
+  .uc_s {
+    opacity: 0.8;
+    -webkit-animation: under_construction_shadow 1s infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+    animation: under_construction_shadow 1s infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+  }
+}
+// end temporary
 %header_pulse {
   position: fixed;
   opacity: 0;
