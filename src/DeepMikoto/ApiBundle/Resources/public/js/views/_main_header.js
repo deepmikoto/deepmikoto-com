@@ -10,7 +10,18 @@ deepmikoto.MainHeaderView = Marionette.ItemView.extend({
     template: '#main_header_tpl',
     className: 'main-header',
     model: new deepmikoto.MainHeaderModel,
+    ui: {
+        active: '.active',
+        home: '#home'
+    },
     initialize: function(){
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(deepmikoto.app.headerChannel.vent, 'change:page', this.updateCurrentPage);
+    },
+    updateCurrentPage: function (page)
+    {
+        var _this = this;
+        this.ui.active.fadeOut(function(){
+            _this.ui[page].fadeIn();
+        });
     }
 });

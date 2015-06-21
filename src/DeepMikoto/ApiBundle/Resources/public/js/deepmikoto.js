@@ -31,7 +31,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         Backbone.history.navigate('', { trigger: true });
     },
     homeAction: function(){
-        this.showMainHeader('home');
+        this.showOrUpdateMainHeader('home');
     },
     loginAction: function(){
         if (deepmikoto.app.user.isLoggedIn()) {
@@ -41,7 +41,6 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         }
     },
     logoutAction: function(){
-        console.log('logout');
         $.ajax({
             context: this,
             type: 'GET',
@@ -50,17 +49,14 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function() {
                 deepmikoto.app.user.clear();
                 Backbone.history.navigate('', { trigger: true });
-                console.log('logout');
             }
         });
     },
     showLogin: function(){
 
     },
-    showMainHeader: function(currentPage){
-        if(deepmikoto.app.mainHeader.hasView()){
-            deepmikoto.app.mainHeader.currentView.model.set({ currentPage: currentPage });
-        } else {
+    showOrUpdateMainHeader: function(currentPage){
+        if(!deepmikoto.app.mainHeader.hasView()){
             var mainHeaderView = new deepmikoto.MainHeaderView({
                 model: new deepmikoto.MainHeaderModel({
                     currentPage: currentPage
@@ -68,6 +64,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             });
             deepmikoto.app.mainHeader.show(mainHeaderView);
         }
+        Backbone.Wreqr.radio.vent.trigger('header', 'change:page', currentPage);
     }
 });
 
@@ -75,6 +72,13 @@ deepmikoto.Router = Marionette.AppRouter.extend({
  * Our Marionette app
  */
 deepmikoto.app = new Marionette.Application();
+
+/** we initialize app functions */
+deepmikoto.app.addInitializer(function() {
+    deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions();
+    deepmikoto.app.generalFunctions.initializeCoreFunctions();
+    deepmikoto.app.headerChannel = Backbone.Wreqr.radio.channel('header');
+});
 
 /**
  * The main regions of our app
@@ -106,11 +110,6 @@ deepmikoto.app.addInitializer(function() {
 deepmikoto.app.addInitializer(function() {
     deepmikoto.app.router = new deepmikoto.Router();
     Backbone.history.start({ pushState: true, root: root });
-});
-
-/** we start the route filter */
-deepmikoto.app.addInitializer(function() {
-    deepmikoto.NoHashTagsPlease(deepmikoto.app.router);
 });
 
 /**
