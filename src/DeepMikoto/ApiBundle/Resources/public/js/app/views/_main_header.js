@@ -19,9 +19,8 @@ deepmikoto.MainHeaderView = Marionette.ItemView.extend({
     },
     updateCurrentPage: function (page)
     {
-        var _this = this;
-        this.ui.active.fadeOut(function(){
-            _this.ui[page].fadeIn();
-        });
+        this.model.set({ currentPage: page });
+        this.ui.active.removeClass('active');
+        this.ui[page].addClass('active');
     }
 });

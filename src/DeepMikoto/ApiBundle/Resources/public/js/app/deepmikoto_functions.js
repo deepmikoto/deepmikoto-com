@@ -5,7 +5,7 @@ deepmikoto.functionsContainer = function(){};
 deepmikoto.functionsContainer.extend = Marionette.extend;
 
 deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
-    initializeCoreFunctions: function ()
+    constructor: function ()
     {
         this.enableAjaxPrefilter();
         this.noHashTagsPlease();
@@ -61,5 +61,19 @@ deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
                 }
             }
         });
+    }
+});
+
+deepmikoto.AppFunctions = deepmikoto.functionsContainer.extend({
+    constructor: function ()
+    {
+        this.renderMainHeader();
+    },
+    renderMainHeader: function ()
+    {
+        var mainHeaderView = new deepmikoto.MainHeaderView({
+            model: new deepmikoto.MainHeaderModel()
+        });
+        deepmikoto.app.mainHeader.show(mainHeaderView);
     }
 });

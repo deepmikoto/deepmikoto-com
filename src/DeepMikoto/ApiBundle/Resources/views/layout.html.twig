@@ -23,16 +23,16 @@
 
     {% include 'DeepMikotoApiBundle:Api:variables_bootstrap.html.twig' %}
     {% javascripts
-        '@DeepMikotoApiBundle/Resources/public/js/jquery-2.1.4.js'
-        '@DeepMikotoApiBundle/Resources/public/js/json2.js'
-        '@DeepMikotoApiBundle/Resources/public/js/underscore.js'
-        '@DeepMikotoApiBundle/Resources/public/js/backbone.js'
-        '@DeepMikotoApiBundle/Resources/public/js/backbone.marionette.js'
-        '@DeepMikotoApiBundle/Resources/public/js/backbone.wreqr.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/jquery-2.1.4.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/json2.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/underscore.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/backbone.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/backbone.marionette.js'
+        '@DeepMikotoApiBundle/Resources/public/js/vendor/backbone.wreqr.js'
         '@DeepMikotoApiBundle/Resources/public/js/app.js'
-        '@DeepMikotoApiBundle/Resources/public/js/views/*'
-        '@DeepMikotoApiBundle/Resources/public/js/deepmikoto_functions.js'
-        '@DeepMikotoApiBundle/Resources/public/js/deepmikoto.js'
+        '@DeepMikotoApiBundle/Resources/public/js/app/views/*'
+        '@DeepMikotoApiBundle/Resources/public/js/app/deepmikoto_functions.js'
+        '@DeepMikotoApiBundle/Resources/public/js/app/deepmikoto.js'
         output='js/app.js' filter='yui_js'
     %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>

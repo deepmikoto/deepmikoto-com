@@ -9,7 +9,7 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 
-use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Handles api routes
@@ -17,7 +17,7 @@ use FOS\RestBundle\Controller\FOSRestController;
  * Class ApiController
  * @package DeepMikoto\ApiBundle\Controller
  */
-class ApiController extends FOSRestController
+class ApiController extends Controller
 {
     /**
      * Api homepage
@@ -29,11 +29,7 @@ class ApiController extends FOSRestController
         $data = [
             'user' => $this->getUser()
         ];
-        $view = $this->view($data, 200)
-            ->setTemplate('DeepMikotoApiBundle:Api:index.html.twig')
-            ->setTemplateVar('data')
-        ;
 
-        return $this->handleView($view);
+        return $this->render('DeepMikotoApiBundle:Api:index.html.twig', $data);
     }
 } 

@@ -27,20 +27,24 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction',
         ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction'
     },
-    undefinedAction: function(){
+    undefinedAction: function()
+    {
         Backbone.history.navigate('', { trigger: true });
     },
-    homeAction: function(){
-        this.showOrUpdateMainHeader('home');
+    homeAction: function()
+    {
+        this.updateMainHeader('home');
     },
-    loginAction: function(){
+    loginAction: function()
+    {
         if (deepmikoto.app.user.isLoggedIn()) {
             Backbone.history.navigate('', { trigger: true })
         } else {
             this.showLogin();
         }
     },
-    logoutAction: function(){
+    logoutAction: function()
+    {
         $.ajax({
             context: this,
             type: 'GET',
@@ -52,18 +56,12 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             }
         });
     },
-    showLogin: function(){
+    showLogin: function()
+    {
 
     },
-    showOrUpdateMainHeader: function(currentPage){
-        if(!deepmikoto.app.mainHeader.hasView()){
-            var mainHeaderView = new deepmikoto.MainHeaderView({
-                model: new deepmikoto.MainHeaderModel({
-                    currentPage: currentPage
-                })
-            });
-            deepmikoto.app.mainHeader.show(mainHeaderView);
-        }
+    updateMainHeader: function(currentPage)
+    {
         Backbone.Wreqr.radio.vent.trigger('header', 'change:page', currentPage);
     }
 });
@@ -73,11 +71,18 @@ deepmikoto.Router = Marionette.AppRouter.extend({
  */
 deepmikoto.app = new Marionette.Application();
 
-/** we initialize app functions */
-deepmikoto.app.addInitializer(function() {
-    deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions();
-    deepmikoto.app.generalFunctions.initializeCoreFunctions();
+/** we initialize app radio channels */
+deepmikoto.app.addInitializer(function()
+{
+    deepmikoto.app.globalChannel = Backbone.Wreqr.radio.channel('global');
     deepmikoto.app.headerChannel = Backbone.Wreqr.radio.channel('header');
+});
+
+/** we initialize app functions */
+deepmikoto.app.addInitializer(function()
+{
+    deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions();
+    deepmikoto.app.appFunctions = new deepmikoto.AppFunctions();
 });
 
 /**
@@ -93,21 +98,24 @@ deepmikoto.app.addRegions({
  *
  * 1) Instantiate the user
  */
-deepmikoto.app.addInitializer(function() {
+deepmikoto.app.addInitializer(function()
+{
     deepmikoto.app.user = new deepmikoto.User(user);
 });
 
 /**
  * 2) Instantiate the collections from the bootstrapped data
  */
-deepmikoto.app.addInitializer(function() {
+deepmikoto.app.addInitializer(function()
+{
     deepmikoto.app.data = {};
 });
 
 /**
  * 3) Launch the router and process the first route
  */
-deepmikoto.app.addInitializer(function() {
+deepmikoto.app.addInitializer(function()
+{
     deepmikoto.app.router = new deepmikoto.Router();
     Backbone.history.start({ pushState: true, root: root });
 });
