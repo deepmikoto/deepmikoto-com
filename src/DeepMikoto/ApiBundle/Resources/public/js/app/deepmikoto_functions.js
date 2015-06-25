@@ -32,7 +32,7 @@ deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
     },
     /**
      *  we define a route filter that handles all application links and passes it
-     *  through out router, this is done to eliminate the use of "#/" in our links and URL's
+     *  through our router, this is done to eliminate the use of "#/" in our links and URL's
      */
     noHashTagsPlease: function()
     {

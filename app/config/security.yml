@@ -10,3 +10,5 @@ security:
 
         default:
             anonymous: ~
+    access_control:
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
