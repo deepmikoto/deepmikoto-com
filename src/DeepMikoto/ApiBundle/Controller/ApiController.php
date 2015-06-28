@@ -9,7 +9,7 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Handles api routes
@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Class ApiController
  * @package DeepMikoto\ApiBundle\Controller
  */
-class ApiController extends Controller
+class ApiController extends FOSRestController
 {
     /**
      * Api homepage
