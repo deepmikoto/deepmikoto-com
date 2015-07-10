@@ -1,10 +1,8 @@
 /**
- * Created by MiKoRiza-OnE on 6/9/2015.
+ * Created by MiKoRiza-OnE on 7/9/2015.
  */
-deepmikoto.functionsContainer = function(){};
-deepmikoto.functionsContainer.extend = Marionette.extend;
 
-deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
+deepmikoto.GeneralFunctions = Marionette.extend({
     constructor: function ()
     {
         this.enableAjaxPrefilter();
@@ -44,10 +42,11 @@ deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
         $(document).delegate("a", "click", function(e)
         {
             /** Get the anchor href and protocol */
-            var href = $(this).attr("href").replace(root, '/');
+            var href = $(this).attr("href");
+            var protocol = this.protocol + "//";
             if (href != undefined)
             {
-                var protocol = this.protocol + "//";
+                href = href.replace(root, '/');
                 /**
                  * Ensure the protocol is not part of URL, meaning its relative.
                  * Stop the event bubbling to ensure the link will not cause a page refresh.
@@ -61,19 +60,5 @@ deepmikoto.GeneralFunctions = deepmikoto.functionsContainer.extend({
                 }
             }
         });
-    }
-});
-
-deepmikoto.AppFunctions = deepmikoto.functionsContainer.extend({
-    constructor: function ()
-    {
-        this.renderMainHeader();
-    },
-    renderMainHeader: function ()
-    {
-        var mainHeaderView = new deepmikoto.MainHeaderView({
-            model: new deepmikoto.MainHeaderModel()
-        });
-        deepmikoto.app.mainHeader.show(mainHeaderView);
     }
 });

@@ -17,6 +17,14 @@ deepmikoto.User = Backbone.Model.extend({
  */
 deepmikoto.app = new Marionette.Application();
 
+/**
+ * The main regions of our app
+ */
+deepmikoto.app.addRegions({
+    mainHeader: '#main-header',
+    mainContent: '#main-content'
+});
+
 /** we initialize app radio channels */
 deepmikoto.app.addInitializer(function()
 {
@@ -32,17 +40,9 @@ deepmikoto.app.addInitializer(function()
 });
 
 /**
- * The main regions of our app
- */
-deepmikoto.app.addRegions({
-    mainHeader: '#main-header',
-    mainContent: '#main-content'
-});
-
-/**
  * We bootstrap the app :
  *
- * 1) Instantiate the user
+ * Instantiate the user
  */
 deepmikoto.app.addInitializer(function()
 {
@@ -50,20 +50,11 @@ deepmikoto.app.addInitializer(function()
 });
 
 /**
- * 2) Instantiate the collections from the bootstrapped data
+ * Instantiate the collections from the bootstrapped data
  */
 deepmikoto.app.addInitializer(function()
 {
     deepmikoto.app.data = {};
-});
-
-/**
- * 3) Launch the router and process the first route
- */
-deepmikoto.app.addInitializer(function()
-{
-    deepmikoto.app.router = new deepmikoto.Router();
-    Backbone.history.start({ pushState: true, root: root });
 });
 
 /**

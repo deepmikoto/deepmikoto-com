@@ -7,7 +7,6 @@ deepmikoto.MainHeaderModel = Backbone.Model.extend({
 
 /** view and actions for main header view */
 deepmikoto.MainHeaderView = Marionette.ItemView.extend({
-    template: '#main_header_tpl',
     className: 'main-header',
     model: new deepmikoto.MainHeaderModel,
     ui: {
@@ -16,6 +15,10 @@ deepmikoto.MainHeaderView = Marionette.ItemView.extend({
     },
     initialize: function(){
         this.listenTo(deepmikoto.app.headerChannel.vent, 'change:page', this.updateCurrentPage);
+    },
+    getTemplate: function ()
+    {
+        return _.template(deepmikoto.templates.mainHeader);
     },
     updateCurrentPage: function (page)
     {
