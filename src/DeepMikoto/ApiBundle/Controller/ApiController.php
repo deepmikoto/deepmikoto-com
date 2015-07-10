@@ -45,6 +45,8 @@ class ApiController extends FOSRestController
             $this->get('deepmikoto.api.templating')->compileTemplates(),
             200
         );
+        $response->setExpires(new \DateTime('+1 month'));
+        $response->setPublic();
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
