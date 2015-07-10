@@ -1,4 +1,7 @@
 services:
     deepmikoto.api:
         class: DeepMikoto\ApiBundle\Services\ApiService
-        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack" ]
+        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack", "@serializer" ]
+    deepmikoto.api.templating:
+        class: DeepMikoto\ApiBundle\Services\TemplatingService
+        arguments: [ "@templating", "@serializer" ]

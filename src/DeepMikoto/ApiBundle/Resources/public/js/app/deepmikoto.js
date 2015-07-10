@@ -12,64 +12,18 @@ deepmikoto.User = Backbone.Model.extend({
     }
 });
 
-/** define the app router that will handle relations between app URL and actions */
-deepmikoto.Router = Marionette.AppRouter.extend({
-    routes: {
-        '': 'homeAction',
-        'login': 'loginAction',
-        'logout': 'logoutAction',
-        ':placeholder': 'undefinedAction',
-        ':placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction',
-        ':placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder/:placeholder': 'undefinedAction'
-    },
-    undefinedAction: function()
-    {
-        Backbone.history.navigate('', { trigger: true });
-    },
-    homeAction: function()
-    {
-        this.updateMainHeader('home');
-    },
-    loginAction: function()
-    {
-        if (deepmikoto.app.user.isLoggedIn()) {
-            Backbone.history.navigate('', { trigger: true })
-        } else {
-            this.showLogin();
-        }
-    },
-    logoutAction: function()
-    {
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: 'logout',
-            dataType: 'json',
-            success: function() {
-                deepmikoto.app.user.clear();
-                Backbone.history.navigate('', { trigger: true });
-            }
-        });
-    },
-    showLogin: function()
-    {
-
-    },
-    updateMainHeader: function(currentPage)
-    {
-        Backbone.Wreqr.radio.vent.trigger('header', 'change:page', currentPage);
-    }
-});
-
 /**
  * Our Marionette app
  */
 deepmikoto.app = new Marionette.Application();
+
+/**
+ * The main regions of our app
+ */
+deepmikoto.app.addRegions({
+    mainHeader: '#main-header',
+    mainContent: '#main-content'
+});
 
 /** we initialize app radio channels */
 deepmikoto.app.addInitializer(function()
@@ -86,17 +40,9 @@ deepmikoto.app.addInitializer(function()
 });
 
 /**
- * The main regions of our app
- */
-deepmikoto.app.addRegions({
-    mainHeader: '#main-header',
-    mainContent: '#main-content'
-});
-
-/**
  * We bootstrap the app :
  *
- * 1) Instantiate the user
+ * Instantiate the user
  */
 deepmikoto.app.addInitializer(function()
 {
@@ -104,20 +50,11 @@ deepmikoto.app.addInitializer(function()
 });
 
 /**
- * 2) Instantiate the collections from the bootstrapped data
+ * Instantiate the collections from the bootstrapped data
  */
 deepmikoto.app.addInitializer(function()
 {
     deepmikoto.app.data = {};
-});
-
-/**
- * 3) Launch the router and process the first route
- */
-deepmikoto.app.addInitializer(function()
-{
-    deepmikoto.app.router = new deepmikoto.Router();
-    Backbone.history.start({ pushState: true, root: root });
 });
 
 /**

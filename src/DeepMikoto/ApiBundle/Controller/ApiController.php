@@ -9,7 +9,8 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles api routes
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Class ApiController
  * @package DeepMikoto\ApiBundle\Controller
  */
-class ApiController extends Controller
+class ApiController extends FOSRestController
 {
     /**
      * Api homepage
@@ -32,4 +33,21 @@ class ApiController extends Controller
 
         return $this->render('DeepMikotoApiBundle:Api:index.html.twig', $data);
     }
-} 
+
+    /**
+     * Api templates
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function templatesAction()
+    {
+        $response = new Response(
+            $this->get('deepmikoto.api.templating')->compileTemplates(),
+            200
+        );
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+}

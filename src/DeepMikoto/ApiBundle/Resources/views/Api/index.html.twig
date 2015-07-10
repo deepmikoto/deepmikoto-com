@@ -1,6 +1,20 @@
 {% extends 'DeepMikotoApiBundle::layout.html.twig' %}
 {% block content %}
-    <div id="main-header" class="main-header-container"></div>
+    <div id="main-header" class="main-header-container">
+        <div class="main-header">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand">
+                            {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
+                                <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
+                            {% endimage %}
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
     <div class="container" id="main-content">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 under-construction">
             {% image '@DeepMikotoApiBundle/Resources/public/images/under_construction.png' output='images/under_construction.png' %}

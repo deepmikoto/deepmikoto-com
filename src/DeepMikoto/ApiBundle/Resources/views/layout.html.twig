@@ -5,7 +5,7 @@
         {% stylesheets
             'bundles/deepmikotoapi/css/bootstrap.css'
             'bundles/deepmikotoapi/scss/deepmikotoapi.scss'
-            output='css/app.css' filter='cssrewrite'
+            output='css/deepmikoto.css' filter='cssrewrite'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
@@ -19,7 +19,7 @@
     <body>
     {% block content %}{% endblock %}
 
-    {% include 'DeepMikotoApiBundle:Api:x_templates.html.twig' %}
+    {#{% include 'DeepMikotoApiBundle:Api:x_templates.html.twig' %}#}
 
     {% include 'DeepMikotoApiBundle:Api:variables_bootstrap.html.twig' %}
     {% javascripts
@@ -30,10 +30,11 @@
         '@DeepMikotoApiBundle/Resources/public/js/vendor/backbone.marionette.js'
         '@DeepMikotoApiBundle/Resources/public/js/vendor/backbone.wreqr.js'
         '@DeepMikotoApiBundle/Resources/public/js/app.js'
+        '@DeepMikotoApiBundle/Resources/public/js/app/functions/*'
         '@DeepMikotoApiBundle/Resources/public/js/app/views/*'
-        '@DeepMikotoApiBundle/Resources/public/js/app/deepmikoto_functions.js'
+        '@DeepMikotoApiBundle/Resources/public/js/app/router.js'
         '@DeepMikotoApiBundle/Resources/public/js/app/deepmikoto.js'
-        output='js/app.js' filter='yui_js'
+        output='js/deepmikoto.js' filter='yui_js'
     %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>
     {% endjavascripts %}
