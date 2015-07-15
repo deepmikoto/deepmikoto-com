@@ -27,11 +27,8 @@ class ApiController extends FOSRestController
      */
     public function indexAction()
     {
-        $data = [
-            'user' => $this->getUser()
-        ];
         $response = new Response(
-            $this->render('DeepMikotoApiBundle:Api:index.html.twig', $data)->getContent(),
+            $this->render('DeepMikotoApiBundle:Api:index.html.twig')->getContent(),
             200
         );
         $response->setExpires(new \DateTime('+1 month'));
