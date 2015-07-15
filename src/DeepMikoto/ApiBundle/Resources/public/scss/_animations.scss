@@ -12,19 +12,3 @@
   81% { opacity: 0; left: 101%; }
   100% { opacity: 0; left: 101%; }
 }
-@-webkit-keyframes under_construction {
-  0%   { top: -80px; }
-  100% { top: -100px; }
-}
-@keyframes under_construction {
-  0%   { top: -80px; }
-  100% { top: -100px; }
-}
-@-webkit-keyframes under_construction_shadow {
-  0%   { opacity: 0.8; }
-  100% { opacity: 0.2; }
-}
-@keyframes under_construction_shadow {
-  0%   { opacity: 0.8; }
-  100% { opacity: 0.2; }
-}

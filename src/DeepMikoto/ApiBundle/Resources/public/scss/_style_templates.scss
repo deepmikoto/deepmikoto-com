@@ -1,31 +1,3 @@
-// temporary
-%under-construction {
-  float: none;
-  margin: 30% auto 0 auto;
-  img {
-    max-width: 100%;
-  }
-  .uc {
-    position: absolute;
-    top: -80px;
-    -webkit-animation: under_construction 1s infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-direction: alternate;
-    animation: under_construction 1s infinite;
-    animation-timing-function: ease-in-out;
-    animation-direction: alternate;
-  }
-  .uc_s {
-    opacity: 0.8;
-    -webkit-animation: under_construction_shadow 1s infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-direction: alternate;
-    animation: under_construction_shadow 1s infinite;
-    animation-timing-function: ease-in-out;
-    animation-direction: alternate;
-  }
-}
-// end temporary
 %header_pulse {
   position: fixed;
   opacity: 0;
@@ -67,5 +39,64 @@
     -webkit-box-shadow: 0 8px 10px 0 rgba(0, 16, 255, 1);
     -moz-box-shadow: 0 8px 10px 0 rgba(0, 16, 255, 1);
     box-shadow: 0 8px 10px 0 rgba(0, 16, 255, 1);
+  }
+}
+%loader-bar {
+  display: block;
+  margin-top: 15%;
+  height: 20px;
+  width: 100%;
+  .loader-bar {
+    display: block;
+    background-color: #000000;
+    position: relative;
+    height: 10px;
+    padding: 4px;
+    width: 50%;
+    margin: 0 auto;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    .loader-bar-progress {
+      width: 2%;
+      height: 2px;
+      position: relative;
+      background-color: #8a2be2;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: 0px 0px 5px 1px #8a2be2;
+      -moz-box-shadow: 0px 0px 5px 1px #8a2be2;
+      box-shadow: 0px 0px 5px 1px #8a2be2;
+      transition: all .2s ease-in;
+      -moz-transition: all .2s ease-in;
+      -o-transition: all .2s ease-in;
+      -webkit-transition: all .2s ease-in;
+      &:after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        -webkit-box-shadow: 0 0 8px 1px #9d5ce2;
+        -moz-box-shadow: 0 0 8px 1px #9d5ce2;
+        box-shadow: 0 0 8px 1px #9d5ce2;
+      }
+    }
+    .loader-info {
+      position: absolute;
+      left: 5px;
+      bottom: -20px;
+      font-size: 10px;
+      color: #FFFFFF;
+      .loader-label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .loader-subject {
+        display: inline-block;
+        font-style: italic;
+      }
+    }
   }
 }

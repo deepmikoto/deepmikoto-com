@@ -28,8 +28,9 @@ html {
       }
     }
     .container {
-      .under-construction {
-        @extend %under-construction;
+      .initial-loader {
+        @extend %loader-bar;
+
       }
     }
   }

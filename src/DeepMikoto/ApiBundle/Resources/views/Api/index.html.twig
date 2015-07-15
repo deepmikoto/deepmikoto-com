@@ -16,13 +16,14 @@
         </div>
     </div>
     <div class="container" id="main-content">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 under-construction">
-            {% image '@DeepMikotoApiBundle/Resources/public/images/under_construction.png' output='images/under_construction.png' %}
-                <img src="{{ asset_url }}" alt="under construction" class="uc" />
-            {% endimage %}
-            {% image '@DeepMikotoApiBundle/Resources/public/images/uc_shadow.png' output='images/uc_shadow.png' %}
-                <img src="{{ asset_url }}" alt="under construction shadow" class="uc_s" />
-            {% endimage %}
+        <div class="initial-loader">
+            <div class="loader-bar">
+                <div class="loader-bar-progress" id="loader-bar"></div>
+                <div class="loader-info">
+                    <div class="loader-label">loading ... </div>
+                    <div class="loader-subject" id="loader-subject">assets</div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -7,15 +7,14 @@ deepmikoto.AppFunctions = Marionette.extend({
     {
         this.fetchTemplates();
     },
-    renderMainHeader: function ()
+    updateLoader: function (progress, subject)
     {
-        var mainHeaderView = new deepmikoto.MainHeaderView({
-            model: new deepmikoto.MainHeaderModel()
-        });
-        deepmikoto.app.mainHeader.show(mainHeaderView);
+        $('#loader-bar').css('width', progress + '%');
+        $('#loader-subject').html(subject);
     },
     fetchTemplates: function ()
     {
+        this.updateLoader(40, 'templates');
         $.ajax({
             context: this,
             type: 'GET',
@@ -25,9 +24,32 @@ deepmikoto.AppFunctions = Marionette.extend({
             {
                 deepmikoto.templates = response;
                 this.renderMainHeader();
+                this.fetchUserInfo();
+            }
+        });
+    },
+    renderMainHeader: function ()
+    {
+        var mainHeaderView = new deepmikoto.MainHeaderView({
+            model: new deepmikoto.MainHeaderModel()
+        });
+        deepmikoto.app.mainHeader.show(mainHeaderView);
+    },
+    fetchUserInfo: function()
+    {
+        this.updateLoader(80, 'user info');
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_USER_INFO_URL,
+            dataType: 'json',
+            success: function(response)
+            {
+                this.updateLoader(100, 'done');
+                deepmikoto.app.user = new deepmikoto.User(response);
                 this.startRouter();
             }
-        })
+        });
     },
     startRouter: function()
     {

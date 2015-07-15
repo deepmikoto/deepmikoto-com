@@ -58,4 +58,20 @@ class ApiController extends FOSRestController
         return $response;
     }
 
+
+    /**
+     * Retrieve user info
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function userInfoAction()
+    {
+        $response = new Response(
+            $this->get('deepmikoto.api')->getUserInfo(),
+            200
+        );
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }

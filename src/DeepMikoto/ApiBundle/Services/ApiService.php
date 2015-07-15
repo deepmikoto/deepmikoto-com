@@ -10,7 +10,8 @@ namespace DeepMikoto\ApiBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\Serializer;
-use Symfony\Component\DependencyInjection\Dump\Container;
+
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -40,5 +41,30 @@ class ApiService
         $this->container = $container;
         $this->request = $requestStack->getCurrentRequest();
         $this->serializer = $serializer;
+    }
+
+    /**
+     * returns logged in user or null
+     *
+     * @return mixed
+     */
+    private function getUser()
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        return $user != 'anon.' ? $user : null;
+    }
+
+    /**
+     * return logged in user's attributes
+     * needed in our Marionette app
+     *
+     * @return string
+     */
+    public function getUserInfo()
+    {
+        $user = $this->getUser();
+
+        return $this->serializer->serialize($user, 'json');
     }
 } 

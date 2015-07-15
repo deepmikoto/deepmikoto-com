@@ -2,16 +2,6 @@
  * Created by MiKoRiza-OnE on 6/9/2015.
  */
 
-/** define the model that will hold our user */
-deepmikoto.User = Backbone.Model.extend({
-    isLoggedIn: function() {
-        return (this.has('username'));
-    },
-    hasRole: function(role) {
-        return (this.has('roles') && this.get('roles').indexOf(role) != -1);
-    }
-});
-
 /**
  * Our Marionette app
  */
@@ -31,16 +21,6 @@ deepmikoto.app.addInitializer(function()
     deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions;
     deepmikoto.app.appFunctions     = new deepmikoto.AppFunctions;
     deepmikoto.app.radio            = new deepmikoto.RadioFunctions;
-});
-
-/**
- * We bootstrap the app :
- *
- * Instantiate the user
- */
-deepmikoto.app.addInitializer(function()
-{
-    deepmikoto.app.user = new deepmikoto.User(user);
 });
 
 /**
