@@ -25,18 +25,12 @@ deepmikoto.app.addRegions({
     mainContent: '#main-content'
 });
 
-/** we initialize app radio channels */
-deepmikoto.app.addInitializer(function()
-{
-    deepmikoto.app.globalChannel = Backbone.Wreqr.radio.channel('global');
-    deepmikoto.app.headerChannel = Backbone.Wreqr.radio.channel('header');
-});
-
 /** we initialize app functions */
 deepmikoto.app.addInitializer(function()
 {
-    deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions();
-    deepmikoto.app.appFunctions = new deepmikoto.AppFunctions();
+    deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions;
+    deepmikoto.app.appFunctions     = new deepmikoto.AppFunctions;
+    deepmikoto.app.radio            = new deepmikoto.RadioFunctions;
 });
 
 /**

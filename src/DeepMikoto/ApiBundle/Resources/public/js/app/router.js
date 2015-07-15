@@ -48,6 +48,6 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     updateMainHeader: function(currentPage)
     {
-        Backbone.Wreqr.radio.vent.trigger('header', 'change:page', currentPage);
+        deepmikoto.app.radio.broadcast('header', 'change:page', currentPage);
     }
 });

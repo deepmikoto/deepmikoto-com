@@ -33,6 +33,13 @@ class TemplatingService
         $this->serializer = $serializer;
     }
 
+    /**
+     * render all app templates and serve them as json array
+     *
+     * @return mixed
+     * @throws \Exception
+     * @throws \Twig_Error
+     */
     public function compileTemplates()
     {
         $twigEngine = $this->twigEngine;
