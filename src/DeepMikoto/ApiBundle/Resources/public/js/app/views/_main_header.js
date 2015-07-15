@@ -10,8 +10,8 @@ deepmikoto.MainHeaderView = Marionette.ItemView.extend({
     className: 'main-header',
     model: new deepmikoto.MainHeaderModel,
     ui: {
-        active: '.active',
-        home: '#home'
+        active : '.active',
+        home   : '#home'
     },
     initialize: function(){
         this.listenTo(deepmikoto.app.headerChannel.vent, 'change:page', this.updateCurrentPage);

@@ -4,3 +4,7 @@ deepmikoto_app_homepage:
 
 deepmikoto_app_logout:
     path:     /logout
+
+deepmikoto_app_all_routes_redirect:
+    path:     /{param}
+    defaults: { _controller: DeepMikotoApiBundle:Api:index }

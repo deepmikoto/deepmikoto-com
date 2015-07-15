@@ -1,6 +1,0 @@
-{% autoescape false %}
-    <script type="text/javascript">
-        var root = '{{ path('deepmikoto_app_homepage') }}';
-        {% if user is defined %}var user = {{ user | serialize | raw }};{% endif %}
-    </script>
-{% endautoescape %}
