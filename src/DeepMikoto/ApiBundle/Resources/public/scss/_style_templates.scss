@@ -43,7 +43,6 @@
 }
 %loader-bar {
   display: block;
-  margin-top: 15%;
   height: 20px;
   width: 100%;
   .loader-bar {
@@ -52,8 +51,6 @@
     position: relative;
     height: 10px;
     padding: 4px;
-    width: 50%;
-    margin: 0 auto;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;

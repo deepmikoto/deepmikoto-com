@@ -31,7 +31,7 @@ class ApiController extends FOSRestController
             $this->render('DeepMikotoApiBundle:Api:index.html.twig')->getContent(),
             200
         );
-        $response->setExpires(new \DateTime('+1 month'));
+        $response->setExpires(new \DateTime('+3 months'));
         $response->setPublic();
 
         return $response;
@@ -48,13 +48,12 @@ class ApiController extends FOSRestController
             $this->get('deepmikoto.api.templating')->compileTemplates(),
             200
         );
-        $response->setExpires(new \DateTime('+1 month'));
+        $response->setExpires(new \DateTime('+3 months'));
         $response->setPublic();
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
-
 
     /**
      * Retrieve user info

@@ -4,3 +4,7 @@ deepmikoto_api_templates:
 deepmikoto_api_user_info:
     path:     /user-info
     defaults: { _controller: DeepMikotoApiBundle:Api:userInfo }
+
+deepmikoto_sidebar:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/components/sidebar.yml"
+    prefix:   /

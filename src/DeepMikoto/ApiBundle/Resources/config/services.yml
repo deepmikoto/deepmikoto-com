@@ -5,3 +5,6 @@ services:
     deepmikoto.api.templating:
         class: DeepMikoto\ApiBundle\Services\TemplatingService
         arguments: [ "@templating", "@serializer" ]
+    deepmikoto.api.sidebar_manager:
+        class: DeepMikoto\ApiBundle\Services\SidebarService
+        arguments: [ "@doctrine.orm.entity_manager", "@request_stack" ]

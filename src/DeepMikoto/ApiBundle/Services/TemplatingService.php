@@ -27,7 +27,7 @@ class TemplatingService
      * @param TwigEngine $twigEngine
      * @param Serializer $serializer
      */
-    public function __construct(TwigEngine $twigEngine, Serializer $serializer)
+    public function __construct( TwigEngine $twigEngine, Serializer $serializer )
     {
         $this->twigEngine = $twigEngine;
         $this->serializer = $serializer;
@@ -44,9 +44,10 @@ class TemplatingService
     {
         $twigEngine = $this->twigEngine;
         $data = [
-            'mainHeader' => $twigEngine->render('DeepMikotoApiBundle:Templates:_main_header.html.twig')
+            'appHeader'             => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
+            'sidebar'               => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' )
         ];
 
-        return $this->serializer->serialize($data, 'json');
+        return $this->serializer->serialize( $data, 'json' );
     }
 } 

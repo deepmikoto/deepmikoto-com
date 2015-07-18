@@ -23,17 +23,21 @@ deepmikoto.AppFunctions = Marionette.extend({
             success: function(response)
             {
                 deepmikoto.templates = response;
-                this.renderMainHeader();
+                this.renderAppHeader();
+                this.renderSidebar();
                 this.fetchUserInfo();
             }
         });
     },
-    renderMainHeader: function ()
+    renderAppHeader: function ()
     {
-        var mainHeaderView = new deepmikoto.MainHeaderView({
-            model: new deepmikoto.MainHeaderModel()
-        });
-        deepmikoto.app.mainHeader.show(mainHeaderView);
+        /** @namespace deepmikoto.app.header */
+        deepmikoto.app.header.show( new deepmikoto.AppHeaderView({ model: new deepmikoto.AppHeaderModel }) );
+    },
+    renderSidebar: function ()
+    {
+        /** @namespace deepmikoto.app.sidebar */
+        deepmikoto.app.sidebar.show( new deepmikoto.SidebarView({ model: new deepmikoto.SidebarModel }) );
     },
     fetchUserInfo: function()
     {
@@ -45,8 +49,8 @@ deepmikoto.AppFunctions = Marionette.extend({
             dataType: 'json',
             success: function(response)
             {
-                this.updateLoader(100, 'done');
                 deepmikoto.app.user = new deepmikoto.User(response);
+                this.updateLoader(100, 'done');
                 this.startRouter();
             }
         });

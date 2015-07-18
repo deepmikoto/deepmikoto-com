@@ -10,7 +10,7 @@ deepmikoto.RadioFunctions = Marionette.extend({
     initializeRadioChannels: function()
     {
         deepmikoto.app.globalChannel   = Backbone.Wreqr.radio.channel('global');
-        deepmikoto.app.headerChannel   = Backbone.Wreqr.radio.channel('header');
+        deepmikoto.app.routerChannel   = Backbone.Wreqr.radio.channel('router');
         deepmikoto.app.securityChannel = Backbone.Wreqr.radio.channel('security');
     },
     broadcast: function(channel, message, data)
@@ -18,5 +18,4 @@ deepmikoto.RadioFunctions = Marionette.extend({
         data = data || null;
         Backbone.Wreqr.radio.vent.trigger(channel, message, data);
     }
-
 });

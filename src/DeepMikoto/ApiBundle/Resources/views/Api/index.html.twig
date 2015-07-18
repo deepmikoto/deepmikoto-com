@@ -1,13 +1,13 @@
 {% extends 'DeepMikotoApiBundle::layout.html.twig' %}
-{% block content %}
-    <div id="main-header" class="main-header-container">
-        <div class="main-header">
+{% block body %}
+    <div class="header-container" id="header">
+        <div class="app-header">
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand">
                             {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
-                                <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
+                                <img src="{{ asset_url }}" alt="deepmikoto" />
                             {% endimage %}
                         </a>
                     </div>
@@ -15,15 +15,20 @@
             </nav>
         </div>
     </div>
-    <div class="container" id="main-content">
-        <div class="initial-loader">
-            <div class="loader-bar">
-                <div class="loader-bar-progress" id="loader-bar"></div>
-                <div class="loader-info">
-                    <div class="loader-label">loading ... </div>
-                    <div class="loader-subject" id="loader-subject">assets</div>
+    <div class="container app-container">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 body-container" id="body">
+            <div class="initial-loader">
+                <div class="loader-bar">
+                    <div class="loader-bar-progress" id="loader-bar"></div>
+                    <div class="loader-info">
+                        <div class="loader-label">loading ... </div>
+                        <div class="loader-subject" id="loader-subject">assets</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar-container" id="sidebar"></div>
     </div>
+    <div class="footnote-container" id="footnote"></div>
+    <div class="modal-container" id="modal"></div>
 {% endblock %}

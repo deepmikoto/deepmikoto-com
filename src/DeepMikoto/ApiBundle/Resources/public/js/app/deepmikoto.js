@@ -11,8 +11,11 @@ deepmikoto.app = new Marionette.Application();
  * The main regions of our app
  */
 deepmikoto.app.addRegions({
-    mainHeader: '#main-header',
-    mainContent: '#main-content'
+    header        : '#header',
+    body          : '#body',
+    sidebar       : '#sidebar',
+    footnote      : '#footnote',
+    modal         : '#modal'
 });
 
 /** we initialize app functions */

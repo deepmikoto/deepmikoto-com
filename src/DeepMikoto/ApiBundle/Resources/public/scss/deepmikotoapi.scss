@@ -6,8 +6,8 @@ html {
     font-family: 'Roboto Condensed', sans-serif;
     height: 100%;
     background-color: #171616;
-    .main-header-container {
-      .main-header {
+    .header-container {
+      .app-header {
         background: #000000 url(../images/hdr_bkg.png) repeat-x center center;
         -webkit-box-shadow: 0px 4px 20px 0px rgba(3,53,255,1);
         -moz-box-shadow: 0px 4px 20px 0px rgba(3,53,255,1);
@@ -27,11 +27,28 @@ html {
         }
       }
     }
-    .container {
-      .initial-loader {
-        @extend %loader-bar;
+    .app-container {
+      .body-container {
+        .initial-loader {
+          @extend %loader-bar;
+          margin-top: 30%;
+          .loader-bar {
+            width: 60%;
+            float: right;
+          }
+        }
+      }
+      .sidebar-container {
 
       }
+    }
+    .footnote-container {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+    .modal-container {
+
     }
   }
 }

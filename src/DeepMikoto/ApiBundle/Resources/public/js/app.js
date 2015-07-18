@@ -1,3 +1,7 @@
+/*!
+ * deepmikoto.com app start
+ */
+
 /** initialize app variable */
 var deepmikoto = {};
 
@@ -6,8 +10,9 @@ var root = root || '/';
 
 /** define api routes */
 deepmikoto.apiRoutes = {
-    FETCH_TEMPLATES_URL: '_api/templates',
-    FETCH_USER_INFO_URL: '_api/user-info'
+    FETCH_TEMPLATES_URL             : '_api/templates',
+    FETCH_USER_INFO_URL             : '_api/user-info',
+    FETCH_SIDEBAR_PRIMARY_BLOCK_URL : '_api/sidebar-primary-block'
 };
 
 /** define the templates variable */
