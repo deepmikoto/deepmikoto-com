@@ -43,9 +43,10 @@ class TemplatingService
     public function compileTemplates()
     {
         $twigEngine = $this->twigEngine;
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
         $data = [
-            'appHeader'             => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
-            'sidebar'               => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' )
+            'appHeader' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
+            'sidebar'   => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' )
         ];
 
         return $this->serializer->serialize( $data, 'json' );

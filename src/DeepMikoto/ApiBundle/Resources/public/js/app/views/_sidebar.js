@@ -41,16 +41,36 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
             }
         });
     },
-    renderRelatedElements: function(name)
+    renderRelatedElements: function(page)
     {
-
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_RELATED_BLOCK_URL,
+            data: {
+                page: page
+            },
+            dataType: 'html',
+            success: function(response)
+            {
+                this.ui.related.html(response);
+            }
+        });
     },
-    renderAdd: function(name)
+    renderAdd: function(page)
     {
-
-    },
-    renderHomeSubject: function()
-    {
-
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_ADD_BLOCK_URL,
+            data: {
+                page: page
+            },
+            dataType: 'html',
+            success: function(response)
+            {
+                this.ui.adds.html(response);
+            }
+        });
     }
 });

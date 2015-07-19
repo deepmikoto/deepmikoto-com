@@ -12,7 +12,9 @@ var root = root || '/';
 deepmikoto.apiRoutes = {
     FETCH_TEMPLATES_URL             : '_api/templates',
     FETCH_USER_INFO_URL             : '_api/user-info',
-    FETCH_SIDEBAR_PRIMARY_BLOCK_URL : '_api/sidebar-primary-block'
+    FETCH_SIDEBAR_PRIMARY_BLOCK_URL : '_api/sidebar-primary-block',
+    FETCH_SIDEBAR_RELATED_BLOCK_URL : '_api/sidebar-related-block',
+    FETCH_SIDEBAR_ADD_BLOCK_URL     : '_api/sidebar-add-block'
 };
 
 /** define the templates variable */

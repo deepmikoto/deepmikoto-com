@@ -1,0 +1,18 @@
+{% spaceless %}
+    <div class="title">{{ title }}</div>
+    <div class="items">
+        <ul class="items-list">
+            {% for item in items %}
+                <li>
+                    <a href="{{ item.link }}">
+                        <div class="item-image">
+                            <img src="{{ item.image }}" alt="{{ item.title }}" />
+                        </div>
+                        <div class="item-title">{{ item.title }}</div>
+                    </a>
+                    <div class="category">in <a href="{{ item.categoryLink }}">{{ item.category | title }}</a> </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endspaceless %}

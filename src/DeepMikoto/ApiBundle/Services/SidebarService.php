@@ -56,4 +56,64 @@ class SidebarService
         return $data;
     }
 
+    /**
+     * generates sidebar related block data depending on the current page
+     *
+     * @return array
+     */
+    public function getSidebarRelatedBlockData()
+    {
+        $page = $this->request->get('page');
+        if($page == null || $page == 'home'){
+            $data = [
+                'title' => 'Latest content',
+                'items' => [
+                    [
+                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
+                        'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
+                        'category'      => 'gaming',
+                        'categoryLink'  => '/'
+                    ],
+                    [
+                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
+                        'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
+                        'category'      => 'gaming',
+                        'categoryLink'  => '/'
+                    ],
+                    [
+                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
+                        'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
+                        'category'      => 'gaming',
+                        'categoryLink'  => '/'
+                    ],
+                    [
+                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
+                        'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
+                        'category'      => 'gaming',
+                        'categoryLink'  => '/'
+                    ]
+                ]
+            ];
+        } else {
+            $data = [];
+        }
+
+        return $data;
+    }
+
+    /**
+     * generates sidebar add block data depending on the current page
+     *
+     * @return array
+     */
+    public function getSidebarAddBlockData()
+    {
+        $data = [];
+
+        return $data;
+    }
 } 
