@@ -1,5 +1,14 @@
 @import "style_templates", "animations";
 
+a {
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 html {
   height: 100%;
   body {
@@ -19,7 +28,8 @@ html {
         box-shadow: 0px 4px 20px 0px rgba(3,53,255,1);
         .navbar-inverse {
           background-color: transparent;
-          .container-fluid {
+          .container {
+            padding: 0 5px 0 5px;
             .navbar-header {
               a.navbar-brand {
                 padding: 10px 15px;

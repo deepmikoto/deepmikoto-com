@@ -4,13 +4,13 @@
         <ul class="items-list">
             {% for item in items %}
                 <li>
-                    <a href="{{ item.link }}">
+                    <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">
                         <div class="item-image">
                             <img src="{{ item.image }}" alt="{{ item.title }}" />
                         </div>
                         <div class="item-title">{{ item.title }}</div>
                     </a>
-                    <div class="category">in <a href="{{ item.categoryLink }}">{{ item.category | title }}</a> </div>
+                    <div class="category">in <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">{{ item.category | title }}</a> </div>
                 </li>
             {% endfor %}
         </ul>

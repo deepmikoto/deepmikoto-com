@@ -20,22 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiController extends FOSRestController
 {
-    /**
-     * Api homepage
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexAction()
-    {
-        $response = new Response(
-            $this->render('DeepMikotoApiBundle:Api:index.html.twig')->getContent(),
-            200
-        );
-        $response->setExpires(new \DateTime('+3 months'));
-        $response->setPublic();
-
-        return $response;
-    }
 
     /**
      * Api templates
@@ -48,9 +32,9 @@ class ApiController extends FOSRestController
             $this->get('deepmikoto.api.templating')->compileTemplates(),
             200
         );
-        $response->setExpires(new \DateTime('+3 months'));
+        $response->setExpires( new \DateTime('+3 months') );
         $response->setPublic();
-        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set( 'Content-Type', 'application/json' );
 
         return $response;
     }
@@ -66,7 +50,7 @@ class ApiController extends FOSRestController
             $this->get('deepmikoto.api')->getUserInfo(),
             200
         );
-        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set( 'Content-Type', 'application/json' );
 
         return $response;
     }

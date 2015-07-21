@@ -2,6 +2,9 @@
 deepmikoto.Router = Marionette.AppRouter.extend({
     routes: {
         '': 'homeAction',
+        'photography': 'photographyAction',
+        'coding': 'codingAction',
+        'gaming': 'gamingAction',
         'login': 'loginAction',
         'logout': 'logoutAction',
         ':placeholder': 'undefinedAction',
@@ -19,7 +22,19 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     homeAction: function()
     {
-        this.updateMainHeader('home');
+        this.updateMainHeader( 'home' );
+    },
+    photographyAction: function ()
+    {
+        this.updateMainHeader( 'photography' );
+    },
+    codingAction: function ()
+    {
+        this.updateMainHeader( 'coding' );
+    },
+    gamingAction: function ()
+    {
+        this.updateMainHeader( 'gaming' );
     },
     loginAction: function()
     {
