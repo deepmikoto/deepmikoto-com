@@ -4,13 +4,18 @@
         <ul class="items-list">
             {% for item in items %}
                 <li>
-                    <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">
+                    <a href="{{ path( 'deepmikoto_app_homepage' ) }}" class="item-link">
                         <div class="item-image">
                             <img src="{{ item.image }}" alt="{{ item.title }}" />
                         </div>
                         <div class="item-title">{{ item.title }}</div>
                     </a>
-                    <div class="category">in <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">{{ item.category | title }}</a> </div>
+                    <div class="category">
+                        {{ item.date | date( 'd F Y') }}
+                        {% if item.category is defined %}
+                            in <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">{{ item.category | title }}</a>
+                        {% endif %}
+                    </div>
                 </li>
             {% endfor %}
         </ul>

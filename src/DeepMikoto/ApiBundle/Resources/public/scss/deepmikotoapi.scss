@@ -14,7 +14,7 @@ html {
   body {
     font-family: 'Roboto Condensed', sans-serif;
     height: 100%;
-    background-color: #171616;
+    background-color: #1B1B1B;
     .header-container {
       position: fixed;
       top: 0;
@@ -45,22 +45,116 @@ html {
     .app-container {
       margin-top: 75px;
       .body-container {
+        margin-bottom: 15px;
         .initial-loader {
           @extend %loader-bar;
           margin-top: 30%;
           .loader-bar {
             width: 60%;
-            float: right;
+            margin: 0 auto;
           }
         }
       }
       .sidebar-container {
+        margin-bottom: 15px;
         .sidebar {
+          a {
+            color: #337ab7;;
+            text-decoration: none;
+            &:active {
+              color: #337ab7;;
+              text-decoration: none;
+            }
+            &:focus {
+              color: #337ab7;;
+              text-decoration: none;
+            }
+            &:visited {
+              color: #337ab7;;
+              text-decoration: none;
+            }
+          }
           .block {
+            background-color: #000315;
+            padding: 10px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            min-height: 150px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 0 5px 1px #131313;
+            -moz-box-shadow: 0 0 5px 1px #131313;
+            box-shadow: 0 0 5px 1px #131313;
+            &.primary {
+              .image {
+                width: 100%;
+                margin-bottom: 10px;
+                text-align: center;
+                img {
+                  max-width: 100%;
+                }
+              }
+              .title {
+                font-size: 20px;
+              }
+              .subtitle {
+                font-size: 12px;
+                color: #A0A0A0;
+                margin-bottom: 20px;
+              }
+              .description {
+                text-align: justify;
+              }
+            }
+            &.related {
+              .title {
+                font-size: 20px;
+                margin-bottom: 20px;
+              }
+              .items {
+                .items-list {
+                  list-style-type: none;
+                  padding: 0;
+                  li {
+                    border-bottom: 1px solid #212121;
+                    padding-bottom: 10px;
+                    margin-bottom: 15px;
+                    .item-link {
+                      display: block;
+                      color: #fff;
+                      .item-image {
+                        width: 100%;
+                        margin-bottom: 10px;
+                        img {
+                          max-width: 100%;
+                        }
+                      }
+                      .item-title {
+                        font-size: 18px;
+                        margin-bottom: 5px;
+                      }
+                      &:hover {
+                        color: #9d5ce2;
+                      }
+                    }
+                    .category {
+                      font-size: 11px;
+                      font-style: italic;
+                    }
+                    &:last-child {
+                      border-bottom: none;
+                      margin-bottom: 0;
+                      padding-bottom: 0;
+                    }
+                  }
+                }
+              }
+            }
 
           }
           .about {
-
+            text-align: right;
           }
         }
       }

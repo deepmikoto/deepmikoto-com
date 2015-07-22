@@ -43,7 +43,7 @@ class SidebarService
         $page = $this->request->get('page');
         if( $page == 'home' ){
             $data = [
-                'image'         => 'https://graph.facebook.com/v2.3/674308009363817/picture?width=100',
+                'image'         => 'https://deepmikoto.com/images/logo_w.png',
                 'title'         => 'Vasileniuc Alexandru-Ciprian',
                 'subtitle'      => 'Cluj-Napoca, Romania',
                 'description'   => 'cannot be put in words ;)'
@@ -89,19 +89,22 @@ class SidebarService
                 'title' => 'Latest content',
                 'items' => [
                     [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'photography'
+                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
+                        'title'         => 'A day in nature',
+                        'category'      => 'photography',
+                        'date'          => new \DateTime()
+                    ],
+                    [
+                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
+                        'title'         => 'SPA Mania',
+                        'category'      => 'coding',
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'coding'
-                    ],
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming'
+                        'category'      => 'gaming',
+                        'date'          => new \DateTime()
                     ]
                 ]
             ];
@@ -112,22 +115,22 @@ class SidebarService
                     [
                         'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
                         'title'         => 'A day in nature',
-                        'category'      => 'photography'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
                         'title'         => 'A day in nature',
-                        'category'      => 'photography'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
                         'title'         => 'A day in nature',
-                        'category'      => 'photography'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
                         'title'         => 'A day in nature',
-                        'category'      => 'photography'
+                        'date'          => new \DateTime()
                     ]
                 ]
             ];
@@ -138,22 +141,22 @@ class SidebarService
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
-                        'category'      => 'coding'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
-                        'category'      => 'coding'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
-                        'category'      => 'coding'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
-                        'category'      => 'coding'
+                        'date'          => new \DateTime()
                     ]
                 ]
             ];
@@ -164,22 +167,22 @@ class SidebarService
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming'
+                        'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming'
+                        'date'          => new \DateTime()
                     ],
                 ]
             ];
