@@ -42,7 +42,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ DeepMikotoApiBundle, TwigBundle ]
+    bundles:        [ DeepMikotoApiBundle, TwigBundle, DeepMikotoAdminBundle ]
     #java: /usr/bin/java
     ruby: %ruby_path%
     filters:
@@ -96,3 +96,13 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
 
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    filter_sets:
+        cache: ~
+        sidebar_primary_block:
+            quality: 90
+            filters:
+                thumbnail: { size: [370, 370], mode: inset }

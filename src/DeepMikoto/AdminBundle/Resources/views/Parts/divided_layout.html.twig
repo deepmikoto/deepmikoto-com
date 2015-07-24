@@ -1,0 +1,26 @@
+{% extends 'DeepMikotoAdminBundle::layout.html.twig' %}
+{% block divided_layout %}
+    <div class="container">
+        <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12 pull-left sidebar-block">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12 pull-left breadcrumbs-block">
+            {% block breadcrumbs %}
+                <ol class="breadcrumb">
+                    <li {% if app.request.get('_route') == 'deepmikoto_admin_homepage' %}class="active"{% endif %}>
+                        <a href="{{ path('deepmikoto_admin_homepage') }}">Home</a>
+                    </li>
+                </ol>
+            {% endblock %}
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12 pull-left content-block">
+            <div class="panel">
+                <div class="panel-body">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

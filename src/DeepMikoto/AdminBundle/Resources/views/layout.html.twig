@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    {% stylesheets
+        'bundles/deepmikotoadmin/css/bootstrap.css'
+        'bundles/deepmikotoadmin/scss/deepmikoto.admin.scss'
+        output='css/adminarea/deepmikoto.admin.css' filter='cssrewrite'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    <title>deepmikoto admin</title>
+</head>
+<body>
+{% block header %}
+    {% include 'DeepMikotoAdminBundle:Parts:header.html.twig' %}
+{% endblock %}
+<div class="divided-layout">
+    {% block divided_layout %}
+    {% endblock %}
+</div>
+<div class="full-layout">
+    {% block full_layout %}
+    {% endblock %}
+</div>
+{% javascripts
+    '@DeepMikotoAdminBundle/Resources/public/js/jquery-2.1.4.js'
+    '@DeepMikotoAdminBundle/Resources/public/js/bootstrap.js'
+    '@DeepMikotoAdminBundle/Resources/public/js/deepmikoto.admin.js'
+    output='js/adminarea/deepmikoto.admin.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}" ></script>
+{% endjavascripts %}
+</body>
+</html>
+
+

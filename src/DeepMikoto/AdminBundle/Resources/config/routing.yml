@@ -1,0 +1,20 @@
+deepmikoto_admin_home_routes:
+    resource: "@DeepMikotoAdminBundle/Resources/config/routes/home.yml"
+    prefix:   /
+deepmikoto_admin_coding_routes:
+    resource: "@DeepMikotoAdminBundle/Resources/config/routes/coding.yml"
+    prefix:   /coding
+deepmikoto_admin_gaming_routes:
+    resource: "@DeepMikotoAdminBundle/Resources/config/routes/gaming.yml"
+    prefix:   /gaming
+deepmikoto_admin_photography_routes:
+    resource: "@DeepMikotoAdminBundle/Resources/config/routes/photography.yml"
+    prefix:   /photography
+
+deepmikoto_admin_login:
+    path:     /login
+    defaults: { _controller: DeepMikotoAdminBundle:Security:login }
+deepmikoto_admin_logout:
+    path:     /logout
+deepmikoto_admin_login_check:
+    path:     /login_check

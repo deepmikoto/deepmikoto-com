@@ -55,7 +55,6 @@ class SidebarController extends FOSRestController
         return $response;
     }
 
-
     /**
      * action used for retrieving add sidebar block
      * depending on the current page

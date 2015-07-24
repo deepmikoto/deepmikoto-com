@@ -1,0 +1,3 @@
+deepmikoto_admin_photography:
+    path:     /
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:index }

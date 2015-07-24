@@ -1,0 +1,4 @@
+services:
+#    deep_mikoto_admin.example:
+#        class: DeepMikoto\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

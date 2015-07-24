@@ -1,14 +1,39 @@
 security:
     providers:
-        in_memory:
-            memory: ~
-
+        deepmikoto_admins:
+            entity: { class: DeepMikoto\AdminBundle\Entity\AdminUser, property: username }
+    encoders:
+         DeepMikoto\AdminBundle\Entity\AdminUser:
+            algorithm: sha512
+    role_hierarchy:
+          ROLE_ADMIN:       ROLE_USER
+          ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_USER ]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
-        default:
-            anonymous: ~
+        deepmikoto_admin_area:
+            pattern: ^/adminarea
+            anonymous:  ~
+            provider: deepmikoto_admins
+            form_login:
+                login_path: deepmikoto_admin_login
+                check_path: deepmikoto_admin_login_check
+                default_target_path: deepmikoto_admin_homepage
+                always_use_default_target_path: true
+            logout:
+                path:   deepmikoto_admin_logout
+                target: deepmikoto_admin_login
+                invalidate_session: true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000
+                path:     /adminarea
+                domain:   ~
+        deepmikoto_site_area:
+            pattern: ^/
+            anonymous:  ~
     access_control:
+        - { path: ^/adminarea/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/adminarea, role: ROLE_ADMIN, requires_channel: https }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

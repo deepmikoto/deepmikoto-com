@@ -1,0 +1,28 @@
+{% extends 'DeepMikotoAdminBundle::layout.html.twig' %}
+{% block header %}
+{% endblock %}
+{% block divided_layout %}
+{% endblock %}
+{% block full_layout %}
+    <div class="container">
+        <form class="login-form" action="{{ path('deepmikoto_admin_login_check') }}" method="POST">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ error.message }}
+                </div>
+            {% endif %}
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="text" id="username" class="form-control" placeholder="Username" name="_username" required="" autofocus="on" autocomplete="off" value="{{ last_username }}">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required="">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked> Keep me logged in
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
+    </div>
+{% endblock %}

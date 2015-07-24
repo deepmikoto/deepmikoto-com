@@ -9,6 +9,7 @@
 namespace DeepMikoto\ApiBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -18,19 +19,22 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class SidebarService
 {
+    private $container;
     private $em;
     private $request;
 
     /**
      * initialize service components
      *
+     * @param Container $container
      * @param EntityManager $em
      * @param RequestStack $requestStack
      */
-    public function __construct(EntityManager $em, RequestStack $requestStack)
+    public function __construct(Container $container, EntityManager $em, RequestStack $requestStack)
     {
         $this->em = $em;
         $this->request = $requestStack->getCurrentRequest();
+        $this->container = $container;
     }
 
     /**
@@ -42,11 +46,15 @@ class SidebarService
     {
         $page = $this->request->get('page');
         if( $page == 'home' ){
+            /** @var \DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock $primaryBlock */
+            $primaryBlock = $this->em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy([
+                'type' => $page
+            ]);
             $data = [
-                'image'         => 'https://deepmikoto.com/images/logo_w.png',
-                'title'         => 'Vasileniuc Alexandru-Ciprian',
-                'subtitle'      => 'Cluj-Napoca, Romania',
-                'description'   => 'cannot be put in words ;)'
+                'image'         => $this->container->get('liip_imagine.cache.manager')->getBrowserPath( 'images/api/' . $primaryBlock->getPicture(), 'sidebar_primary_block' ),
+                'title'         => $primaryBlock->getTitle(),
+                'subtitle'      => $primaryBlock->getSubtitle(),
+                'description'   => $primaryBlock->getContent()
             ];
         } elseif ( $page == 'photography' ){
             $data = [

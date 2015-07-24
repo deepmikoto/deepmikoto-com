@@ -1,0 +1,3 @@
+deepmikoto_admin_gaming:
+    path:     /
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:index }

@@ -1,0 +1,3 @@
+deepmikoto_admin_coding:
+    path:     /
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:index }
