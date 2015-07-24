@@ -1,3 +1,6 @@
 deepmikoto_admin_coding:
     path:     /
     defaults: { _controller: DeepMikotoAdminBundle:Coding:index }
+deepmikoto_admin_coding_primary_block:
+    path:     /primary-block
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:primaryBlock }

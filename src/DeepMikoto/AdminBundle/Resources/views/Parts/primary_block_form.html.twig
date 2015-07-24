@@ -1,6 +1,6 @@
 {% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
 {% block sidebar %}
-    {% include 'DeepMikotoAdminBundle:Parts:sidebars/home_sidebar.html.twig' %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/' ~ type ~ '_sidebar.html.twig' %}
 {% endblock %}
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('success') %}

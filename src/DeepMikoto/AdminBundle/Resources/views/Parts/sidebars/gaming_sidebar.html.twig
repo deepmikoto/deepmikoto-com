@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="list-group">
-        <a href="#" class="list-group-item">
+        <a href="{{ path('deepmikoto_admin_gaming_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_primary_block' %}active{% endif %}">
             Primary block
         </a>
         <a href="#" class="list-group-item">

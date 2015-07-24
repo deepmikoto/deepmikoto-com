@@ -1,3 +1,6 @@
 deepmikoto_admin_gaming:
     path:     /
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:index }
+deepmikoto_admin_gaming_primary_block:
+    path:     /primary-block
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:primaryBlock }

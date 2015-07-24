@@ -157,7 +157,7 @@ class SidebarPrimaryBlock
     public function preUpload()
     {
         $this->setDateUpdated( new \DateTime() );
-        if (null !== $this->getFile()) {
+        if ( null !== $this->getFile() ){
             $filename = 'primary_block_' . $this->type . '_' . sha1( uniqid( mt_rand(), true ) );
             $this->picture = $filename.'.'.$this->getFile()->getClientOriginalExtension();
         }

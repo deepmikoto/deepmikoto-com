@@ -45,37 +45,16 @@ class SidebarService
     public function getSidebarPrimaryBlockData()
     {
         $page = $this->request->get('page');
-        if( $page == 'home' ){
-            /** @var \DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock $primaryBlock */
-            $primaryBlock = $this->em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy([
-                'type' => $page
-            ]);
+        /** @var \DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock $primaryBlock */
+        $primaryBlock = $this->em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy([
+            'type' => $page
+        ]);
+        if( $primaryBlock != null ){
             $data = [
-                'image'         => $this->container->get('liip_imagine.cache.manager')->getBrowserPath( 'images/api/' . $primaryBlock->getPicture(), 'sidebar_primary_block' ),
-                'title'         => $primaryBlock->getTitle(),
-                'subtitle'      => $primaryBlock->getSubtitle(),
-                'description'   => $primaryBlock->getContent()
-            ];
-        } elseif ( $page == 'photography' ){
-            $data = [
-                'image'         => 'https://julia1791.files.wordpress.com/2014/05/blackwhitephotography.jpg',
-                'title'         => 'Nikon D5100 DSLR',
-                'subtitle'      => 'Cluj-Napoca, Romania',
-                'description'   => 'cannot be put in words ;)'
-            ];
-        } elseif ( $page == 'coding' ){
-            $data = [
-                'image'         => 'https://dillieodigital.files.wordpress.com/2011/07/computercode.jpeg',
-                'title'         => 'Marionette',
-                'subtitle'      => 'with a pinch of Symfony',
-                'description'   => 'cannot be put in words ;)'
-            ];
-        } elseif ( $page == 'gaming' ){
-            $data = [
-                'image'         => 'https://i.imgur.com/7SVhwH9.jpg',
-                'title'         => 'Gaming is not a game',
-                'subtitle'      => 'Give me moar gaming',
-                'description'   => 'cannot be put in words ;)'
+                'image'       => $this->container->get('liip_imagine.cache.manager')->getBrowserPath( 'images/api/' . $primaryBlock->getPicture(), 'sidebar_primary_block' ),
+                'title'       => $primaryBlock->getTitle(),
+                'subtitle'    => $primaryBlock->getSubtitle(),
+                'description' => $primaryBlock->getContent()
             ];
         } else {
             $data = [];

@@ -1,3 +1,6 @@
 deepmikoto_admin_photography:
     path:     /
     defaults: { _controller: DeepMikotoAdminBundle:Photography:index }
+deepmikoto_admin_photography_primary_block:
+    path:     /primary-block
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:primaryBlock }

@@ -19,13 +19,16 @@
                     app.request.get('_route') == 'deepmikoto_admin_primary_block' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_homepage') }}">Home</a>
                 </li>
-                <li {% if app.request.get('_route') == 'deepmikoto_admin_coding' %}class="active"{% endif %}>
+                <li {% if app.request.get('_route') == 'deepmikoto_admin_coding' or
+                    app.request.get('_route') == 'deepmikoto_admin_coding_primary_block' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_coding') }}">Coding</a>
                 </li>
-                <li {% if app.request.get('_route') == 'deepmikoto_admin_gaming' %}class="active"{% endif %}>
+                <li {% if app.request.get('_route') == 'deepmikoto_admin_gaming'  or
+                    app.request.get('_route') == 'deepmikoto_admin_gaming_primary_block' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_gaming') }}">Gaming</a>
                 </li>
-                <li {% if app.request.get('_route') == 'deepmikoto_admin_photography' %}class="active"{% endif %}>
+                <li {% if app.request.get('_route') == 'deepmikoto_admin_photography' or
+                    app.request.get('_route') == 'deepmikoto_admin_photography_primary_block' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_photography') }}">Photography</a>
                 </li>
             </ul>
