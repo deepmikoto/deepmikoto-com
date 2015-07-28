@@ -10,6 +10,9 @@ deepmikoto_admin_gaming_routes:
 deepmikoto_admin_photography_routes:
     resource: "@DeepMikotoAdminBundle/Resources/config/routes/photography.yml"
     prefix:   /photography
+deepmikoto_admin_command_routes:
+    resource: "@DeepMikotoAdminBundle/Resources/config/routes/command.yml"
+    prefix:   /command
 
 deepmikoto_admin_login:
     path:     /login

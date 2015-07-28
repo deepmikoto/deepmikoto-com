@@ -1,0 +1,9 @@
+deepmikoto_cache_clear_command:
+    path:     /cache-clear
+    defaults: { _controller: DeepMikotoAdminBundle:Command:cacheClear }
+deepmikoto_assets_install_command:
+    path:     /assets-install
+    defaults: { _controller: DeepMikotoAdminBundle:Command:assetsInstall }
+deepmikoto_assetic_dump_command:
+    path:     /assetic-dump
+    defaults: { _controller: DeepMikotoAdminBundle:Command:asseticDump }

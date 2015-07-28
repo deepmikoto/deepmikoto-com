@@ -4,3 +4,6 @@ deepmikoto_admin_homepage:
 deepmikoto_admin_primary_block:
     path:     /primary-block
     defaults: { _controller: DeepMikotoAdminBundle:Home:primaryBlock }
+deepmikoto_admin_administration:
+    path:     /administration
+    defaults: { _controller: DeepMikotoAdminBundle:Home:administration }

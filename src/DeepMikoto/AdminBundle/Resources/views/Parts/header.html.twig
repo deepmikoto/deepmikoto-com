@@ -16,7 +16,8 @@
         <div class="collapse navbar-collapse" id="header-menu">
             <ul class="nav navbar-nav">
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_homepage' or
-                    app.request.get('_route') == 'deepmikoto_admin_primary_block' %}class="active"{% endif %}>
+                    app.request.get('_route') == 'deepmikoto_admin_primary_block'  or
+                    app.request.get('_route') == 'deepmikoto_admin_administration' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_homepage') }}">Home</a>
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_coding' or

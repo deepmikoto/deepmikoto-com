@@ -5,11 +5,7 @@ namespace DeepMikoto\AdminBundle\Controller;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class HomeController
@@ -61,5 +57,15 @@ class HomeController extends Controller
         }
 
         return $this->render('DeepMikotoAdminBundle:Parts:primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'home' ]);
+    }
+
+    /**
+     *
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function administrationAction()
+    {
+        return $this->render( 'DeepMikotoAdminBundle:Home:administration.html.twig' );
     }
 }

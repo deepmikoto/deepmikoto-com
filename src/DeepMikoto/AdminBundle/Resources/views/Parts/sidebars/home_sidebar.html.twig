@@ -12,8 +12,8 @@
         <a href="#" class="list-group-item">
             Contact page
         </a>
-        <a href="#" class="list-group-item">
-            Settings
+        <a href="{{ path('deepmikoto_admin_administration') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_administration' %}active{% endif %}">
+            Administration
         </a>
     </div>
 </div>

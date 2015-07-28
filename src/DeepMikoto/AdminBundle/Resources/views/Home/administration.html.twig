@@ -1,0 +1,14 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/home_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="commands">
+        <h4>Site commands</h4>
+        <div class="buttons">
+            <button type="button" class="btn btn-primary" id="cache-clear">Cache clear</button>
+            <button type="button" class="btn btn-primary" id="assets-install">Assets install</button>
+            <button type="button" class="btn btn-primary" id="assetic-dump">Assetic dump</button>
+        </div>
+    </div>
+{% endblock %}
