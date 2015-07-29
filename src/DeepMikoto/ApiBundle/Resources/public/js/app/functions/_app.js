@@ -59,5 +59,9 @@ deepmikoto.AppFunctions = Marionette.extend({
     {
         deepmikoto.app.router = new deepmikoto.Router();
         Backbone.history.start({ pushState: true, root: root });
+    },
+    setPageTitle: function( title )
+    {
+        $( document).prop( 'title', title );
     }
 });

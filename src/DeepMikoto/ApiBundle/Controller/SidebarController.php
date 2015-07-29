@@ -30,8 +30,9 @@ class SidebarController extends FOSRestController
             ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_primary_block.html.twig')
         ;
         $response = $this->handleView( $view );
-        $response->setExpires( new \DateTime( '+7 day' ) );
-        $response->setPublic();
+        /** 7 days */
+        $response->setSharedMaxAge( 604800 );
+        $response->setMaxAge( 60 );
 
         return $response;
     }
@@ -49,8 +50,9 @@ class SidebarController extends FOSRestController
             ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_related_block.html.twig')
         ;
         $response = $this->handleView( $view );
-        $response->setExpires( new \DateTime( '+7 day' ) );
-        $response->setPublic();
+        /** 7 days */
+        $response->setSharedMaxAge( 604800 );
+        $response->setMaxAge( 60 );
 
         return $response;
     }
@@ -68,8 +70,9 @@ class SidebarController extends FOSRestController
             ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_add_block.html.twig')
         ;
         $response = $this->handleView( $view );
-        $response->setExpires( new \DateTime( '+7 day' ) );
-        $response->setPublic();
+        /** 7 days */
+        $response->setSharedMaxAge( 604800 );
+        $response->setMaxAge( 60 );
 
         return $response;
     }

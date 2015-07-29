@@ -22,19 +22,23 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     homeAction: function()
     {
-        this.updateMainHeader( 'home' );
+        this.updateAwareness( 'home' );
+        this.updatePageTitle( 'deepmikoto' );
     },
     photographyAction: function ()
     {
-        this.updateMainHeader( 'photography' );
+        this.updateAwareness( 'photography' );
+        this.updatePageTitle( 'Photography' );
     },
     codingAction: function ()
     {
-        this.updateMainHeader( 'coding' );
+        this.updateAwareness( 'coding' );
+        this.updatePageTitle( 'Coding' );
     },
     gamingAction: function ()
     {
-        this.updateMainHeader( 'gaming' );
+        this.updateAwareness( 'gaming' );
+        this.updatePageTitle( 'Gaming' );
     },
     loginAction: function()
     {
@@ -61,8 +65,12 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
 
     },
-    updateMainHeader: function(currentPage)
+    updateAwareness: function( currentPage )
     {
-        deepmikoto.app.radio.broadcast('router', 'change:page', currentPage);
+        deepmikoto.app.radio.broadcast( 'router', 'change:page', currentPage );
+    },
+    updatePageTitle: function( title )
+    {
+        deepmikoto.app.appFunctions.setPageTitle( title );
     }
 });

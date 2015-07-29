@@ -29,7 +29,8 @@
                     <a href="{{ path('deepmikoto_admin_gaming') }}">Gaming</a>
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_photography' or
-                    app.request.get('_route') == 'deepmikoto_admin_photography_primary_block' %}class="active"{% endif %}>
+                    app.request.get('_route') == 'deepmikoto_admin_photography_primary_block' or
+                    app.request.get('_route') == 'deepmikoto_admin_photography_new_post' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_photography') }}">Photography</a>
                 </li>
             </ul>

@@ -31,8 +31,9 @@ class AppController extends Controller
             $this->render('DeepMikotoApiBundle:Api:index.html.twig')->getContent(),
             200
         );
-        $response->setExpires(new \DateTime('+3 months'));
-        $response->setPublic();
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 60 );
 
         return $response;
     }

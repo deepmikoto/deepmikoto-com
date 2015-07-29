@@ -2,7 +2,9 @@
 
 namespace DeepMikoto\AdminBundle\Controller;
 
+use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
+use DeepMikoto\ApiBundle\Form\NewPhotographyPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +25,7 @@ class PhotographyController extends Controller
     }
 
     /**
-     * Gaming sidebar primary block form
+     * Photography sidebar primary block form
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -54,5 +56,30 @@ class PhotographyController extends Controller
         }
 
         return $this->render('DeepMikotoAdminBundle:Parts:primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'photography' ]);
+    }
+
+    /**
+     * New photography post form
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newPostAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $photographyPost = new PhotographyPost();
+        $form = $this->createForm( new NewPhotographyPostType(), $photographyPost );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $photographyPost );
+                $em->flush( $photographyPost );
+                $this->addFlash( 'success', '<strong>Awesome!</strong> You created a new photography post! It is now <strong>drafted</strong>. Add photos to it and make it public!' );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_photography_new_post' );
+            }
+        }
+
+        return $this->render('DeepMikotoAdminBundle:Photography:new.html.twig', [ 'form' => $form->createView() ]);
     }
 }
