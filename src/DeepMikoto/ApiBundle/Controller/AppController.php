@@ -33,7 +33,7 @@ class AppController extends Controller
         );
         /** 90 days */
         $response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 60 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }

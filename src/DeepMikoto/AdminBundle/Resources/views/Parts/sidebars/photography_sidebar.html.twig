@@ -6,11 +6,12 @@
         <a href="{{ path('deepmikoto_admin_photography_new_post') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_new_post' %}active{% endif %}">
             New post
         </a>
-        <a href="#" class="list-group-item">
-            New post photo
+        <a href="{{ path('deepmikoto_admin_photography_new_post_photo') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_new_post_photo' %}active{% endif %}">
+        New post photo
         </a>
-        <a href="#" class="list-group-item">
-            Manage photos
+        <a href="{{ path('deepmikoto_admin_photography_post_photo_list') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_post_photo_list' or app.request.get('_route') == 'deepmikoto_admin_photography_edit_post_photo'  %}active{% endif %}">
+
+        Manage photos
         </a>
         <a href="#" class="list-group-item">
             Submitted posts

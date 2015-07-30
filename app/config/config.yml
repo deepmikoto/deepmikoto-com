@@ -37,6 +37,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         site_title:   deepmikoto
+        google_api_key: "%google_api_key%"
 
 # Assetic Configuration
 assetic:
@@ -96,6 +97,7 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
 
+#liip imagine bundle filters
 liip_imagine:
     resolvers:
        default:
@@ -106,3 +108,7 @@ liip_imagine:
             quality: 90
             filters:
                 thumbnail: { size: [370, 370], mode: inset }
+        tiny_thumb:
+            quality: 80
+            filters:
+                thumbnail: { size: [40, 40], mode: outbound }

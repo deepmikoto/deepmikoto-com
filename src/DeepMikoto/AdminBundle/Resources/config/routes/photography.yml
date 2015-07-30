@@ -7,3 +7,12 @@ deepmikoto_admin_photography_primary_block:
 deepmikoto_admin_photography_new_post:
     path:     /new-post
     defaults: { _controller: DeepMikotoAdminBundle:Photography:newPost }
+deepmikoto_admin_photography_new_post_photo:
+    path:     /new-post-photo
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:newPostPhoto }
+deepmikoto_admin_photography_edit_post_photo:
+    path:     /edit-post-photo/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:editPostPhoto }
+deepmikoto_admin_photography_post_photo_list:
+    path:     /post-photo-list
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:postPhotoList }

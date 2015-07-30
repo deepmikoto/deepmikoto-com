@@ -34,7 +34,7 @@ class ApiController extends FOSRestController
         );
         /** 90 days */
         $response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 60 );
+        $response->setMaxAge( 0 );
         $response->headers->set( 'Content-Type', 'application/json' );
 
         return $response;

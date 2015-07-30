@@ -3,6 +3,8 @@
 namespace DeepMikoto\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PhotographyPostPhoto
@@ -24,7 +26,7 @@ class PhotographyPostPhoto
 
     /**
      * @ORM\ManyToOne(targetEntity="DeepMikoto\ApiBundle\Entity\PhotographyPost", inversedBy="photos")
-     * @ORM\JoinColumn(name="news_post", referencedColumnName="id")
+     * @ORM\JoinColumn(name="photography_post", referencedColumnName="id")
      */
     private $photographyPost;
 
@@ -36,11 +38,120 @@ class PhotographyPostPhoto
     private $path;
 
     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+
+    private $temp;
+
+    /**
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDir()
+    {
+        return 'images/photography/' . $this->id;
+    }
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        if ( isset($this->path) ) {
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if ( null !== $this->getFile() ){
+            $filename = 'photography_' . sha1( uniqid( mt_rand(), true ) );
+            $this->path = $filename.'.'.$this->getFile()->getClientOriginalExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        $this->getFile()->move( $this->getUploadRootDir(), $this->path );
+        if (isset( $this->temp )) {
+            unlink( $this->getUploadRootDir().'/'.$this->temp );
+            $this->temp = null;
+        }
+        $this->file = null;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        $file = $this->getAbsolutePath();
+        if ( $file ) {
+            unlink( $file );
+        }
+    }
 
     /**
      * @ORM\PrePersist()

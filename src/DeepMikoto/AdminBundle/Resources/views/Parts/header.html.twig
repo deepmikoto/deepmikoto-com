@@ -30,7 +30,10 @@
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_photography' or
                     app.request.get('_route') == 'deepmikoto_admin_photography_primary_block' or
-                    app.request.get('_route') == 'deepmikoto_admin_photography_new_post' %}class="active"{% endif %}>
+                    app.request.get('_route') == 'deepmikoto_admin_photography_new_post' or
+                    app.request.get('_route') == 'deepmikoto_admin_photography_new_post_photo' or
+                    app.request.get('_route') == 'deepmikoto_admin_photography_post_photo_list' or
+                    app.request.get('_route') == 'deepmikoto_admin_photography_edit_post_photo' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_photography') }}">Photography</a>
                 </li>
             </ul>

@@ -1,0 +1,21 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/photography_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <div>
+        <a href="{{ path('deepmikoto_admin_photography_post_photo_list') }}"><i class="glyphicon glyphicon-arrow-left"></i> back to list</a>
+    </div>
+    {% if form.vars.value.path != null %}
+        <div>
+            <img src="{{ ( 'images/photography/' ~ form.vars.value.id ~ '/' ~ form.vars.value.path ) | imagine_filter( 'sidebar_primary_block' ) }}" />
+        </div>
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}

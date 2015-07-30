@@ -80,6 +80,16 @@ class PhotographyPost
     }
 
     /**
+     * string representation of the entity, user in forms
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    /**
      * @ORM\PrePersist()
      */
     public function onPrePersist()

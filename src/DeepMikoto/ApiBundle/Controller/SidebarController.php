@@ -32,7 +32,7 @@ class SidebarController extends FOSRestController
         $response = $this->handleView( $view );
         /** 7 days */
         $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 60 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }
@@ -52,7 +52,7 @@ class SidebarController extends FOSRestController
         $response = $this->handleView( $view );
         /** 7 days */
         $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 60 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }
@@ -72,8 +72,8 @@ class SidebarController extends FOSRestController
         $response = $this->handleView( $view );
         /** 7 days */
         $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 60 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }
-} 
+}

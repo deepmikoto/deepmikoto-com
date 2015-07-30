@@ -24,9 +24,11 @@
     {% block full_layout %}
     {% endblock %}
 </div>
+<script type="text/javascript" src="{{ 'https://maps.googleapis.com/maps/api/js?key=' ~ google_api_key ~ '&libraries=places' }}"></script>
 {% javascripts
     '@DeepMikotoAdminBundle/Resources/public/js/jquery-2.1.4.js'
     '@DeepMikotoAdminBundle/Resources/public/js/bootstrap.js'
+    '@DeepMikotoAdminBundle/Resources/public/js/functions.js'
     '@DeepMikotoAdminBundle/Resources/public/js/deepmikoto.admin.js'
     output='js/adminarea/deepmikoto.admin.js'
 %}

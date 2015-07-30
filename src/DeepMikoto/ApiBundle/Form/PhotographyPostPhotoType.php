@@ -2,16 +2,17 @@
 
 namespace DeepMikoto\ApiBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class NewPhotographyPostType
+ * Class PhotographyPostPhotoType
  *
  * @package DeepMikoto\ApiBundle\Form
  */
-class NewPhotographyPostType extends AbstractType
+class PhotographyPostPhotoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,25 +21,21 @@ class NewPhotographyPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', [
+            ->add('photographyPost', 'entity',[
+                'class' => 'DeepMikoto\ApiBundle\Entity\PhotographyPost',
+                'placeholder' => 'Choose a photography post',
+                'empty_data' => null,
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'query_builder' => function ( EntityRepository $er ) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.date', 'DESC');
+                }
             ])
-            ->add('location', 'text', [
-                'attr' => [
-                    'class' => 'form-control post-location'
-                ]
-            ])
-            ->add('latitude', 'text', [
-                'attr' => [
-                    'class' => 'form-control post-latitude'
-                ]
-            ])
-            ->add('longitude', 'text', [
-                'attr' => [
-                    'class' => 'form-control post-longitude'
-                ]
+            ->add('file', 'file', [
+                'required' => false,
             ])
             ->add('save', 'submit', [
                 'attr' => [
@@ -54,7 +51,7 @@ class NewPhotographyPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'DeepMikoto\ApiBundle\Entity\PhotographyPost'
+            'data_class' => 'DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto'
         ]);
     }
 
@@ -63,6 +60,6 @@ class NewPhotographyPostType extends AbstractType
      */
     public function getName()
     {
-        return 'deepmikoto_apibundle_photographypost';
+        return 'deepmikoto_apibundle_photographypostphoto';
     }
 }

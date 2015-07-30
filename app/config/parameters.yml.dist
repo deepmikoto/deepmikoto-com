@@ -20,3 +20,4 @@ parameters:
     ruby_path: PathToRuby
     sass_bin: PathToSass
     compass.bin: PathToCompass
+    google_api_key: key
