@@ -9,11 +9,11 @@
 namespace DeepMikoto\ApiBundle\Services;
 
 use Doctrine\ORM\EntityManager;
-use JMS\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class PhotographyService
@@ -25,7 +25,6 @@ class PhotographyService
     private $container;
     private $em;
     private $request;
-    private $serializer;
 
     /**
      * initialize service components
@@ -74,7 +73,7 @@ class PhotographyService
                 'photos' => function( $photos ) use( $container ){
                     $processedPhotos = [];
                     /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
-                    foreach($photos as $photo){
+                    foreach( $photos as $photo ){
                         $processedPhotos[] = [
                             'originalPath'  => $photo->getUploadDir() . '/' . $photo->getPath(),
                             'path'          => $container->get('liip_imagine.cache.manager')->getBrowserPath(
@@ -93,7 +92,7 @@ class PhotographyService
                 }
             ]
         );
-        $serializer = new \Symfony\Component\Serializer\Serializer(
+        $serializer = new Serializer(
             [ $normalizer ],
             [ new JsonEncoder() ]
         );

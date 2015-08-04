@@ -1,1 +1,12 @@
-<%=title%>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 photos">
+    <% _.each( photos , function( photo ) { %>
+        <img src="{{ '<%=photo.path%>' }}" />
+    <% }); %>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title">
+    <h3 class="title"><%=title%></h3>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 details">
+    <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+    <span class="location"><i class="glyphicon glyphicon-map-marker"></i> <%=location%></span>
+</div>

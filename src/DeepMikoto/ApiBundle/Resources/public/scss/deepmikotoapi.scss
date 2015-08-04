@@ -54,6 +54,57 @@ html {
             margin: 0 auto;
           }
         }
+        .photography-timeline {
+          .photography-posts {
+            .photography-post {
+              background-color: #000315;
+              color: #fff;
+              overflow: auto;
+              margin-bottom: 15px;
+              -webkit-border-radius: 3px;
+              -moz-border-radius: 3px;
+              border-radius: 3px;
+              -webkit-box-shadow: 0 0 5px 1px #131313;
+              -moz-box-shadow: 0 0 5px 1px #131313;
+              box-shadow: 0 0 5px 1px #131313;
+              padding-bottom: 15px;
+              .photos {
+                padding: 10px;
+                img {
+                  max-width: 100%;
+                  margin: 5px;
+                  border: 6px solid #fff;
+                  -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+                  -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+                  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+                }
+              }
+              .title {
+                h3 {
+                  &.title {
+                    margin-top: 0;
+                  }
+                }
+              }
+              .details {
+                span {
+                  margin-right: 10px;
+                  i {
+                    &.glyphicon {
+                      color: #337ab7;
+                    }
+                  }
+                  &.date {
+                    font-style: italic;
+                  }
+                  &.location {
+
+                  }
+                }
+              }
+            }
+          }
+        }
       }
       .sidebar-container {
         margin-bottom: 15px;
