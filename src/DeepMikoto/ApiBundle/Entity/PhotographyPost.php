@@ -31,6 +31,13 @@ class PhotographyPost
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -116,6 +123,7 @@ class PhotographyPost
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->setSlug($title);
 
         return $this;
     }
@@ -277,5 +285,38 @@ class PhotographyPost
     public function getPublic()
     {
         return $this->public;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return PhotographyPost
+     */
+    public function setSlug( $slug )
+    {
+        $this->slug = strtolower(
+            trim(
+                str_replace( ' ', '-',
+                    trim(
+                        preg_replace( '/\s+/', ' ',
+                            preg_replace( "/[^A-Za-z0-9 ]/", '', $slug )
+                        )
+                    )
+                )
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

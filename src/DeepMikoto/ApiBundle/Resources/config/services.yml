@@ -8,3 +8,6 @@ services:
     deepmikoto.api.sidebar_manager:
         class: DeepMikoto\ApiBundle\Services\SidebarService
         arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack" ]
+    deepmikoto.api.photography_manager:
+        class: DeepMikoto\ApiBundle\Services\PhotographyService
+        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack" ]

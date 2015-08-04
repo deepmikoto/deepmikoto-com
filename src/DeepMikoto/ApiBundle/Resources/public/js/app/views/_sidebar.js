@@ -12,20 +12,20 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     },
     getTemplate: function()
     {
-        /** @namespace deepmikoto.templates.sidebar */
-        return _.template(deepmikoto.templates.sidebar);
+        /** @namespace deepmikoto.templates */
+        return _.template( deepmikoto.templates.sidebar );
     },
     initialize: function()
     {
-        this.listenTo(deepmikoto.app.routerChannel.vent, 'change:page', this.adaptContentToPage);
+        this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.adaptContentToPage );
     },
-    adaptContentToPage: function(page)
+    adaptContentToPage: function( page )
     {
-        this.renderPrimaryBlock(page);
-        this.renderRelatedElements(page);
-        this.renderAdd(page);
+        this.renderPrimaryBlock( page );
+        this.renderRelatedElements( page );
+        this.renderAdd( page );
     },
-    renderPrimaryBlock: function(page)
+    renderPrimaryBlock: function( page )
     {
         $.ajax({
             context: this,
@@ -35,13 +35,13 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
                 page: page
             },
             dataType: 'html',
-            success: function(response)
+            success: function( response )
             {
-                this.ui.primary.html(response);
+                this.ui.primary.html( response );
             }
         });
     },
-    renderRelatedElements: function(page)
+    renderRelatedElements: function( page )
     {
         $.ajax({
             context: this,
@@ -51,13 +51,13 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
                 page: page
             },
             dataType: 'html',
-            success: function(response)
+            success: function( response )
             {
-                this.ui.related.html(response);
+                this.ui.related.html( response );
             }
         });
     },
-    renderAdd: function(page)
+    renderAdd: function( page )
     {
         $.ajax({
             context: this,
@@ -67,9 +67,9 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
                 page: page
             },
             dataType: 'html',
-            success: function(response)
+            success: function( response )
             {
-                this.ui.adds.html(response);
+                this.ui.adds.html( response );
             }
         });
     }

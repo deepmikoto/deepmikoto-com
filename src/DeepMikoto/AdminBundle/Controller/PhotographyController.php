@@ -5,6 +5,7 @@ namespace DeepMikoto\AdminBundle\Controller;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
+use DeepMikoto\ApiBundle\Form\EditPhotographyPostType;
 use DeepMikoto\ApiBundle\Form\NewPhotographyPostType;
 use DeepMikoto\ApiBundle\Form\PhotographyPostPhotoType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
@@ -32,7 +33,7 @@ class PhotographyController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function primaryBlockAction(Request $request)
+    public function primaryBlockAction( Request $request )
     {
         $em = $this->getDoctrine()->getManager();
         $sidebarPrimaryBlock = $em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy(
@@ -69,20 +70,50 @@ class PhotographyController extends Controller
     public function newPostAction( Request $request )
     {
         $em = $this->getDoctrine()->getManager();
-        $photographyPostPhoto = new PhotographyPost();
-        $form = $this->createForm( new NewPhotographyPostType(), $photographyPostPhoto );
+        $photographyPost = new PhotographyPost();
+        $form = $this->createForm( new NewPhotographyPostType(), $photographyPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
-                $em->persist( $photographyPostPhoto );
-                $em->flush( $photographyPostPhoto );
+                $em->persist( $photographyPost );
+                $em->flush( $photographyPost );
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You created a new photography post! It is now <strong>drafted</strong>. Add photos to it and make it public!' );
 
                 return $this->redirectToRoute( 'deepmikoto_admin_photography_new_post' );
             }
         }
 
-        return $this->render('DeepMikotoAdminBundle:Photography:new.html.twig', [ 'form' => $form->createView() ]);
+        return $this->render( 'DeepMikotoAdminBundle:Photography:new.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * edit photography post form
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editPostAction( Request $request, $id )
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPost $photographyPost */
+        $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );
+        $photographyPost == null ? $this->createNotFoundException() : null;
+        $form = $this->createForm( new EditPhotographyPostType(), $photographyPost );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $photographyPost );
+                $em->flush( $photographyPost );
+                $this->addFlash( 'success', '<strong>Awesome!</strong> Editing successfull' );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_photography_edit_post', [
+                    'id' => $photographyPost->getId()
+                ]);
+            }
+        }
+
+        return $this->render( 'DeepMikotoAdminBundle:Photography:edit.html.twig', [ 'form' => $form->createView() ] );
     }
 
     /**
@@ -143,7 +174,7 @@ class PhotographyController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function postPhotoListAction( )
+    public function postPhotoListAction()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -155,6 +186,67 @@ class PhotographyController extends Controller
         ;
         $photos = $query->getQuery()->getResult();
 
-        return $this->render('DeepMikotoAdminBundle:Photography:photo_list.html.twig', [ 'photos' => $photos ]);
+        return $this->render( 'DeepMikotoAdminBundle:Photography:photo_list.html.twig', [ 'photos' => $photos ] );
+    }
+
+    /**
+     * submitted photography posts
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function submittedPostsAction()
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
+        $query
+            ->select( 'p.id, p.title, p.date' )
+            ->where( 'p.public = 1' )
+            ->orderBy( 'p.date', 'DESC' )
+        ;
+        $posts = $query->getQuery()->getResult();
+
+        return $this->render( 'DeepMikotoAdminBundle:Photography:submitted_posts.html.twig', [ 'posts' => $posts ] );
+    }
+
+    /**
+     * drafted photography posts
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function draftedPostsAction()
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
+        $query
+            ->select( 'p.id, p.title, p.date' )
+            ->where( 'p.public = 0' )
+            ->orderBy( 'p.date', 'DESC' )
+        ;
+        $posts = $query->getQuery()->getResult();
+
+        return $this->render( 'DeepMikotoAdminBundle:Photography:drafted_posts.html.twig', [ 'posts' => $posts ] );
+    }
+
+    /**
+     * @param $id
+     * @param $public
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function makePublicOrDraftedAction( $id, $public )
+    {
+        $public = $public == 'true';
+        $em = $this->getDoctrine()->getManager();
+        /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPost $photographyPost */
+        $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );
+        $photographyPost->setPublic( $public );
+        $em->persist( $photographyPost );
+        $em->flush( $photographyPost );
+        $this->addFlash( 'success', '<strong>Awesome!</strong> You changed the status of <strong>' .
+            $photographyPost->getTitle() . '</strong> to <strong>' . ( $public ? 'public' : 'drafted' ) . '</strong>' )
+        ;
+
+        return $this->redirectToRoute( $public ? 'deepmikoto_admin_photography_submitted_posts' : 'deepmikoto_admin_photography_drafted_posts');
     }
 }

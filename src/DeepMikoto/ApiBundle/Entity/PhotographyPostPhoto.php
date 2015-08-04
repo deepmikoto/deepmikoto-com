@@ -82,7 +82,7 @@ class PhotographyPostPhoto
     /**
      * @return string
      */
-    protected function getUploadDir()
+    public function getUploadDir()
     {
         return 'images/photography/' . $this->id;
     }

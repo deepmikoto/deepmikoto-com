@@ -1,6 +1,4 @@
-
-
-$(function() {
+$( function() {
     var deepmikoto = {};
 
     deepmikoto.buttons = {
@@ -19,5 +17,3 @@ $(function() {
     commandButtonsBehavior( deepmikoto.buttons.asseticDump,   deepmikoto.ajaxUrls.ASSETIC_DUMP_URL );
     enableGoogleAutoComplete( $('.post-location'), $('.post-latitude'), $('.post-longitude') );
 }, jQuery );
-
-

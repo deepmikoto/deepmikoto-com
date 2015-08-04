@@ -29,6 +29,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         this.updateAwareness( 'photography' );
         this.updatePageTitle( 'Photography' );
+        this.showPhotographyTimeline();
     },
     codingAction: function ()
     {
@@ -72,5 +73,21 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     updatePageTitle: function( title )
     {
         deepmikoto.app.appFunctions.setPageTitle( title );
+    },
+    showPhotographyTimeline: function()
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_PHOTOGRAPHY_TIMELINE_URL,
+            dataType: 'json',
+            success: function( photographyPosts )
+            {
+                var photographyTimeline = new deepmikoto.PhotographyTimelineView({
+                    collection: new deepmikoto.PhotographyTimelineCollection( photographyPosts )
+                });
+                deepmikoto.app.body.show( photographyTimeline );
+            }
+        })
     }
 });

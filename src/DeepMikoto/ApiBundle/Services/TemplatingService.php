@@ -46,7 +46,9 @@ class TemplatingService
         /** @noinspection PhpVoidFunctionResultUsedInspection */
         $data = [
             'appHeader' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
-            'sidebar'   => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' )
+            'sidebar' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' ),
+            'photographyTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_collection.html.twig' ),
+            'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_item.html.twig' )
         ];
 
         return $this->serializer->serialize( $data, 'json' );

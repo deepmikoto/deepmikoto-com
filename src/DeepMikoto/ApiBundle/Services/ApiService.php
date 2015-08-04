@@ -63,8 +63,8 @@ class ApiService
      */
     public function getUserInfo()
     {
-        $user = $this->getUser();
+        $user = ['id'=>4];
 
-        return $this->serializer->serialize($user, 'json');
+        return $this->serializer->serialize( $user, 'json' );
     }
 } 

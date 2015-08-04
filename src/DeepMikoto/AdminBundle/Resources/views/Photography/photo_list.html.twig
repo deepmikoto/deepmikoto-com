@@ -30,7 +30,7 @@
                 <tr>
                     <td class="text-center"><img src="{{ ( 'images/photography/' ~ photo.id ~ '/' ~ photo.path ) | imagine_filter( 'tiny_thumb' ) }}" /></td>
                     <td>{{ photo.associatedPost }}</td>
-                    <td>{{ photo.date | date( 'd F Y H:i:S' ) }}</td>
+                    <td>{{ photo.date | date( 'd F Y H:i:s' ) }}</td>
                     <td><a href="{{ path( 'deepmikoto_admin_photography_edit_post_photo', { 'id': photo.id } ) }}"><i class="glyphicon glyphicon-edit"></i> edit </a></td>
                 </tr>
             {% endfor %}

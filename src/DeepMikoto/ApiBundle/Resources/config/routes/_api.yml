@@ -1,10 +1,12 @@
+deepmikoto_sidebar:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/components/sidebar.yml"
+    prefix:   /
+deepmikoto_photography:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/components/photography.yml"
+    prefix:   /
 deepmikoto_api_templates:
     path:     /templates
     defaults: { _controller: DeepMikotoApiBundle:Api:templates }
 deepmikoto_api_user_info:
     path:     /user-info
     defaults: { _controller: DeepMikotoApiBundle:Api:userInfo }
-
-deepmikoto_sidebar:
-    resource: "@DeepMikotoApiBundle/Resources/config/routes/components/sidebar.yml"
-    prefix:   /
