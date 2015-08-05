@@ -27,8 +27,8 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
         this.model.set({ currentPage: page });
         this.ui.collapsed.removeAttr( 'style' );
         $( this.el ).find( '.active').removeClass( 'active' );
-        $( window).scrollTop( 0, 0);
-        this.ui[ page].blur().addClass( 'active' );
+        $( window ).scrollTop( 0, 0 );
+        this.ui[ page ].blur().addClass( 'active' );
     },
     toggleCollapsedMenu: function()
     {

@@ -1,12 +1,26 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 photos">
+<div class="photos">
     <% _.each( photos , function( photo ) { %>
-        <img src="{{ '<%=photo.path%>' }}" />
+        <img src="{{ '<%=photo.path%>' }}" class="photo" />
     <% }); %>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title">
-    <h3 class="title"><%=title%></h3>
-</div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 details">
-    <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
-    <span class="location"><i class="glyphicon glyphicon-map-marker"></i> <%=location%></span>
+<div class="overlay">
+    <div class="title">
+        <h3 class="title"><%=title%></h3>
+    </div>
+    <div class="photos-count">
+        <div class="top-bar"></div>
+        <div class="count">
+            <span class="number"><%=photos.length%></span>
+            <span class="text">photos</span>
+        </div>
+        <div class="bottom-bar"></div>
+    </div>
+    <div class="details">
+        <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+        <span class="location">
+            <a href="https://www.google.com/maps/@<%=latitude%>,<%=longitude%>,18z" target="_blank" title="view on Google Maps">
+                <i class="glyphicon glyphicon-new-window"></i> <%=location%>
+            </a>
+        </span>
+    </div>
 </div>

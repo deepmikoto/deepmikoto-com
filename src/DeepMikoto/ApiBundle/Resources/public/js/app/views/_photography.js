@@ -4,11 +4,45 @@
 
 deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     tagName: 'div',
-    className: 'photography-post',
+    className: 'col-lg-4 col-md-4 col-sm-6 col-xs-12 photography-post',
+    ui: {
+        photo: '.photo'
+    },
     getTemplate: function ()
     {
         /** @namespace deepmikoto.templates.photographyTimelineItem */
         return _.template( deepmikoto.templates.photographyTimelineItem );
+    },
+    onShow: function()
+    {
+        this.enablePictureFading();
+    },
+    enablePictureFading: function()
+    {
+        var photos_count = this.model.get( 'photos' ).length, _this = this;
+        function displayNextPhoto( index ){
+            var previous_index, next_index, delay = Math.floor( Math.random()*( 10000 - 3000 + 1 ) + 3000 );
+            if( index == 0 ){
+                previous_index = photos_count - 1;
+            } else {
+                previous_index = index - 1;
+            }
+            $( _this.ui.photo[ previous_index ] ).animate({
+                opacity: 0
+            }, 1500 );
+            $( _this.ui.photo[ index ] ).animate({
+                opacity: 1
+            }, 1500 );
+            setTimeout( function(){
+                if( index == photos_count - 1 ){
+                    next_index = 0;
+                } else {
+                    next_index = index + 1;
+                }
+                displayNextPhoto( next_index );
+            }, delay );
+        }
+        displayNextPhoto( 0 );
     }
 });
 

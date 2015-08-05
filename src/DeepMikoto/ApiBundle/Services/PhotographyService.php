@@ -86,7 +86,7 @@ class PhotographyService
                 },
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'd F Y H:i:s' );
+                    $date = $date->format( 'd F Y' );
 
                     return $date;
                 }
