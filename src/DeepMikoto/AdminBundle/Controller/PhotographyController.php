@@ -162,7 +162,7 @@ class PhotographyController extends Controller
                 $em->flush( $photographyPostPhoto );
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You updated the photography post photo!' );
 
-                return $this->redirectToRoute( 'deepmikoto_admin_photography_edit_post_photo' );
+                return $this->redirectToRoute( 'deepmikoto_admin_photography_edit_post_photo', [ 'id' => $id ] );
             }
         }
 
