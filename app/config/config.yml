@@ -115,4 +115,4 @@ liip_imagine:
         timeline_picture:
             quality: 80
             filters:
-                thumbnail: { size: [470, 470], mode: inset }
+                thumbnail: { size: [470, 310], mode: outbound }
