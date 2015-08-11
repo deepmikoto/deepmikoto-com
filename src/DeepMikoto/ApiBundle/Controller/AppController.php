@@ -43,6 +43,7 @@ class AppController extends Controller
      *
      * @param $id
      * @param $slug
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function photographyPostAction( $id, $slug )
@@ -53,7 +54,7 @@ class AppController extends Controller
             'slug'  => $slug,
             'public'=> true
         ]);
-        if( !$photographyPost ) $this->createNotFoundException();
+        if( !$photographyPost ) throw $this->createNotFoundException();
         $response = new Response(
             $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[ 'post' => $photographyPost ] )->getContent(),
             200
