@@ -3,5 +3,7 @@
  */
 
 deepmikoto.SidebarModel = Backbone.Model.extend({
-
+    defaults: {
+        context: null
+    }
 });

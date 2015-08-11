@@ -1,4 +1,6 @@
-
 deepmikoto_api_photography_timeline:
     path:     /photography-timeline
     defaults: { _controller: DeepMikotoApiBundle:Photography:photographyTimeline }
+deepmikoto_api_photography_post:
+    path:     /photography-post
+    defaults: { _controller: DeepMikotoApiBundle:Photography:photographyPost }

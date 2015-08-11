@@ -14,7 +14,8 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
     events: {
         'click @ui.toggleMenu': 'toggleCollapsedMenu'
     },
-    initialize: function(){
+    initialize: function()
+    {
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.updateCurrentPage );
     },
     getTemplate: function ()
@@ -22,13 +23,15 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
         /** @namespace deepmikoto.templates.appHeader */
         return _.template( deepmikoto.templates.appHeader );
     },
-    updateCurrentPage: function (page)
+    updateCurrentPage: function( page )
     {
-        this.model.set({ currentPage: page });
-        this.ui.collapsed.removeAttr( 'style' );
-        $( this.el ).find( '.active').removeClass( 'active' );
-        $( window ).scrollTop( 0, 0 );
-        this.ui[ page ].blur().addClass( 'active' );
+        if( this.model.get( 'page' ) != page ){
+            this.model.set({ currentPage: page });
+            this.ui.collapsed.removeAttr( 'style' );
+            $( this.el ).find( '.active').removeClass( 'active' );
+            $( window ).scrollTop( 0, 0 );
+            this.ui[ page ].blur().addClass( 'active' );
+        }
     },
     toggleCollapsedMenu: function()
     {

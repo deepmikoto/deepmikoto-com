@@ -28,7 +28,34 @@ class AppController extends Controller
     public function homeAction()
     {
         $response = new Response(
-            $this->render('DeepMikotoApiBundle:Api:index.html.twig')->getContent(),
+            $this->render('DeepMikotoApiBundle:App:index.html.twig')->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     * photography post details page
+     *
+     * @param $id
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function photographyPostAction( $id, $slug )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $photographyPost = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost')->findOneBy([
+            'id'    => $id,
+            'slug'  => $slug,
+            'public'=> true
+        ]);
+        if( !$photographyPost ) $this->createNotFoundException();
+        $response = new Response(
+            $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[ 'post' => $photographyPost ] )->getContent(),
             200
         );
         /** 90 days */

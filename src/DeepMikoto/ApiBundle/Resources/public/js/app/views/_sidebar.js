@@ -21,9 +21,12 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     },
     adaptContentToPage: function( page )
     {
-        this.renderPrimaryBlock( page );
-        this.renderRelatedElements( page );
-        this.renderAdd( page );
+        if( this.model.get( 'context' ) != page ){
+            this.model.set({ context: page });
+            this.renderPrimaryBlock( page );
+            this.renderRelatedElements( page );
+            this.renderAdd( page );
+        }
     },
     renderPrimaryBlock: function( page )
     {

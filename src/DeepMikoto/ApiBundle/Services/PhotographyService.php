@@ -52,7 +52,7 @@ class PhotographyService
             ->orderBy( 'p.date', 'DESC' )
         ;
         $photographyPosts = $query->getQuery()->getResult();
-        $photographyPosts = $this->processPhotographyTimelinePosts( $photographyPosts );
+        $photographyPosts = $this->processPhotographyPosts( $photographyPosts );
 
         return $photographyPosts;
     }
@@ -61,7 +61,7 @@ class PhotographyService
      * @param $posts
      * @return string
      */
-    private function processPhotographyTimelinePosts( $posts )
+    private function processPhotographyPosts( $posts )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
@@ -99,5 +99,22 @@ class PhotographyService
         $posts = $serializer->serialize( $posts, 'json' );
 
         return $posts;
+    }
+
+    /**
+     * @param $id
+     * @param $slug
+     * @return string
+     */
+    public function getPhotographyPost( $id, $slug )
+    {
+        $photographyPost = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->findOneBy([
+            'id'    => $id,
+            'slug'  => $slug,
+            'public'=> true
+        ]);
+        $photographyPost = $this->processPhotographyPosts( $photographyPost );
+
+        return $photographyPost;
     }
 } 

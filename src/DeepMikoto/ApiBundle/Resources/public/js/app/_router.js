@@ -3,6 +3,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     routes: {
         '': 'homeAction',
         'photography': 'photographyAction',
+        'photography-post/:id--:slug': 'photographyPostAction',
         'coding': 'codingAction',
         'gaming': 'gamingAction',
         'login': 'loginAction',
@@ -18,7 +19,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     undefinedAction: function()
     {
-        Backbone.history.navigate('', { trigger: true });
+        Backbone.history.navigate( '', { trigger: true } );
     },
     homeAction: function()
     {
@@ -30,6 +31,11 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         this.updateAwareness( 'photography' );
         this.updatePageTitle( 'Photography' );
         this.showPhotographyTimeline();
+    },
+    photographyPostAction: function ( id, slug )
+    {
+        this.updateAwareness( 'photography' );
+        this.showPhotographyPost( id, slug );
     },
     codingAction: function ()
     {
@@ -43,8 +49,8 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     loginAction: function()
     {
-        if (deepmikoto.app.user.isLoggedIn()) {
-            Backbone.history.navigate('', { trigger: true })
+        if ( deepmikoto.app.user.isLoggedIn() ){
+            Backbone.history.navigate( '', { trigger: true } );
         } else {
             this.showLogin();
         }
@@ -58,7 +64,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             dataType: 'json',
             success: function() {
                 deepmikoto.app.user.clear();
-                Backbone.history.navigate('', { trigger: true });
+                Backbone.history.navigate( '', { trigger: true } );
             }
         });
     },
@@ -87,6 +93,25 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     collection: new deepmikoto.PhotographyTimelineCollection( photographyPosts )
                 });
                 deepmikoto.app.body.show( photographyTimeline );
+            }
+        })
+    },
+    showPhotographyPost: function( id, slug )
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_PHOTOGRAPHY_POST_URL,
+            data: {
+                id: id,
+                slug: slug
+            },
+            dataType: 'json',
+            success: function( photographyPost )
+            {
+                console.log( photographyPost );
+                this.updatePageTitle( photographyPost[ 'title' ] );
+                deepmikoto.app.body.reset();
             }
         })
     }

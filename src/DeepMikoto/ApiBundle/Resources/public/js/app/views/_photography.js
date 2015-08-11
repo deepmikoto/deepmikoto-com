@@ -6,7 +6,11 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'col-lg-4 col-md-4 col-sm-6 col-xs-12 photography-post',
     ui: {
-        photo: '.photo'
+        photo: '.photo',
+        overlay: '#overlay'
+    },
+    events: {
+        'click @ui.overlay': 'showPostDetails'
     },
     getTemplate: function ()
     {
@@ -22,6 +26,10 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
         } else if( effectToUse == 2 ){
             this.enablePictureFading();
         }
+    },
+    showPostDetails: function ()
+    {
+        Backbone.history.navigate( 'photography-post/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } );
     },
     enablePictureFading: function()
     {
