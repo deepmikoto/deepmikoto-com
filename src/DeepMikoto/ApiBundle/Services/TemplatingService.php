@@ -48,7 +48,8 @@ class TemplatingService
             'appHeader' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
             'sidebar' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' ),
             'photographyTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_collection.html.twig' ),
-            'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_item.html.twig' )
+            'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_item.html.twig' ),
+            'footNote' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:footnote/_default.html.twig' )
         ];
 
         return $this->serializer->serialize( $data, 'json' );

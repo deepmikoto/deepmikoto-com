@@ -27,9 +27,11 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
             this.enablePictureFading();
         }
     },
-    showPostDetails: function ()
+    showPostDetails: function ( e )
     {
-        Backbone.history.navigate( 'photography-post/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } );
+        e.target.nodeName != 'A' ?
+        Backbone.history.navigate( 'photography-post/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } )
+        : null;
     },
     enablePictureFading: function()
     {
@@ -108,4 +110,9 @@ deepmikoto.PhotographyTimelineView = Marionette.CompositeView.extend({
         /** @namespace deepmikoto.templates.photographyTimelineCollection */
         return _.template( deepmikoto.templates.photographyTimelineCollection );
     }
+});
+
+deepmikoto.PhotographyPost = Marionette.LayoutView.extend({
+    tagName: 'div',
+    className: 'photography-post-details'
 });

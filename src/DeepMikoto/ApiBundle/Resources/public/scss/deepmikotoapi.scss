@@ -338,10 +338,38 @@ html {
       position: fixed;
       width: 100%;
       bottom: 0;
+      background-color: #000000;
+      color: #ffffff;
+      .footnote {
+        position: relative;
+        padding: 10px 30px;
+        .close {
+          width: 20px;
+          height: 20px;
+          text-align: center;
+          position: absolute;
+          color: #FFFFFF;
+          padding: 4px;
+          top: 5px;
+          right: 10px;
+          opacity: 1;
+          font-weight: normal;
+          font-size: 14px;
+          &:hover {
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            color: #000000;
+          }
+        }
+        .message {
+          text-align: center;
+        }
+      }
     }
     .modal-container {
 
     }
   }
-
 }

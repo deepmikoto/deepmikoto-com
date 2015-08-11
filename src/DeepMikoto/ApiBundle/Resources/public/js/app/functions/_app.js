@@ -41,17 +41,18 @@ deepmikoto.AppFunctions = Marionette.extend({
     },
     fetchUserInfo: function()
     {
-        this.updateLoader(80, 'user info');
+        this.updateLoader( 80, 'user info' );
         $.ajax({
             context: this,
             type: 'GET',
             url: deepmikoto.apiRoutes.FETCH_USER_INFO_URL,
             dataType: 'json',
-            success: function(response)
+            success: function( response )
             {
-                deepmikoto.app.user = new deepmikoto.User(response);
-                this.updateLoader(100, 'done');
+                deepmikoto.app.user = new deepmikoto.User( response );
+                this.updateLoader( 100, 'done' );
                 this.startRouter();
+                this.showCookieFootNote();
             }
         });
     },
@@ -63,5 +64,19 @@ deepmikoto.AppFunctions = Marionette.extend({
     setPageTitle: function( title )
     {
         $( document).prop( 'title', title );
+    },
+    showCookieFootNote: function()
+    {
+        if( Cookies.get( 'cookie-notice' ) !== 'true' ){
+            deepmikoto.app.footnote.show(
+                new deepmikoto.FootNoteView({
+                    model: new deepmikoto.FootNoteModel({
+                        type: 'cookie',
+                        message: 'This site uses cookies in order to improve your experience. By continuing to browse the site ' +
+                        'you are agreeing to our use of cookies.'
+                    })
+                })
+            );
+        }
     }
 });
