@@ -8,6 +8,7 @@
 
 namespace DeepMikoto\ApiBundle\Services;
 
+use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -41,27 +42,10 @@ class PhotographyService
     }
 
     /**
-     * @return string
-     */
-    public function getPhotographyTimeline()
-    {
-        $query = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
-        $query
-            ->select( 'p' )
-            ->where( 'p.public = 1' )
-            ->orderBy( 'p.date', 'DESC' )
-        ;
-        $photographyPosts = $query->getQuery()->getResult();
-        $photographyPosts = $this->processPhotographyPosts( $photographyPosts );
-
-        return $photographyPosts;
-    }
-
-    /**
      * @param $posts
      * @return string
      */
-    private function processPhotographyPosts( $posts )
+    private function processTimelinePhotographyPosts( $posts )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
@@ -75,7 +59,6 @@ class PhotographyService
                     /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
                     foreach( $photos as $photo ){
                         $processedPhotos[] = [
-                            'originalPath'  => $photo->getUploadDir() . '/' . $photo->getPath(),
                             'path'          => $container->get('liip_imagine.cache.manager')->getBrowserPath(
                                 $photo->getUploadDir() . '/' . $photo->getPath(), 'timeline_picture'
                             ),
@@ -102,6 +85,26 @@ class PhotographyService
     }
 
     /**
+     * @return string
+     */
+    public function getPhotographyTimeline()
+    {
+        $query = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
+        $query
+            ->select( 'p' )
+            ->where( 'p.public = 1' )
+            ->orderBy( 'p.date', 'DESC' )
+        ;
+        $photographyPosts = $query->getQuery()->getResult();
+        $photographyPosts = $this->processTimelinePhotographyPosts( [
+            'payload'   => $photographyPosts,
+            'response'  => ApiResponseStatus::$ALL_OK
+        ] );
+
+        return $photographyPosts;
+    }
+
+    /**
      * @param $id
      * @param $slug
      * @return string
@@ -113,7 +116,10 @@ class PhotographyService
             'slug'  => $slug,
             'public'=> true
         ]);
-        $photographyPost = $this->processPhotographyPosts( $photographyPost );
+        $photographyPost = $this->processTimelinePhotographyPosts( [
+            'payload'   => $photographyPost,
+            'response'  => ApiResponseStatus::$ALL_OK
+        ] );
 
         return $photographyPost;
     }

@@ -1,0 +1,29 @@
+@media screen and ( min-width: 768px ) {
+  html {
+    body {
+      .header-container {
+        .app-header {
+          .navbar {
+            .container {
+              .navbar-collapse {
+                ul {
+                  &.navbar-nav {
+                    li {
+                      &.active {
+                        a {
+                          &:after {
+                            opacity: 1;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

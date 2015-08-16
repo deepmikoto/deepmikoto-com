@@ -8,11 +8,13 @@
 
 namespace DeepMikoto\ApiBundle\Services;
 
+use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\Serializer;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Service for handling general api logic
@@ -52,7 +54,7 @@ class ApiService
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        return $user != 'anon.' ? $user : null;
+        return $user instanceof UserInterface ? $user : [];
     }
 
     /**
@@ -63,8 +65,11 @@ class ApiService
      */
     public function getUserInfo()
     {
-        $user = ['id'=>4];
+        $user = $this->getUser();
 
-        return $this->serializer->serialize( $user, 'json' );
+        return $this->serializer->serialize( [
+            'payload'   => $user,
+            'response'  => ApiResponseStatus::$ALL_OK
+        ], 'json' );
     }
 } 

@@ -19,36 +19,36 @@ class ApiResponseStatus
     const STATUS_OK = 'ok';
     const STATUS_INVALID = 'invalid';
 
-    public static $all_ok = [
+    public static $ALL_OK = [
         'code'      => 46,
         'status'    => self::STATUS_OK
     ];
 
-    public static $user_not_authenticated = [
+    public static $USER_NOT_AUTHENTICATED = [
         'code'      => 1,
         'status'    => self::STATUS_INVALID,
         'text'      => 'user is not authenticated'
     ];
 
-    public static $invalid_request_method = [
+    public static $INVALID_REQUEST_METHOD = [
         'code'      => 2,
         'status'    => self::STATUS_INVALID,
         'text'      => 'invalid request method'
     ];
 
-    public static $missing_request_parameters = [
+    public static $MISSING_REQUEST_PARAMETERS = [
         'code'      => 3,
         'status'    => self::STATUS_INVALID,
         'text'      => 'required parameters missing from request'
     ];
 
-    public static $invalid_request_parameters = [
+    public static $INVALID_REQUEST_PARAMETERS = [
         'code'      => 4,
         'status'    => self::STATUS_INVALID,
         'text'      => 'provided parameters are invalid'
     ];
 
-    public static $action_not_allowed = [
+    public static $ACTION_NOT_ALLOWED = [
         'code'      => 5,
         'status'    => self::STATUS_INVALID,
         'text'      => 'user not allowed to perform requested action'

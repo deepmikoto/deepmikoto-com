@@ -59,6 +59,7 @@ html {
                     &.active {
                       a {
                         &:after {
+                          opacity: 0;
                           background-color: #0335ff;
                           -webkit-box-shadow: 0px -2px 12px 0px rgba(3,53,255,1);
                           -moz-box-shadow: 0px -2px 12px 0px rgba(3,53,255,1);

@@ -87,14 +87,14 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             type: 'GET',
             url: deepmikoto.apiRoutes.FETCH_PHOTOGRAPHY_TIMELINE_URL,
             dataType: 'json',
-            success: function( photographyPosts )
+            success: function( response )
             {
                 var photographyTimeline = new deepmikoto.PhotographyTimelineView({
-                    collection: new deepmikoto.PhotographyTimelineCollection( photographyPosts )
+                    collection: new deepmikoto.PhotographyTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( photographyTimeline );
             }
-        })
+        });
     },
     showPhotographyPost: function( id, slug )
     {
@@ -107,12 +107,11 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 slug: slug
             },
             dataType: 'json',
-            success: function( photographyPost )
+            success: function( response )
             {
-                console.log( photographyPost );
-                this.updatePageTitle( photographyPost[ 'title' ] );
+                this.updatePageTitle( response[ 'payload' ][ 'title' ] );
                 deepmikoto.app.body.reset();
             }
-        })
+        });
     }
 });

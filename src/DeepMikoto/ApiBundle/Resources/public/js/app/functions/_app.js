@@ -49,7 +49,7 @@ deepmikoto.AppFunctions = Marionette.extend({
             dataType: 'json',
             success: function( response )
             {
-                deepmikoto.app.user = new deepmikoto.User( response );
+                deepmikoto.app.user = new deepmikoto.User( response[ 'payload' ] );
                 this.updateLoader( 100, 'done' );
                 this.startRouter();
                 this.showCookieFootNote();
