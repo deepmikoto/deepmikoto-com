@@ -10,9 +10,9 @@
     <meta name="twitter:description" content="{{ post.location }}">
     <meta itemprop="name" content="{{ post.title }}">
     <meta itemprop="description" content="{{ post.location }}">
-    <meta property="og:image" content="{{ post.photos[0].uploadDir ~ '/' ~ post.photos[0].path | imagine_filter( 'timeline_picture' ) }}" />
-    <meta name="twitter:image" content="{{ post.photos[0].uploadDir ~ '/' ~ post.photos[0].path | imagine_filter( 'timeline_picture' ) }} }}">
-    <meta itemprop="image" content="{{ post.photos[0].uploadDir ~ '/' ~ post.photos[0].path | imagine_filter( 'timeline_picture' ) }} }}">
+    <meta property="og:image" content="{{ asset( post.photos[0].uploadDir ~ '/' ~ post.photos[0].path ) | imagine_filter( 'timeline_picture' ) }}" />
+    <meta name="twitter:image" content="{{ asset( post.photos[0].uploadDir ~ '/' ~ post.photos[0].path ) | imagine_filter( 'timeline_picture' ) }} }}">
+    <meta itemprop="image" content="{{ asset( post.photos[0].uploadDir ~ '/' ~ post.photos[0].path ) | imagine_filter( 'timeline_picture' ) }} }}">
 {% endblock %}
 {% block body %}
     {% include 'DeepMikotoApiBundle:templates:body/_body_frame.html.twig' %}
