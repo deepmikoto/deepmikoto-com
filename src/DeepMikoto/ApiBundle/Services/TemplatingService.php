@@ -49,6 +49,7 @@ class TemplatingService
             'sidebar' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' ),
             'photographyTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_collection.html.twig' ),
             'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_item.html.twig' ),
+            'photographyPost' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_photography_post.html.twig' ),
             'footNote' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:footnote/_default.html.twig' )
         ];
 

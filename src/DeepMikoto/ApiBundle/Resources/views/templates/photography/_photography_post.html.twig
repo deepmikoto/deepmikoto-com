@@ -1,0 +1,53 @@
+{% spaceless %}
+    <div class="header">
+        <h3 class="title"><%=title%></h3>
+        <div class="date-and-location">
+            <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+            <span class="location">
+                <a href="https://www.google.com/maps/@<%=latitude%>,<%=longitude%>,18z" target="_blank" title="view on Google Maps">
+                    <i class="glyphicon glyphicon-new-window"></i> <%=location%>
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="body">
+        <div class="photos">
+            <% _.each( photos, function( photo ) { %>
+            <div class="photo">
+                <div class="image col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <img src="{{ '<%=photo.path%>' }}" />
+                </div>
+                <div class="image-stats col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <h4>Specs</h4>
+                    <table class="table">
+                        <tr>
+                            <td>exposure</td>
+                            <td>1/30 sec</td>
+                        </tr>
+                        <tr>
+                            <td>iso</td>
+                            <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>aperture</td>
+                            <td>1.8</td>
+                        </tr>
+                        <tr>
+                            <td>focal length</td>
+                            <td>35mm</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="image-actions">
+                    <ul>
+                        <li>
+                            <a href="{{ '#' }}"><i class="glyphicon glyphicon-download"></i> download</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+{% endspaceless %}

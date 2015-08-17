@@ -1,3 +1,4 @@
+{% spaceless %}
 <div class="photos">
     <% _.each( photos , function( photo ) { %>
         <img src="{{ '<%=photo.path%>' }}" class="photo" />
@@ -24,3 +25,4 @@
         </span>
     </div>
 </div>
+{% endspaceless %}

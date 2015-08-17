@@ -114,5 +114,10 @@ deepmikoto.PhotographyTimelineView = Marionette.CompositeView.extend({
 
 deepmikoto.PhotographyPost = Marionette.LayoutView.extend({
     tagName: 'div',
-    className: 'photography-post-details'
+    className: 'photography-post-details',
+    getTemplate: function()
+    {
+        /** @namespace deepmikoto.templates.photographyPost */
+        return _.template( deepmikoto.templates.photographyPost );
+    }
 });

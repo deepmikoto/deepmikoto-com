@@ -110,7 +110,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function( response )
             {
                 this.updatePageTitle( response[ 'payload' ][ 'title' ] );
-                deepmikoto.app.body.reset();
+                var photographyPost = new deepmikoto.PhotographyPost({
+                    model: new deepmikoto.PhotographyPostModel( response[ 'payload'] )
+                });
+                deepmikoto.app.body.show( photographyPost );
             }
         });
     }
