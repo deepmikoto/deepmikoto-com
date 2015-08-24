@@ -65,5 +65,4 @@ class AppController extends Controller
 
         return $response;
     }
-
 } 

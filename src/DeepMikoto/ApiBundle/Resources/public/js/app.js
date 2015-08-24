@@ -21,5 +21,10 @@ deepmikoto.apiRoutes = {
     FETCH_PHOTOGRAPHY_POST_URL      : '_api/photography-post'
 };
 
+/** define app constants */
+deepmikoto.appConstants = {
+    FACEBOOK_APP_ID     : '789069417870836'
+};
+
 /** define the templates variable */
 deepmikoto.templates = {};

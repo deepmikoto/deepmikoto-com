@@ -29,7 +29,7 @@
                             <td>200</td>
                         </tr>
                         <tr>
-                            <td>aperture</td>
+                            <td>aperture <%=id%></td>
                             <td>1.8</td>
                         </tr>
                         <tr>
@@ -50,4 +50,5 @@
             <% }); %>
         </div>
     </div>
+    <div class="fb-comments" data-width="100%" data-colorscheme="dark" data-href="{{ url('deepmikoto_app_homepage') }}photography-post/<%=id%>--<%=slug%>" data-version="v2.3"></div>
 {% endspaceless %}

@@ -8,6 +8,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         this.enableAjaxPrefilter();
         this.noHashTagsPlease();
         this.enableGoogleAnalytics();
+        this.enableFacebookApp();
     },
     enableGoogleAnalytics: function()
     {
@@ -20,7 +21,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         ga('send', 'pageview');
     },
     /**
-     * here we provide support for symfony app_dev in ajax calls
+     * Here we provide support for symfony app_dev in ajax calls
      */
     enableAjaxPrefilter: function()
     {
@@ -30,7 +31,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         });
     },
     /**
-     *  we define a route filter that handles all application links and passes it
+     *  We define a route filter that handles all application links and passes it
      *  through our router, this is done to eliminate the use of "#/" in our links and URL's
      */
     noHashTagsPlease: function()
@@ -61,5 +62,27 @@ deepmikoto.GeneralFunctions = Marionette.extend({
                 }
             }
         });
+    },
+    /**
+     * Include facebook js app
+     */
+    enableFacebookApp: function()
+    {
+        window.fbAsyncInit = function()
+        {
+            /** @namespace FB */
+            FB.init({
+                appId      : deepmikoto.appConstants.FACEBOOK_APP_ID,
+                xfbml      : true,
+                version    : 'v2.4'
+            });
+        };
+        (function( d, s, id ){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if ( d.getElementById( id ) ) {return;}
+            js = d.createElement( s ); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore( js, fjs );
+        }( document, 'script', 'facebook-jssdk' ) );
     }
 });
