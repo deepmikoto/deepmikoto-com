@@ -4,3 +4,6 @@ deepmikoto_api_photography_timeline:
 deepmikoto_api_photography_post:
     path:     /photography-post
     defaults: { _controller: DeepMikotoApiBundle:Photography:photographyPost }
+deepmikoto_api_photography_cache:
+    path:     /photography-cache/{id}--{path}
+    defaults: { _controller: DeepMikotoApiBundle:Photography:photographyCache }

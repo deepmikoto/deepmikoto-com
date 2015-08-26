@@ -15,7 +15,7 @@
             <% _.each( photos, function( photo ) { %>
             <div class="photo">
                 <div class="image col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <img src="{{ '<%=photo.path%>' }}" />
+                    <img src="{{ '<%=photo.url%>' }}" />
                 </div>
                 <div class="image-stats col-lg-5 col-md-5 col-sm-12 col-xs-12">
                     <h4>Specs</h4>
@@ -42,7 +42,7 @@
                 <div class="image-actions">
                     <ul>
                         <li>
-                            <a href="{{ '#' }}"><i class="glyphicon glyphicon-download"></i> download</a>
+                            <a href="{{ '<%=photo.downLink%>' }}"><i class="glyphicon glyphicon-download"></i> download</a>
                         </li>
                     </ul>
                 </div>
