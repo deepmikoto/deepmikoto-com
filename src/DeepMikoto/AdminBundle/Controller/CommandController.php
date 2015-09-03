@@ -11,7 +11,7 @@ namespace DeepMikoto\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -39,10 +39,11 @@ class CommandController extends Controller
             'command' => 'cache:clear',
             '--env'   => 'prod'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
-
-        return new Response( 'Cache cleared!', 200 );
+        $content = $output->fetch();
+        
+        return new Response( $content, 200 );
     }
 
     /**
@@ -61,10 +62,11 @@ class CommandController extends Controller
         $input = new ArrayInput([
             'command' => 'assets:install'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
+        $content = $output->fetch();
 
-        return new Response( 'Assets installed!', 200 );
+        return new Response( $content, 200 );
     }
 
     /**
@@ -84,10 +86,11 @@ class CommandController extends Controller
             'command' => 'assetic:dump',
             '--env'   => 'prod'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
+        $content = $output->fetch();
 
-        return new Response( 'Assets dumped!', 200 );
+        return new Response( $content, 200 );
     }
 
     /**
@@ -106,10 +109,11 @@ class CommandController extends Controller
         $input = new ArrayInput([
             'command' => 'git pull origin develop'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
-
-        return new Response( 'Code updated!', 200 );
+        $content = $output->fetch();
+        
+        return new Response( $content, 200 );
     }
 
     /**
@@ -126,12 +130,13 @@ class CommandController extends Controller
         $application = new Application( $kernel );
         $application->setAutoExit( false );
         $input = new ArrayInput([
-            'command' => 'composer install'
+            'command' => 'composer.phar install'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
+        $content = $output->fetch();
 
-        return new Response( 'Dependencies installed', 200 );
+        return new Response( $content, 200 );
     }
 
     /**
@@ -151,9 +156,10 @@ class CommandController extends Controller
             'command' => 'doctrine:migrations:migrate',
             '--no-interaction'
         ]);
-        $output = new NullOutput();
+        $output = new BufferedOutput();
         $application->run( $input, $output );
+        $content = $output->fetch();
 
-        return new Response( 'Migrations executed!', 200 );
+        return new Response( $content, 200 );
     }
 }
