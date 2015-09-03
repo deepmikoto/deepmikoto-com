@@ -7,3 +7,12 @@ deepmikoto_assets_install_command:
 deepmikoto_assetic_dump_command:
     path:     /assetic-dump
     defaults: { _controller: DeepMikotoAdminBundle:Command:asseticDump }
+deepmikoto_git_pull_master_command:
+    path:     /git-pull-master
+    defaults: { _controller: DeepMikotoAdminBundle:Command:gitPullMaster }
+deepmikoto_composer_install_command:
+    path:     /composer-install
+    defaults: { _controller: DeepMikotoAdminBundle:Command:composerInstall }
+deepmikoto_migrations_migrate_command:
+    path:     /migrations-migrate
+    defaults: { _controller: DeepMikotoAdminBundle:Command:migrationsMigrate }

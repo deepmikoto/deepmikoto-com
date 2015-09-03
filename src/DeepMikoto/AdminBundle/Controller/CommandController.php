@@ -89,4 +89,71 @@ class CommandController extends Controller
 
         return new Response( 'Assets dumped!', 200 );
     }
+
+    /**
+     * fetch latest code from GIT
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function gitPullMasterAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
+        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
+        $kernel = $this->get( 'kernel' );
+        $application = new Application( $kernel );
+        $application->setAutoExit( false );
+        $input = new ArrayInput([
+            'command' => 'git pull origin develop'
+        ]);
+        $output = new NullOutput();
+        $application->run( $input, $output );
+
+        return new Response( 'Code updated!', 200 );
+    }
+
+    /**
+     * install composer dependencies
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function composerInstallAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
+        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
+        $kernel = $this->get( 'kernel' );
+        $application = new Application( $kernel );
+        $application->setAutoExit( false );
+        $input = new ArrayInput([
+            'command' => 'composer install'
+        ]);
+        $output = new NullOutput();
+        $application->run( $input, $output );
+
+        return new Response( 'Dependencies installed', 200 );
+    }
+
+    /**
+     * execute latest Doctrine migrations
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function migrationsMigrateAction()
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
+        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
+        $kernel = $this->get( 'kernel' );
+        $application = new Application( $kernel );
+        $application->setAutoExit( false );
+        $input = new ArrayInput([
+            'command' => 'doctrine:migrations:migrate',
+            '--no-interaction'
+        ]);
+        $output = new NullOutput();
+        $application->run( $input, $output );
+
+        return new Response( 'Migrations executed!', 200 );
+    }
 }

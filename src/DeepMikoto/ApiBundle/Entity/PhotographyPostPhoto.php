@@ -2,6 +2,7 @@
 
 namespace DeepMikoto\ApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,6 +39,11 @@ class PhotographyPostPhoto
     private $path;
 
     /**
+     * @ORM\OneToMany(targetEntity="DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload", mappedBy="photographyPostPhoto", cascade={"remove"})
+     */
+    private $downloads;
+
+    /**
      * @Assert\File(maxSize="6000000")
      */
     private $file;
@@ -50,6 +56,14 @@ class PhotographyPostPhoto
     private $date;
 
     private $temp;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->downloads = new ArrayCollection();
+    }
 
     /**
      * @return null|string
@@ -238,5 +252,38 @@ class PhotographyPostPhoto
     public function getPhotographyPost()
     {
         return $this->photographyPost;
+    }
+
+    /**
+     * Add downloads
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload $downloads
+     * @return PhotographyPostPhoto
+     */
+    public function addDownload(PhotographyPostPhotoDownload $downloads)
+    {
+        $this->downloads[] = $downloads;
+
+        return $this;
+    }
+
+    /**
+     * Remove downloads
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload $downloads
+     */
+    public function removeDownload(PhotographyPostPhotoDownload $downloads)
+    {
+        $this->downloads->removeElement($downloads);
+    }
+
+    /**
+     * Get downloads
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDownloads()
+    {
+        return $this->downloads;
     }
 }

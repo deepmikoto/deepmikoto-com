@@ -4,11 +4,54 @@
 {% endblock %}
 {% block content %}
     <div class="commands">
-        <h4>Site commands</h4>
+        <h4>Deploy tools</h4>
+        <div class="form-group">
+            <a href="#" id="full-deploy">Full deploy</a>
+        </div>
+        <div class="jumbotron">
+            <table class="table">
+                <tr>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="git-pull-master">Git pull origin master
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="composer-install">Composer install
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="cache-clear">Cache clear
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="migrations">Migrations migrate
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="assets-install">Assets install
+                        </label>
+                    </td>
+                    <td>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="assetic-dump">Assetic dump
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <div class="status">
+                <div class="log" id="command-log"></div>
+                <div class="current" id="current-command"></div>
+            </div>
+        </div>
         <div class="buttons">
-            <button type="button" class="btn btn-primary" id="cache-clear">Cache clear</button>
-            <button type="button" class="btn btn-primary" id="assets-install">Assets install</button>
-            <button type="button" class="btn btn-primary" id="assetic-dump">Assetic dump</button>
+            <button type="button" class="btn btn-primary pull-right" id="run-deploy">Run</button>
         </div>
     </div>
 {% endblock %}

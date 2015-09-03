@@ -71,6 +71,7 @@ class PhotographyService
                             'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
                                 $photo->getUploadDir() . '/' . $photo->getPath(), 'timeline_picture'
                             ),
+                            'downloads' => $photo->getDownloads()->count()
                         ];
                     }
 

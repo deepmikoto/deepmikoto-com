@@ -8,6 +8,7 @@
 
 namespace DeepMikoto\ApiBundle\Controller;
 
+use DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,8 +54,8 @@ class PhotographyController extends FOSRestController
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );
-        /** 7 days */
-        $response->setSharedMaxAge( 604800 );
+        /** 2 days */
+        $response->setSharedMaxAge( 172800 );
         $response->setMaxAge( 0 );
 
         return $response;
@@ -65,27 +66,30 @@ class PhotographyController extends FOSRestController
      *
      * @param int $id
      * @param string $path
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function photographyCacheAction( $id, $path )
+    public function photographyCacheAction( $id, $path, Request $request )
     {
+        $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photographyPostPhoto */
-        $photographyPostPhoto = $this->getDoctrine()->getManager()
-            ->getRepository( 'DeepMikotoApiBundle:PhotographyPostPhoto' )->findOneBy([ 'id' => $id, 'path' => $path ]);
+        $photographyPostPhoto = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPostPhoto' )
+            ->findOneBy([ 'id' => $id, 'path' => $path ]);
         if( $photographyPostPhoto == null ) throw $this->createNotFoundException();
+        $download = new PhotographyPostPhotoDownload();
+        $download
+            ->setPhotographyPostPhoto( $photographyPostPhoto )
+            ->setIp( $request->getClientIp() )
+        ;
+        $em->persist( $download );
+        $em->flush( $download );
         $image = file_get_contents( $photographyPostPhoto->getUploadDir() . '/' . $photographyPostPhoto->getPath() );
-        $response = new Response(
-            $image,
-            200
-        );
-        $ext = strtolower( substr( strrchr( $photographyPostPhoto->getPath(),"." ), 1 ) );
+        $response = new Response( $image, 200 );
+        $ext = strtolower( substr( strrchr( $photographyPostPhoto->getPath(), "." ), 1 ) );
         $response->headers->set( 'Content-Type', 'image/' . ( $ext == 'jpeg' || $ext == 'jpg' ? 'jpeg'
             : ( $ext == 'png' || $ext == 'gif' ? $ext : '' ) )
         );
         $response->headers->set( 'Content-Disposition', 'attachment; filename=' . $photographyPostPhoto->getPath() );
-        /** 7 days */
-        $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 0 );
 
         return $response;
     }

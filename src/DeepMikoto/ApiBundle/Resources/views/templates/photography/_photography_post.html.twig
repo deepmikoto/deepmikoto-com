@@ -41,8 +41,9 @@
                 <div class="clearfix"></div>
                 <div class="image-actions">
                     <ul>
-                        <li>
-                            <a href="{{ '<%=photo.downLink%>' }}"><i class="glyphicon glyphicon-download"></i> download</a>
+                        <li class="downloads">
+                            <a href="{{ '<%=photo.downLink%>' }}">Download</a>
+                            <span title="downloads so far"><i class="glyphicon glyphicon-download"></i> <%=photo.downloads%></span>
                         </li>
                     </ul>
                 </div>

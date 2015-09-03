@@ -256,6 +256,7 @@ html {
                   }
                 }
                 &.date {
+                  cursor: default;
                   font-style: italic;
                 }
               }
@@ -286,6 +287,24 @@ html {
                   ul {
                     list-style-type: none;
                     padding-left: 15px;
+                    li {
+                      &.downloads {
+                        a {
+                          margin-right: 10px;
+                          &:hover, &:active, &:focus {
+                            color: #337ab7;
+                          }
+                        }
+                        span {
+                          cursor: default;
+                          i {
+                            &.glyphicon {
+                              margin-right: 5px;
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
