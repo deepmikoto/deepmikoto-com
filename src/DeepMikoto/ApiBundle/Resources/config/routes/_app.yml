@@ -5,7 +5,7 @@ deepmikoto_app_photography:
     path:     /photography
     defaults: { _controller: DeepMikotoApiBundle:App:home }
 deepmikoto_app_photography_post:
-    path:     /photography-post/{id}--{slug}
+    path:     /photography/{id}--{slug}
     defaults: { _controller: DeepMikotoApiBundle:App:photographyPost, id:null, slug:null }
 deepmikoto_app_coding:
     path:     /coding

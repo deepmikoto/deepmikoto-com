@@ -15,7 +15,7 @@ deepmikoto.CodingTimelineItemView = Marionette.ItemView.extend({
     },
     showPostDetails: function ()
     {
-        Backbone.history.navigate( 'coding-post/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } );
+        Backbone.history.navigate( 'coding/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } );
     }
 });
 

@@ -3,9 +3,9 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     routes: {
         '': 'homeAction',
         'photography': 'photographyAction',
-        'photography-post/:id--:slug': 'photographyPostAction',
+        'photography/:id--:slug': 'photographyPostAction',
         'coding': 'codingAction',
-        'coding-post/:id--:slug': 'codingPostAction',
+        'coding/:id--:slug': 'codingPostAction',
         'gaming': 'gamingAction',
         'login': 'loginAction',
         'logout': 'logoutAction',

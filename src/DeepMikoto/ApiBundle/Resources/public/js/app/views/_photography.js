@@ -30,7 +30,7 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     showPostDetails: function ( e )
     {
         e.target.nodeName != 'A' ?
-        Backbone.history.navigate( 'photography-post/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } )
+        Backbone.history.navigate( 'photography/' + this.model.get( 'id' ) + '--' + this.model.get( 'slug' ), { trigger: true } )
         : null;
     },
     enablePictureFading: function()
