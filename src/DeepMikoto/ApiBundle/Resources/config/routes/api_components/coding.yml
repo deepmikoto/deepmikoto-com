@@ -1,0 +1,6 @@
+deepmikoto_api_coding_timeline:
+    path:     /coding-timeline
+    defaults: { _controller: DeepMikotoApiBundle:Coding:codingTimeline }
+deepmikoto_api_coding_post:
+    path:     /coding-post
+    defaults: { _controller: DeepMikotoApiBundle:Coding:codingPost }

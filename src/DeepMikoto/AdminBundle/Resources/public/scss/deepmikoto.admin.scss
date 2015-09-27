@@ -90,7 +90,9 @@ html {
     }
     .divided-layout {
       .container {
+        padding: 0;
         .sidebar-block {
+          padding: 0 5px;
           .sidebar {
             .list-group {
 
@@ -101,7 +103,7 @@ html {
 
         }
         .content-block {
-
+          padding: 0 5px;
         }
       }
     }

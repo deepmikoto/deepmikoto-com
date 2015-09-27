@@ -4,3 +4,18 @@ deepmikoto_admin_coding:
 deepmikoto_admin_coding_primary_block:
     path:     /primary-block
     defaults: { _controller: DeepMikotoAdminBundle:Coding:primaryBlock }
+deepmikoto_admin_coding_new_post:
+    path:     /new-post
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:newPost }
+deepmikoto_admin_coding_edit_post:
+    path:     /edit-post-{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:editPost }
+deepmikoto_admin_coding_submitted_posts:
+    path:     /submitted-posts
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:submittedPosts }
+deepmikoto_admin_coding_drafted_posts:
+    path:     /drafted-posts
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:draftedPosts }
+deepmikoto_admin_coding_make_public_or_drafted:
+    path:     /make-public-or-drafted/{id}-{public}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:makePublicOrDrafted }    

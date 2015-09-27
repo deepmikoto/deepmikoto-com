@@ -5,6 +5,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         'photography': 'photographyAction',
         'photography-post/:id--:slug': 'photographyPostAction',
         'coding': 'codingAction',
+        'coding-post/:id--:slug': 'codingPostAction',
         'gaming': 'gamingAction',
         'login': 'loginAction',
         'logout': 'logoutAction',
@@ -41,6 +42,12 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         this.updateAwareness( 'coding' );
         this.updatePageTitle( 'Coding' );
+        this.showCodingTimeline();
+    },
+    codingPostAction: function ( id, slug )
+    {
+        this.updateAwareness( 'coding' );
+        this.showCodingPost( id, slug );
     },
     gamingAction: function ()
     {
@@ -80,6 +87,22 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         deepmikoto.app.appFunctions.setPageTitle( title );
     },
+    showCodingTimeline: function ()
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_CODING_TIMELINE_URL,
+            dataType: 'json',
+            success: function( response )
+            {
+                var codingTimeline = new deepmikoto.CodingTimelineView({
+                    collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ] )
+                });
+                deepmikoto.app.body.show( codingTimeline );
+            }
+        });
+    },
     showPhotographyTimeline: function()
     {
         $.ajax({
@@ -114,6 +137,27 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     model: new deepmikoto.PhotographyPostModel( response[ 'payload'] )
                 });
                 deepmikoto.app.body.show( photographyPost );
+            }
+        });
+    },
+    showCodingPost: function( id, slug )
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_CODING_POST_URL,
+            data: {
+                id: id,
+                slug: slug
+            },
+            dataType: 'json',
+            success: function( response )
+            {
+                this.updatePageTitle( response[ 'payload' ][ 'title' ] );
+                var codingPost = new deepmikoto.CodingPost({
+                    model: new deepmikoto.CodingPostModel( response[ 'payload'] )
+                });
+                deepmikoto.app.body.show( codingPost );
             }
         });
     }

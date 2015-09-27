@@ -1,6 +1,9 @@
 deepmikoto_sidebar:
     resource: "@DeepMikotoApiBundle/Resources/config/routes/api_components/sidebar.yml"
     prefix:   /
+deepmikoto_coding:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/api_components/coding.yml"
+    prefix:   /
 deepmikoto_photography:
     resource: "@DeepMikotoApiBundle/Resources/config/routes/api_components/photography.yml"
     prefix:   /

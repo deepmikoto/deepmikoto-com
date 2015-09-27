@@ -1,6 +1,6 @@
 {% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
 {% block sidebar %}
-    {% include 'DeepMikotoAdminBundle:Parts:sidebars/photography_sidebar.html.twig' %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/coding_sidebar.html.twig' %}
 {% endblock %}
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -21,7 +21,7 @@
         {% if posts|length == 0 %}
             <tr>
                 <td colspan="4" class="text-center">
-                    Nothing to show, <a href="{{ path('deepmikoto_admin_photography_new_post') }}"><i class="glyphicon glyphicon-save"></i> create new photography post</a>
+                    Nothing to show, <a href="{{ path('deepmikoto_admin_coding_new_post') }}"><i class="glyphicon glyphicon-save"></i> create new coding post</a>
                 </td>
             </tr>
         {% else %}
@@ -30,10 +30,10 @@
                     <td>{{ post.title|title }}</td>
                     <td>{{ post.date | date( 'd F Y H:i:s' ) }}</td>
                     <td>
-                        <a href="{{ path('deepmikoto_admin_photography_make_public_or_drafted', { 'id': post.id, 'public': 'true' }) }}">
+                        <a href="{{ path('deepmikoto_admin_coding_make_public_or_drafted', { 'id': post.id, 'public': 'true' }) }}">
                             <i class="glyphicon glyphicon-tasks"></i> Publish
                         </a>
-                        <a href="{{ path('deepmikoto_admin_photography_edit_post', { 'id': post.id }) }}">
+                        <a href="{{ path('deepmikoto_admin_coding_edit_post', { 'id': post.id }) }}">
                             <i class="glyphicon glyphicon-edit"></i> Edit
                         </a>
                     </td>

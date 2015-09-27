@@ -54,13 +54,15 @@ class CommandController extends Controller
      */
     public function assetsInstallAction()
     {
+//        var_dump( $this->get('kernel')->getRootDir() . '/../web');die;
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
         /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
         $kernel = $this->get( 'kernel' );
         $application = new Application( $kernel );
         $application->setAutoExit( false );
         $input = new ArrayInput([
-            'command' => 'assets:install'
+            'command' => 'assets:install',
+            'target' => $this->get('kernel')->getRootDir() . '/../web'
         ]);
         $output = new BufferedOutput();
         $application->run( $input, $output );

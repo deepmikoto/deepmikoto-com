@@ -16,6 +16,7 @@ deepmikoto.apiRoutes = {
     FETCH_SIDEBAR_RELATED_BLOCK_URL : '_api/sidebar-related-block',
     FETCH_SIDEBAR_ADD_BLOCK_URL     : '_api/sidebar-add-block',
     FETCH_CODING_TIMELINE_URL       : '_api/coding-timeline',
+    FETCH_CODING_POST_URL           : '_api/coding-post',
     FETCH_GAMING_TIMELINE_URL       : '_api/gaming-timeline',
     FETCH_PHOTOGRAPHY_TIMELINE_URL  : '_api/photography-timeline',
     FETCH_PHOTOGRAPHY_POST_URL      : '_api/photography-post'

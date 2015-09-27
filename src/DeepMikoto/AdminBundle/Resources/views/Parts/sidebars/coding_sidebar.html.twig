@@ -3,17 +3,14 @@
         <a href="{{ path('deepmikoto_admin_coding_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_primary_block' %}active{% endif %}">
             Primary block
         </a>
-        <a href="#" class="list-group-item">
-            Legal page
+        <a href="{{ path('deepmikoto_admin_coding_new_post') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_new_post' %}active{% endif %}">
+            New post
         </a>
-        <a href="#" class="list-group-item">
-            Faq page
+        <a href="{{ path('deepmikoto_admin_coding_submitted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_submitted_posts' %}active{% endif %}">
+            Submitted posts
         </a>
-        <a href="#" class="list-group-item">
-            Contact page
-        </a>
-        <a href="#" class="list-group-item">
-            Settings
+        <a href="{{ path('deepmikoto_admin_coding_drafted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_drafted_posts' %}active{% endif %}">
+            Drafted posts
         </a>
     </div>
 </div>

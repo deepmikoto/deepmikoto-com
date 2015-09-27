@@ -3,27 +3,7 @@
  */
 
 /**
- * @param buttonId
- * @param url
- */
-function commandButtonsBehavior( buttonId, url )
-{
-    $( buttonId ).on('click', function () {
-        $( this ).blur().button( 'loading' );
-        $.ajax({
-            context: this,
-            url: url,
-            success: function(){
-                $( this ).button( 'reset' ).addClass( 'disabled btn-success' );
-            },
-            error: function(){
-                $( this ).button( 'reset' ).addClass( 'btn-danger');
-            }
-        });
-    });
-}
-/**
- *
+ * deploy tools logic
  */
 function enableDeployTools()
 {
@@ -37,8 +17,10 @@ function enableDeployTools()
         deepmikoto.home.checkboxes.assetsInstall.attr( 'checked', 'checked' );
         deepmikoto.home.checkboxes.asseticDump.attr( 'checked', 'checked' );
     });
-    deepmikoto.home.buttons.runDeployTools.on( 'click', function ( e ){
-        function getUrlOrStatusForCheckbox( checkbox, propertyType ){
+    deepmikoto.home.buttons.runDeployTools.on( 'click', function ( e )
+    {
+        function getUrlOrStatusForCheckbox( checkbox, propertyType )
+        {
             var url, status;
             if( checkbox == deepmikoto.home.checkboxes.gitPullMaster ){
                 url = deepmikoto.home.ajaxUrls.GIT_PULL_MASTER_URL;
@@ -66,7 +48,8 @@ function enableDeployTools()
                 return status;
             }
         }
-        function runCommand( checkbox ){
+        function runCommand( checkbox )
+        {
             deepmikoto.home.miscelanious.deployToolsCurrent.html( getUrlOrStatusForCheckbox( checkbox, 'status' ) );
             $.ajax({
                 url: getUrlOrStatusForCheckbox( checkbox, 'url' ),
@@ -81,7 +64,8 @@ function enableDeployTools()
                 }
             });
         }
-        function startCommandChain( previousCheckbox ){
+        function startCommandChain( previousCheckbox )
+        {
             previousCheckbox = previousCheckbox || null;
             if( previousCheckbox == null ){
                if( deepmikoto.home.checkboxes.gitPullMaster.is( ':checked' ) ){
@@ -161,7 +145,8 @@ function enableDeployTools()
 /**
  * @param autoComplete
  */
-function geoLocate( autoComplete ){
+function geoLocate( autoComplete )
+{
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition( function( position ) {
             /** @class google.maps.LatLng */
@@ -182,7 +167,8 @@ function geoLocate( autoComplete ){
  * @param latitudeInput
  * @param longitudeInput
  */
-function enableGoogleAutoComplete( locationInput, latitudeInput, longitudeInput ){
+function enableGoogleAutoComplete( locationInput, latitudeInput, longitudeInput )
+{
     if( locationInput.length == 0 ) return;
     /** @class google.maps.places.Autocomplete */
     var autoComplete = new google.maps.places.Autocomplete(
@@ -202,4 +188,13 @@ function enableGoogleAutoComplete( locationInput, latitudeInput, longitudeInput 
         latitudeInput.val( lat );
         longitudeInput.val( lon );
     });
+}
+/**
+ * @param textarea
+ */
+function enableCKEditor( textarea ){
+    if( textarea.length > 0 ){
+        /** @namespace CKEDITOR */
+        CKEDITOR.replace( textarea.attr( 'id' ) );
+    }
 }

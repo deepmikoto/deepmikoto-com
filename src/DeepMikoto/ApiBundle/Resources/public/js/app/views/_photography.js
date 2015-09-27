@@ -119,7 +119,6 @@ deepmikoto.PhotographyPost = Marionette.LayoutView.extend({
     {
         /** @namespace FB.XFBML */
         FB.XFBML.parse();
-
     },
     getTemplate: function()
     {

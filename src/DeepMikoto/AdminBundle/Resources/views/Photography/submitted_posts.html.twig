@@ -30,7 +30,7 @@
                     <td>{{ post.title|title }}</td>
                     <td>{{ post.date | date( 'd F Y H:i:s' ) }}</td>
                     <td>
-                        <a href="{{ path('deepmikoto_admin_make_public_or_drafted', { 'id': post.id, 'public': 'false' }) }}">
+                        <a href="{{ path('deepmikoto_admin_photography_make_public_or_drafted', { 'id': post.id, 'public': 'false' }) }}">
                             <i class="glyphicon glyphicon-hdd"></i> Change to draft
                         </a>
                         <a href="{{ path('deepmikoto_admin_photography_edit_post', { 'id': post.id }) }}">

@@ -47,6 +47,9 @@ class TemplatingService
         $data = [
             'appHeader' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:header/_header.html.twig' ),
             'sidebar' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:sidebar/_sidebar.html.twig' ),
+            'codingTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:coding/_timeline_collection.html.twig' ),
+            'codingTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:coding/_timeline_item.html.twig' ),
+            'codingPost' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:coding/_coding_post.html.twig' ),
             'photographyTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_collection.html.twig' ),
             'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_timeline_item.html.twig' ),
             'photographyPost' => $twigEngine->render( 'DeepMikotoApiBundle:Templates:photography/_photography_post.html.twig' ),

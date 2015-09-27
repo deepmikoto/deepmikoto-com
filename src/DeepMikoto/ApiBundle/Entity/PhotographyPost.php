@@ -87,7 +87,7 @@ class PhotographyPost
     }
 
     /**
-     * string representation of the entity, user in forms
+     * string representation of the entity, used in forms
      *
      * @return string
      */

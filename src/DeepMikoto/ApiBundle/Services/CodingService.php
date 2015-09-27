@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: MiKoRiza-OnE
- * Date: 7/18/2015
- * Time: 02:56
+ * Date: 9/27/2015
+ * Time: 14:51
  */
 
 namespace DeepMikoto\ApiBundle\Services;
@@ -18,11 +18,11 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * Class PhotographyService
+ * Class CodingService
  *
  * @package DeepMikoto\ApiBundle\Services
  */
-class PhotographyService
+class CodingService
 {
     private $container;
     private $em;
@@ -49,34 +49,14 @@ class PhotographyService
      * @param $posts
      * @return string
      */
-    private function processPhotographyTimelinePosts( $posts )
+    private function processCodingTimelinePosts( $posts )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
             []
         );
-        $container = $this->container;
-        $router = $this->router;
         $normalizer->setCallbacks(
             [
-                'photos' => function( $photos ) use( $container, $router ){
-                    $processedPhotos = [];
-                    /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
-                    foreach( $photos as $photo ){
-                        $processedPhotos[] = [
-                            'downLink'  => $router->generate( 'deepmikoto_api_photography_cache', [
-                                'id'   => $photo->getId(),
-                                'path' => $photo->getPath()
-                            ], true ),
-                            'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
-                                $photo->getUploadDir() . '/' . $photo->getPath(), 'timeline_picture'
-                            ),
-                            'downloads' => $photo->getDownloads()->count()
-                        ];
-                    }
-
-                    return $processedPhotos;
-                },
                 'date' => function( $date ){
                     /** @var \DateTime $date */
                     $date = $date->format( 'd F Y' );
@@ -97,21 +77,21 @@ class PhotographyService
     /**
      * @return string
      */
-    public function getPhotographyTimeline()
+    public function getCodingTimeline()
     {
-        $query = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
+        $query = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->createQueryBuilder( 'c' );
         $query
-            ->select( 'p' )
-            ->where( 'p.public = 1' )
-            ->orderBy( 'p.date', 'DESC' )
+            ->select( 'c' )
+            ->where( 'c.public = 1' )
+            ->orderBy( 'c.date', 'DESC' )
         ;
-        $photographyPosts = $query->getQuery()->getResult();
-        $photographyPosts = $this->processPhotographyTimelinePosts( [
-            'payload'   => $photographyPosts,
+        $codingPosts = $query->getQuery()->getResult();
+        $codingPosts = $this->processCodingTimelinePosts( [
+            'payload'   => $codingPosts,
             'response'  => ApiResponseStatus::$ALL_OK
-        ] );
+        ]);
 
-        return $photographyPosts;
+        return $codingPosts;
     }
 
     /**
@@ -119,18 +99,18 @@ class PhotographyService
      * @param $slug
      * @return string
      */
-    public function getPhotographyPost( $id, $slug )
+    public function getCodingPost( $id, $slug )
     {
-        $photographyPost = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->findOneBy([
+        $codingPost = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
             'public'=> true
         ]);
-        $photographyPost = $this->processPhotographyTimelinePosts( [
-            'payload'   => $photographyPost,
+        $codingPost = $this->processCodingTimelinePosts( [
+            'payload'   => $codingPost,
             'response'  => ApiResponseStatus::$ALL_OK
-        ] );
+        ]);
 
-        return $photographyPost;
+        return $codingPost;
     }
 } 
