@@ -1,19 +1,19 @@
 <div class="sidebar">
     <div class="list-group">
         <a href="{{ path('deepmikoto_admin_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_primary_block' %}active{% endif %}">
-            Primary block
+            <i class="glyphicon glyphicon-blackboard"></i> Primary block
         </a>
         <a href="#" class="list-group-item">
-            Legal page
+            <i class="glyphicon glyphicon-briefcase"></i> Legal page
         </a>
         <a href="#" class="list-group-item">
-            Faq page
+            <i class="glyphicon glyphicon-question-sign"></i> Faq page
         </a>
         <a href="#" class="list-group-item">
-            Contact page
+            <i class="glyphicon glyphicon-envelope"></i> Contact page
         </a>
         <a href="{{ path('deepmikoto_admin_administration') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_administration' %}active{% endif %}">
-            Administration
+            <i class="glyphicon glyphicon-cog"></i> Administration
         </a>
     </div>
 </div>

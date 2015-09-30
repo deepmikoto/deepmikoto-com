@@ -1,22 +1,22 @@
 <div class="sidebar">
     <div class="list-group">
         <a href="{{ path('deepmikoto_admin_photography_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_primary_block' %}active{% endif %}">
-            Primary block
+            <i class="glyphicon glyphicon-blackboard"></i> Primary block
         </a>
         <a href="{{ path('deepmikoto_admin_photography_new_post') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_new_post' %}active{% endif %}">
-            New post
+            <i class="glyphicon glyphicon-pencil"></i> New post
         </a>
         <a href="{{ path('deepmikoto_admin_photography_new_post_photo') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_new_post_photo' %}active{% endif %}">
-        New post photo
+            <i class="glyphicon glyphicon-picture"></i> New post photo
         </a>
         <a href="{{ path('deepmikoto_admin_photography_post_photo_list') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_post_photo_list' or app.request.get('_route') == 'deepmikoto_admin_photography_edit_post_photo'  %}active{% endif %}">
-        Manage photos
+            <i class="glyphicon glyphicon-camera"></i> Manage photos
         </a>
         <a href="{{ path('deepmikoto_admin_photography_submitted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_submitted_posts' %}active{% endif %}">
-        Submitted posts
+            <i class="glyphicon glyphicon-envelope"></i> Submitted posts
         </a>
         <a href="{{ path('deepmikoto_admin_photography_drafted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_photography_drafted_posts' %}active{% endif %}">
-        Drafted posts
+            <i class="glyphicon glyphicon-folder-open"></i> Drafted posts
         </a>
     </div>
 </div>
