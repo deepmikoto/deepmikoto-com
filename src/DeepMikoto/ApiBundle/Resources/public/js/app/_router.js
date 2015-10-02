@@ -22,6 +22,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         Backbone.history.navigate( '', { trigger: true } );
     },
+    scrollPageToTop: function ()
+    {
+        $( window ).scrollTop( 0, 0 );
+    },
     homeAction: function()
     {
         this.updateAwareness( 'home' );
@@ -100,6 +104,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( codingTimeline );
+                this.scrollPageToTop();
             }
         });
     },
@@ -116,6 +121,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     collection: new deepmikoto.PhotographyTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( photographyTimeline );
+                this.scrollPageToTop();
             }
         });
     },
@@ -137,6 +143,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     model: new deepmikoto.PhotographyPostModel( response[ 'payload'] )
                 });
                 deepmikoto.app.body.show( photographyPost );
+                this.scrollPageToTop();
             }
         });
     },
@@ -158,6 +165,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     model: new deepmikoto.CodingPostModel( response[ 'payload'] )
                 });
                 deepmikoto.app.body.show( codingPost );
+                this.scrollPageToTop();
             }
         });
     }
