@@ -40,11 +40,11 @@ class SidebarService
     /**
      * generates sidebar primary block data depending on the current page
      *
+     * @param $page
      * @return array
      */
-    public function getSidebarPrimaryBlockData()
+    public function getSidebarPrimaryBlockData( $page )
     {
-        $page = $this->request->get('page');
         /** @var \DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock $primaryBlock */
         $primaryBlock = $this->em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy([
             'type' => $page
@@ -66,11 +66,11 @@ class SidebarService
     /**
      * generates sidebar related block data depending on the current page
      *
+     * @param $page
      * @return array
      */
-    public function getSidebarRelatedBlockData()
+    public function getSidebarRelatedBlockData( $page )
     {
-        $page = $this->request->get('page');
         if( $page == 'home' ){
             $data = [
                 'title' => 'Latest content',
@@ -79,47 +79,30 @@ class SidebarService
                         'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
                         'title'         => 'A day in nature',
                         'category'      => 'photography',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
                         'category'      => 'coding',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
                         'category'      => 'gaming',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ]
                 ]
             ];
         } elseif ( $page == 'photography' ) {
+            $photographyPosts = $this->container->get( 'deepmikoto.api.photography_manager' )->getPhotographySidebarPosts();
             $data = [
                 'title' => 'Popular in Photography',
-                'items' => [
-                    [
-                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
-                        'title'         => 'A day in nature',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
-                        'title'         => 'A day in nature',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
-                        'title'         => 'A day in nature',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
-                        'title'         => 'A day in nature',
-                        'date'          => new \DateTime()
-                    ]
-                ]
+                'items' => $photographyPosts
             ];
         } elseif ( $page == 'coding' ) {
             $data = [
@@ -128,21 +111,25 @@ class SidebarService
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
                         'title'         => 'SPA Mania',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ]
                 ]
@@ -154,21 +141,25 @@ class SidebarService
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                     [
                         'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
                         'title'         => 'New World of Warcraft expansion released',
+                        'link'          => '/',
                         'date'          => new \DateTime()
                     ],
                 ]
@@ -183,9 +174,10 @@ class SidebarService
     /**
      * generates sidebar add block data depending on the current page
      *
+     * @param $page
      * @return array
      */
-    public function getSidebarAddBlockData()
+    public function getSidebarAddBlockData( $page )
     {
         $data = [];
 

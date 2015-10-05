@@ -111,7 +111,7 @@ liip_imagine:
         tiny_thumb:
             quality: 80
             filters:
-                thumbnail: { size: [40, 40], mode: outbound }
+                thumbnail: { size: [64, 64], mode: outbound }
         timeline_picture:
             quality: 80
             filters:

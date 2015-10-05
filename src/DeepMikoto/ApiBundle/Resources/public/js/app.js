@@ -12,9 +12,7 @@ var root = root || '/';
 deepmikoto.apiRoutes = {
     FETCH_TEMPLATES_URL             : '_api/templates',
     FETCH_USER_INFO_URL             : '_api/user-info',
-    FETCH_SIDEBAR_PRIMARY_BLOCK_URL : '_api/sidebar-primary-block',
-    FETCH_SIDEBAR_RELATED_BLOCK_URL : '_api/sidebar-related-block',
-    FETCH_SIDEBAR_ADD_BLOCK_URL     : '_api/sidebar-add-block',
+    FETCH_SIDEBAR_COMPONENTS_URL    : '_api/sidebar-components',
     FETCH_CODING_TIMELINE_URL       : '_api/coding-timeline',
     FETCH_CODING_POST_URL           : '_api/coding-post',
     FETCH_GAMING_TIMELINE_URL       : '_api/gaming-timeline',

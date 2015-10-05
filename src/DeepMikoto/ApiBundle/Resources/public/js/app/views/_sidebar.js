@@ -23,56 +23,24 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     {
         if( this.model.get( 'context' ) != page ){
             this.model.set({ context: page });
-            this.renderPrimaryBlock( page );
-            this.renderRelatedElements( page );
-            this.renderAdd( page );
+            this.renderSidebarComponents( page );
         }
     },
-    renderPrimaryBlock: function( page )
+    renderSidebarComponents: function ( page )
     {
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_PRIMARY_BLOCK_URL,
+            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_COMPONENTS_URL,
             data: {
                 page: page
             },
-            dataType: 'html',
+            dataType: 'json',
             success: function( response )
             {
-                this.ui.primary.html( response );
-            }
-        });
-    },
-    renderRelatedElements: function( page )
-    {
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_RELATED_BLOCK_URL,
-            data: {
-                page: page
-            },
-            dataType: 'html',
-            success: function( response )
-            {
-                this.ui.related.html( response );
-            }
-        });
-    },
-    renderAdd: function( page )
-    {
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_ADD_BLOCK_URL,
-            data: {
-                page: page
-            },
-            dataType: 'html',
-            success: function( response )
-            {
-                this.ui.adds.html( response );
+                this.ui.primary.html( response[ 'payload' ][ 'primaryBlock' ] );
+                this.ui.related.html( response[ 'payload' ][ 'relatedBlock' ] );
+                this.ui.adds.html( response[ 'payload' ][ 'adBlock' ] );
             }
         });
     }

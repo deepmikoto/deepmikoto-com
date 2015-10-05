@@ -3,6 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+/** @noinspection PhpUndefinedClassInspection */
 class AppKernel extends Kernel
 {
     public function registerBundles()
@@ -21,7 +22,7 @@ class AppKernel extends Kernel
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new DeepMikoto\ApiBundle\DeepMikotoApiBundle(),
-            new DeepMikoto\AdminBundle\DeepMikotoAdminBundle(),
+            new DeepMikoto\AdminBundle\DeepMikotoAdminBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'] )) {

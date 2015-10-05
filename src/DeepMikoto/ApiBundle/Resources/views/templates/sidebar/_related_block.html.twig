@@ -5,12 +5,12 @@
             {% for item in items %}
                 <li class="media">
                     <div class="media-left">
-                        <a href="{{ path( 'deepmikoto_app_homepage' ) }}" class="item-image">
+                        <a href="{{ item.link }}" class="item-image">
                             <img src="{{ item.image }}" alt="{{ item.title }}"/>
                         </a>
                     </div>
                     <div class="media-body">
-                        <a class="media-heading" href="{{ path( 'deepmikoto_app_homepage' ) }}">{{ item.title }}</a>
+                        <a class="media-heading" href="{{ item.link }}">{{ item.title }}</a>
                         <div class="category">
                             {{ item.date | date( 'd F Y') }}
                             {% if item.category is defined %}

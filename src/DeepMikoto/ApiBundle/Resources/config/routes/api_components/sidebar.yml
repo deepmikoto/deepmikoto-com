@@ -1,9 +1,3 @@
-deepmikoto_api_sidebar_primary_block:
-    path:     /sidebar-primary-block
-    defaults: { _controller: DeepMikotoApiBundle:Sidebar:sidebarPrimaryBlock }
-deepmikoto_api_sidebar_related_block:
-    path:     /sidebar-related-block
-    defaults: { _controller: DeepMikotoApiBundle:Sidebar:sidebarRelatedBlock }
-deepmikoto_api_sidebar_add_block:
-    path:     /sidebar-add-block
-    defaults: { _controller: DeepMikotoApiBundle:Sidebar:sidebarAddBlock }
+deepmikoto_api_sidebar_components:
+    path:     /sidebar-components
+    defaults: { _controller: DeepMikotoApiBundle:Sidebar:sidebarComponents }

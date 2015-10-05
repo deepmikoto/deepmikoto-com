@@ -95,6 +95,49 @@ class PhotographyService
     }
 
     /**
+     * fetches max for photography posts ordered by most
+     * image downloads
+     *
+     * @return array
+     */
+    public function getPhotographySidebarPosts()
+    {
+        $em = $this->em;
+        $router = $this->router;
+        $repository = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' );
+        $query = $repository->createQueryBuilder( 'p' );
+        $query
+            ->select(
+                'p.id, p.slug, p.title, p.date, \'photography\' as category, ' .
+                'COUNT( DISTINCT ppd.id  ) as HIDDEN downloads, pp.id as imageId, pp.path as imagePath'
+            )
+            ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
+            ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
+            ->groupBy( 'p.id' )
+            ->where( 'p.public = :true' )
+            ->setParameter( 'true', true )
+            ->orderBy( 'downloads', 'DESC' )
+            ->setMaxResults( 4 )
+        ;
+        $photographyPosts = $query->getQuery()->getResult();
+        foreach( $photographyPosts as $key => $photographyPost ){
+            $photographyPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_photography_post', [
+                'id'   => $photographyPost[ 'id' ],
+                'slug' => $photographyPost[ 'slug' ]
+            ]);
+            $photographyPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
+                'images/photography/' . $photographyPost[ 'imageId' ] . '/' . $photographyPost[ 'imagePath' ], 'tiny_thumb'
+            );
+            unset( $photographyPosts[ $key ][ 'id' ] );
+            unset( $photographyPosts[ $key ][ 'slug' ] );
+            unset( $photographyPosts[ $key ][ 'imageId' ] );
+            unset( $photographyPosts[ $key ][ 'imagePath' ] );
+        }
+
+        return $photographyPosts;
+    }
+
+    /**
      * @return string
      */
     public function getPhotographyTimeline()

@@ -10,6 +10,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload;
 use FOS\RestBundle\Controller\FOSRestController;
+use Lsw\ApiCallerBundle\Call\HttpGetJson;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -77,10 +78,7 @@ class PhotographyController extends FOSRestController
             ->findOneBy([ 'id' => $id, 'path' => $path ]);
         if( $photographyPostPhoto == null ) throw $this->createNotFoundException();
         $download = new PhotographyPostPhotoDownload();
-        $download
-            ->setPhotographyPostPhoto( $photographyPostPhoto )
-            ->setIp( $request->getClientIp() )
-        ;
+        $download->setPhotographyPostPhoto( $photographyPostPhoto )->setIp( $request->getClientIp() );
         $em->persist( $download );
         $em->flush( $download );
         $image = file_get_contents( $photographyPostPhoto->getUploadDir() . '/' . $photographyPostPhoto->getPath() );

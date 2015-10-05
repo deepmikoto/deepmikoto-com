@@ -8,7 +8,10 @@
 
 namespace DeepMikoto\ApiBundle\Controller;
 
+use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SidebarController
@@ -18,58 +21,38 @@ use FOS\RestBundle\Controller\FOSRestController;
 class SidebarController extends FOSRestController
 {
     /**
-     * action used for retrieving primary sidebar block
+     * action used for retrieving sidebar components
      * depending on the current page
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function sidebarPrimaryBlockAction()
+    public function sidebarComponentsAction( Request $request )
     {
-        $data = $this->get('deepmikoto.api.sidebar_manager')->getSidebarPrimaryBlockData();
-        $view = $this->view($data, 200)
-            ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_primary_block.html.twig')
-        ;
-        $response = $this->handleView( $view );
-        /** 7 days */
-        $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 0 );
-
-        return $response;
-    }
-
-    /**
-     * action used for retrieving related sidebar block
-     * depending on the current page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function sidebarRelatedBlockAction()
-    {
-        $data = $this->get('deepmikoto.api.sidebar_manager')->getSidebarRelatedBlockData();
-        $view = $this->view($data, 200)
-            ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_related_block.html.twig')
-        ;
-        $response = $this->handleView( $view );
-        /** 7 days */
-        $response->setSharedMaxAge( 604800 );
-        $response->setMaxAge( 0 );
-
-        return $response;
-    }
-
-    /**
-     * action used for retrieving add sidebar block
-     * depending on the current page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function sidebarAddBlockAction()
-    {
-        $data = $this->get('deepmikoto.api.sidebar_manager')->getSidebarAddBlockData();
-        $view = $this->view($data, 200)
-            ->setTemplate('DeepMikotoApiBundle:Templates:sidebar/_add_block.html.twig')
-        ;
-        $response = $this->handleView( $view );
+        $page = $request->get( 'page', null );
+        /** @var \DeepMikoto\ApiBundle\Services\SidebarService $sidebarManager */
+        $sidebarManager = $this->get('deepmikoto.api.sidebar_manager');
+        $components = [
+            'primaryBlock' => $this->render(
+                'DeepMikotoApiBundle:Templates:sidebar/_primary_block.html.twig',
+                $sidebarManager->getSidebarPrimaryBlockData( $page )
+            )->getContent(),
+            'relatedBlock' => $this->render(
+                'DeepMikotoApiBundle:Templates:sidebar/_related_block.html.twig',
+                $sidebarManager->getSidebarRelatedBlockData( $page )
+            )->getContent(),
+            'adBlock' => $this->render(
+                'DeepMikotoApiBundle:Templates:sidebar/_add_block.html.twig',
+                $sidebarManager->getSidebarAddBlockData( $page )
+            )->getContent()
+        ];
+        $response = new Response(
+            $this->get( 'serializer' )->serialize( [
+                'payload' => $components,
+                'status'  => ApiResponseStatus::$ALL_OK
+            ], 'json' )
+        );
+        $response->headers->set( 'Content-Type', 'application/json' );
         /** 7 days */
         $response->setSharedMaxAge( 604800 );
         $response->setMaxAge( 0 );
