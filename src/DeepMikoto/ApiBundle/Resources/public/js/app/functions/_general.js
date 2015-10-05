@@ -41,7 +41,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
          * Note: this version works with IE. Backbone.history.navigate will automatically route the IE user to the appropriate hash URL
          * Use delegation to avoid initial DOM selection and allow all matching elements to bubble
          */
-        $(document).delegate("a", "click", function(e)
+        $(document).delegate("a", "click", function( e )
         {
             /** Get the anchor href and protocol */
             var href = $(this).attr("href");
