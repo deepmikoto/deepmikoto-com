@@ -49,7 +49,7 @@ class SidebarController extends FOSRestController
         $response = new Response(
             $this->get( 'serializer' )->serialize( [
                 'payload' => $components,
-                'status'  => ApiResponseStatus::$ALL_OK
+                'response'  => ApiResponseStatus::$ALL_OK
             ], 'json' )
         );
         $response->headers->set( 'Content-Type', 'application/json' );
