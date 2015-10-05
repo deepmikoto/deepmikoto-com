@@ -1,0 +1,49 @@
+@mixin transition( $target, $duration, $type ){
+  -webkit-transition: $target $duration $type;
+  -moz-transition: $target $duration $type;
+  -ms-transition: $target $duration $type;
+  -o-transition: $target $duration $type;
+  transition: $target $duration $type;
+}
+@mixin box-shadow( $w, $x, $y, $z, $color ){
+  -webkit-box-shadow: $w $x $y $z $color;
+  -moz-box-shadow: $w $x $y $z $color;
+  box-shadow: $w $x $y $z $color;
+}
+@mixin border-radius( $radius ){
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin header-category-accent( $color ){
+  @include box-shadow( 0px, 4px, 20px, 0px, $color );
+  .navbar-inverse {
+    .container {
+      .navbar-collapse {
+        ul {
+          &.navbar-nav {
+            li {
+              &.active {
+                a {
+                  &:after {
+                    background-color: $color;
+                    @include box-shadow( 0px, -2px, 12px, 0px, $color );
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .pulse {
+        @include box-shadow( 0px, 4px, 20px, 0px, $color );
+        &:before {
+          @include box-shadow( 0px, 4px, 20px, 0px, $color );
+        }
+        &:after {
+          @include box-shadow( 0px, 4px, 20px, 0px, $color );
+        }
+      }
+    }
+  }
+}

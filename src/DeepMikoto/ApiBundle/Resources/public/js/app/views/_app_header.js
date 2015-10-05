@@ -29,6 +29,7 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
             this.model.set({ currentPage: page });
             this.ui.collapsed.removeAttr( 'style' );
             $( this.el ).find( '.active').removeClass( 'active' );
+            $( this.el ).attr( 'class', 'app-header ' + page );
             this.ui[ page ].blur().addClass( 'active' );
         }
     },
