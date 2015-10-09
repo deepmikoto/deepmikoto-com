@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('deepmikoto_app_homepage') }}">
+            <a class="navbar-brand" href="{{ path('deepmikoto_app_homepage') }}" id="home">
                 {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
                     <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
                 {% endimage %}
@@ -16,7 +16,6 @@
         </div>
         <div class="collapse navbar-collapse" id="collapsed">
             <ul class="nav navbar-nav">
-                <li id="home"><a href="{{ path('deepmikoto_app_homepage') }}">Home</a></li>
                 <li id="coding"><a href="{{ path('deepmikoto_app_coding') }}">Coding</a></li>
                 <li id="gaming"><a href="{{ path('deepmikoto_app_gaming') }}">Gaming</a></li>
                 <li id="photography"><a href="{{ path('deepmikoto_app_photography') }}">Photography</a></li>
