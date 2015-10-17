@@ -1,6 +1,7 @@
 /** define the app router that will handle relations between app URL and actions */
 deepmikoto.Router = Marionette.AppRouter.extend({
-    routes: {
+    routes:
+    {
         '': 'homeAction',
         'photography': 'photographyAction',
         'photography/:id--:slug': 'photographyPostAction',

@@ -18,7 +18,10 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         /** @namespace ga */
         ga('create', 'UA-56243816-2', 'auto');
-        ga('send', 'pageview');
+    },
+    sendGooglePageView: function ( uri )
+    {
+        typeof ga == 'function' ? ga('send', 'pageview', '/' + uri ) : null;
     },
     /**
      * Here we provide support for symfony app_dev in ajax calls

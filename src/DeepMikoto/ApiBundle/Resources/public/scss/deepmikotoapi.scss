@@ -140,7 +140,7 @@ html {
                     position: absolute;
                     display: inline-block;
                     height: 1px;
-                    width: 0%;
+                    width: 0;
                     background-color: #FFFFFF;
                     @include transition( width, .6s, ease-in-out );
                   }

@@ -59,11 +59,14 @@ deepmikoto.AppFunctions = Marionette.extend({
     startRouter: function()
     {
         deepmikoto.app.router = new deepmikoto.Router();
+        deepmikoto.app.router.on( 'route', function (){
+            deepmikoto.app.generalFunctions.sendGooglePageView( Backbone.history.fragment );
+        });
         Backbone.history.start({ pushState: true, root: root });
     },
     setPageTitle: function( title )
     {
-        $( document).prop( 'title', title );
+        $( document ).prop( 'title', title );
     },
     showCookieFootNote: function()
     {

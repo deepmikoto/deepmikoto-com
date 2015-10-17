@@ -120,7 +120,7 @@ class AdminUser implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->email,
+            $this->username,
             $this->password,
             $this->salt
             ) = unserialize( $serialized )
