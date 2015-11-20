@@ -1,0 +1,16 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/gaming_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    {{ form(form) }}
+{% endblock %}
+{% block extra_js %}
+    <script src="{{ '//cdn.ckeditor.com/4.5.3/full/ckeditor.js' }}"></script>
+{% endblock %}

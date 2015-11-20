@@ -1,19 +1,16 @@
 <div class="sidebar">
     <div class="list-group">
         <a href="{{ path('deepmikoto_admin_gaming_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_primary_block' %}active{% endif %}">
-            Primary block
+            <i class="glyphicon glyphicon-blackboard"></i> Primary block
         </a>
-        <a href="#" class="list-group-item">
-            Legal page
+        <a href="{{ path('deepmikoto_admin_gaming_new_post') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_new_post' %}active{% endif %}">
+            <i class="glyphicon glyphicon-pencil"></i> New post
         </a>
-        <a href="#" class="list-group-item">
-            Faq page
+        <a href="{{ path('deepmikoto_admin_gaming_submitted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_submitted_posts' %}active{% endif %}">
+            <i class="glyphicon glyphicon-envelope"></i> Submitted posts
         </a>
-        <a href="#" class="list-group-item">
-            Contact page
-        </a>
-        <a href="#" class="list-group-item">
-            Settings
+        <a href="{{ path('deepmikoto_admin_gaming_drafted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_drafted_posts' %}active{% endif %}">
+            <i class="glyphicon glyphicon-folder-open"></i> Drafted posts
         </a>
     </div>
 </div>

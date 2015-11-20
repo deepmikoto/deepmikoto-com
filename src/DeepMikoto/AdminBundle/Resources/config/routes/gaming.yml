@@ -4,3 +4,18 @@ deepmikoto_admin_gaming:
 deepmikoto_admin_gaming_primary_block:
     path:     /primary-block
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:primaryBlock }
+deepmikoto_admin_gaming_new_post:
+    path:     /new-post
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:newPost }
+deepmikoto_admin_gaming_edit_post:
+    path:     /edit-post-{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:editPost }
+deepmikoto_admin_gaming_submitted_posts:
+    path:     /submitted-posts
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:submittedPosts }
+deepmikoto_admin_gaming_drafted_posts:
+    path:     /drafted-posts
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:draftedPosts }
+deepmikoto_admin_gaming_make_public_or_drafted:
+    path:     /make-public-or-drafted/{id}-{public}
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:makePublicOrDrafted }

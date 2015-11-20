@@ -42,7 +42,11 @@ deepmikoto.AppFunctions = Marionette.extend({
     fetchUserInfo: function()
     {
         this.updateLoader( 80, 'user info' );
-        $.ajax({
+        this.updateLoader( 100, 'done' );
+        this.startRouter();
+        this.showCookieFootNote();
+        deepmikoto.app.user = new deepmikoto.User();
+        /*$.ajax({ // haven't decided if users will be able to log in
             context: this,
             type: 'GET',
             url: deepmikoto.apiRoutes.FETCH_USER_INFO_URL,
@@ -54,7 +58,7 @@ deepmikoto.AppFunctions = Marionette.extend({
                 this.startRouter();
                 this.showCookieFootNote();
             }
-        });
+        });*/
     },
     startRouter: function()
     {

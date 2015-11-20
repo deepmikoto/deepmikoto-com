@@ -1,0 +1,47 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/gaming_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>title</th>
+            <th>date</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if posts|length == 0 %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Nothing to show, <a href="{{ path('deepmikoto_admin_gaming_new_post') }}"><i class="glyphicon glyphicon-save"></i> create new gaming post</a>
+                </td>
+            </tr>
+        {% else %}
+            {% for post in posts %}
+                <tr>
+                    <td><img src="{{ asset(post.getWebPath()) | imagine_filter( 'tiny_thumb' ) }}" /></td>
+                    <td>{{ post.title|title }}</td>
+                    <td>{{ post.date | date( 'd F Y H:i:s' ) }}</td>
+                    <td>
+                        <a href="{{ path('deepmikoto_admin_gaming_make_public_or_drafted', { 'id': post.id, 'public': 'true' }) }}">
+                            <i class="glyphicon glyphicon-tasks"></i> Publish
+                        </a>
+                        <a href="{{ path('deepmikoto_admin_gaming_edit_post', { 'id': post.id }) }}">
+                            <i class="glyphicon glyphicon-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
