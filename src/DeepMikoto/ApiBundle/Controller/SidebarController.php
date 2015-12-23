@@ -34,15 +34,15 @@ class SidebarController extends FOSRestController
         $sidebarManager = $this->get('deepmikoto.api.sidebar_manager');
         $components = [
             'primaryBlock' => $this->render(
-                'DeepMikotoApiBundle:Templates:sidebar/_primary_block.html.twig',
+                'DeepMikotoApiBundle:templates:sidebar/_primary_block.html.twig',
                 $sidebarManager->getSidebarPrimaryBlockData( $page )
             )->getContent(),
             'relatedBlock' => $this->render(
-                'DeepMikotoApiBundle:Templates:sidebar/_related_block.html.twig',
+                'DeepMikotoApiBundle:templates:sidebar/_related_block.html.twig',
                 $sidebarManager->getSidebarRelatedBlockData( $page )
             )->getContent(),
             'adBlock' => $this->render(
-                'DeepMikotoApiBundle:Templates:sidebar/_add_block.html.twig',
+                'DeepMikotoApiBundle:templates:sidebar/_add_block.html.twig',
                 $sidebarManager->getSidebarAddBlockData( $page )
             )->getContent()
         ];
