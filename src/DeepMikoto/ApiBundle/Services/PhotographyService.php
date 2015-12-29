@@ -11,7 +11,6 @@ namespace DeepMikoto\ApiBundle\Services;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -26,7 +25,6 @@ class PhotographyService
 {
     private $container;
     private $em;
-    private $request;
     private $router;
 
     /**
@@ -34,13 +32,11 @@ class PhotographyService
      *
      * @param Container $container
      * @param EntityManager $em
-     * @param RequestStack $requestStack
      * @param Router $router
      */
-    public function __construct( Container $container, EntityManager $em, RequestStack $requestStack, Router $router )
+    public function __construct( Container $container, EntityManager $em, Router $router )
     {
         $this->em = $em;
-        $this->request = $requestStack->getCurrentRequest();
         $this->container = $container;
         $this->router = $router;
     }
@@ -69,7 +65,7 @@ class PhotographyService
                                 'path' => $photo->getPath()
                             ], true ),
                             'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
-                                $photo->getUploadDir() . '/' . $photo->getPath(), 'timeline_picture'
+                                $photo->getWebPath(), 'timeline_picture'
                             ),
                             'downloads' => $photo->getDownloads()->count()
                         ];

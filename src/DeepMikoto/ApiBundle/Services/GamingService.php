@@ -2,34 +2,37 @@
 /**
  * Created by PhpStorm.
  * User: MiKoRiza-OnE
- * Date: 9/27/2015
- * Time: 14:51
+ * Date: 12/29/2015
+ * Time: 06:49
  */
 
 namespace DeepMikoto\ApiBundle\Services;
 
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * Class CodingService
- *
+ * Class GamingService
  * @package DeepMikoto\ApiBundle\Services
  */
-class CodingService
+class GamingService
 {
     private $em;
+    private $container;
 
     /**
      * initialize service components
      *
+     * @param Container $container
      * @param EntityManager $em
      */
-    public function __construct( EntityManager $em )
+    public function __construct( Container $container, EntityManager $em )
     {
+        $this->container = $container;
         $this->em = $em;
     }
 
@@ -37,12 +40,13 @@ class CodingService
      * @param $posts
      * @return string
      */
-    private function processCodingTimelinePosts( $posts )
+    private function processGamingTimelinePosts( $posts )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            []
+            [ 'cover', 'uploadDir', 'absolutePath', 'file' ]
         );
+        $container = $this->container;
         $normalizer->setCallbacks(
             [
                 'date' => function( $date ){
@@ -50,6 +54,19 @@ class CodingService
                     $date = $date->format( 'd F Y' );
 
                     return $date;
+                },
+                'webPath' => function( $webPath ) use( $container ){
+                    if( file_exists( $webPath ) && is_file( $webPath ) ){
+                        $webPath = [
+                            'fullSize' => '/' . $webPath,
+                            'timelineSize' => $container->get('liip_imagine.cache.manager')->getBrowserPath(
+                                $webPath, 'gaming_timeline_picture'
+                            )
+                        ];
+                        return $webPath;
+                    } else {
+                        return false;
+                    }
                 }
             ]
         );
@@ -65,21 +82,21 @@ class CodingService
     /**
      * @return string
      */
-    public function getCodingTimeline()
+    public function getGamingTimeline()
     {
-        $query = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->createQueryBuilder( 'c' );
+        $query = $this->em->getRepository( 'DeepMikotoApiBundle:GamingPost' )->createQueryBuilder( 'c' );
         $query
             ->select( 'c' )
             ->where( 'c.public = 1' )
             ->orderBy( 'c.date', 'DESC' )
         ;
-        $codingPosts = $query->getQuery()->getResult();
-        $codingPosts = $this->processCodingTimelinePosts( [
-            'payload'   => $codingPosts,
+        $gamingPosts = $query->getQuery()->getResult();
+        $gamingPosts = $this->processGamingTimelinePosts( [
+            'payload'   => $gamingPosts,
             'response'  => ApiResponseStatus::$ALL_OK
         ]);
 
-        return $codingPosts;
+        return $gamingPosts;
     }
 
     /**
@@ -87,18 +104,18 @@ class CodingService
      * @param $slug
      * @return string
      */
-    public function getCodingPost( $id, $slug )
+    public function getGamingPost( $id, $slug )
     {
-        $codingPost = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->findOneBy([
+        $gamingPost = $this->em->getRepository( 'DeepMikotoApiBundle:GamingPost' )->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
             'public'=> true
         ]);
-        $codingPost = $this->processCodingTimelinePosts( [
-            'payload'   => $codingPost,
+        $gamingPost = $this->processGamingTimelinePosts( [
+            'payload'   => $gamingPost,
             'response'  => ApiResponseStatus::$ALL_OK
         ]);
 
-        return $codingPost;
+        return $gamingPost;
     }
-} 
+}

@@ -147,7 +147,7 @@ class GamingPost
     public function preUpload()
     {
         if ( null !== $this->getFile() ){
-            $filename = 'gaming_' . sha1( uniqid( mt_rand(), true ) ) . '_' . str_replace( '0.', '', microtime() );
+            $filename = 'gaming_' . sha1( uniqid( mt_rand(), true ) ) . '_' . microtime( true );
             $this->cover = $filename.'.'.$this->getFile()->getClientOriginalExtension();
         }
     }

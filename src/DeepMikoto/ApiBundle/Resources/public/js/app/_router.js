@@ -8,6 +8,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         'coding': 'codingAction',
         'coding/:id--:slug': 'codingPostAction',
         'gaming': 'gamingAction',
+        'gaming/:id--:slug': 'gamingPostAction',
         'login': 'loginAction',
         'logout': 'logoutAction',
         ':placeholder': 'undefinedAction',
@@ -58,6 +59,12 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         this.updateAwareness( 'gaming' );
         this.updatePageTitle( 'Gaming' );
+        this.showGamingTimeline();
+    },
+    gamingPostAction: function ( id, slug )
+    {
+        this.updateAwareness( 'gaming' );
+        this.showGamingPost( id, slug );
     },
     loginAction: function()
     {
@@ -105,6 +112,23 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( codingTimeline );
+                this.scrollPageToTop();
+            }
+        });
+    },
+    showGamingTimeline: function ()
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_GAMING_TIMELINE_URL,
+            dataType: 'json',
+            success: function( response )
+            {
+                var gamingTimeline = new deepmikoto.GamingTimelineView({
+                    collection: new deepmikoto.GamingTimelineCollection( response[ 'payload' ] )
+                });
+                deepmikoto.app.body.show( gamingTimeline );
                 this.scrollPageToTop();
             }
         });
@@ -166,6 +190,28 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                     model: new deepmikoto.CodingPostModel( response[ 'payload'] )
                 });
                 deepmikoto.app.body.show( codingPost );
+                this.scrollPageToTop();
+            }
+        });
+    },
+    showGamingPost: function( id, slug )
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.FETCH_GAMING_POST_URL,
+            data: {
+                id: id,
+                slug: slug
+            },
+            dataType: 'json',
+            success: function( response )
+            {
+                this.updatePageTitle( response[ 'payload' ][ 'title' ] );
+                var gamingPost = new deepmikoto.GamingPost({
+                    model: new deepmikoto.GamingPostModel( response[ 'payload'] )
+                });
+                deepmikoto.app.body.show( gamingPost );
                 this.scrollPageToTop();
             }
         });

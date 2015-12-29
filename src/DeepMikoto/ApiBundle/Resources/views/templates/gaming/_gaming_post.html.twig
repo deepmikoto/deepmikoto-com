@@ -1,0 +1,17 @@
+{% spaceless %}
+    <div class="header">
+        <h3 class="title"><%=title%></h3>
+        <div class="date">
+            <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+        </div>
+    </div>
+    <% if( webPath != false ) { %>
+        <div class="cover text-center">
+            <img src="{{ '<%=webPath.timelineSize%>' }}">
+        </div>
+    <% } %>
+    <div class="body">
+        <%=content%>
+    </div>
+    <div class="fb-comments" data-width="100%" data-colorscheme="dark" data-href="{{ url('deepmikoto_app_homepage') }}gaming/<%=id%>--<%=slug%>" data-version="v2.3"></div>
+{% endspaceless %}

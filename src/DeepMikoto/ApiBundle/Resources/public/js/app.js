@@ -16,6 +16,7 @@ deepmikoto.apiRoutes = {
     FETCH_CODING_TIMELINE_URL       : '_api/coding-timeline',
     FETCH_CODING_POST_URL           : '_api/coding-post',
     FETCH_GAMING_TIMELINE_URL       : '_api/gaming-timeline',
+    FETCH_GAMING_POST_URL           : '_api/gaming-post',
     FETCH_PHOTOGRAPHY_TIMELINE_URL  : '_api/photography-timeline',
     FETCH_PHOTOGRAPHY_POST_URL      : '_api/photography-post'
 };

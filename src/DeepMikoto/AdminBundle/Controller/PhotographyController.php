@@ -41,7 +41,7 @@ class PhotographyController extends Controller
         );
         $sidebarPrimaryBlock == null ? $sidebarPrimaryBlock = new SidebarPrimaryBlock() : null ;
         $form = $this->createForm( new SidebarPrimaryBlockType(), $sidebarPrimaryBlock );
-        if( $request-> isMethod( 'POST' ) ){
+        if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
                 $sidebarPrimaryBlock->setType( 'photography' );
@@ -72,7 +72,7 @@ class PhotographyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $photographyPost = new PhotographyPost();
         $form = $this->createForm( new NewPhotographyPostType(), $photographyPost );
-        if( $request-> isMethod( 'POST' ) ){
+        if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
                 $em->persist( $photographyPost );
@@ -100,7 +100,7 @@ class PhotographyController extends Controller
         $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );
         $photographyPost == null ? $this->createNotFoundException() : null;
         $form = $this->createForm( new EditPhotographyPostType(), $photographyPost );
-        if( $request-> isMethod( 'POST' ) ){
+        if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
                 $em->persist( $photographyPost );
@@ -127,7 +127,7 @@ class PhotographyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $photographyPostPhoto = new PhotographyPostPhoto();
         $form = $this->createForm( new PhotographyPostPhotoType(), $photographyPostPhoto );
-        if( $request-> isMethod( 'POST' ) ){
+        if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
                 $em->persist( $photographyPostPhoto );
@@ -155,7 +155,7 @@ class PhotographyController extends Controller
         if( !$photographyPostPhoto instanceof PhotographyPostPhoto )
             return $this->createNotFoundException( 'Provided id does not exist in the database ');
         $form = $this->createForm( new PhotographyPostPhotoType(), $photographyPostPhoto );
-        if( $request-> isMethod( 'POST' ) ){
+        if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
                 $em->persist( $photographyPostPhoto );

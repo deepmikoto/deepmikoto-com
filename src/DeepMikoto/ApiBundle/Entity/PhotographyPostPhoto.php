@@ -134,7 +134,7 @@ class PhotographyPostPhoto
     public function preUpload()
     {
         if ( null !== $this->getFile() ){
-            $filename = 'photography_' . sha1( uniqid( mt_rand(), true ) );
+            $filename = 'photography_' . sha1( uniqid( mt_rand(), true ) ) . '_' . microtime( true );
             $this->path = $filename.'.'.$this->getFile()->getClientOriginalExtension();
         }
     }

@@ -1,0 +1,6 @@
+deepmikoto_api_gaming_timeline:
+    path:     /gaming-timeline
+    defaults: { _controller: DeepMikotoApiBundle:Gaming:gamingTimeline }
+deepmikoto_api_gaming_post:
+    path:     /gaming-post
+    defaults: { _controller: DeepMikotoApiBundle:Gaming:gamingPost }
