@@ -6,6 +6,7 @@
     <meta name="description" content="{{ post.title }}" />
     <meta property="og:title" content="{{ post.title }}" />
     <meta property="og:description" content="{{ post.title }}" />
+    <meta property="fb:app_id" content="{{ fb_app_id }}" />
     <meta name="twitter:title" content="{{ post.title }}" />
     <meta name="twitter:description" content="{{ post.title }}" />
     <meta itemprop="name" content="{{ post.title }}" />
@@ -15,5 +16,5 @@
     <meta itemprop="image" content="{{ asset( post.getWebPath() ) | imagine_filter( 'timeline_picture' ) }}" />
 {% endblock %}
 {% block body %}
-    {% include 'DeepMikotoApiBundle:templates:body/_body_frame.html.twig' %}
+    {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' %}
 {% endblock %}
