@@ -12,6 +12,9 @@
     <meta name="twitter:description" content="{{ post.title }}" />
     <meta itemprop="name" content="{{ post.title }}" />
     <meta itemprop="description" content="{{ post.title }}" />
+    <meta property="og:image" content="{{ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo.png' ) }}" />
+    <meta name="twitter:image" content="{{ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo.png' ) }}" />
+    <meta itemprop="image" content="{{ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo.png' ) }}" />
 {% endblock %}
 {% block body %}
     {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' %}
