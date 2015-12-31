@@ -38,7 +38,7 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
     onShow: function ()
     {
         /** @namespace FB.XFBML */
-        FB.XFBML.parse();
+        FB != undefined ? FB.XFBML.parse() : null;
     },
     getTemplate: function()
     {
