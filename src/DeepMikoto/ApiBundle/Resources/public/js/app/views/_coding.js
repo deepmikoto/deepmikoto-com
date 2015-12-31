@@ -34,7 +34,7 @@ deepmikoto.CodingTimelineView = Marionette.CompositeView.extend({
 
 deepmikoto.CodingPost = Marionette.LayoutView.extend({
     tagName: 'div',
-    className: 'coding-post-details',
+    className: 'post-details coding-type',
     onShow: function ()
     {
         /** @namespace FB.XFBML */

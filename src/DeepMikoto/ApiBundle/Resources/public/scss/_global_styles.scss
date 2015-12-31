@@ -1,0 +1,18 @@
+.post-details {
+  width: 100%;
+  max-width: 100%;
+  display: inline-block;
+  background-color: #000315;
+  color: #FFFFFF;
+  padding: 0 15px;
+  @include border-radius( 3px );
+  @include box-shadow( 0, 0, 5px, 1px, #131313);
+}
+div {
+  &.date {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-style: italic;
+    text-align: right;
+  }
+}

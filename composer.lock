@@ -948,17 +948,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.7.6",
+            "version": "1.7.7",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "f95b2f141748e9a5e2ddae833f60c38417aee8c3"
+                "reference": "c79b7e5df96e5581591ceb6a026bd4e5f9346de0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/f95b2f141748e9a5e2ddae833f60c38417aee8c3",
-                "reference": "f95b2f141748e9a5e2ddae833f60c38417aee8c3",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/c79b7e5df96e5581591ceb6a026bd4e5f9346de0",
+                "reference": "c79b7e5df96e5581591ceb6a026bd4e5f9346de0",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-12-20 13:45:30"
+            "time": "2015-12-29 16:02:50"
         },
         {
             "name": "imagine/imagine",
@@ -1500,12 +1500,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "c47c31cd8c6fbbabce2fdf5fea5f64fb020b351f"
+                "reference": "ae747e18207d5196bc9f6b5219a1d45953a375e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/c47c31cd8c6fbbabce2fdf5fea5f64fb020b351f",
-                "reference": "c47c31cd8c6fbbabce2fdf5fea5f64fb020b351f",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/ae747e18207d5196bc9f6b5219a1d45953a375e3",
+                "reference": "ae747e18207d5196bc9f6b5219a1d45953a375e3",
                 "shasum": ""
             },
             "require": {
@@ -1565,7 +1565,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2015-12-28 19:39:07"
+            "time": "2015-12-30 10:09:07"
         },
         {
             "name": "monolog/monolog",

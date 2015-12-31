@@ -1,13 +1,10 @@
 {% spaceless %}
-    <div class="title">
-        <h3 class="title"><%=title%></h3>
-    </div>
     <% if( webPath != false ) { %>
         <div class="cover text-center">
+            <h3 class="title"><%=title%></h3>
             <img src="{{ '<%=webPath.timelineSize%>' }}">
         </div>
+    <% } else { %>
+        <h3 class="title"><%=title%></h3>
     <% } %>
-    <div class="details">
-        <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
-    </div>
 {% endspaceless %}

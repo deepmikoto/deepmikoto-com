@@ -4,7 +4,9 @@ html {
   body {
     font-family: 'Roboto Condensed', sans-serif;
     height: 100%;
-    background-color: #f50;
+    background: transparent url("../images/hi-tech-keyboard.jpg") no-repeat fixed center center ;
+    -webkit-background-size: cover;
+    background-size: cover;
     .navbar {
       border: none;
       background: linear-gradient( #444, #000);

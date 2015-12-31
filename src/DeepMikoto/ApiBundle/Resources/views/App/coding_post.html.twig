@@ -1,0 +1,16 @@
+{% extends 'DeepMikotoApiBundle::layout.html.twig' %}
+{% block meta_title %}
+    <title>{{ post.title }}</title>
+    <link rel=”author” href=”https://plus.google.com/117552068412499585385“ />
+    <meta name="author" content="deepmikoto" />
+    <meta name="description" content="{{ post.title }}" />
+    <meta property="og:title" content="{{ post.title }}" />
+    <meta property="og:description" content="{{ post.title }}" />
+    <meta name="twitter:title" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.title }}" />
+    <meta itemprop="name" content="{{ post.title }}" />
+    <meta itemprop="description" content="{{ post.title }}" />
+{% endblock %}
+{% block body %}
+    {% include 'DeepMikotoApiBundle:templates:body/_body_frame.html.twig' %}
+{% endblock %}
