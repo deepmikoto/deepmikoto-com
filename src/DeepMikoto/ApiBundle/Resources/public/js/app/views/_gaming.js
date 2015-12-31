@@ -34,7 +34,7 @@ deepmikoto.GamingTimelineView = Marionette.CompositeView.extend({
 
 deepmikoto.GamingPost = Marionette.LayoutView.extend({
     tagName: 'div',
-    className: 'gaming-post-details',
+    className: 'post-details gaming-type',
     onShow: function ()
     {
         /** @namespace FB.XFBML */

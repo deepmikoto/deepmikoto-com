@@ -40,7 +40,7 @@ class GamingService
      * @param $posts
      * @return string
      */
-    private function processGamingTimelinePosts( $posts )
+    private function processGamingPost( $posts )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
@@ -55,6 +55,43 @@ class GamingService
 
                     return $date;
                 },
+                'webPath' => function( $webPath ) use( $container ){
+                    if( file_exists( $webPath ) && is_file( $webPath ) ){
+                        $webPath = [
+                            'fullSize' => '/' . $webPath,
+                            'timelineSize' => $container->get('liip_imagine.cache.manager')->getBrowserPath(
+                                $webPath, 'gaming_timeline_picture'
+                            )
+                        ];
+                        return $webPath;
+                    } else {
+                        return false;
+                    }
+                }
+            ]
+        );
+        $serializer = new Serializer(
+            [ $normalizer ],
+            [ new JsonEncoder() ]
+        );
+        $posts = $serializer->serialize( $posts, 'json' );
+
+        return $posts;
+    }
+
+    /**
+     * @param $posts
+     * @return string
+     */
+    private function processGamingTimelinePosts( $posts )
+    {
+        $normalizer = new GetSetMethodNormalizer();
+        $normalizer->setIgnoredAttributes(
+            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'date', 'public' ]
+        );
+        $container = $this->container;
+        $normalizer->setCallbacks(
+            [
                 'webPath' => function( $webPath ) use( $container ){
                     if( file_exists( $webPath ) && is_file( $webPath ) ){
                         $webPath = [
@@ -111,7 +148,7 @@ class GamingService
             'slug'  => $slug,
             'public'=> true
         ]);
-        $gamingPost = $this->processGamingTimelinePosts( [
+        $gamingPost = $this->processGamingPost( [
             'payload'   => $gamingPost,
             'response'  => ApiResponseStatus::$ALL_OK
         ]);

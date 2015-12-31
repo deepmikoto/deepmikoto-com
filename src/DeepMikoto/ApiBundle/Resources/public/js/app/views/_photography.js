@@ -114,7 +114,7 @@ deepmikoto.PhotographyTimelineView = Marionette.CompositeView.extend({
 
 deepmikoto.PhotographyPost = Marionette.LayoutView.extend({
     tagName: 'div',
-    className: 'photography-post-details',
+    className: 'post-details photography-type',
     onShow: function ()
     {
         /** @namespace FB.XFBML */
