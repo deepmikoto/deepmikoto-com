@@ -11,6 +11,7 @@ namespace DeepMikoto\ApiBundle\Services;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -49,7 +50,7 @@ class PhotographyService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            []
+            [ 'views' ]
         );
         $container = $this->container;
         $router = $this->router;
@@ -156,19 +157,29 @@ class PhotographyService
     /**
      * @param $id
      * @param $slug
+     * @param null | Request $request
      * @return string
      */
-    public function getPhotographyPost( $id, $slug )
+    public function getPhotographyPost( $id, $slug, $request = null )
     {
-        $photographyPost = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->findOneBy([
+        $photographyPostEntity = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
             'public'=> true
         ]);
-        $photographyPost = $this->processPhotographyTimelinePosts( [
-            'payload'   => $photographyPost,
-            'response'  => ApiResponseStatus::$ALL_OK
-        ] );
+        if( $photographyPostEntity != null ){
+            $photographyPost = $this->processPhotographyTimelinePosts( [
+                'payload'   => $photographyPostEntity,
+                'response'  => ApiResponseStatus::$ALL_OK
+            ]);
+            if( $request != null )
+                $this->container->get( 'deepmikoto.api.tracking_manager' )->addPostView( $photographyPostEntity, $request );
+        } else {
+            $photographyPost = [
+                'payload'   => null,
+                'response'  => ApiResponseStatus::$INVALID_REQUEST_PARAMETERS
+            ];
+        }
 
         return $photographyPost;
     }

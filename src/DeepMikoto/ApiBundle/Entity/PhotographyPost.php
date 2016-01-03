@@ -78,11 +78,17 @@ class PhotographyPost
     private $public;
 
     /**
+     * @ORM\OneToMany(targetEntity="DeepMikoto\ApiBundle\Entity\PhotographyPostView", mappedBy="post", cascade={"remove"})
+     */
+    private $views;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->views = new ArrayCollection();
         $this->setPublic( false );
     }
 
@@ -318,5 +324,38 @@ class PhotographyPost
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostView $views
+     * @return PhotographyPost
+     */
+    public function addView(PhotographyPostView $views)
+    {
+        $this->views[] = $views;
+
+        return $this;
+    }
+
+    /**
+     * Remove views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostView $views
+     */
+    public function removeView(PhotographyPostView $views)
+    {
+        $this->views->removeElement($views);
+    }
+
+    /**
+     * Get views
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }

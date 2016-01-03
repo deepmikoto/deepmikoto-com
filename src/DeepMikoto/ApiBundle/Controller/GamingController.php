@@ -49,13 +49,13 @@ class GamingController extends FOSRestController
         $id = $request->get( 'id', null );
         $slug = $request->get( 'slug', null );
         $response = new Response(
-            $this->get('deepmikoto.api.gaming_manager')->getGamingPost( $id, $slug ),
+            $this->get('deepmikoto.api.gaming_manager')->getGamingPost( $id, $slug, $request ),
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );
         /** 2 days */
-        $response->setSharedMaxAge( 172800 );
-        $response->setMaxAge( 0 );
+        /*$response->setSharedMaxAge( 172800 );
+        $response->setMaxAge( 0 );*/
 
         return $response;
     }

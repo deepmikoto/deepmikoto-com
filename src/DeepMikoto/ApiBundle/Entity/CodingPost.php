@@ -2,6 +2,7 @@
 
 namespace DeepMikoto\ApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,10 +59,16 @@ class CodingPost
     private $public;
 
     /**
+     * @ORM\OneToMany(targetEntity="DeepMikoto\ApiBundle\Entity\CodingPostView", mappedBy="post", cascade={"remove"})
+     */
+    private $views;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->views = new ArrayCollection();
         $this->setPublic( false );
     }
 
@@ -217,5 +224,38 @@ class CodingPost
     public function getPublic()
     {
         return $this->public;
+    }
+
+    /**
+     * Add views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostView $views
+     * @return CodingPost
+     */
+    public function addView(PhotographyPostView $views)
+    {
+        $this->views[] = $views;
+
+        return $this;
+    }
+
+    /**
+     * Remove views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\PhotographyPostView $views
+     */
+    public function removeView(PhotographyPostView $views)
+    {
+        $this->views->removeElement($views);
+    }
+
+    /**
+     * Get views
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }

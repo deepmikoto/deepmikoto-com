@@ -10,6 +10,8 @@ namespace DeepMikoto\ApiBundle\Services;
 
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -22,15 +24,18 @@ use Symfony\Component\Serializer\Serializer;
 class CodingService
 {
     private $em;
+    private $container;
 
     /**
      * initialize service components
      *
+     * @param Container $container
      * @param EntityManager $em
      */
-    public function __construct( EntityManager $em )
+    public function __construct( Container $container, EntityManager $em )
     {
         $this->em = $em;
+        $this->container = $container;
     }
 
     /**
@@ -41,7 +46,7 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            []
+            [ 'views' ]
         );
         $normalizer->setCallbacks(
             [
@@ -85,19 +90,29 @@ class CodingService
     /**
      * @param $id
      * @param $slug
+     * @param null|Request $request
      * @return string
      */
-    public function getCodingPost( $id, $slug )
+    public function getCodingPost( $id, $slug, $request = null )
     {
-        $codingPost = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->findOneBy([
+        $codingPostEntity = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
             'public'=> true
         ]);
-        $codingPost = $this->processCodingTimelinePosts( [
-            'payload'   => $codingPost,
-            'response'  => ApiResponseStatus::$ALL_OK
-        ]);
+        if( $codingPostEntity != null ){
+            $codingPost = $this->processCodingTimelinePosts( [
+                'payload'   => $codingPostEntity,
+                'response'  => ApiResponseStatus::$ALL_OK
+            ]);
+            if( $request != null )
+                $this->container->get( 'deepmikoto.api.tracking_manager' )->addPostView( $codingPostEntity, $request );
+        } else {
+            $codingPost = [
+                'payload'   => null,
+                'response'  => ApiResponseStatus::$INVALID_REQUEST_PARAMETERS
+            ];
+        }
 
         return $codingPost;
     }

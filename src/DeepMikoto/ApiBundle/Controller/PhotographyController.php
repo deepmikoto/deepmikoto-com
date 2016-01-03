@@ -10,7 +10,6 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload;
 use FOS\RestBundle\Controller\FOSRestController;
-use Lsw\ApiCallerBundle\Call\HttpGetJson;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,13 +50,13 @@ class PhotographyController extends FOSRestController
         $id = $request->get( 'id', null );
         $slug = $request->get( 'slug', null );
         $response = new Response(
-            $this->get('deepmikoto.api.photography_manager')->getPhotographyPost( $id, $slug ),
+            $this->get('deepmikoto.api.photography_manager')->getPhotographyPost( $id, $slug, $request ),
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );
         /** 2 days */
-        $response->setSharedMaxAge( 172800 );
-        $response->setMaxAge( 0 );
+        /*$response->setSharedMaxAge( 172800 );
+        $response->setMaxAge( 0 );*/
 
         return $response;
     }
@@ -72,6 +71,7 @@ class PhotographyController extends FOSRestController
      */
     public function photographyCacheAction( $id, $path, Request $request )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photographyPostPhoto */
         $photographyPostPhoto = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPostPhoto' )

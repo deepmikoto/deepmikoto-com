@@ -11,6 +11,7 @@ namespace DeepMikoto\ApiBundle\Services;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -44,7 +45,7 @@ class GamingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'cover', 'uploadDir', 'absolutePath', 'file' ]
+            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'views' ]
         );
         $container = $this->container;
         $normalizer->setCallbacks(
@@ -87,7 +88,7 @@ class GamingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'date', 'public' ]
+            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'date', 'public', 'views' ]
         );
         $container = $this->container;
         $normalizer->setCallbacks(
@@ -139,19 +140,29 @@ class GamingService
     /**
      * @param $id
      * @param $slug
+     * @param null|Request $request
      * @return string
      */
-    public function getGamingPost( $id, $slug )
+    public function getGamingPost( $id, $slug, $request = null )
     {
-        $gamingPost = $this->em->getRepository( 'DeepMikotoApiBundle:GamingPost' )->findOneBy([
+        $gamingPostEntity = $this->em->getRepository( 'DeepMikotoApiBundle:GamingPost' )->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
             'public'=> true
         ]);
-        $gamingPost = $this->processGamingPost( [
-            'payload'   => $gamingPost,
-            'response'  => ApiResponseStatus::$ALL_OK
-        ]);
+        if( $gamingPostEntity != null ){
+            $gamingPost = $this->processGamingPost([
+                'payload'   => $gamingPostEntity,
+                'response'  => ApiResponseStatus::$ALL_OK
+            ]);
+            if( $request != null )
+                $this->container->get( 'deepmikoto.api.tracking_manager' )->addPostView( $gamingPostEntity, $request );
+        } else {
+            $gamingPost = [
+                'payload'   => null,
+                'response'  => ApiResponseStatus::$INVALID_REQUEST_PARAMETERS
+            ];
+        }
 
         return $gamingPost;
     }

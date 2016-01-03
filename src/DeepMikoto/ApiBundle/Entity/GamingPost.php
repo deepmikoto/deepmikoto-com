@@ -2,6 +2,7 @@
 
 namespace DeepMikoto\ApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,6 +67,10 @@ class GamingPost
      */
     private $public;
 
+    /**
+     * @ORM\OneToMany(targetEntity="DeepMikoto\ApiBundle\Entity\GamingPostView", mappedBy="post", cascade={"remove"})
+     */
+    private $views;
 
     /** variables and methods for handling file uploads */
 
@@ -192,6 +197,7 @@ class GamingPost
      * set defaults
      */
     public function __construct(){
+        $this->views = new ArrayCollection();
         $this->setPublic( false );
     }
 
@@ -352,5 +358,39 @@ class GamingPost
     public function getPublic()
     {
         return $this->public;
+    }
+
+
+    /**
+     * Add views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\GamingPostView $views
+     * @return GamingPost
+     */
+    public function addView(GamingPostView $views)
+    {
+        $this->views[] = $views;
+
+        return $this;
+    }
+
+    /**
+     * Remove views
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\GamingPostView $views
+     */
+    public function removeView(GamingPostView $views)
+    {
+        $this->views->removeElement($views);
+    }
+
+    /**
+     * Get views
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }
