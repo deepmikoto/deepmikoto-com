@@ -62,8 +62,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        $response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );
+        /*$response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );*/
 
         return $response;
     }
@@ -91,8 +91,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        $response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );
+        /*$response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );*/
 
         return $response;
     }
@@ -120,8 +120,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        $response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );
+        /*$response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );*/
 
         return $response;
     }
