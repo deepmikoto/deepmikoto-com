@@ -39,7 +39,7 @@ class TrackingService
     public function addPostView( $post, $request )
     {
         $clientIp = $request->getClientIp();
-        //if( $this->isIpPrivate( $clientIp ) ) return false;
+        if( $this->isIpPrivate( $clientIp ) ) return false;
         $clientBrowser = $this->getClientBrowser( $request->headers->get( 'user-agent' ) );
         $clientRefererDomain = parse_url( $request->headers->get( 'referer' ), PHP_URL_HOST );
         $clientReferer = $request->headers->get( 'referer' );
