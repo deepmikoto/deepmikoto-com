@@ -21,7 +21,6 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     onShow: function()
     {
         this.applyRandomAnimation();
-        this.enlargeToFullSize();
     },
     applyRandomAnimation: function ()
     {
@@ -32,15 +31,6 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
         } else if( effectToUse == 2 ){
             this.enablePictureFading();
         }
-    },
-    enlargeToFullSize: function ()
-    {
-        var _this = this;
-        setTimeout(function (){
-            if( !_this.isDestroyed ){
-                _this.ui.photos.addClass( 'loaded' );
-            }
-        }, 10 );
     },
     showPostDetails: function ( e )
     {

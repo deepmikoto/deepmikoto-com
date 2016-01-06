@@ -105,8 +105,6 @@ html {
                 bottom: 0;
                 height: 186px;
                 overflow: hidden;
-                @include transform( scale( 0.2 ) );
-                @include transition( transform, .6s, ease-in-out );
                 img {
                   &.photo {
                     opacity: 0;
@@ -117,9 +115,6 @@ html {
                     height: 100%;
                     @include transition( transform, .5s, ease );
                   }
-                }
-                &.loaded {
-                  @include transform( scale( 1 ) );
                 }
               }
               .overlay {
