@@ -104,7 +104,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_CODING_TIMELINE_URL,
+            url: deepmikoto.apiRoutes.CODING_TIMELINE_URL,
             dataType: 'json',
             success: function( response )
             {
@@ -121,7 +121,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_GAMING_TIMELINE_URL,
+            url: deepmikoto.apiRoutes.GAMING_TIMELINE_URL,
             dataType: 'json',
             success: function( response )
             {
@@ -138,7 +138,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_PHOTOGRAPHY_TIMELINE_URL,
+            url: deepmikoto.apiRoutes.PHOTOGRAPHY_TIMELINE_URL,
             dataType: 'json',
             success: function( response )
             {
@@ -155,7 +155,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_PHOTOGRAPHY_POST_URL,
+            url: deepmikoto.apiRoutes.PHOTOGRAPHY_POST_URL,
             data: {
                 id: id,
                 slug: slug
@@ -177,7 +177,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_CODING_POST_URL,
+            url: deepmikoto.apiRoutes.CODING_POST_URL,
             data: {
                 id: id,
                 slug: slug
@@ -199,7 +199,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_GAMING_POST_URL,
+            url: deepmikoto.apiRoutes.GAMING_POST_URL,
             data: {
                 id: id,
                 slug: slug

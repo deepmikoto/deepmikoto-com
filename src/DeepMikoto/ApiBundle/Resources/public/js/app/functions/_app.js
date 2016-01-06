@@ -14,11 +14,11 @@ deepmikoto.AppFunctions = Marionette.extend({
     },
     fetchTemplates: function ()
     {
-        this.updateLoader(40, 'templates');
+        this.updateLoader(60, 'templates');
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_TEMPLATES_URL,
+            url: deepmikoto.apiRoutes.TEMPLATES_URL,
             dataType: 'json',
             success: function(response)
             {
@@ -49,7 +49,7 @@ deepmikoto.AppFunctions = Marionette.extend({
         /*$.ajax({ // haven't decided if users will be able to log in
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_USER_INFO_URL,
+            url: deepmikoto.apiRoutes.USER_INFO_URL,
             dataType: 'json',
             success: function( response )
             {

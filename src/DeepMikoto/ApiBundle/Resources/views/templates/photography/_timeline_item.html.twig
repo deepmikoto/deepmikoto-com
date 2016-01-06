@@ -1,7 +1,7 @@
 {% spaceless %}
-<div class="photos">
+<div class="photos" id="photos">
     <% _.each( photos , function( photo ) { %>
-        <img src="{{ '<%=photo.url%>' }}" class="photo" />
+        <img src="{{ '<%=photo.url%>' }}" class="photo" id="photo" alt="photo" />
     <% }); %>
 </div>
 <div class="overlay" id="overlay">

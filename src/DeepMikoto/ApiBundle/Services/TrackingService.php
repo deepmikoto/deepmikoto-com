@@ -58,9 +58,6 @@ class TrackingService
             return false;
         }
 
-        $fiveSecondsFromNow = new \DateTime( '+5' );
-
-
         $view->setPost( $post )->setIp( $clientIp )->setBrowser( $clientBrowser )->setRefererDomain( $clientRefererDomain )->setRefererUrl( $clientReferer );
         $this->em->persist( $view );
         $this->em->flush( $view );

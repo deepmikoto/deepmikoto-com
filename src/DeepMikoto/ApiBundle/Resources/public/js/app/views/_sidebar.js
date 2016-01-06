@@ -31,7 +31,7 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
         $.ajax({
             context: this,
             type: 'GET',
-            url: deepmikoto.apiRoutes.FETCH_SIDEBAR_COMPONENTS_URL,
+            url: deepmikoto.apiRoutes.SIDEBAR_COMPONENTS_URL,
             data: {
                 page: page
             },

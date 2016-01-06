@@ -6,7 +6,8 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'col-lg-4 col-md-4 col-sm-6 col-xs-12 photography-post',
     ui: {
-        photo: '.photo',
+        photos: '#photos',
+        photo: '#photo',
         overlay: '#overlay'
     },
     events: {
@@ -19,6 +20,11 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
     },
     onShow: function()
     {
+        this.applyRandomAnimation();
+        this.enlargeToFullSize();
+    },
+    applyRandomAnimation: function ()
+    {
         var min = 1, max = 2;
         var effectToUse = Math.floor( Math.random() * ( max - min + 1 ) + min );
         if( effectToUse == 1 ){
@@ -26,6 +32,15 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
         } else if( effectToUse == 2 ){
             this.enablePictureFading();
         }
+    },
+    enlargeToFullSize: function ()
+    {
+        var _this = this;
+        setTimeout(function (){
+            if( !_this.isDestroyed ){
+                _this.ui.photos.addClass( 'loaded' );
+            }
+        }, 10 );
     },
     showPostDetails: function ( e )
     {
@@ -103,7 +118,7 @@ deepmikoto.PhotographyTimelineView = Marionette.CompositeView.extend({
     tagName: 'div',
     className: 'photography-timeline',
     childView: deepmikoto.PhotographyTimelineItemView,
-    childViewContainer: '.photography-posts',
+    childViewContainer: '#photography-posts',
     collection: deepmikoto.PhotographyTimelineCollection,
     getTemplate: function ()
     {
