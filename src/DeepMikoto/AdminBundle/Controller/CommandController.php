@@ -135,7 +135,7 @@ class CommandController extends Controller
         $process = new Process( 'composer install', $this->get('kernel')->getRootDir()  . '/../' );
         $response =  new StreamedResponse( function() use ($process){
             $process->run(function ($type, $buffer){
-                if (Process::ERR === $type) {
+                if (Process::ERR === $type) { 
                     echo '<span class="text-danger">' . $buffer . '</span><br>';
                 } else {
                     echo '<span class="text-primary">' . $buffer . '</span><br>';
