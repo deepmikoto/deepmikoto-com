@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiController extends FOSRestController
 {
-
     /**
      * Api templates
      *

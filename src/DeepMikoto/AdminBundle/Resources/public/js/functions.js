@@ -17,7 +17,7 @@ function enableDeployTools()
         deepmikoto.home.checkboxes.assetsInstall.attr( 'checked', 'checked' );
         deepmikoto.home.checkboxes.asseticDump.attr( 'checked', 'checked' );
     });
-    deepmikoto.home.buttons.runDeployTools.on( 'click', function ( e )
+    deepmikoto.home.buttons.runDeployTools.on( 'click', function ()
     {
         function getUrlOrStatusForCheckbox( checkbox, propertyType )
         {

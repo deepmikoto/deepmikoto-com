@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Process\Process;
 
 /**
  * used for executing symfony commands from controller
@@ -105,17 +107,20 @@ class CommandController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
         /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'git pull origin develop'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
-        
-        return new Response( $content, 200 );
+        $process = new Process( 'git pull origin master', $this->get('kernel')->getRootDir()  . '/../' );
+        $response =  new StreamedResponse( function() use ($process){
+            $process->run(function ($type, $buffer){
+                if (Process::ERR === $type) {
+                    echo '<span class="text-danger">' . $buffer . '</span><br>';
+                } else {
+                    echo '<span class="text-primary">' . $buffer . '</span><br>';
+                }
+                ob_flush();
+                flush();
+            });
+        });
+
+        return $response;
     }
 
     /**
@@ -127,18 +132,20 @@ class CommandController extends Controller
     public function composerInstallAction()
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'composer.phar install'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
+        $process = new Process( 'composer install', $this->get('kernel')->getRootDir()  . '/../' );
+        $response =  new StreamedResponse( function() use ($process){
+            $process->run(function ($type, $buffer){
+                if (Process::ERR === $type) {
+                    echo '<span class="text-danger">' . $buffer . '</span><br>';
+                } else {
+                    echo '<span class="text-primary">' . $buffer . '</span><br>';
+                }
+                ob_flush();
+                flush();
+            });
+        });
 
-        return new Response( $content, 200 );
+        return $response;
     }
 
     /**
