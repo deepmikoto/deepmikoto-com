@@ -44,7 +44,7 @@ class CommandController extends Controller
         $output = new BufferedOutput();
         $application->run( $input, $output );
         $content = $output->fetch();
-        
+
         return new Response( $content, 200 );
     }
 
@@ -132,7 +132,7 @@ class CommandController extends Controller
     public function composerInstallAction()
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        $process = new Process( 'composer install', $this->get('kernel')->getRootDir()  . '/../' );
+        $process = new Process( '/usr/local/bin/composer install', $this->get('kernel')->getRootDir()  . '/../' );
         $response =  new StreamedResponse( function() use ($process){
             $process->run(function ($type, $buffer){
                 if (Process::ERR === $type) {
