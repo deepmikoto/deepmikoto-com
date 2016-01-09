@@ -15,4 +15,5 @@
 /web/js/
 /web/images/
 /web/media/
+/app/spool/
 *.php~
