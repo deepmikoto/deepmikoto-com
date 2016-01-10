@@ -71,98 +71,32 @@ class SidebarService
      */
     public function getSidebarRelatedBlockData( $page )
     {
+        $photographyManager = $this->container->get( 'deepmikoto.api.photography_manager' );
+        $codingManager = $this->container->get( 'deepmikoto.api.coding_manager' );
+        $gamingManager = $this->container->get( 'deepmikoto.api.gaming_manager' );
         if( $page == 'home' ){
             $data = [
                 'title' => 'Latest content',
                 'items' => [
-                    [
-                        'image'         => 'https://s-media-cache-ak0.pinimg.com/originals/3e/81/22/3e812240328e5185e62192fe4fa7fadd.jpg',
-                        'title'         => 'A day in nature',
-                        'category'      => 'photography',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
-                        'title'         => 'SPA Mania',
-                        'category'      => 'coding',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'category'      => 'gaming',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ]
+                    $codingManager->getCodingSidebarPosts( 1 ),
+                    $gamingManager->getGamingSidebarPosts( 1 ),
+                    $photographyManager->getPhotographySidebarPosts( 1 )
                 ]
             ];
         } elseif ( $page == 'photography' ) {
-            $photographyPosts = $this->container->get( 'deepmikoto.api.photography_manager' )->getPhotographySidebarPosts();
             $data = [
                 'title' => 'Popular in Photography',
-                'items' => $photographyPosts
+                'items' => $photographyManager->getPhotographySidebarPosts()
             ];
         } elseif ( $page == 'coding' ) {
             $data = [
                 'title' => 'Popular in Coding',
-                'items' => [
-                    [
-                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
-                        'title'         => 'SPA Mania',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
-                        'title'         => 'SPA Mania',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
-                        'title'         => 'SPA Mania',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://insidecroydon.files.wordpress.com/2013/02/code-club.jpg',
-                        'title'         => 'SPA Mania',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ]
-                ]
+                'items' => $codingManager->getCodingSidebarPosts()
             ];
         } elseif ( $page == 'gaming' ) {
             $data = [
                 'title' => 'Popular in Gaming',
-                'items' => [
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                    [
-                        'image'         => 'https://media-curse.cursecdn.com/attachments/127/57/1.jpg',
-                        'title'         => 'New World of Warcraft expansion released',
-                        'link'          => '/',
-                        'date'          => new \DateTime()
-                    ],
-                ]
+                'items' => $gamingManager->getGamingSidebarPosts()
             ];
         } else {
             $data = [];

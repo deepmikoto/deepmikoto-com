@@ -76,7 +76,7 @@ class PhotographyService
                 },
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'd F Y' );
+                    $date = $date->format( 'F dS, Y' );
 
                     return $date;
                 }
@@ -95,9 +95,10 @@ class PhotographyService
      * fetches max for photography posts ordered by most
      * image downloads
      *
+     * @param int $limit
      * @return array
      */
-    public function getPhotographySidebarPosts()
+    public function getPhotographySidebarPosts( $limit = 4 )
     {
         $em = $this->em;
         $router = $this->router;
@@ -114,7 +115,7 @@ class PhotographyService
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'downloads', 'DESC' )
-            ->setMaxResults( 4 )
+            ->setMaxResults( $limit )
         ;
         $photographyPosts = $query->getQuery()->getResult();
         foreach( $photographyPosts as $key => $photographyPost ){
@@ -131,7 +132,11 @@ class PhotographyService
             unset( $photographyPosts[ $key ][ 'imagePath' ] );
         }
 
-        return $photographyPosts;
+        if( $limit > 1 ){
+            return $photographyPosts;
+        } else {
+            return isset( $photographyPosts[0] ) ? $photographyPosts[0] : $photographyPosts;
+        }
     }
 
     /**

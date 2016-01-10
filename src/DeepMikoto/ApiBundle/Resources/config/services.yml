@@ -7,13 +7,13 @@ services:
         arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@request_stack" ]
     deepmikoto.api.coding_manager:
         class: DeepMikoto\ApiBundle\Services\CodingService
-        arguments: [ "@service_container", "@doctrine.orm.entity_manager" ]
+        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@router"  ]
     deepmikoto.api.photography_manager:
         class: DeepMikoto\ApiBundle\Services\PhotographyService
         arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@router" ]
     deepmikoto.api.gaming_manager:
         class: DeepMikoto\ApiBundle\Services\GamingService
-        arguments: [ "@service_container", "@doctrine.orm.entity_manager" ]
+        arguments: [ "@service_container", "@doctrine.orm.entity_manager", "@router"  ]
     deepmikoto.api.tracking_manager:
         class: DeepMikoto\ApiBundle\Services\TrackingService
         arguments: [ "@doctrine.orm.entity_manager" ]

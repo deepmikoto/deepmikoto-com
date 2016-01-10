@@ -12,6 +12,7 @@ use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -24,17 +25,20 @@ class GamingService
 {
     private $em;
     private $container;
+    private $router;
 
     /**
      * initialize service components
      *
      * @param Container $container
      * @param EntityManager $em
+     * @param Router $router
      */
-    public function __construct( Container $container, EntityManager $em )
+    public function __construct( Container $container, EntityManager $em, Router $router )
     {
         $this->container = $container;
         $this->em = $em;
+        $this->router = $router;
     }
 
     /**
@@ -52,7 +56,7 @@ class GamingService
             [
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'd F Y' );
+                    $date = $date->format( 'F dS, Y' );
 
                     return $date;
                 },
@@ -165,5 +169,50 @@ class GamingService
         }
 
         return $gamingPost;
+    }
+
+    /**
+     * fetches gaming posts ordered by views
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getGamingSidebarPosts( $limit = 4 )
+    {
+        $em = $this->em;
+        $router = $this->router;
+        $repository = $em->getRepository( 'DeepMikotoApiBundle:GamingPost' );
+        $query = $repository->createQueryBuilder( 'g' );
+        $query
+            ->select(
+                'g.id, g.slug, g.title, g.date, \'gaming\' as category, ' .
+                'COUNT( DISTINCT gpv.id  ) as HIDDEN views, g.cover'
+            )
+            ->leftJoin( 'g.views', 'gpv', 'WITH', 'gpv.post = g.id' )
+            ->groupBy( 'g.id' )
+            ->where( 'g.public = :true' )
+            ->setParameter( 'true', true )
+            ->orderBy( 'views', 'DESC' )
+            ->setMaxResults( $limit )
+        ;
+        $gamingPosts = $query->getQuery()->getResult();
+        foreach( $gamingPosts as $key => $gamingPost ){
+            $gamingPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_gaming_post', [
+                'id'   => $gamingPost[ 'id' ],
+                'slug' => $gamingPost[ 'slug' ]
+            ]);
+            $gamingPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
+                'images/gaming/' . $gamingPost[ 'id' ] . '/' . $gamingPost[ 'cover' ], 'tiny_thumb'
+            );
+            unset( $gamingPosts[ $key ][ 'id' ] );
+            unset( $gamingPosts[ $key ][ 'slug' ] );
+            unset( $gamingPosts[ $key ][ 'cover' ] );
+        }
+
+        if( $limit > 1 ){
+            return $gamingPosts;
+        } else {
+            return isset( $gamingPosts[0] ) ? $gamingPosts[0] : $gamingPosts;
+        }
     }
 }

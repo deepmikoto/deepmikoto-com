@@ -12,6 +12,7 @@ use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -25,17 +26,20 @@ class CodingService
 {
     private $em;
     private $container;
+    private $router;
 
     /**
      * initialize service components
      *
      * @param Container $container
      * @param EntityManager $em
+     * @param Router $router
      */
-    public function __construct( Container $container, EntityManager $em )
+    public function __construct( Container $container, EntityManager $em, Router $router )
     {
         $this->em = $em;
         $this->container = $container;
+        $this->router = $router;
     }
 
     /**
@@ -52,7 +56,7 @@ class CodingService
             [
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'd F Y' );
+                    $date = $date->format( 'F dS, Y' );
 
                     return $date;
                 }
@@ -115,5 +119,46 @@ class CodingService
         }
 
         return $codingPost;
+    }
+
+    /**
+     * fetches coding posts ordered by views
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getCodingSidebarPosts( $limit = 4 )
+    {
+        $em = $this->em;
+        $router = $this->router;
+        $repository = $em->getRepository( 'DeepMikotoApiBundle:CodingPost' );
+        $query = $repository->createQueryBuilder( 'c' );
+        $query
+            ->select(
+                'c.id, c.slug, c.title, c.date, \'coding\' as category, ' .
+                'COUNT( DISTINCT cpv.id  ) as HIDDEN views'
+            )
+            ->leftJoin( 'c.views', 'cpv', 'WITH', 'cpv.post = c.id' )
+            ->groupBy( 'c.id' )
+            ->where( 'c.public = :true' )
+            ->setParameter( 'true', true )
+            ->orderBy( 'views', 'DESC' )
+            ->setMaxResults( $limit )
+        ;
+        $codingPosts = $query->getQuery()->getResult();
+        foreach( $codingPosts as $key => $codingPost ){
+            $codingPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_coding_post', [
+                'id'   => $codingPost[ 'id' ],
+                'slug' => $codingPost[ 'slug' ]
+            ]);
+            unset( $codingPosts[ $key ][ 'id' ] );
+            unset( $codingPosts[ $key ][ 'slug' ] );
+        }
+
+        if( $limit > 1 ){
+            return $codingPosts;
+        } else {
+            return isset( $codingPosts[0] ) ? $codingPosts[0] : $codingPosts;
+        }
     }
 } 
