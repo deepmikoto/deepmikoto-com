@@ -50,7 +50,7 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'views' ]
+            [ 'views', 'content' ]
         );
         $normalizer->setCallbacks(
             [
@@ -79,7 +79,7 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'views', 'content' ]
+            [ 'views' ]
         );
         $normalizer->setCallbacks(
             [
