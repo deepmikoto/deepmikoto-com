@@ -72,6 +72,35 @@ class CodingService
     }
 
     /**
+     * @param $posts
+     * @return string
+     */
+    private function processCodingPosts( $posts )
+    {
+        $normalizer = new GetSetMethodNormalizer();
+        $normalizer->setIgnoredAttributes(
+            [ 'views', 'content' ]
+        );
+        $normalizer->setCallbacks(
+            [
+                'date' => function( $date ){
+                    /** @var \DateTime $date */
+                    $date = $date->format( 'F dS, Y' );
+
+                    return $date;
+                }
+            ]
+        );
+        $serializer = new Serializer(
+            [ $normalizer ],
+            [ new JsonEncoder() ]
+        );
+        $posts = $serializer->serialize( $posts, 'json' );
+
+        return $posts;
+    }
+
+    /**
      * @return string
      */
     public function getCodingTimeline()
@@ -105,7 +134,7 @@ class CodingService
             'public'=> true
         ]);
         if( $codingPostEntity != null ){
-            $codingPost = $this->processCodingTimelinePosts( [
+            $codingPost = $this->processCodingPosts( [
                 'payload'   => $codingPostEntity,
                 'response'  => ApiResponseStatus::$ALL_OK
             ]);
