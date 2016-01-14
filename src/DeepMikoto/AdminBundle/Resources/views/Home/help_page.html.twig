@@ -1,0 +1,25 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/home_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <div class="form-group">
+        <span>
+            <i class="glyphicon glyphicon-calendar"></i> Updated: {{ help_page.modified|date( 'M jS, Y') }}
+        </span>
+        <span class="pull-right">
+            <a href="{{ path( 'deepmikoto_admin_help_page_edit') }}">
+                <i class="glyphicon glyphicon-pencil"></i> Edit
+            </a>
+        </span>
+    </div>
+    <div class="form-group">
+        {{ help_page.content|raw }}
+    </div>
+{% endblock %}

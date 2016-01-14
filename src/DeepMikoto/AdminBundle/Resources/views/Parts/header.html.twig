@@ -17,6 +17,11 @@
             <ul class="nav navbar-nav">
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_homepage' or
                     app.request.get('_route') == 'deepmikoto_admin_primary_block'  or
+                    app.request.get('_route') == 'deepmikoto_admin_help_page' or
+                    app.request.get('_route') == 'deepmikoto_admin_help_page_edit'  or
+                    app.request.get('_route') == 'deepmikoto_admin_faq_page' or
+                    app.request.get('_route') == 'deepmikoto_admin_contact_page' or
+                    app.request.get('_route') == 'deepmikoto_admin_security' or
                     app.request.get('_route') == 'deepmikoto_admin_administration' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_homepage') }}">Home</a>
                 </li>
@@ -29,7 +34,10 @@
                     <a href="{{ path('deepmikoto_admin_coding') }}">Coding</a>
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_gaming'  or
-                    app.request.get('_route') == 'deepmikoto_admin_gaming_primary_block' %}class="active"{% endif %}>
+                    app.request.get('_route') == 'deepmikoto_admin_gaming_primary_block' or
+                    app.request.get('_route') == 'deepmikoto_admin_gaming_new_post' or
+                    app.request.get('_route') == 'deepmikoto_admin_gaming_submitted_posts' or
+                    app.request.get('_route') == 'deepmikoto_admin_gaming_drafted_posts' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_gaming') }}">Gaming</a>
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_photography' or
