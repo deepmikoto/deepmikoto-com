@@ -38,7 +38,6 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         query_cache_driver: apc
-        metadata_cache_driver: apc
         result_cache_driver: apc
 
 monolog:
