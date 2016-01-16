@@ -30,16 +30,6 @@ class EditPhotographyPostType extends AbstractType
                     'class' => 'form-control post-location'
                 ]
             ])
-            ->add('latitude', 'text', [
-                'attr' => [
-                    'class' => 'form-control post-latitude'
-                ]
-            ])
-            ->add('longitude', 'text', [
-                'attr' => [
-                    'class' => 'form-control post-longitude'
-                ]
-            ])
             ->add('public', 'checkbox', [
                 'attr' => [
                     'class' => 'form-control post-longitude'
