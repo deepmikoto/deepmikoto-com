@@ -57,20 +57,6 @@ class PhotographyPost
     private $location;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="latitude", type="decimal", scale=8)
-     */
-    private $latitude;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="longitude", type="decimal", scale=8)
-     */
-    private $longitude;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="public", type="boolean")
@@ -188,52 +174,6 @@ class PhotographyPost
     public function getLocation()
     {
         return $this->location;
-    }
-
-    /**
-     * Set latitude
-     *
-     * @param string $latitude
-     * @return PhotographyPost
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    /**
-     * Get latitude
-     *
-     * @return string 
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * Set longitude
-     *
-     * @param string $longitude
-     * @return PhotographyPost
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * Get longitude
-     *
-     * @return string 
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
     }
 
     /**

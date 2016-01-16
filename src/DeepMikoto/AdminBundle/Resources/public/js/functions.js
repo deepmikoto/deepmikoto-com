@@ -164,10 +164,8 @@ function geoLocate( autoComplete )
 }
 /**
  * @param locationInput
- * @param latitudeInput
- * @param longitudeInput
  */
-function enableGoogleAutoComplete( locationInput, latitudeInput, longitudeInput )
+function enableGoogleAutoComplete( locationInput )
 {
     if( locationInput.length == 0 ) return;
     /** @class google.maps.places.Autocomplete */
@@ -176,18 +174,6 @@ function enableGoogleAutoComplete( locationInput, latitudeInput, longitudeInput 
         { types: ['geocode'] }
     );
     geoLocate( autoComplete );
-    /** @class google.maps.event.addListener */
-    google.maps.event.addListener(autoComplete, 'place_changed', function() {
-        /** @class autoComplete.getPlace */
-        var lat = autoComplete.getPlace()['geometry']['location'];
-        /** @class lat.lat */
-        lat = lat.lat();
-        var lon = autoComplete.getPlace()['geometry']['location'];
-        /** @class lon.lng */
-        lon = lon.lng();
-        latitudeInput.val( lat );
-        longitudeInput.val( lon );
-    });
 }
 /**
  * @param textarea

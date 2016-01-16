@@ -12,8 +12,6 @@ namespace DeepMikoto\ApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Process\Process;
 
 /**
  * handles app routes
@@ -64,8 +62,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        /*$response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );*/
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }
@@ -93,8 +91,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        /*$response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );*/
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }
@@ -122,8 +120,8 @@ class AppController extends Controller
             200
         );
         /** 90 days */
-        /*$response->setSharedMaxAge( 7776000 );
-        $response->setMaxAge( 0 );*/
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }

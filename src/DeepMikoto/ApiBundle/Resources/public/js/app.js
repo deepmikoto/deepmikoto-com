@@ -32,3 +32,6 @@ deepmikoto.appConstants = {
 
 /** define the templates variable */
 deepmikoto.templates = {};
+
+/** message for users that open the console */
+console.info( 'What are you looking for?! Just kidding, you can take a peek! :)');
