@@ -20,6 +20,19 @@
                 <li id="gaming"><a href="{{ path('deepmikoto_app_gaming') }}">Gaming</a></li>
                 <li id="photography"><a href="{{ path('deepmikoto_app_photography') }}">Photography</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" id="search-container" class="search-container loading">
+                        <label>
+                            <input type="text" placeholder="look for something ..." class="form-control search-field" id="search-field">
+                        </label>
+                        <span class="search-toggle" id="search-toggle">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <div id="results-area"></div>
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="pulse"></div>
     </div>

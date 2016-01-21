@@ -11,6 +11,7 @@ deepmikoto.app = new Marionette.Application();
  * The main regions of our app
  */
 deepmikoto.app.addRegions({
+    landingPage   : '#landing',
     header        : '#header',
     body          : '#body',
     sidebar       : '#sidebar',

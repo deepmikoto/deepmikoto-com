@@ -15,6 +15,7 @@ deepmikoto.AppFunctions = Marionette.extend({
     fetchTemplates: function ()
     {
         this.updateLoader(60, 'templates');
+        this.addExtraAppRegions();
         $.ajax({
             context: this,
             type: 'GET',
@@ -27,6 +28,20 @@ deepmikoto.AppFunctions = Marionette.extend({
                 this.renderSidebar();
                 this.fetchUserInfo();
             }
+        });
+    },
+    addExtraAppRegions: function ()
+    {
+        $( 'body' ).append(
+            '<div class="landing-page" id="landing"></div>' +
+            '<div class="footnote-container" id="footnote"></div>' +
+            '<div class="modal-container" id="modal"></div>'
+        );
+
+        deepmikoto.app.addRegions({
+            landingPage   : '#landing',
+            footnote      : '#footnote',
+            modal         : '#modal'
         });
     },
     renderAppHeader: function ()
@@ -80,7 +95,7 @@ deepmikoto.AppFunctions = Marionette.extend({
                     model: new deepmikoto.FootNoteModel({
                         type: 'cookie',
                         message: 'This site uses cookies in order to improve your experience. By continuing to browse the site ' +
-                        'you are agreeing to our use of cookies.'
+                        'you are agreeing to our use of cookies. <a href="' + '/help' + '">More Info</a>'
                     })
                 })
             );

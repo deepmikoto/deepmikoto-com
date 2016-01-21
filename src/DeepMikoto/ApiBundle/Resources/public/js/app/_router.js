@@ -32,6 +32,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         this.updateAwareness( 'home' );
         this.updatePageTitle( 'deepmikoto' );
+        this.showLandingPage();
     },
     photographyAction: function ()
     {
@@ -86,6 +87,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 Backbone.history.navigate( '', { trigger: true } );
             }
         });
+    },
+    showLandingPage: function ()
+    {
+        deepmikoto.app.body.reset();
     },
     showLogin: function()
     {

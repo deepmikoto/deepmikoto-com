@@ -54,3 +54,16 @@
     }
   }
 }
+@mixin userSelect( $property ){
+  -webkit-user-select: $property;
+  -moz-user-select: $property;
+  -ms-user-select: $property;
+  user-select: $property;
+}
+@mixin transform( $type ){
+  -webkit-transform: $type;
+  -moz-transform: $type;
+  -ms-transform: $type;
+  -o-transform: $type;
+  transform: $type;
+}

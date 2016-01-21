@@ -1,18 +1,26 @@
 
 /** view and actions for main header view */
-deepmikoto.AppHeaderView = Marionette.ItemView.extend({
+deepmikoto.AppHeaderView = Marionette.LayoutView.extend({
     className: 'app-header',
     model: new deepmikoto.AppHeaderModel,
+    regions: {
+        resultsArea: '#results-area'
+    },
     ui: {
         home        : '#home',
         photography : '#photography',
         coding      : '#coding',
         gaming      : '#gaming',
         collapsed   : '#collapsed',
-        toggleMenu  : '#toggle-collapsed'
+        toggleMenu  : '#toggle-collapsed',
+        searchContainer : '#search-container',
+        searchField     : '#search-field',
+        searchToggle    : '#search-toggle'
     },
     events: {
-        'click @ui.toggleMenu': 'toggleCollapsedMenu'
+        'click @ui.toggleMenu': 'toggleCollapsedMenu',
+        'click @ui.searchContainer': 'preventClick',
+        'click @ui.searchToggle': 'toggleSearchField'
     },
     initialize: function()
     {
@@ -23,6 +31,35 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
         /** @namespace deepmikoto.templates.appHeader */
         return _.template( deepmikoto.templates.appHeader );
     },
+    onShow: function ()
+    {
+        this.showSearchToggle();
+    },
+    showSearchToggle: function ()
+    {
+        var _this = this;
+        setTimeout(function (){
+            _this.ui.searchContainer.removeClass( 'loading' );
+        }, 1 );
+    },
+    toggleSearchField: function ()
+    {
+        if( !this.ui.searchContainer.hasClass( 'active' ) ){
+            this.ui.searchContainer.addClass( 'active' );
+        } else {
+            this.hideSearchField();
+        }
+    },
+    hideSearchField: function ()
+    {
+        this.ui.searchContainer.removeClass( 'active' );
+        this.ui.searchField.val( '' );
+        this.resultsArea.reset();
+    },
+    preventClick: function ( e )
+    {
+        e.preventDefault();
+    },
     updateCurrentPage: function( page )
     {
         if( this.model.get( 'page' ) != page ){
@@ -32,6 +69,7 @@ deepmikoto.AppHeaderView = Marionette.ItemView.extend({
             this.$el.attr( 'class', 'app-header ' + page );
             this.ui[ page ].blur().addClass( 'active' );
         }
+        this.hideSearchField();
     },
     toggleCollapsedMenu: function()
     {
