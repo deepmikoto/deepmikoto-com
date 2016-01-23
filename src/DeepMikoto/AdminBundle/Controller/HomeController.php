@@ -62,7 +62,7 @@ class HomeController extends Controller
         return $this->render('DeepMikotoAdminBundle:Parts:primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'home' ]);
     }
 
-    public function helpPageAction(Request $request)
+    public function helpPageAction()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();

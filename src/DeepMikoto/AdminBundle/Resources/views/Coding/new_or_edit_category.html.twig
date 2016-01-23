@@ -1,0 +1,18 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/coding_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <div class="form-group">
+        <a href="{{ path('deepmikoto_admin_coding_categories') }}">
+            <i class="glyphicon glyphicon-arrow-left"></i> back
+        </a>
+    </div>
+    {{ form(form) }}
+{% endblock %}

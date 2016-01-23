@@ -2,10 +2,11 @@
 
 namespace DeepMikoto\AdminBundle\Controller;
 
+use DeepMikoto\ApiBundle\Entity\CodingCategory;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
-use DeepMikoto\ApiBundle\Form\EditCodingPostType;
-use DeepMikoto\ApiBundle\Form\NewCodingPostType;
+use DeepMikoto\ApiBundle\Form\CodingCategoryType;
+use DeepMikoto\ApiBundle\Form\CodingPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ class CodingController extends Controller
      */
     public function primaryBlockAction(Request $request)
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $sidebarPrimaryBlock = $em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy(
             [ 'type' => 'coding']
@@ -56,7 +58,7 @@ class CodingController extends Controller
             $picturePath = null;
         }
 
-        return $this->render('DeepMikotoAdminBundle:Parts:primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'coding' ]);
+        return $this->render('@DeepMikotoAdmin/Parts/primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'coding' ]);
     }
 
     /**
@@ -67,9 +69,10 @@ class CodingController extends Controller
      */
     public function newPostAction( Request $request )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $codingPost = new CodingPost();
-        $form = $this->createForm( new NewCodingPostType(), $codingPost );
+        $form = $this->createForm( new CodingPostType(), $codingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -84,7 +87,7 @@ class CodingController extends Controller
             }
         }
 
-        return $this->render( 'DeepMikotoAdminBundle:Coding:new.html.twig', [ 'form' => $form->createView() ] );
+        return $this->render( '@DeepMikotoAdmin/Coding/new.html.twig', [ 'form' => $form->createView() ] );
     }
 
     /**
@@ -96,11 +99,12 @@ class CodingController extends Controller
      */
     public function editPostAction( Request $request, $id )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\CodingPost $codingPost */
         $codingPost = $em->find( 'DeepMikotoApiBundle:CodingPost', $id );
         $codingPost == null ? $this->createNotFoundException() : null;
-        $form = $this->createForm( new EditCodingPostType(), $codingPost );
+        $form = $this->createForm( new CodingPostType(), $codingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -114,7 +118,7 @@ class CodingController extends Controller
             }
         }
 
-        return $this->render( 'DeepMikotoAdminBundle:Coding:edit.html.twig', [ 'form' => $form->createView() ] );
+        return $this->render( '@DeepMikotoAdmin/Coding/edit.html.twig', [ 'form' => $form->createView() ] );
     }
 
     /**
@@ -134,7 +138,7 @@ class CodingController extends Controller
         ;
         $posts = $query->getQuery()->getResult();
 
-        return $this->render( 'DeepMikotoAdminBundle:Coding:submitted_posts.html.twig', [ 'posts' => $posts ] );
+        return $this->render( '@DeepMikotoAdmin/Coding/submitted_posts.html.twig', [ 'posts' => $posts ] );
     }
 
     /**
@@ -154,7 +158,7 @@ class CodingController extends Controller
         ;
         $posts = $query->getQuery()->getResult();
 
-        return $this->render( 'DeepMikotoAdminBundle:Coding:drafted_posts.html.twig', [ 'posts' => $posts ] );
+        return $this->render( '@DeepMikotoAdmin/Coding/drafted_posts.html.twig', [ 'posts' => $posts ] );
     }
 
     /**
@@ -165,6 +169,7 @@ class CodingController extends Controller
     public function makePublicOrDraftedAction( $id, $public )
     {
         $public = $public == 'true';
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\CodingPost $codingPost */
         $codingPost = $em->find( 'DeepMikotoApiBundle:CodingPost', $id );
@@ -176,5 +181,53 @@ class CodingController extends Controller
         ;
 
         return $this->redirectToRoute( $public ? 'deepmikoto_admin_coding_submitted_posts' : 'deepmikoto_admin_coding_drafted_posts');
+    }
+
+    public function categoriesAction()
+    {
+        $categories = $this->getDoctrine()->getManager()->getRepository('DeepMikotoApiBundle:CodingCategory')->findBy( [], [ 'name' => 'ASC' ] );
+
+        return $this->render('@DeepMikotoAdmin/Coding/categories.html.twig', [ 'categories' => $categories ] );
+    }
+
+    public function addCategoryAction(Request $request)
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $category = new CodingCategory();
+        $form = $this->createForm( new CodingCategoryType(), $category );
+        if( $request->isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $category );
+                $em->flush( $category );
+                $this->addFlash('success', '<strong>Awesome!</strong>You created a new Coding Category');
+
+                return $this->redirectToRoute('deepmikoto_admin_coding_categories');
+            }
+        }
+
+        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    public function editCategoryAction( $id, Request $request )
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->find( 'DeepMikotoApiBundle:CodingCategory', $id );
+        if( $category == null ) return $this->createNotFoundException( 'Not Found!' );
+        $form = $this->createForm( new CodingCategoryType(), $category );
+        if( $request->isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $category );
+                $em->flush( $category );
+                $this->addFlash('success', '<strong>Awesome!</strong>You updated the Coding Category');
+
+                return $this->redirectToRoute( 'deepmikoto_admin_coding_edit_category', [ 'id' => $id ] );
+            }
+        }
+
+        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView() ] );
     }
 }

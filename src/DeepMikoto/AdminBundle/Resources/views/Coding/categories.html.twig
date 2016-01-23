@@ -1,6 +1,6 @@
 {% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
 {% block sidebar %}
-    {% include 'DeepMikotoAdminBundle:Parts:sidebars/gaming_sidebar.html.twig' %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/coding_sidebar.html.twig' %}
 {% endblock %}
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -9,33 +9,37 @@
             {{ flashMessage | raw }}
         </div>
     {% endfor %}
+    <div class="form-group">
+        <span class="pull-right">
+            <a href="{{ path('deepmikoto_admin_coding_add_category') }}">
+                <i class="glyphicon glyphicon-save"></i> add category
+            </a>
+        </span>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th></th>
-            <th>title</th>
-            <th>date</th>
+            <th>name</th>
+            <th>image</th>
+            <th>created</th>
             <th>actions</th>
         </tr>
         </thead>
         <tbody>
-        {% if posts|length == 0 %}
+        {% if categories|length == 0 %}
             <tr>
                 <td colspan="4" class="text-center">
-                    Nothing to show, <a href="{{ path('deepmikoto_admin_gaming_new_post') }}"><i class="glyphicon glyphicon-save"></i> create new gaming post</a>
+                    Nothing to show
                 </td>
             </tr>
         {% else %}
-            {% for post in posts %}
+            {% for category in categories %}
                 <tr>
-                    <td><img src="{{ asset(post.getWebPath()) | imagine_filter( 'tiny_thumb' ) }}" /></td>
-                    <td>{{ post.title }}</td>
-                    <td>{{ post.date | date( 'd F Y H:i:s' ) }}</td>
+                    <td>{{ category.name }}</td>
+                    <td class="text-left"><img src="{{ ( category.webPath ) | imagine_filter( '30_30' ) }}" /></td>
+                    <td>{{ category.created | date( 'd F Y H:i:s' ) }}</td>
                     <td>
-                        <a href="{{ path('deepmikoto_admin_gaming_make_public_or_drafted', { 'id': post.id, 'public': 'true' }) }}">
-                            <i class="glyphicon glyphicon-tasks"></i> Publish
-                        </a>
-                        <a href="{{ path('deepmikoto_admin_gaming_edit_post', { 'id': post.id }) }}">
+                        <a href="{{ path('deepmikoto_admin_coding_edit_category', { 'id': category.id }) }}">
                             <i class="glyphicon glyphicon-edit"></i> Edit
                         </a>
                     </td>

@@ -10,6 +10,8 @@ deepmikoto_admin_coding_new_post:
 deepmikoto_admin_coding_edit_post:
     path:     /edit-post-{id}
     defaults: { _controller: DeepMikotoAdminBundle:Coding:editPost }
+    requirements:
+        id:  \d+
 deepmikoto_admin_coding_submitted_posts:
     path:     /submitted-posts
     defaults: { _controller: DeepMikotoAdminBundle:Coding:submittedPosts }
@@ -18,4 +20,17 @@ deepmikoto_admin_coding_drafted_posts:
     defaults: { _controller: DeepMikotoAdminBundle:Coding:draftedPosts }
 deepmikoto_admin_coding_make_public_or_drafted:
     path:     /make-public-or-drafted/{id}-{public}
-    defaults: { _controller: DeepMikotoAdminBundle:Coding:makePublicOrDrafted }    
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:makePublicOrDrafted }
+    requirements:
+        id:  \d+
+deepmikoto_admin_coding_categories:
+    path:     /categories
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:categories }
+deepmikoto_admin_coding_add_category:
+    path:     /add-category
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:addCategory }
+deepmikoto_admin_coding_edit_category:
+    path:     /edit-category/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:editCategory }
+    requirements:
+        id:  \d+

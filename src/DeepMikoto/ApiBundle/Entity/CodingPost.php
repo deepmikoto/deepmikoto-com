@@ -64,11 +64,18 @@ class CodingPost
     private $views;
 
     /**
+     * @ORM\ManyToMany(targetEntity="DeepMikoto\ApiBundle\Entity\CodingCategory", inversedBy="posts")
+     * @ORM\JoinTable(name="coding_post_category")
+     */
+    private $categories;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->views = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->setPublic( false );
     }
 
@@ -257,5 +264,38 @@ class CodingPost
     public function getViews()
     {
         return $this->views;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\CodingCategory $categories
+     * @return CodingPost
+     */
+    public function addCategory(CodingCategory $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \DeepMikoto\ApiBundle\Entity\CodingCategory $categories
+     */
+    public function removeCategory(CodingCategory $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

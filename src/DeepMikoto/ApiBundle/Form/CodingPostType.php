@@ -7,11 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class EditCodingPostType
+ * Class CodingPostType
  *
  * @package DeepMikoto\ApiBundle\Form
  */
-class EditCodingPostType extends AbstractType
+class CodingPostType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,6 +24,11 @@ class EditCodingPostType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
+            ])
+            ->add('categories', 'entity', [
+                'class' => 'DeepMikoto\ApiBundle\Entity\CodingCategory',
+                'expanded' => true,
+                'multiple' => true
             ])
             ->add('content', 'textarea', [
                 'attr' => [

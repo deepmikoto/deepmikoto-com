@@ -27,7 +27,7 @@
         {% else %}
             {% for post in posts %}
                 <tr>
-                    <td>{{ post.title|title }}</td>
+                    <td>{{ post.title }}</td>
                     <td>{{ post.date | date( 'd F Y H:i:s' ) }}</td>
                     <td>
                         <a href="{{ path('deepmikoto_admin_coding_make_public_or_drafted', { 'id': post.id, 'public': 'true' }) }}">

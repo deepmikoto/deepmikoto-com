@@ -28,7 +28,7 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render( 'DeepMikotoAdminBundle:Security:login.html.twig', [
+        return $this->render( '@DeepMikotoAdmin/Security/login.html.twig', [
                 'last_username' => $lastUsername,
                 'error'         => $error,
             ]

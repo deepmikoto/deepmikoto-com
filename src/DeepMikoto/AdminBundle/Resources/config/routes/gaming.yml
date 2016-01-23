@@ -10,6 +10,8 @@ deepmikoto_admin_gaming_new_post:
 deepmikoto_admin_gaming_edit_post:
     path:     /edit-post-{id}
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:editPost }
+    requirements:
+        id:  \d+
 deepmikoto_admin_gaming_submitted_posts:
     path:     /submitted-posts
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:submittedPosts }
@@ -19,3 +21,5 @@ deepmikoto_admin_gaming_drafted_posts:
 deepmikoto_admin_gaming_make_public_or_drafted:
     path:     /make-public-or-drafted/{id}-{public}
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:makePublicOrDrafted }
+    requirements:
+        id:  \d+

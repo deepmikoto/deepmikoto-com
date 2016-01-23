@@ -10,12 +10,16 @@ deepmikoto_admin_photography_new_post:
 deepmikoto_admin_photography_edit_post:
     path:     /edit-post-{id}
     defaults: { _controller: DeepMikotoAdminBundle:Photography:editPost }
+    requirements:
+        id:  \d+
 deepmikoto_admin_photography_new_post_photo:
     path:     /new-post-photo
     defaults: { _controller: DeepMikotoAdminBundle:Photography:newPostPhoto }
 deepmikoto_admin_photography_edit_post_photo:
     path:     /edit-post-photo/{id}
     defaults: { _controller: DeepMikotoAdminBundle:Photography:editPostPhoto }
+    requirements:
+        id:  \d+
 deepmikoto_admin_photography_post_photo_list:
     path:     /post-photo-list
     defaults: { _controller: DeepMikotoAdminBundle:Photography:postPhotoList }
@@ -28,3 +32,5 @@ deepmikoto_admin_photography_drafted_posts:
 deepmikoto_admin_photography_make_public_or_drafted:
     path:     /make-public-or-drafted/{id}-{public}
     defaults: { _controller: DeepMikotoAdminBundle:Photography:makePublicOrDrafted }
+    requirements:
+        id:  \d+

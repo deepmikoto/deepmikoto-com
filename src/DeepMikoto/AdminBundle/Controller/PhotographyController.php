@@ -5,9 +5,8 @@ namespace DeepMikoto\AdminBundle\Controller;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
-use DeepMikoto\ApiBundle\Form\EditPhotographyPostType;
-use DeepMikoto\ApiBundle\Form\NewPhotographyPostType;
 use DeepMikoto\ApiBundle\Form\PhotographyPostPhotoType;
+use DeepMikoto\ApiBundle\Form\PhotographyPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +34,7 @@ class PhotographyController extends Controller
      */
     public function primaryBlockAction( Request $request )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $sidebarPrimaryBlock = $em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy(
             [ 'type' => 'photography']
@@ -69,9 +69,11 @@ class PhotographyController extends Controller
      */
     public function newPostAction( Request $request )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $photographyPost = new PhotographyPost();
-        $form = $this->createForm( new NewPhotographyPostType(), $photographyPost );
+        $form = $this->createForm( new PhotographyPostType(), $photographyPost );
+        $form->remove('public');
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -95,11 +97,12 @@ class PhotographyController extends Controller
      */
     public function editPostAction( Request $request, $id )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPost $photographyPost */
         $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );
         $photographyPost == null ? $this->createNotFoundException() : null;
-        $form = $this->createForm( new EditPhotographyPostType(), $photographyPost );
+        $form = $this->createForm( new PhotographyPostType(), $photographyPost );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -124,6 +127,7 @@ class PhotographyController extends Controller
      */
     public function newPostPhotoAction( Request $request )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $photographyPostPhoto = new PhotographyPostPhoto();
         $form = $this->createForm( new PhotographyPostPhotoType(), $photographyPostPhoto );
@@ -150,6 +154,7 @@ class PhotographyController extends Controller
      */
     public function editPostPhotoAction( Request $request, $id )
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $photographyPostPhoto = $em->find( 'DeepMikotoApiBundle:PhotographyPostPhoto', $id );
         if( !$photographyPostPhoto instanceof PhotographyPostPhoto )
@@ -237,6 +242,7 @@ class PhotographyController extends Controller
     public function makePublicOrDraftedAction( $id, $public )
     {
         $public = $public == 'true';
+        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPost $photographyPost */
         $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );

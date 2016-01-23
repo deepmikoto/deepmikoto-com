@@ -30,7 +30,10 @@
                     app.request.get('_route') == 'deepmikoto_admin_coding_new_post' or
                     app.request.get('_route') == 'deepmikoto_admin_coding_submitted_posts' or
                     app.request.get('_route') == 'deepmikoto_admin_coding_drafted_posts' or
-                    app.request.get('_route') == 'deepmikoto_admin_coding_edit_post' %}class="active"{% endif %}>
+                    app.request.get('_route') == 'deepmikoto_admin_coding_edit_post' or
+                    app.request.get('_route') == 'deepmikoto_admin_coding_categories' or
+                    app.request.get('_route') == 'deepmikoto_admin_coding_add_category' or
+                    app.request.get('_route') == 'deepmikoto_admin_coding_edit_category' %}class="active"{% endif %}>
                     <a href="{{ path('deepmikoto_admin_coding') }}">Coding</a>
                 </li>
                 <li {% if app.request.get('_route') == 'deepmikoto_admin_gaming'  or

@@ -6,12 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class NewCodingPostType
- *
- * @package DeepMikoto\ApiBundle\Form
- */
-class NewCodingPostType extends AbstractType
+class CodingCategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,15 +15,13 @@ class NewCodingPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', [
+            ->add('name', 'text', [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('content', 'textarea', [
-                'attr' => [
-                    'class' => 'form-control'
-                ]
+            ->add('file', 'file', [
+                'required' => false,
             ])
             ->add('save', 'submit', [
                 'attr' => [
@@ -44,7 +37,7 @@ class NewCodingPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'DeepMikoto\ApiBundle\Entity\CodingPost'
+            'data_class' => 'DeepMikoto\ApiBundle\Entity\CodingCategory'
         ]);
     }
 
@@ -53,6 +46,6 @@ class NewCodingPostType extends AbstractType
      */
     public function getName()
     {
-        return 'deepmikoto_apibundle_codingpost';
+        return 'deepmikoto_apibundle_codingcategory';
     }
 }

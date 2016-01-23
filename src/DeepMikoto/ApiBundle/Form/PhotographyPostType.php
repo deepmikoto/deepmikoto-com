@@ -7,11 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class NewPhotographyPostType
+ * Class PhotographyPostType
  *
  * @package DeepMikoto\ApiBundle\Form
  */
-class NewPhotographyPostType extends AbstractType
+class PhotographyPostType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,6 +28,11 @@ class NewPhotographyPostType extends AbstractType
             ->add('location', 'text', [
                 'attr' => [
                     'class' => 'form-control post-location'
+                ]
+            ])
+            ->add('public', 'checkbox', [
+                'attr' => [
+                    'class' => 'form-control post-longitude'
                 ]
             ])
             ->add('save', 'submit', [
