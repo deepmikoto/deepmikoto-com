@@ -79,7 +79,7 @@ class AdminUser implements UserInterface, \Serializable
     }
 
     /**
-     * define username and email property unique
+     * define username and email property as unique
      *
      * @param ClassMetadata $metadata
      */

@@ -4,8 +4,10 @@ namespace DeepMikoto\ApiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * CodingCategory
@@ -172,6 +174,23 @@ class CodingCategory
         $this->setCreated( new \DateTime() );
     }
 
+    /**
+     * define name property as unique
+     *
+     * @param ClassMetadata $metadata
+     */
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint( new UniqueEntity([
+                'fields'    => [ 'name' ],
+                'message'   => 'This name is already in use!',
+            ])
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();
