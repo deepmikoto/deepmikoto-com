@@ -207,7 +207,7 @@ class CodingController extends Controller
             }
         }
 
-        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView() ] );
+        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView(), 'picture' => null ] );
     }
 
     public function editCategoryAction( $id, Request $request )
@@ -228,6 +228,6 @@ class CodingController extends Controller
             }
         }
 
-        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView() ] );
+        return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView(), 'picture' => $category->getWebPath() ] );
     }
 }

@@ -53,7 +53,7 @@ class PhotographyController extends Controller
             }
         }
         if( $sidebarPrimaryBlock->getPicture() != null ){
-            $picturePath = $this->container->get('liip_imagine.cache.manager')->getBrowserPath( 'images/api/' . $sidebarPrimaryBlock->getPicture(), 'sidebar_primary_block');
+            $picturePath = $this->container->get('liip_imagine.cache.manager')->getBrowserPath( $sidebarPrimaryBlock->getWebPath(), 'sidebar_primary_block');
         } else {
             $picturePath = null;
         }

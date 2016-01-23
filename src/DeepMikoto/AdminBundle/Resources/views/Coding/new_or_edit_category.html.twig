@@ -14,5 +14,8 @@
             <i class="glyphicon glyphicon-arrow-left"></i> back
         </a>
     </div>
+    {% if picture != null %}
+        <img src="{{ asset(picture) }}" />
+    {% endif %}
     {{ form(form) }}
 {% endblock %}
