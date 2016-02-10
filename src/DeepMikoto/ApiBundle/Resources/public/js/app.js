@@ -15,6 +15,7 @@ var root = root || '/';
 /** define api routes */
 deepmikoto.apiRoutes = {
     TEMPLATES_URL             : '_api/templates',
+    HELP_PAGE_URL             : '_api/help',
     USER_INFO_URL             : '_api/user-info',
     SIDEBAR_COMPONENTS_URL    : '_api/sidebar-components',
     CODING_TIMELINE_URL       : '_api/coding-timeline',

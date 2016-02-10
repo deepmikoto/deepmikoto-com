@@ -37,7 +37,7 @@ class LoadUserRoles extends AbstractFixture implements OrderedFixtureInterface
                 ->setRole( $role )
             ;
             $manager->persist( $userRole );
-            $manager->flush( $userRole );
+            $manager->flush();
             $this->addReference( $name, $userRole );
         }
     }

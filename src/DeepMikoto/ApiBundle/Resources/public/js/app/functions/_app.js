@@ -47,7 +47,7 @@ deepmikoto.AppFunctions = Marionette.extend({
     renderAppHeader: function ()
     {
         /** @namespace deepmikoto.app.header */
-        deepmikoto.app.header.show( new deepmikoto.AppHeaderView({ model: new deepmikoto.AppHeaderModel }) );
+        deepmikoto.app.header.show( new deepmikoto.HeaderView({ model: new deepmikoto.AppHeaderModel }) );
     },
     renderSidebar: function ()
     {

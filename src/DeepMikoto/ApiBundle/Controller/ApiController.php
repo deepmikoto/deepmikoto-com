@@ -9,7 +9,9 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 
+use DeepMikoto\ApiBundle\Entity\StaticPage;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -27,10 +29,7 @@ class ApiController extends FOSRestController
      */
     public function templatesAction()
     {
-        $response = new Response(
-            $this->get('deepmikoto.api.templating')->compileTemplates(),
-            200
-        );
+        $response = new Response( $this->get('deepmikoto.api.templating')->compileTemplates(), 200 );
         /** 90 days */
         $response->setSharedMaxAge( 7776000 );
         $response->setMaxAge( 0 );
@@ -40,16 +39,20 @@ class ApiController extends FOSRestController
     }
 
     /**
-     * Retrieve user info
+     * static pages ( i.e. Help page )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function userInfoAction()
+    public function helpPageAction()
     {
-        $response = new Response(
-            $this->get('deepmikoto.api')->getUserInfo(),
-            200
-        );
+        /** @var StaticPage $helpPage */
+        $helpPage = $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findOneBy( [ 'name' => 'help' ] );
+        if( $helpPage === null )
+            throw $this->createNotFoundException();
+
+        $response = new JsonResponse( [ 'content' => $helpPage->getContent(), 'updated' => $helpPage->getModified()->format( 'M jS, Y' ) ], 200 );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
         $response->headers->set( 'Content-Type', 'application/json' );
 
         return $response;

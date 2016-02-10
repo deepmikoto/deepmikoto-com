@@ -9,6 +9,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         'coding/:id--:slug': 'codingPostAction',
         'gaming': 'gamingAction',
         'gaming/:id--:slug': 'gamingPostAction',
+        'help': 'helpAction',
         'login': 'loginAction',
         'logout': 'logoutAction',
         ':placeholder': 'undefinedAction',
@@ -33,6 +34,12 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         this.updateAwareness( 'home' );
         this.updatePageTitle( 'deepmikoto' );
         this.showLandingPage();
+    },
+    helpAction: function ()
+    {
+        this.updateAwareness( 'help' );
+        this.updatePageTitle( 'Help' );
+        this.showHelpPage();
     },
     photographyAction: function ()
     {
@@ -92,6 +99,27 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         deepmikoto.app.body.reset();
     },
+    showHelpPage: function ()
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.HELP_PAGE_URL,
+            dataType: 'json',
+            success: function( response )
+            {
+                var helpPage = new deepmikoto.HelpPageView({
+                    model: new deepmikoto.HelpPageModel( response )
+                });
+                deepmikoto.app.body.show( helpPage );
+                this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
+            }
+        });
+    },
     showLogin: function()
     {
 
@@ -118,6 +146,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( codingTimeline );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     },
@@ -135,6 +167,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( gamingTimeline );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     },
@@ -152,6 +188,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( photographyTimeline );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     },
@@ -174,6 +214,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( photographyPost );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     },
@@ -196,6 +240,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( codingPost );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     },
@@ -218,6 +266,10 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 });
                 deepmikoto.app.body.show( gamingPost );
                 this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
             }
         });
     }

@@ -125,4 +125,25 @@ class AppController extends Controller
 
         return $response;
     }
+
+    /**
+     * static pages ( i.e. Help page )
+     *
+     * @return Response
+     */
+    public function helpPageAction()
+    {
+        if( $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findBy( [ 'name' => 'help' ] ) === null )
+            throw $this->createNotFoundException();
+
+        $response = new Response( // todo: add a separate help page template with metadata
+            $this->render('@DeepMikotoApi/App/index.html.twig')->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
 } 

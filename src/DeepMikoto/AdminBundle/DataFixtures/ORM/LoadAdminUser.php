@@ -47,7 +47,7 @@ class LoadAdminUser extends AbstractFixture implements OrderedFixtureInterface, 
         ;
         /** @var \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder $encoder */
         $encoder = $this->container->get( 'security.encoder_factory' )->getEncoder( $adminUser );
-        $adminUser->setPassword( $encoder->encodePassword( 'Deepm!koto46', $adminUser->getSalt() ) );
+        $adminUser->setPassword( $encoder->encodePassword( 'password', $adminUser->getSalt() ) );
         $manager->persist( $adminUser );
         $manager->flush();
     }

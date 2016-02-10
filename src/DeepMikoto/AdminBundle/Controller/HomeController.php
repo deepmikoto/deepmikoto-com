@@ -67,11 +67,11 @@ class HomeController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $helpPage = $em->getRepository('DeepMikotoApiBundle:StaticPage')->findOneBy([
-            'name' => 'help-page'
+            'name' => 'help'
         ]);
         if($helpPage == null){
             $helpPage = new StaticPage();
-            $helpPage->setName('help-page')->setContent('<h1>Help page</h1>');
+            $helpPage->setName('help')->setContent('<h1>Help page</h1>');
             $em->persist( $helpPage );
             $em->flush();
         }
@@ -84,7 +84,7 @@ class HomeController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $helpPage = $em->getRepository('DeepMikotoApiBundle:StaticPage')->findOneBy([
-            'name' => 'help-page'
+            'name' => 'help'
         ]);
         $form = $this->createForm( new StaticPageType(), $helpPage );
         if( $request->isMethod('POST') ){

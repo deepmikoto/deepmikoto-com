@@ -19,5 +19,8 @@ deepmikoto_app_gaming:
 deepmikoto_app_gaming_post:
     path:     /gaming/{id}--{slug}
     defaults: { _controller: DeepMikotoApiBundle:App:gamingPost, id:null, slug:null }
+deepmikoto_app_help_page:
+    path:     /help
+    defaults: { _controller: DeepMikotoApiBundle:App:helpPage }
 deepmikoto_app_logout:
     path:     /logout

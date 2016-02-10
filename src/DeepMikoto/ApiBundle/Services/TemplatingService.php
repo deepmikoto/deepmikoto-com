@@ -45,18 +45,18 @@ class TemplatingService
         $twigEngine = $this->twigEngine;
         /** @noinspection PhpVoidFunctionResultUsedInspection */
         $data = [
-            'appHeader' => $twigEngine->render( 'DeepMikotoApiBundle:templates:header/_header.html.twig' ),
-            'sidebar' => $twigEngine->render( 'DeepMikotoApiBundle:templates:sidebar/_sidebar.html.twig' ),
-            'codingTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:templates:coding/_timeline_collection.html.twig' ),
-            'codingTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:templates:coding/_timeline_item.html.twig' ),
-            'codingPost' => $twigEngine->render( 'DeepMikotoApiBundle:templates:coding/_coding_post.html.twig' ),
-            'gamingTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:templates:gaming/_timeline_collection.html.twig' ),
-            'gamingTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:templates:gaming/_timeline_item.html.twig' ),
-            'gamingPost' => $twigEngine->render( 'DeepMikotoApiBundle:templates:gaming/_gaming_post.html.twig' ),
-            'photographyTimelineCollection' => $twigEngine->render( 'DeepMikotoApiBundle:templates:photography/_timeline_collection.html.twig' ),
-            'photographyTimelineItem' => $twigEngine->render( 'DeepMikotoApiBundle:templates:photography/_timeline_item.html.twig' ),
-            'photographyPost' => $twigEngine->render( 'DeepMikotoApiBundle:templates:photography/_photography_post.html.twig' ),
-            'footNote' => $twigEngine->render( 'DeepMikotoApiBundle:templates:footnote/_default.html.twig' )
+            'appHeader' => $twigEngine->render( '@DeepMikotoApi/templates/header/_header.html.twig' ),
+            'sidebar' => $twigEngine->render( '@DeepMikotoApi/templates/sidebar/_sidebar.html.twig' ),
+            'codingTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_timeline_collection.html.twig' ),
+            'codingTimelineItem' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_timeline_item.html.twig' ),
+            'codingPost' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_coding_post.html.twig' ),
+            'gamingTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/gaming/_timeline_collection.html.twig' ),
+            'gamingTimelineItem' => $twigEngine->render( '@DeepMikotoApi/templates/gaming/_timeline_item.html.twig' ),
+            'gamingPost' => $twigEngine->render( '@DeepMikotoApi/templates/gaming/_gaming_post.html.twig' ),
+            'photographyTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_timeline_collection.html.twig' ),
+            'photographyTimelineItem' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_timeline_item.html.twig' ),
+            'photographyPost' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_photography_post.html.twig' ),
+            'footNote' => $twigEngine->render( '@DeepMikotoApi/templates/footnote/_default.html.twig' )
         ];
 
         return $this->serializer->serialize( $data, 'json' );

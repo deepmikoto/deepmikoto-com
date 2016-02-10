@@ -36,7 +36,7 @@ class LoadStaticPages extends AbstractFixture implements OrderedFixtureInterface
                 ->setContent( '<h2>Help page</h2><p>Lorem ipsum ... </p>' )
             ;
             $manager->persist( $helpPage );
-            $manager->flush( $helpPage );
+            $manager->flush();
     }
 
     /**

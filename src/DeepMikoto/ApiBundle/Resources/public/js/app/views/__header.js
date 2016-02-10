@@ -1,6 +1,6 @@
 
 /** view and actions for main header view */
-deepmikoto.AppHeaderView = Marionette.LayoutView.extend({
+deepmikoto.HeaderView = Marionette.LayoutView.extend({
     className: 'app-header',
     model: new deepmikoto.AppHeaderModel,
     regions: {
@@ -40,7 +40,7 @@ deepmikoto.AppHeaderView = Marionette.LayoutView.extend({
         var _this = this;
         setTimeout(function (){
             _this.ui.searchContainer.removeClass( 'loading' );
-        }, 1 );
+        }, 50 );
     },
     toggleSearchField: function ()
     {
@@ -67,7 +67,7 @@ deepmikoto.AppHeaderView = Marionette.LayoutView.extend({
             this.ui.collapsed.removeAttr( 'style' );
             this.$el.find( '.active' ).removeClass( 'active' );
             this.$el.attr( 'class', 'app-header ' + page );
-            this.ui[ page ].blur().addClass( 'active' );
+            this.ui[ page ] ? this.ui[ page ].blur().addClass( 'active' ) : null;
         }
         this.hideSearchField();
     },

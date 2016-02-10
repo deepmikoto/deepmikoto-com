@@ -45,6 +45,7 @@ class SidebarService
      */
     public function getSidebarPrimaryBlockData( $page )
     {
+        in_array( $page, [ 'help' ] ) ? $page = 'home' : null;
         /** @var \DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock $primaryBlock */
         $primaryBlock = $this->em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy([
             'type' => $page
@@ -74,7 +75,7 @@ class SidebarService
         $photographyManager = $this->container->get( 'deepmikoto.api.photography_manager' );
         $codingManager = $this->container->get( 'deepmikoto.api.coding_manager' );
         $gamingManager = $this->container->get( 'deepmikoto.api.gaming_manager' );
-        if( $page == 'home' ){
+        if( $page == 'home' || $page == 'help' ){
             $data = [
                 'title' => 'Latest content',
                 'items' => [
