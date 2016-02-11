@@ -98,6 +98,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     showLandingPage: function ()
     {
         deepmikoto.app.body.reset();
+        deepmikoto.app.landingPage.show( new deepmikoto.LandingPage() );
     },
     showHelpPage: function ()
     {

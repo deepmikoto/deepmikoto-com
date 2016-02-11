@@ -17,5 +17,5 @@
     <meta itemprop="image" content="{{ asset( post.photos[0].getWebPath() ) | imagine_filter( 'timeline_picture' ) }}" />
 {% endblock %}
 {% block body %}
-    {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' %}
+    {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' with { 'show_header': true, 'header_theme': 'photography' } %}
 {% endblock %}

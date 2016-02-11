@@ -3,7 +3,7 @@
  */
 
 /** update initial progress bar and signal loading of js files */
-document.getElementById( 'loader-bar' ).style.width = '40%';
+document.getElementById( 'loader-bar' ).style.width = '60%';
 document.getElementById( 'loader-subject' ).innerText = 'assets ( JavaScript )';
 
 /** initialize app variable */

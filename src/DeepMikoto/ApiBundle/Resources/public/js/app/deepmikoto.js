@@ -11,12 +11,10 @@ deepmikoto.app = new Marionette.Application();
  * The main regions of our app
  */
 deepmikoto.app.addRegions({
-    landingPage   : '#landing',
     header        : '#header',
     body          : '#body',
     sidebar       : '#sidebar',
-    footnote      : '#footnote',
-    modal         : '#modal'
+    landingPage   : '#landing'
 });
 
 /** we initialize app functions */
@@ -38,4 +36,6 @@ deepmikoto.app.addInitializer(function()
 /**
  * Now we launch the app
  */
-deepmikoto.app.start();
+$( function() {
+    deepmikoto.app.start();
+});

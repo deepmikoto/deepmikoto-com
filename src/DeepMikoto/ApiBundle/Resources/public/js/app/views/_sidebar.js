@@ -3,7 +3,7 @@
  */
 
 deepmikoto.SidebarView = Marionette.LayoutView.extend({
-    className: 'sidebar',
+    className: 'sidebar home',
     model: new deepmikoto.SidebarModel(),
     ui: {
         primary : '#primary',
@@ -23,25 +23,28 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     {
         if( this.model.get( 'context' ) != page ){
             this.model.set({ context: page });
+            this.$el.attr( 'class', 'sidebar ' + page );
             this.renderSidebarComponents( page );
         }
     },
     renderSidebarComponents: function ( page )
     {
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: deepmikoto.apiRoutes.SIDEBAR_COMPONENTS_URL,
-            data: {
-                page: page
-            },
-            dataType: 'json',
-            success: function( response )
-            {
-                this.ui.primary.html( response[ 'payload' ][ 'primaryBlock' ] );
-                this.ui.related.html( response[ 'payload' ][ 'relatedBlock' ] );
-                this.ui.adds.html( response[ 'payload' ][ 'adBlock' ] );
-            }
-        });
+        if( page != 'home' ){
+            $.ajax({
+                context: this,
+                type: 'GET',
+                url: deepmikoto.apiRoutes.SIDEBAR_COMPONENTS_URL,
+                data: {
+                    page: page
+                },
+                dataType: 'json',
+                success: function( response )
+                {
+                    this.ui.primary.html( response[ 'payload' ][ 'primaryBlock' ] );
+                    this.ui.related.html( response[ 'payload' ][ 'relatedBlock' ] );
+                    this.ui.adds.html( response[ 'payload' ][ 'adBlock' ] );
+                }
+            });
+        }
     }
 });

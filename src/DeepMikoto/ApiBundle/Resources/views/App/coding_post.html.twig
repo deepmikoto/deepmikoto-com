@@ -17,5 +17,5 @@
     <meta itemprop="image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png' ) }}" />
 {% endblock %}
 {% block body %}
-    {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' %}
+    {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' with { 'show_header': true, 'header_theme': 'coding' } %}
 {% endblock %}

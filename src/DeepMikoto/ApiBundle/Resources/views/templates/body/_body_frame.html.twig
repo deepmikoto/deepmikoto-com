@@ -1,29 +1,36 @@
 <div class="header-container" id="header">
-    <div class="app-header">
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand">
-                        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
-                        <img src="{{ asset_url }}" alt="deepmikoto" />
-                        {% endimage %}
-                    </a>
+    {% if show_header == true %}
+        <div class="app-header {{ header_theme }}">
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand">
+                            {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
+                                <img src="{{ asset_url }}" alt="deepmikoto" />
+                            {% endimage %}
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
+            </nav>
+        </div>
+    {% endif %}
 </div>
 <div class="container app-container">
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 body-container" id="body">
-        <div class="initial-loader">
-            <div class="loader-bar">
-                <div class="loader-bar-progress" id="loader-bar"></div>
-                <div class="loader-info">
-                    <div class="loader-label">loading ... </div>
-                    <div class="loader-subject" id="loader-subject">assets ( css )</div>
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 body-container" id="body"></div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar-container" id="sidebar"></div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 landing-page-container" id="landing">
+        <div class="initial-loader-overlay">
+            <div class="initial-loader-body">
+                <div class="initial-loader">
+                    <div class="loader-bar">
+                        <div class="loader-bar-progress" id="loader-bar"></div>
+                        <div class="loader-info">
+                            <div class="loader-label">loading ... </div>
+                            <div class="loader-subject" id="loader-subject">assets ( css )</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar-container" id="sidebar"></div>
 </div>

@@ -14,7 +14,7 @@ deepmikoto.AppFunctions = Marionette.extend({
     },
     fetchTemplates: function ()
     {
-        this.updateLoader(60, 'templates');
+        this.updateLoader(80, 'templates');
         this.addExtraAppRegions();
         $.ajax({
             context: this,
@@ -33,13 +33,11 @@ deepmikoto.AppFunctions = Marionette.extend({
     addExtraAppRegions: function ()
     {
         $( 'body' ).append(
-            '<div class="landing-page" id="landing"></div>' +
             '<div class="footnote-container" id="footnote"></div>' +
             '<div class="modal-container" id="modal"></div>'
         );
 
         deepmikoto.app.addRegions({
-            landingPage   : '#landing',
             footnote      : '#footnote',
             modal         : '#modal'
         });
@@ -56,7 +54,7 @@ deepmikoto.AppFunctions = Marionette.extend({
     },
     fetchUserInfo: function()
     {
-        this.updateLoader( 80, 'user info' );
+        //this.updateLoader( 80, 'user info' );
         this.updateLoader( 100, 'done' );
         this.startRouter();
         this.showCookieFootNote();
@@ -77,6 +75,8 @@ deepmikoto.AppFunctions = Marionette.extend({
     },
     startRouter: function()
     {
+        /** @namespace deepmikoto.app.landingPage */
+        deepmikoto.app.landingPage.$el.html('');
         deepmikoto.app.router = new deepmikoto.Router();
         deepmikoto.app.router.on( 'route', function (){
             deepmikoto.app.generalFunctions.sendGooglePageView( Backbone.history.fragment );

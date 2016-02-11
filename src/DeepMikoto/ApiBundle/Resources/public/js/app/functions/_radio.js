@@ -6,6 +6,7 @@ deepmikoto.RadioFunctions = Marionette.extend({
     constructor: function()
     {
         this.initializeRadioChannels();
+        this.broadcastBehaviours();
     },
     initializeRadioChannels: function()
     {
@@ -17,5 +18,11 @@ deepmikoto.RadioFunctions = Marionette.extend({
     {
         data = data || null;
         Backbone.Wreqr.radio.vent.trigger(channel, message, data);
+    },
+    broadcastBehaviours: function ()
+    {
+        $( window ).on( 'scroll', $.proxy( function(){
+            this.broadcast( 'global', 'window:scroll' );
+        }, this ));
     }
 });

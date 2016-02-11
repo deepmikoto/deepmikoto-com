@@ -29,7 +29,58 @@ class AppController extends Controller
     public function homeAction()
     {
         $response = new Response(
-            $this->render('DeepMikotoApiBundle:App:index.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/landing.html.twig')->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function codingAction()
+    {
+        $response = new Response(
+            $this->render('@DeepMikotoApi/App/coding.html.twig')->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function gamingAction()
+    {
+        $response = new Response(
+            $this->render('@DeepMikotoApi/App/gaming.html.twig')->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function photographyAction()
+    {
+        $response = new Response(
+            $this->render('@DeepMikotoApi/App/photography.html.twig')->getContent(),
             200
         );
         /** 90 days */
@@ -137,7 +188,7 @@ class AppController extends Controller
             throw $this->createNotFoundException();
 
         $response = new Response( // todo: add a separate help page template with metadata
-            $this->render('@DeepMikotoApi/App/index.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/help.html.twig')->getContent(),
             200
         );
         /** 90 days */

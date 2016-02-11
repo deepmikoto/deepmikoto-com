@@ -1,7 +1,7 @@
 
 /** view and actions for main header view */
 deepmikoto.HeaderView = Marionette.LayoutView.extend({
-    className: 'app-header',
+    className: 'app-header home',
     model: new deepmikoto.AppHeaderModel,
     regions: {
         resultsArea: '#results-area'
@@ -25,6 +25,7 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     initialize: function()
     {
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.updateCurrentPage );
+        this.listenTo( deepmikoto.app.globalChannel.vent, 'window:scroll', this.indicateScrolling );
     },
     getTemplate: function ()
     {
@@ -35,12 +36,19 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     {
         this.showSearchToggle();
     },
+    indicateScrolling: function ()
+    {
+        $( 'body' ).addClass( 'scrolling' );
+        this.scrollingTimeount != undefined ? clearTimeout( this.scrollingTimeount ) : null;
+        this.scrollingTimeount = setTimeout( function (){
+            $( 'body' ).removeClass( 'scrolling' );
+        }, 400 );
+    },
     showSearchToggle: function ()
     {
-        var _this = this;
-        setTimeout(function (){
-            _this.ui.searchContainer.removeClass( 'loading' );
-        }, 50 );
+        setTimeout( $.proxy( function (){
+            this.ui.searchContainer.removeClass( 'loading' );
+        }, this ), 50 );
     },
     toggleSearchField: function ()
     {

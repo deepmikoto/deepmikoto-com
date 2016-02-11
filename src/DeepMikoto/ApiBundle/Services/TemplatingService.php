@@ -56,7 +56,8 @@ class TemplatingService
             'photographyTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_timeline_collection.html.twig' ),
             'photographyTimelineItem' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_timeline_item.html.twig' ),
             'photographyPost' => $twigEngine->render( '@DeepMikotoApi/templates/photography/_photography_post.html.twig' ),
-            'footNote' => $twigEngine->render( '@DeepMikotoApi/templates/footnote/_default.html.twig' )
+            'footNote' => $twigEngine->render( '@DeepMikotoApi/templates/footnote/_default.html.twig' ),
+            'landingPage' => $twigEngine->render( '@DeepMikotoApi/templates/landing/_landing_page.html.twig' )
         ];
 
         return $this->serializer->serialize( $data, 'json' );
