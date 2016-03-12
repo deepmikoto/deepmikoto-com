@@ -1,8 +1,5 @@
 <div class="sidebar">
     <div class="list-group">
-        <a href="{{ path('deepmikoto_admin_primary_block') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_primary_block' %}active{% endif %}">
-            <i class="glyphicon glyphicon-blackboard"></i> Primary block
-        </a>
         <a href="{{ path('deepmikoto_admin_help_page') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_help_page' or app.request.get('_route') == 'deepmikoto_admin_help_page_edit' %}active{% endif %}">
             <i class="glyphicon glyphicon-briefcase"></i> Help page
         </a>

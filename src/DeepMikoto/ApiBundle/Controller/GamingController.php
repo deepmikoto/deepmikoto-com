@@ -10,6 +10,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class GamingController
  * @package DeepMikoto\ApiBundle\Controller
  */
-class GamingController extends FOSRestController
+class GamingController extends Controller
 {
     /**
      * action used for retrieving gaming timeline

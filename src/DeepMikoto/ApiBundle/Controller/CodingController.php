@@ -10,6 +10,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package DeepMikoto\ApiBundle\Controller
  */
-class CodingController extends FOSRestController
+class CodingController extends Controller
 {
     /**
      * action used for retrieving coding timeline

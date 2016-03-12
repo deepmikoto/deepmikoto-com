@@ -3,7 +3,7 @@ imports:
 
 #framework:
 #    validation:
-#        cache: validator.mapping.cache.apc
+#        cache: validator.mapping.cache.doctrine.apc
 #    serializer:
 #        cache: serializer.mapping.cache.apc
 
@@ -64,3 +64,4 @@ monolog:
             path:               "%kernel.logs_dir%/auth.log"
             level:              info
             channels:           security
+

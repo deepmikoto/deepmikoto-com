@@ -3,6 +3,9 @@
 namespace DeepMikoto\ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,23 +23,23 @@ class SidebarPrimaryBlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', [
+            ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('subtitle', 'text', [
+            ->add('subtitle', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('file')
-            ->add('content', 'textarea', [
+            ->add('content', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('save', 'submit', [
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
@@ -57,7 +60,7 @@ class SidebarPrimaryBlockType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'deepmikoto_apibundle_sidebarprimaryblock';
     }

@@ -64,7 +64,8 @@ class CommandController extends Controller
         $application->setAutoExit( false );
         $input = new ArrayInput([
             'command' => 'assets:install',
-            'target' => $this->get('kernel')->getRootDir() . '/../web'
+            'target' => $this->get('kernel')->getRootDir() . '/../web',
+            '--symlink'
         ]);
         $output = new BufferedOutput();
         $application->run( $input, $output );
@@ -81,6 +82,21 @@ class CommandController extends Controller
      */
     public function asseticDumpAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
+        $process = new Process( 'assetic:dump --env=prod', $this->get('kernel')->getRootDir()  . '/../' );
+        $response =  new StreamedResponse( function() use ($process){
+            $process->run(function ($type, $buffer){
+                if (Process::ERR === $type) {
+                    echo '<span class="text-danger">' . $buffer . '</span><br>';
+                } else {
+                    echo '<span class="text-primary">' . $buffer . '</span><br>';
+                }
+                ob_flush();
+                flush();
+            });
+        });
+
+        return $response;
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
         /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
         $kernel = $this->get( 'kernel' );

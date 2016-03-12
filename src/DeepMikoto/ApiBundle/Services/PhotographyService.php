@@ -64,7 +64,7 @@ class PhotographyService
                             'downLink'  => $router->generate( 'deepmikoto_api_photography_cache', [
                                 'id'   => $photo->getId(),
                                 'path' => $photo->getPath()
-                            ], true ),
+                            ], $router::ABSOLUTE_URL ),
                             'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
                                 $photo->getWebPath(), 'timeline_picture'
                             ),
@@ -122,7 +122,7 @@ class PhotographyService
             $photographyPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_photography_post', [
                 'id'   => $photographyPost[ 'id' ],
                 'slug' => $photographyPost[ 'slug' ]
-            ]);
+            ], $router::ABSOLUTE_PATH );
             $photographyPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
                 'images/photography/' . $photographyPost[ 'imageId' ] . '/' . $photographyPost[ 'imagePath' ], 'tiny_thumb'
             );

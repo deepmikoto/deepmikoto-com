@@ -10,6 +10,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package DeepMikoto\ApiBundle\Controller
  */
-class SidebarController extends FOSRestController
+class SidebarController extends Controller
 {
     /**
      * action used for retrieving sidebar components

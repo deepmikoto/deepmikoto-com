@@ -3,6 +3,9 @@
 namespace DeepMikoto\ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,22 +23,22 @@ class PhotographyPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', [
+            ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('location', 'text', [
+            ->add('location', TextType::class, [
                 'attr' => [
                     'class' => 'form-control post-location'
                 ]
             ])
-            ->add('public', 'checkbox', [
+            ->add('public', CheckboxType::class, [
                 'attr' => [
                     'class' => 'form-control post-longitude'
                 ]
             ])
-            ->add('save', 'submit', [
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
@@ -56,7 +59,7 @@ class PhotographyPostType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'deepmikoto_apibundle_photographypost';
     }

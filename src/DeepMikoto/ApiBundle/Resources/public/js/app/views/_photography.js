@@ -71,7 +71,8 @@ deepmikoto.PhotographyTimelineItemView = Marionette.ItemView.extend({
         $( this.ui.photo[ 0 ] ).css( 'opacity', '1' );
         displayNextPhoto( 0, true );
     },
-    enablePictureSlideUp: function(){
+    enablePictureSlideUp: function()
+    {
         var photos_count = this.model.get( 'photos' ).length, _this = this;
         function displayNextPhoto( index, useDelay ){
             var previous_index, next_index, delay = Math.floor( Math.random() * ( 20000 - 3000 + 1 ) + 3000 );

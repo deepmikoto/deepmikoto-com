@@ -37,7 +37,7 @@ class GamingController extends Controller
             [ 'type' => 'gaming']
         );
         $sidebarPrimaryBlock == null ? $sidebarPrimaryBlock = new SidebarPrimaryBlock() : null ;
-        $form = $this->createForm( new SidebarPrimaryBlockType(), $sidebarPrimaryBlock );
+        $form = $this->createForm( SidebarPrimaryBlockType::class, $sidebarPrimaryBlock );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -68,7 +68,7 @@ class GamingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $gamingPost = new GamingPost();
-        $form = $this->createForm( new GamingPostType(), $gamingPost );
+        $form = $this->createForm( GamingPostType::class, $gamingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -99,7 +99,7 @@ class GamingController extends Controller
         /** @var \DeepMikoto\ApiBundle\Entity\GamingPost $gamingPost */
         $gamingPost = $em->find( 'DeepMikotoApiBundle:GamingPost', $id );
         $gamingPost == null ? $this->createNotFoundException() : null;
-        $form = $this->createForm( new GamingPostType(), $gamingPost );
+        $form = $this->createForm( GamingPostType::class, $gamingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){

@@ -40,7 +40,7 @@ class PhotographyController extends Controller
             [ 'type' => 'photography']
         );
         $sidebarPrimaryBlock == null ? $sidebarPrimaryBlock = new SidebarPrimaryBlock() : null ;
-        $form = $this->createForm( new SidebarPrimaryBlockType(), $sidebarPrimaryBlock );
+        $form = $this->createForm( SidebarPrimaryBlockType::class, $sidebarPrimaryBlock );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -72,7 +72,7 @@ class PhotographyController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $photographyPost = new PhotographyPost();
-        $form = $this->createForm( new PhotographyPostType(), $photographyPost );
+        $form = $this->createForm( PhotographyPostType::class, $photographyPost );
         $form->remove('public');
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
@@ -102,7 +102,7 @@ class PhotographyController extends Controller
         /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPost $photographyPost */
         $photographyPost = $em->find( 'DeepMikotoApiBundle:PhotographyPost', $id );
         $photographyPost == null ? $this->createNotFoundException() : null;
-        $form = $this->createForm( new PhotographyPostType(), $photographyPost );
+        $form = $this->createForm( PhotographyPostType::class, $photographyPost );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -130,7 +130,7 @@ class PhotographyController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $photographyPostPhoto = new PhotographyPostPhoto();
-        $form = $this->createForm( new PhotographyPostPhotoType(), $photographyPostPhoto );
+        $form = $this->createForm( PhotographyPostPhotoType::class, $photographyPostPhoto );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -159,7 +159,7 @@ class PhotographyController extends Controller
         $photographyPostPhoto = $em->find( 'DeepMikotoApiBundle:PhotographyPostPhoto', $id );
         if( !$photographyPostPhoto instanceof PhotographyPostPhoto )
             return $this->createNotFoundException( 'Provided id does not exist in the database ');
-        $form = $this->createForm( new PhotographyPostPhotoType(), $photographyPostPhoto );
+        $form = $this->createForm( PhotographyPostPhotoType::class, $photographyPostPhoto );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){

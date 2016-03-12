@@ -179,7 +179,7 @@ class CodingService
             $codingPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_coding_post', [
                 'id'   => $codingPost[ 'id' ],
                 'slug' => $codingPost[ 'slug' ]
-            ]);
+            ], $router::ABSOLUTE_PATH );
             unset( $codingPosts[ $key ][ 'id' ] );
             unset( $codingPosts[ $key ][ 'slug' ] );
         }

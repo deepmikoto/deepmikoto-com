@@ -200,7 +200,7 @@ class GamingService
             $gamingPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_gaming_post', [
                 'id'   => $gamingPost[ 'id' ],
                 'slug' => $gamingPost[ 'slug' ]
-            ]);
+            ], $router::ABSOLUTE_PATH );
             $gamingPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
                 'images/gaming/' . $gamingPost[ 'id' ] . '/' . $gamingPost[ 'cover' ], 'tiny_thumb'
             );

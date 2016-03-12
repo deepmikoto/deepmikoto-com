@@ -51,7 +51,8 @@ function enableDeployTools()
         function runCommand( checkbox )
         {
             deepmikoto.home.miscelanious.deployToolsCurrent.html( getUrlOrStatusForCheckbox( checkbox, 'status' ) );
-            $.ajax({
+            windowpop( getUrlOrStatusForCheckbox( checkbox, 'url' ), 543, 433 );
+            /*$.ajax({
                 url: getUrlOrStatusForCheckbox( checkbox, 'url' ),
                 success: function(){
                     deepmikoto.home.miscelanious.deployToolsLog.append( deepmikoto.home.miscelanious.deployToolsCurrent.html() + 'OK<br>' );
@@ -62,7 +63,7 @@ function enableDeployTools()
                     deepmikoto.home.miscelanious.deployToolsLog.append( deepmikoto.home.miscelanious.deployToolsCurrent.html() + 'FAILED<br>' );
                     deepmikoto.home.miscelanious.deployToolsCurrent.html( 'Something went wrong! Process stopped!')
                 }
-            });
+            });*/
         }
         function startCommandChain( previousCheckbox )
         {
@@ -183,4 +184,14 @@ function enableCKEditor( textarea ){
         /** @namespace CKEDITOR */
         CKEDITOR.replace( textarea.attr( 'id' ) );
     }
+}
+
+function windowpop(url, width, height) {
+    var leftPosition, topPosition;
+    //Allow for borders.
+    leftPosition = (window.screen.width / 2) - ((width / 2) + 10);
+    //Allow for title and status bars.
+    topPosition = (window.screen.height / 2) - ((height / 2) + 50);
+    //Open the window.
+    window.open(url, "Window2", "status=no,height=" + height + ",width=" + width + ",resizable=yes,left=" + leftPosition + ",top=" + topPosition + ",screenX=" + leftPosition + ",screenY=" + topPosition + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no,address=no");
 }

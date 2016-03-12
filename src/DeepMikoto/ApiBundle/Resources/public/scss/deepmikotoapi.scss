@@ -151,13 +151,13 @@ html {
           display: none;
         }
         &.coding {
-          @include header-category-accent( rgb(0, 255, 6) );
+          @include header-category-accent( rgb(3, 53, 255) );
         }
         &.gaming {
           @include header-category-accent( rgb(255, 0, 26) );
         }
         &.photography {
-          @include header-category-accent( rgb(3, 53, 255) );
+          @include header-category-accent( rgb(0, 255, 6) );
         }
       }
     }

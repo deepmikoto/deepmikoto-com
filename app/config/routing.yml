@@ -3,12 +3,6 @@ _liip_imagine:
 deepmikoto_admin:
     resource: "@DeepMikotoAdminBundle/Resources/config/routing.yml"
     prefix:   /adminarea
-
-app_dev_php:
-    path: /app_dev.php
-    defaults: { _controller: DeepMikotoAdminBundle:Security:login }
 deepmikoto_app:
     resource: "@DeepMikotoApiBundle/Resources/config/routing.yml"
     prefix:   /
-
-

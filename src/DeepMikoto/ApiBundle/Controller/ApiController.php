@@ -11,6 +11,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\StaticPage;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ApiController
  * @package DeepMikoto\ApiBundle\Controller
  */
-class ApiController extends FOSRestController
+class ApiController extends Controller
 {
     /**
      * Api templates

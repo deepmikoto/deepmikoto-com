@@ -40,7 +40,7 @@ class CodingController extends Controller
             [ 'type' => 'coding']
         );
         $sidebarPrimaryBlock == null ? $sidebarPrimaryBlock = new SidebarPrimaryBlock() : null ;
-        $form = $this->createForm( new SidebarPrimaryBlockType(), $sidebarPrimaryBlock );
+        $form = $this->createForm( SidebarPrimaryBlockType::class, $sidebarPrimaryBlock );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -72,7 +72,7 @@ class CodingController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $codingPost = new CodingPost();
-        $form = $this->createForm( new CodingPostType(), $codingPost );
+        $form = $this->createForm( CodingPostType::class, $codingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -104,7 +104,7 @@ class CodingController extends Controller
         /** @var \DeepMikoto\ApiBundle\Entity\CodingPost $codingPost */
         $codingPost = $em->find( 'DeepMikotoApiBundle:CodingPost', $id );
         $codingPost == null ? $this->createNotFoundException() : null;
-        $form = $this->createForm( new CodingPostType(), $codingPost );
+        $form = $this->createForm( CodingPostType::class, $codingPost );
         if( $request-> isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -195,7 +195,7 @@ class CodingController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $category = new CodingCategory();
-        $form = $this->createForm( new CodingCategoryType(), $category );
+        $form = $this->createForm( CodingCategoryType::class, $category );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){
@@ -216,7 +216,7 @@ class CodingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $category = $em->find( 'DeepMikotoApiBundle:CodingCategory', $id );
         if( $category == null ) return $this->createNotFoundException( 'Not Found!' );
-        $form = $this->createForm( new CodingCategoryType(), $category );
+        $form = $this->createForm( CodingCategoryType::class, $category );
         if( $request->isMethod( 'POST' ) ){
             $form->handleRequest( $request );
             if( $form->isValid() ){

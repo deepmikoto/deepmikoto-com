@@ -27,41 +27,6 @@ class HomeController extends Controller
         return $this->render('DeepMikotoAdminBundle:Home:index.html.twig');
     }
 
-    /**
-     * Home sidebar primary block form
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function primaryBlockAction(Request $request)
-    {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $sidebarPrimaryBlock = $em->getRepository( 'DeepMikotoApiBundle:SidebarPrimaryBlock' )->findOneBy(
-            [ 'type' => 'home']
-        );
-        $sidebarPrimaryBlock == null ? $sidebarPrimaryBlock = new SidebarPrimaryBlock() : null ;
-        $form = $this->createForm( new SidebarPrimaryBlockType(), $sidebarPrimaryBlock );
-        if( $request-> isMethod( 'POST' ) ){
-            $form->handleRequest( $request );
-            if( $form->isValid() ){
-                $sidebarPrimaryBlock->setType( 'home' );
-                $em->persist( $sidebarPrimaryBlock );
-                $em->flush( $sidebarPrimaryBlock );
-                $this->addFlash( 'success', '<strong>Awesome!</strong> You updated the homepage primary block!' );
-
-                return $this->redirectToRoute( 'deepmikoto_admin_primary_block' );
-            }
-        }
-        if( $sidebarPrimaryBlock->getPicture() != null ){
-            $picturePath = $this->container->get('liip_imagine.cache.manager')->getBrowserPath( $sidebarPrimaryBlock->getWebPath(), 'sidebar_primary_block');
-        } else {
-            $picturePath = null;
-        }
-
-        return $this->render('DeepMikotoAdminBundle:Parts:primary_block_form.html.twig', [ 'form' => $form->createView(), 'picture' => $picturePath, 'type' => 'home' ]);
-    }
-
     public function helpPageAction()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -86,7 +51,7 @@ class HomeController extends Controller
         $helpPage = $em->getRepository('DeepMikotoApiBundle:StaticPage')->findOneBy([
             'name' => 'help'
         ]);
-        $form = $this->createForm( new StaticPageType(), $helpPage );
+        $form = $this->createForm( StaticPageType::class, $helpPage );
         if( $request->isMethod('POST') ){
             $form->handleRequest( $request );
             if( $form->isValid() ){

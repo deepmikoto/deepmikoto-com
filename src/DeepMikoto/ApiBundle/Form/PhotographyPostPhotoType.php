@@ -3,7 +3,10 @@
 namespace DeepMikoto\ApiBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +24,7 @@ class PhotographyPostPhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('photographyPost', 'entity',[
+            ->add('photographyPost', EntityType::class,[
                 'class' => 'DeepMikoto\ApiBundle\Entity\PhotographyPost',
                 'placeholder' => 'Choose a photography post',
                 'empty_data' => null,
@@ -34,10 +37,10 @@ class PhotographyPostPhotoType extends AbstractType
                         ->orderBy('p.date', 'DESC');
                 }
             ])
-            ->add('file', 'file', [
+            ->add('file', FileType::class, [
                 'required' => false,
             ])
-            ->add('save', 'submit', [
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
@@ -58,7 +61,7 @@ class PhotographyPostPhotoType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'deepmikoto_apibundle_photographypostphoto';
     }

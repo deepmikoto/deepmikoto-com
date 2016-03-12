@@ -26,9 +26,9 @@ security:
                 target: deepmikoto_admin_login
                 invalidate_session: true
             remember_me:
-                key:      "%secret%"
+                secret:  "%secret%"
                 lifetime: 31536000
-                path:     /adminarea
+                path:  /adminarea
                 domain:   ~
         deepmikoto_site_area:
             pattern: ^/
