@@ -23,6 +23,7 @@ deepmikoto.app.addInitializer(function()
     deepmikoto.app.generalFunctions = new deepmikoto.GeneralFunctions;
     deepmikoto.app.appFunctions     = new deepmikoto.AppFunctions;
     deepmikoto.app.radio            = new deepmikoto.RadioFunctions;
+    deepmikoto.app.utilityFunctions = new deepmikoto.UtilityFunctions;
 });
 
 /**

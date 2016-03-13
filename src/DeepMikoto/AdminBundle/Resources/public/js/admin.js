@@ -21,12 +21,15 @@ deepmikoto.home.buttons = {
     runDeployTools  : $( '#run-deploy' )
 };
 deepmikoto.home.ajaxUrls = {
-    GIT_PULL_MASTER_URL : '/adminarea/command/git-pull-master',
-    COMPOSER_INSTALL_URL: '/adminarea/command/composer-install',
-    CACHE_CLEAR_URL     : '/adminarea/command/cache-clear',
-    MIGRATIONS_URL      : '/adminarea/command/migrations-migrate',
-    ASSETS_INSTALL_URL  : '/adminarea/command/assets-install',
-    ASSETIC_DUMP_URL    : '/adminarea/command/assetic-dump'
+    COMMAND_EXEC: /*'/app_dev.php' +*/ '/adminarea/command/execute'
+};
+deepmikoto.home.commands = {
+    GIT_PULL_MASTER : 'git-pull-master',
+    COMPOSER_INSTALL: 'composer-install',
+    CACHE_CLEAR     : 'cache-clear',
+    MIGRATIONS      : 'migrations-migrate',
+    ASSETS_INSTALL  : 'assets-install',
+    ASSETIC_DUMP    : 'assetic-dump'
 };
 deepmikoto.home.miscelanious = {
     deployToolsLog      : $( '#command-log' ),

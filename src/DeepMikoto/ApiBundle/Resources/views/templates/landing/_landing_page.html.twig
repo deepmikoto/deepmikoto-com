@@ -1,11 +1,39 @@
 {% spaceless %}
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 block">
-        <a href="{{ path('deepmikoto_app_coding') }}">Coding</a>
+    <div class="header">
+        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
+            <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
+        {% endimage %}
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 block">
-        <a href="{{ path('deepmikoto_app_gaming') }}">Gaming</a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 block">
-        <a href="{{ path('deepmikoto_app_photography') }}">Photography</a>
-    </div>
+    <section data-active="yes" class="welcome">
+        <div class="section-content">
+            <div class="container">
+                <h1>Hi there</h1>
+                <h4>You made it</h4>
+                <p>
+                    Since you're here, it's time to start exploring
+                </p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="section-content">
+            <div class="container">
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="section-content">
+            <div class="container">
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="section-content">
+            <div class="container">
+
+            </div>
+        </div>
+    </section>
 {% endspaceless %}

@@ -11,6 +11,7 @@ deepmikoto.RadioFunctions = Marionette.extend({
     initializeRadioChannels: function()
     {
         deepmikoto.app.globalChannel   = Backbone.Wreqr.radio.channel('global');
+        deepmikoto.app.windowChannel   = Backbone.Wreqr.radio.channel('window');
         deepmikoto.app.routerChannel   = Backbone.Wreqr.radio.channel('router');
         deepmikoto.app.securityChannel = Backbone.Wreqr.radio.channel('security');
     },
@@ -22,7 +23,37 @@ deepmikoto.RadioFunctions = Marionette.extend({
     broadcastBehaviours: function ()
     {
         $( window ).on( 'scroll', $.proxy( function(){
-            this.broadcast( 'global', 'window:scroll' );
+            this.broadcast( 'window', 'window:scroll' );
         }, this ));
+        $( window ).on( 'resize', $.proxy(function (){
+            this.broadcast( 'window', 'window:resize' );
+        }, this ));
+        this.watchForMouseWheelMovement();
+    },
+    watchForMouseWheelMovement: function()
+    {
+        function detectMouseWheelDirection( e )
+        {
+            var delta = 0;
+            if ( !e ) e = window.event;
+            if ( e.wheelDelta ) {
+                delta = e.wheelDelta / 60;
+            } else if ( e.detail ) {
+                delta = -e.detail / 2;
+            }
+            delta = delta > 0 ? 'up' : 'down';
+
+            return delta;
+        }
+        document.onmousewheel = $.proxy( function( e ){
+            var scroll_direction = detectMouseWheelDirection( e );
+            this.broadcast( 'window', 'window:mousewheel', scroll_direction );
+        }, this );
+        if( window.addEventListener ){
+            document.addEventListener( 'DOMMouseScroll', $.proxy( function( e ){
+                var scroll_direction = detectMouseWheelDirection( e );
+                this.broadcast( 'window', 'window:mousewheel', scroll_direction );
+            }, this ), false );
+        }
     }
 });

@@ -25,7 +25,7 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     initialize: function()
     {
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.updateCurrentPage );
-        this.listenTo( deepmikoto.app.globalChannel.vent, 'window:scroll', this.indicateScrolling );
+        this.listenTo( deepmikoto.app.windowChannel.vent, 'window:scroll', this.indicateScrolling );
     },
     getTemplate: function ()
     {

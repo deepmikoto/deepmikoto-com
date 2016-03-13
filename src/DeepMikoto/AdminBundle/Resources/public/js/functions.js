@@ -19,123 +19,134 @@ function enableDeployTools()
     });
     deepmikoto.home.buttons.runDeployTools.on( 'click', function ()
     {
+        var command_queue = [];
         function getUrlOrStatusForCheckbox( checkbox, propertyType )
         {
-            var url, status;
+            var command, status;
             if( checkbox == deepmikoto.home.checkboxes.gitPullMaster ){
-                url = deepmikoto.home.ajaxUrls.GIT_PULL_MASTER_URL;
-                status = 'Fetching latest code from GIT ... ';
+                command = deepmikoto.home.commands.GIT_PULL_MASTER;
+                status = 'code update with git';
             } else if (checkbox == deepmikoto.home.checkboxes.composerInstall ){
-                url = deepmikoto.home.ajaxUrls.COMPOSER_INSTALL_URL;
-                status = 'Installing composer dependencies ... ';
+                command = deepmikoto.home.commands.COMPOSER_INSTALL;
+                status = 'dependencies install ';
             } else if (checkbox == deepmikoto.home.checkboxes.cacheClear ){
-                url = deepmikoto.home.ajaxUrls.CACHE_CLEAR_URL;
-                status = 'Clearing cache ... ';
+                command = deepmikoto.home.commands.CACHE_CLEAR;
+                status = 'cache clear';
             } else if (checkbox == deepmikoto.home.checkboxes.migrations ){
-                url = deepmikoto.home.ajaxUrls.MIGRATIONS_URL;
-                status = 'Running database migrations ... ';
+                command = deepmikoto.home.commands.MIGRATIONS;
+                status = 'database migrations';
             } else if (checkbox == deepmikoto.home.checkboxes.assetsInstall ){
-                url = deepmikoto.home.ajaxUrls.ASSETS_INSTALL_URL;
-                status = 'Installing assets ... ';
+                command = deepmikoto.home.commands.ASSETS_INSTALL;
+                status = 'assets install';
             } else if (checkbox == deepmikoto.home.checkboxes.asseticDump ){
-                url = deepmikoto.home.ajaxUrls.ASSETIC_DUMP_URL;
-                status = 'Compiling assets ... ';
+                command = deepmikoto.home.commands.ASSETIC_DUMP;
+                status = 'assets compiling';
             }
 
-            if( propertyType == 'url' ){
-                return url;
+            if( propertyType == 'command' ){
+                return command;
             } else {
-                return status;
+                return 'Queueing <strong>' + status + '</strong> ...';
             }
         }
-        function runCommand( checkbox )
+        function addCommandToQueue( checkbox )
         {
             deepmikoto.home.miscelanious.deployToolsCurrent.html( getUrlOrStatusForCheckbox( checkbox, 'status' ) );
-            windowpop( getUrlOrStatusForCheckbox( checkbox, 'url' ), 543, 433 );
-            /*$.ajax({
-                url: getUrlOrStatusForCheckbox( checkbox, 'url' ),
-                success: function(){
-                    deepmikoto.home.miscelanious.deployToolsLog.append( deepmikoto.home.miscelanious.deployToolsCurrent.html() + 'OK<br>' );
-                    deepmikoto.home.miscelanious.deployToolsCurrent.html( '' );
-                    startCommandChain( checkbox );
-                },
-                error: function(){
-                    deepmikoto.home.miscelanious.deployToolsLog.append( deepmikoto.home.miscelanious.deployToolsCurrent.html() + 'FAILED<br>' );
-                    deepmikoto.home.miscelanious.deployToolsCurrent.html( 'Something went wrong! Process stopped!')
-                }
-            });*/
+            updateCurrentLog( 'OK!' );
+            command_queue.push( getUrlOrStatusForCheckbox( checkbox, 'command' ) );
+            startCommandChain( checkbox );
         }
         function startCommandChain( previousCheckbox )
         {
             previousCheckbox = previousCheckbox || null;
             if( previousCheckbox == null ){
                if( deepmikoto.home.checkboxes.gitPullMaster.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.gitPullMaster );
+                   addCommandToQueue( deepmikoto.home.checkboxes.gitPullMaster );
                } else if( deepmikoto.home.checkboxes.composerInstall.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.composerInstall );
+                   addCommandToQueue( deepmikoto.home.checkboxes.composerInstall );
                } else if( deepmikoto.home.checkboxes.cacheClear.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.cacheClear );
+                   addCommandToQueue( deepmikoto.home.checkboxes.cacheClear );
                } else if( deepmikoto.home.checkboxes.migrations.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.migrations );
+                   addCommandToQueue( deepmikoto.home.checkboxes.migrations );
                } else if( deepmikoto.home.checkboxes.assetsInstall.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.assetsInstall );
+                   addCommandToQueue( deepmikoto.home.checkboxes.assetsInstall );
                } else if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                   runCommand( deepmikoto.home.checkboxes.asseticDump );
+                   addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                } else {
-                   deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                   runCommandQueue();
                }
             } else if( previousCheckbox == deepmikoto.home.checkboxes.gitPullMaster ){
                 if( deepmikoto.home.checkboxes.composerInstall.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.composerInstall );
+                    addCommandToQueue( deepmikoto.home.checkboxes.composerInstall );
                 } else if( deepmikoto.home.checkboxes.cacheClear.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.cacheClear );
+                    addCommandToQueue( deepmikoto.home.checkboxes.cacheClear );
                 } else if( deepmikoto.home.checkboxes.migrations.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.migrations );
+                    addCommandToQueue( deepmikoto.home.checkboxes.migrations );
                 } else if( deepmikoto.home.checkboxes.assetsInstall.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.assetsInstall );
+                    addCommandToQueue( deepmikoto.home.checkboxes.assetsInstall );
                 } else if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.asseticDump );
+                    addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                 } else {
-                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                    runCommandQueue();
                 }
             } else if( previousCheckbox == deepmikoto.home.checkboxes.composerInstall ){
                 if( deepmikoto.home.checkboxes.cacheClear.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.cacheClear );
+                    addCommandToQueue( deepmikoto.home.checkboxes.cacheClear );
                 } else if( deepmikoto.home.checkboxes.migrations.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.migrations );
+                    addCommandToQueue( deepmikoto.home.checkboxes.migrations );
                 } else if( deepmikoto.home.checkboxes.assetsInstall.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.assetsInstall );
+                    addCommandToQueue( deepmikoto.home.checkboxes.assetsInstall );
                 } else if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.asseticDump );
+                    addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                 } else {
-                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                    runCommandQueue();
                 }
             } else if( previousCheckbox == deepmikoto.home.checkboxes.cacheClear ){
                 if( deepmikoto.home.checkboxes.migrations.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.migrations );
+                    addCommandToQueue( deepmikoto.home.checkboxes.migrations );
                 } else if( deepmikoto.home.checkboxes.assetsInstall.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.assetsInstall );
+                    addCommandToQueue( deepmikoto.home.checkboxes.assetsInstall );
                 } else if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.asseticDump );
+                    addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                 } else {
-                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                    runCommandQueue();
                 }
             } else if( previousCheckbox == deepmikoto.home.checkboxes.migrations ){
                 if( deepmikoto.home.checkboxes.assetsInstall.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.assetsInstall );
+                    addCommandToQueue( deepmikoto.home.checkboxes.assetsInstall );
                 } else if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.asseticDump );
+                    addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                 } else {
-                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                    runCommandQueue();
                 }
             } else if( previousCheckbox == deepmikoto.home.checkboxes.assetsInstall ){
                 if( deepmikoto.home.checkboxes.asseticDump.is( ':checked' ) ){
-                    runCommand( deepmikoto.home.checkboxes.asseticDump );
+                    addCommandToQueue( deepmikoto.home.checkboxes.asseticDump );
                 } else {
-                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                    runCommandQueue();
                 }
             } else {
-                deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                runCommandQueue();
+            }
+        }
+        function updateCurrentLog( status_text ){
+            deepmikoto.home.miscelanious.deployToolsLog.append(
+                deepmikoto.home.miscelanious.deployToolsCurrent.html() + status_text + '<br>'
+            );
+            deepmikoto.home.miscelanious.deployToolsCurrent.html( '' );
+        }
+        function runCommandQueue()
+        {
+            deepmikoto.home.miscelanious.deployToolsCurrent.html( 'Executing ...' );
+            var popup = openPopup( command_queue );
+            if( popup != null ){
+                popup.onbeforeunload = function (){
+                    popup = undefined;
+                    updateCurrentLog( 'Done!' );
+                    deepmikoto.home.miscelanious.deployToolsLog.append( 'FINISH' );
+                };
+            } else {
+                updateCurrentLog( 'Nothing to execute!' );
             }
         }
         deepmikoto.home.miscelanious.deployToolsCurrent.html( '' );
@@ -179,19 +190,29 @@ function enableGoogleAutoComplete( locationInput )
 /**
  * @param textarea
  */
-function enableCKEditor( textarea ){
+function enableCKEditor( textarea )
+{
     if( textarea.length > 0 ){
         /** @namespace CKEDITOR */
         CKEDITOR.replace( textarea.attr( 'id' ) );
     }
 }
 
-function windowpop(url, width, height) {
-    var leftPosition, topPosition;
-    //Allow for borders.
-    leftPosition = (window.screen.width / 2) - ((width / 2) + 10);
-    //Allow for title and status bars.
-    topPosition = (window.screen.height / 2) - ((height / 2) + 50);
-    //Open the window.
-    window.open(url, "Window2", "status=no,height=" + height + ",width=" + width + ",resizable=yes,left=" + leftPosition + ",top=" + topPosition + ",screenX=" + leftPosition + ",screenY=" + topPosition + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no,address=no");
+function openPopup( command_queue )
+{
+    if( command_queue.length > 0 ){
+        var leftPosition, topPosition, width = 750, height = 550;
+        //Allow for borders.
+        leftPosition = (window.screen.width / 2) - ((width / 2 ) + 10);
+        //Allow for title and status bars.
+        topPosition = (window.screen.height / 2) - ((height / 2) + 50);
+        //Open the window.
+        return window.open(
+            deepmikoto.home.ajaxUrls.COMMAND_EXEC + '/' + JSON.stringify( command_queue ), "Window2", "status=no,height="
+            + height + ",width=" + width + ",resizable=yes,left=" + leftPosition + ",top=" + topPosition + ",screenX="
+            + leftPosition + ",screenY=" + topPosition + ",toolbar=no,menubar=no,location=no,directories=no,address=no"
+        );
+    } else {
+        return null;
+    }
 }

@@ -11,6 +11,9 @@ a {
 
 html {
   height: 100%;
+  &.locked {
+    overflow: hidden!important;
+  }
   body {
     font-family: 'Roboto Condensed', sans-serif;
     height: 100%;
@@ -551,6 +554,44 @@ html {
         }
       }
       &>.landing-page-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0;
+        &>.landing-page {
+          .header {
+            position: fixed;
+            width: 100%;
+            padding: 20px 40px;
+          }
+          &>section {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            background: transparent no-repeat center center;
+            background-size: cover;
+            .section-content {
+              display: table-cell;
+              width: 100%;
+              vertical-align: middle;
+              background: rgba(0, 0, 0, 0.25) none repeat scroll 0 0;
+            }
+            &.welcome {
+              background-image: url("../images/black_bkg.jpg");
+              h1 {
+                font-size: 60px;
+              }
+              h4 {
+                font-size: 25px;
+              }
+              p {
+                font-size: 16px;
+              }
+              color: #FFFFFF;
+              font-size: 2em;
+            }
+          }
+        }
         &>.initial-loader-overlay {
           position: fixed;
           display: table;

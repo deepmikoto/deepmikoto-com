@@ -8,11 +8,7 @@
 
 namespace DeepMikoto\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Process\Process;
 
@@ -24,167 +20,78 @@ use Symfony\Component\Process\Process;
  */
 class CommandController extends Controller
 {
-    /**
-     * clear the production cache
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function cacheClearAction()
-    {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'cache:clear',
-            '--env'   => 'prod'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
+    private $commands;
 
-        return new Response( $content, 200 );
+    public function __construct()
+    {
+        $this->commands = [
+            'git-pull-master' => 'git pull origin master',
+            'composer-install' => 'php composer.phar install',
+            'cache-clear' => 'php bin/console cache:clear --env=prod',
+            'migrations-migrate' => 'php bin/console doctrine:migrations:migrate --no-interaction',
+            'assets-install' => 'php bin/console assets:install --symlink',
+            'assetic-dump' => 'php bin/console assetic:dump --env=prod'
+        ];
+    }
+
+    private function getCommand( $name )
+    {
+        $command = null;
+        if( is_string( $name ) && array_key_exists( $name, $this->commands ) ){
+            return $this->commands[ $name ];
+        }
+
+        return $command;
     }
 
     /**
-     * install assets
-     *
-     * @return Response
-     * @throws \Exception
+     * @param array $commands
+     * @return StreamedResponse
      */
-    public function assetsInstallAction()
+    private function executeCommands( $commands = [] )
     {
-//        var_dump( $this->get('kernel')->getRootDir() . '/../web');die;
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'assets:install',
-            'target' => $this->get('kernel')->getRootDir() . '/../web',
-            '--symlink'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
-
-        return new Response( $content, 200 );
-    }
-
-    /**
-     * minify assets
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function asseticDumpAction()
-    {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        $process = new Process( 'assetic:dump --env=prod', $this->get('kernel')->getRootDir()  . '/../' );
-        $response =  new StreamedResponse( function() use ($process){
-            $process->run(function ($type, $buffer){
-                if (Process::ERR === $type) {
-                    echo '<span class="text-danger">' . $buffer . '</span><br>';
-                } else {
-                    echo '<span class="text-primary">' . $buffer . '</span><br>';
-                }
-                ob_flush();
-                flush();
-            });
-        });
-
-        return $response;
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'assetic:dump',
-            '--env'   => 'prod'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
-
-        return new Response( $content, 200 );
-    }
-
-    /**
-     * fetch latest code from GIT
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function gitPullMasterAction()
-    {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $process = new Process( 'git pull origin master', $this->get('kernel')->getRootDir()  . '/../' );
-        $response =  new StreamedResponse( function() use ($process){
-            $process->run(function ($type, $buffer){
-                if (Process::ERR === $type) {
-                    echo '<span class="text-danger">' . $buffer . '</span><br>';
-                } else {
-                    echo '<span class="text-primary">' . $buffer . '</span><br>';
-                }
-                ob_flush();
-                flush();
-            });
+        $path = $this->get('kernel')->getRootDir()  . '/../';
+        $response =  new StreamedResponse( function() use ( $path, $commands ){
+            echo $this->renderView( 'DeepMikotoAdminBundle:Parts:command_template.html.twig' );
+            foreach( $commands as $command ){
+                echo '<span class="command"> -> ' . $command . '</span>';
+                echo '<script>window.scrollTo(0,document.body.scrollHeight)</script>';
+                $process = new Process( $command, $path );
+                $process->run(function ($type, $buffer) {
+                    if (Process::ERR === $type) {
+                        echo '<span class="text-danger">' . $buffer . '</span>';
+                        echo '<script>window.scrollTo(0,document.body.scrollHeight)</script>';
+                    } else {
+                        echo '<span>' . $buffer . '</span>';
+                        echo '<script>window.scrollTo(0,document.body.scrollHeight)</script>';
+                    }
+                    ob_flush();
+                    flush();
+                });
+            }
+            echo '<br><span>Done!</span><br>';
+            echo '<button type="button" class="button" onclick="window.close();">close window</button>';
+            echo '<script>window.scrollTo(0,document.body.scrollHeight)</script>';
         });
 
         return $response;
     }
 
-    /**
-     * install composer dependencies
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function composerInstallAction()
+    public function executeAction( $commandArray )
     {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        $process = new Process( '/usr/local/bin/composer install', $this->get('kernel')->getRootDir()  . '/../' );
-        $response =  new StreamedResponse( function() use ($process){
-            $process->run(function ($type, $buffer){
-                if (Process::ERR === $type) {
-                    echo '<span class="text-danger">' . $buffer . '</span><br>';
-                } else {
-                    echo '<span class="text-primary">' . $buffer . '</span><br>';
-                }
-                ob_flush();
-                flush();
-            });
-        });
+        $commandArray = json_decode( $commandArray );
+        if( is_array( $commandArray ) && count( $commandArray ) > 0 ){
+            $commands = [];
+            foreach( $commandArray as $commandName ){
+                $command = $this->getCommand( $commandName );
+                $command != null ? $commands[] = $command : null;
+            }
+            if( count( $commands ) > 0 ){
+                return $this->executeCommands( $commands );
+            }
+        }
 
-        return $response;
-    }
+        return $this->render( 'DeepMikotoAdminBundle:Parts:command_template.html.twig', [ 'exception' => 'nothing to execute ...' ] );
 
-    /**
-     * execute latest Doctrine migrations
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function migrationsMigrateAction()
-    {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'Unable to access this page!');
-        /** @var \Symfony\Component\HttpKernel\KernelInterface $kernel */
-        $kernel = $this->get( 'kernel' );
-        $application = new Application( $kernel );
-        $application->setAutoExit( false );
-        $input = new ArrayInput([
-            'command' => 'doctrine:migrations:migrate',
-            '--no-interaction'
-        ]);
-        $output = new BufferedOutput();
-        $application->run( $input, $output );
-        $content = $output->fetch();
-
-        return new Response( $content, 200 );
     }
 }

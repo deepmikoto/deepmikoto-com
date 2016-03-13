@@ -1,0 +1,89 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>processing ... </title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <style>
+        body {
+            white-space: pre-wrap;
+            background-color: #000000;
+            color: #4eff3c;
+            font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+            font-size: 12px;
+            padding-bottom: 20px;
+        }
+        h5 {
+            margin: 0;
+        }
+        img {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+        .command {
+            display: block;
+            margin: 30px 0;
+            color: #F8E71C;
+        }
+        .text-danger {
+            color: #C82829;
+        }
+        .jawn {
+            position: fixed;
+            background-color: #F8E71C;
+            width: 10px;
+            height: 10px;
+            margin: 0 auto;
+            border-radius: 50%;
+            right: 40px;
+            bottom: 35px;
+        }
+        .jawn:after, .jawn:before {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+        .jawn:after {
+            left: -10px;
+            top: -5px;
+            background-color: #C7C2A6;
+            transform-origin: 15px 10px;
+            animation: axis 1s linear infinite;
+        }
+        .jawn:before {
+            left: -25px;
+            top: -15px;
+            background-color: #009bff;
+            transform-origin: 30px 20px;
+            animation: axis 2s linear infinite;
+        }
+
+        @keyframes axis {
+            0% {
+                transform: rotateZ(0deg) translate3d(0, 0, 0);
+            }
+            100% {
+                transform: rotateZ(360deg) translate3d(0, 0, 0);
+            }
+        }
+        .button {
+            display: inherit;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<h5>
+    {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
+        <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
+    {% endimage %}
+</h5>
+<div class="jawn"></div>
+{% if exception is defined and exception != null %}<span>{{ exception }}</span>{% endif %}
+</body>
+</html>
+{% endspaceless %}
