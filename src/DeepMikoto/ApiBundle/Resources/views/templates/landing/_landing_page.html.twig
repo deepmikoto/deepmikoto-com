@@ -1,6 +1,6 @@
 {% spaceless %}
     <div class="header">
-        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_w.png' output='images/logo_w.png' %}
+        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_150.png' output='images/logo_w_160.png' %}
             <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
         {% endimage %}
     </div>
@@ -17,22 +17,22 @@
     </section>
     <section>
         <div class="section-content">
-            <div class="container">
-
+            <div class="container text-center">
+                <a href="{{ path('deepmikoto_app_coding') }}" >coding</a>
             </div>
         </div>
     </section>
     <section>
-        <div class="section-content">
+        <div class="section-content text-center">
             <div class="container">
-
+                <a href="{{ path('deepmikoto_app_gaming') }}" >gaming</a>
             </div>
         </div>
     </section>
     <section>
-        <div class="section-content">
+        <div class="section-content text-center">
             <div class="container">
-
+                <a href="{{ path('deepmikoto_app_photography') }}" >photography</a>
             </div>
         </div>
     </section>
