@@ -53,6 +53,8 @@ deepmikoto.UtilityFunctions = Marionette.extend({
                 '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
                 '<span>distX:' + distX + '</span>&nbsp;<span>distY:' + distY + '</span><br>' +
                 '<span>threshold:' + threshold + '</span>&nbsp;<span>restraint:' + restraint + '</span><br>' +
+                '<span>Math.abs(distY) >= threshold:' + ( Math.abs(distY) >= threshold ? 'true' : 'false' ) + '</span>&nbsp;<span> Math.abs(distX) <= restraint:' + ( Math.abs(distX) <= restraint ? 'true':'false') + '</span><br>' +
+                '<span>Math.abs(distY) >= threshold && Math.abs(distX) <= restraint:' + (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint ? 'true' : 'false' ) + '</span>><br>' +
                 '</div><br>'
             );
             if (elapsedTime <= allowedTime){ // first condition for awipe met
