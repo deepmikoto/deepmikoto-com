@@ -15,13 +15,12 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             startY,
             distX,
             distY,
-            threshold = 150, //required min distance traveled to be considered swipe
+            threshold = 100, //required min distance traveled to be considered swipe
             restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-            allowedTime = 300, // maximum time allowed to travel that distance
+            allowedTime = 500, // maximum time allowed to travel that distance
             elapsedTime,
             startTime
         ;
-
         touchsurface.addEventListener('touchstart', function(e){
             e.preventDefault();
             var touchobj = e.changedTouches[0];
@@ -29,20 +28,12 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             startX = touchobj.pageX;
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
-            $('section').find('.section-content').css({ fontSize: '12px' }).html('' +
-                '<div><span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span></div><br>'
-            )
-
         }, false);
-
         touchsurface.addEventListener('touchmove', function(e){
-            e.preventDefault(); // prevent scrolling when inside DIV
-            $('section').find('.section-content').append('.');
-        }, false);
-
+            e.preventDefault(); // prevent scrolling when inside element
+        }, false );
         touchsurface.addEventListener('touchend', function(e){
             e.preventDefault();
-
             var touchobj = e.changedTouches[0];
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
@@ -55,20 +46,7 @@ deepmikoto.UtilityFunctions = Marionette.extend({
                     swipedir = (distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
                 }
             }
-            $('section').find('.section-content').append('' +
-                '<br><div>' +
-                '<span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span><br>' +
-                '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
-                '<span>distX:' + distX + '</span>&nbsp;<span>distY:' + distY + '</span><br>' +
-                '<span>threshold:' + threshold + '</span>&nbsp;<span>restraint:' + restraint + '</span><br>' +
-                '<span>Math.abs(distY) >= threshold:' + ( Math.abs(distY) >= threshold ? 'true' : 'false' ) + '</span>&nbsp;<span> Math.abs(distX) <= restraint:' + ( Math.abs(distX) <= restraint ? 'true':'false') + '</span><br>' +
-                '<span>Math.abs(distY) >= threshold && Math.abs(distX) <= restraint:' + (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint ? 'true' : 'false' ) + '</span><br>' +
-                '<span>swipedir:' + swipedir + '</span>&nbsp;<br>' +
-                '</div><br>'
-            );
             typeof callback == 'function' ? callback( swipedir ) : null;
-            alert("you swiped on element w to "+swipedir+" direction");
-
         }, false);
     },
     isElementInViewport: function ( el )

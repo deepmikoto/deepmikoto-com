@@ -36,12 +36,12 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     enableSwipeDetection: function ()
     {
         deepmikoto.app.utilityFunctions.detectSwipe( this.el, $.proxy( function ( swipedir ){
-            if ( swipedir == 'down' ) {
+            if ( swipedir == 'up' ) {
                 this.showNextSection();
-            } else if ( swipedir == 'up' ) {
+            } else if ( swipedir == 'down' ) {
                 this.showPreviousSection();
             }
-        }, this ));
+        }, this ) );
     },
     adaptSectionsSize: function ()
     {
