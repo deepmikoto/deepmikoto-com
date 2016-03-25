@@ -29,7 +29,7 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             startX = touchobj.pageX;
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
-            $('section').find('.section-content').html('' +
+            $('section').find('.section-content').css({ fontSize: '12px' }).html('' +
                 '<div><span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span></div><br>'
             )
 
@@ -47,7 +47,7 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
             elapsedTime = new Date().getTime() - startTime; // get time elapsed
-            $('section').find('.section-content').html('' +
+            $('section').find('.section-content').append('' +
                 '<br><div>' +
                 '<span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span><br>' +
                 '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
