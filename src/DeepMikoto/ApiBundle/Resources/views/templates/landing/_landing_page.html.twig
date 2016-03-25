@@ -1,16 +1,16 @@
 {% spaceless %}
-    <div class="header">
-        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_150.png' output='images/logo_w_160.png' %}
-            <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
-        {% endimage %}
-    </div>
     <section data-active="yes" class="welcome">
+        <div class="header">
+            {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_150.png' output='images/logo_w_160.png' %}
+                <img src="{{ asset_url }}" alt="deepmikoto" title="Hi there!"/>
+            {% endimage %}
+        </div>
         <div class="section-content">
             <div class="container">
                 <h1>Hi there</h1>
                 <h4>You made it</h4>
                 <p>
-                    Since you're here, it's time to start exploring 
+                    Since you're here, it's time to start exploring
                 </p>
             </div>
         </div>

@@ -27,7 +27,7 @@ deepmikoto.app.addInitializer(function()
 });
 
 /**
- * Instantiate the collections from the bootstrapped data
+ * Our app data variable
  */
 deepmikoto.app.addInitializer(function()
 {
@@ -37,6 +37,7 @@ deepmikoto.app.addInitializer(function()
 /**
  * Now we launch the app
  */
-$( function() {
+$( window ).on( 'load', function()
+{
     deepmikoto.app.start();
 });

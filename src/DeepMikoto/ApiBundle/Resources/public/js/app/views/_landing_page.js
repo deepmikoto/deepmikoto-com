@@ -8,10 +8,6 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     ui: {
         sections: 'section'
     },
-    events: {
-        'swipedown @ui.sections': 'showPreviousSection',
-        'swipeup @ui.sections': 'showNextSection'
-    },
     initialize: function()
     {
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.destroy );
@@ -26,6 +22,7 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     {
         this.scrollToTopAndDisableScroll();
         this.adaptSectionsSize();
+        this.enableSwipeDetection();
     },
     onDestroy: function ()
     {
@@ -35,6 +32,16 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     {
         deepmikoto.app.utilityFunctions.windowScrollToTop();
         deepmikoto.app.utilityFunctions.hideHTMLOverflow();
+    },
+    enableSwipeDetection: function ()
+    {
+        deepmikoto.app.utilityFunctions.detectSwipe( this.el, function ( swipedir ){
+            if ( swipedir == 'down' ) {
+                this.showNextSection();
+            } else if ( swipedir == 'up' ) {
+                this.showPreviousSection();
+            }
+        });
     },
     adaptSectionsSize: function ()
     {

@@ -34,5 +34,17 @@ deepmikoto.appConstants = {
 /** define the templates variable */
 deepmikoto.templates = {};
 
+deepmikoto.preLoadAssets = function ( assetsArray )
+{
+    var assets = [];
+    for( var i = 0; i < assetsArray.length; i++ ){
+        assets[ i ] = new Image();
+        assets[ i ].src = assetsArray[ i ];
+    }
+};
+deepmikoto.preLoadAssets([
+    '/bundles/deepmikotoapi/images/black_bkg.jpg'
+]);
+
 /** message for users that open the console */
 console.info( 'What are you looking for?! Just kidding, you can take a peek! :)');
