@@ -47,16 +47,6 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
             elapsedTime = new Date().getTime() - startTime; // get time elapsed
-            $('section').find('.section-content').append('' +
-                '<br><div>' +
-                '<span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span><br>' +
-                '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
-                '<span>distX:' + distX + '</span>&nbsp;<span>distY:' + distY + '</span><br>' +
-                '<span>threshold:' + threshold + '</span>&nbsp;<span>restraint:' + restraint + '</span><br>' +
-                '<span>Math.abs(distY) >= threshold:' + ( Math.abs(distY) >= threshold ? 'true' : 'false' ) + '</span>&nbsp;<span> Math.abs(distX) <= restraint:' + ( Math.abs(distX) <= restraint ? 'true':'false') + '</span><br>' +
-                '<span>Math.abs(distY) >= threshold && Math.abs(distX) <= restraint:' + (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint ? 'true' : 'false' ) + '</span>><br>' +
-                '</div><br>'
-            );
             if (elapsedTime <= allowedTime){ // first condition for awipe met
                 if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
                     swipedir = (distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
@@ -65,6 +55,17 @@ deepmikoto.UtilityFunctions = Marionette.extend({
                     swipedir = (distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
                 }
             }
+            $('section').find('.section-content').append('' +
+                '<br><div>' +
+                '<span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span><br>' +
+                '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
+                '<span>distX:' + distX + '</span>&nbsp;<span>distY:' + distY + '</span><br>' +
+                '<span>threshold:' + threshold + '</span>&nbsp;<span>restraint:' + restraint + '</span><br>' +
+                '<span>Math.abs(distY) >= threshold:' + ( Math.abs(distY) >= threshold ? 'true' : 'false' ) + '</span>&nbsp;<span> Math.abs(distX) <= restraint:' + ( Math.abs(distX) <= restraint ? 'true':'false') + '</span><br>' +
+                '<span>Math.abs(distY) >= threshold && Math.abs(distX) <= restraint:' + (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint ? 'true' : 'false' ) + '</span><br>' +
+                '<span>swipedir:' + swipedir + '</span>&nbsp;<br>' +
+                '</div><br>'
+            );
             typeof callback == 'function' ? callback( swipedir ) : null;
             alert("you swiped on element w to "+swipedir+" direction");
 
