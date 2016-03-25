@@ -35,13 +35,13 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     },
     enableSwipeDetection: function ()
     {
-        deepmikoto.app.utilityFunctions.detectSwipe( this.el, function ( swipedir ){
+        deepmikoto.app.utilityFunctions.detectSwipe( this.el, $.proxy( function ( swipedir ){
             if ( swipedir == 'down' ) {
                 this.showNextSection();
             } else if ( swipedir == 'up' ) {
                 this.showPreviousSection();
             }
-        });
+        }, this ));
     },
     adaptSectionsSize: function ()
     {
