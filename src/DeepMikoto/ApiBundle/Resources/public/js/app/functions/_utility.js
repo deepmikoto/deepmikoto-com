@@ -29,19 +29,32 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             startX = touchobj.pageX;
             startY = touchobj.pageY;
             startTime = new Date().getTime(); // record time when finger first makes contact with surface
+            $('section').find('.section-content').html('' +
+                '<div><span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span></div><br>'
+            )
 
         }, false);
 
         touchsurface.addEventListener('touchmove', function(e){
             e.preventDefault(); // prevent scrolling when inside DIV
+            $('section').find('.section-content').append('.');
         }, false);
 
         touchsurface.addEventListener('touchend', function(e){
             e.preventDefault();
+
             var touchobj = e.changedTouches[0];
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
             elapsedTime = new Date().getTime() - startTime; // get time elapsed
+            $('section').find('.section-content').html('' +
+                '<br><div>' +
+                '<span>startX:' + startX + '</span>&nbsp;<span>startY:' + startY + '</span><br>' +
+                '<span>touchobj.pageX:' + touchobj.pageX + '</span>&nbsp;<span>touchobj.pageY:' + touchobj.pageY + '</span><br>' +
+                '<span>distX:' + distX + '</span>&nbsp;<span>distY:' + distY + '</span><br>' +
+                '<span>threshold:' + threshold + '</span>&nbsp;<span>restraint:' + restraint + '</span><br>' +
+                '</div><br>'
+            );
             if (elapsedTime <= allowedTime){ // first condition for awipe met
                 if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
                     swipedir = (distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
