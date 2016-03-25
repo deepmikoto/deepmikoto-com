@@ -9,49 +9,44 @@ deepmikoto.UtilityFunctions = Marionette.extend({
     },
     detectSwipe: function ( DOMElement, callback )
     {
-        var touchsurface = DOMElement,
-            swipedir,
-            startX,
-            startY,
-            distX,
-            distY,
-            threshold = 150, //required min distance traveled to be considered swipe
-            restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-            allowedTime = 300, // maximum time allowed to travel that distance
-            elapsedTime,
-            startTime
-        ;
-
-        touchsurface.addEventListener('touchstart', function(e){
-            var touchobj = e.changedTouches[0];
-            swipedir = 'none';
-            startX = touchobj.pageX;
-            startY = touchobj.pageY;
-            startTime = new Date().getTime(); // record time when finger first makes contact with surface
-            e.preventDefault()
-        }, false);
-
-        touchsurface.addEventListener('touchmove', function(e){
-            e.preventDefault(); // prevent scrolling when inside DIV
-        }, false);
-
-        touchsurface.addEventListener('touchend', function(e){
-            var touchobj = e.changedTouches[0];
-            distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
-            distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
-            elapsedTime = new Date().getTime() - startTime; // get time elapsed
-            if (elapsedTime <= allowedTime){ // first condition for awipe met
-                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
-                    swipedir = (distX < 0)? 'left' : 'right'; // if dist traveled is negative, it indicates left swipe
-                }
-                else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
-                    swipedir = (distY < 0)? 'up' : 'down'; // if dist traveled is negative, it indicates up swipe
-                }
+        var swipe_det = {};
+        swipe_det.sX = 0; swipe_det.sY = 0; swipe_det.eX = 0; swipe_det.eY = 0;
+        var min_x = 30;  //min x swipe for horizontal swipe
+        var max_x = 30;  //max x difference for vertical swipe
+        var min_y = 50;  //min y swipe for vertical swipe
+        var max_y = 60;  //max y difference for horizontal swipe
+        var direc = "";
+        DOMElement.addEventListener('touchstart',function(e){
+            e.preventDefault();
+            var t = e.touches[0];
+            swipe_det.sX = t.screenX;
+            swipe_det.sY = t.screenY;
+        },false);
+        DOMElement.addEventListener('touchmove',function(e){
+            e.preventDefault();
+            var t = e.touches[0];
+            swipe_det.eX = t.screenX;
+            swipe_det.eY = t.screenY;
+        },false);
+        DOMElement.addEventListener('touchend',function(e){
+            e.preventDefault();
+            //horizontal detection
+            if ((((swipe_det.eX - min_x > swipe_det.sX) || (swipe_det.eX + min_x < swipe_det.sX)) && ((swipe_det.eY < swipe_det.sY + max_y) && (swipe_det.sY > swipe_det.eY - max_y) && (swipe_det.eX > 0)))) {
+                if(swipe_det.eX > swipe_det.sX) direc = "right";
+                else direc = "left";
             }
-            typeof callback == 'function' ? callback( swipedir ) : null;
-            e.preventDefault()
-        }, false)
+            //vertical detection
+            else if ((((swipe_det.eY - min_y > swipe_det.sY) || (swipe_det.eY + min_y < swipe_det.sY)) && ((swipe_det.eX < swipe_det.sX + max_x) && (swipe_det.sX > swipe_det.eX - max_x) && (swipe_det.eY > 0)))) {
+                if(swipe_det.eY > swipe_det.sY) direc = "down";
+                else direc = "up";
+            }
 
+            if (direc != "") {
+                typeof callback == 'function' ? callback(direc) : null;
+            }
+            direc = "";
+            swipe_det.sX = 0; swipe_det.sY = 0; swipe_det.eX = 0; swipe_det.eY = 0;
+        },false);
     },
     isElementInViewport: function ( el )
     {
