@@ -21,8 +21,9 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             elapsedTime,
             startTime
         ;
-        touchsurface.addEventListener('touchstart', function(e){
-            e.preventDefault();
+        touchsurface.addEventListener('touchstart', function( e ){
+            //e.preventDefault();
+            /** @namespace e.changedTouches */
             var touchobj = e.changedTouches[0];
             swipedir = 'none';
             startX = touchobj.pageX;
@@ -32,8 +33,8 @@ deepmikoto.UtilityFunctions = Marionette.extend({
         touchsurface.addEventListener('touchmove', function(e){
             e.preventDefault(); // prevent scrolling when inside element
         }, false );
-        touchsurface.addEventListener('touchend', function(e){
-            e.preventDefault();
+        touchsurface.addEventListener('touchend', function( e ){
+            //e.preventDefault();
             var touchobj = e.changedTouches[0];
             distX = touchobj.pageX - startX; // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY; // get vertical dist traveled by finger while in contact with surface
