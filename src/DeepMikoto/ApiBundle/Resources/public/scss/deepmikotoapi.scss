@@ -559,12 +559,12 @@ html {
         left: 0;
         padding: 0;
         &>.landing-page {
-          .header {
-            position: fixed;
-            width: 100%;
-            padding: 20px 40px;
-          }
           &>section {
+            .header {
+              position: fixed;
+              width: 100%;
+              padding: 20px 20px;
+            }
             display: table;
             table-layout: fixed;
             width: 100%;

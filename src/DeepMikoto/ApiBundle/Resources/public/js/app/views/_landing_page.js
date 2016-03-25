@@ -43,12 +43,16 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
             }
         }, this ) );
     },
+    getActiveSection: function ()
+    {
+        return this.$el.find('section[data-active]');
+    },
     adaptSectionsSize: function ()
     {
         this.model.get( 'scrollInProgress' ) === true ? this.model.set( 'resizeAfterScrollEnd', true ) : null;
         this.scrollTimeout != undefined ? clearTimeout( this.scrollTimeout ) : null;
         this.ui.sections.css({ height: $( window ).height() } );
-        var active_section = this.$el.find('section[data-active]');
+        var active_section = this.getActiveSection();
         //noinspection JSCheckFunctionSignatures
         window.scrollTo( 0, active_section.offset().top );
         this.scrollTimeout = setTimeout(function (){
@@ -60,7 +64,7 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     {
         if( this.model.get( 'scrollInProgress' ) === false ){
             this.model.set({ scrollInProgress: true });
-            var offset = null, s = this.$el.find('section[data-active]');
+            var offset = null, s = this.getActiveSection();
             if( direction == 'down' && s.next().length > 0 ){
                 this.ui.sections.removeAttr( 'data-active' );
                 offset = s.next().attr('data-active', 'yes').offset().top;
@@ -76,7 +80,7 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
                     if ( this.model.get( 'resizeAfterScrollEnd' ) === true ) {
                         this.model.set({ resizeAfterScrollEnd: false });
                         $('html, body').animate({
-                            scrollTop: this.$el.find('section[data-active]').offset().top
+                            scrollTop: this.getActiveSection().offset().top
                         }, 50 );
                     }
                 }, this ) );
