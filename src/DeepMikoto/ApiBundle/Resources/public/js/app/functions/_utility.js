@@ -10,11 +10,14 @@ deepmikoto.UtilityFunctions = Marionette.extend({
     detectSwipe: function ( DOMElement, callback )
     {
         var swipe_det = {};
-        swipe_det.sX = 0; swipe_det.sY = 0; swipe_det.eX = 0; swipe_det.eY = 0;
-        var min_x = 30;  //min x swipe for horizontal swipe
-        var max_x = 30;  //max x difference for vertical swipe
-        var min_y = 50;  //min y swipe for vertical swipe
-        var max_y = 60;  //max y difference for horizontal swipe
+        swipe_det.sX = 0;
+        swipe_det.sY = 0;
+        swipe_det.eX = 0;
+        swipe_det.eY = 0;
+        var min_x = 20;  //min x swipe for horizontal swipe
+        var max_x = 40;  //max x difference for vertical swipe
+        var min_y = 40;  //min y swipe for vertical swipe
+        var max_y = 50;  //max y difference for horizontal swipe
         var direc = "";
         DOMElement.addEventListener('touchstart',function(e){
             e.preventDefault();
@@ -31,12 +34,12 @@ deepmikoto.UtilityFunctions = Marionette.extend({
         DOMElement.addEventListener('touchend',function(e){
             e.preventDefault();
             //horizontal detection
-            if ((((swipe_det.eX - min_x > swipe_det.sX) || (swipe_det.eX + min_x < swipe_det.sX)) && ((swipe_det.eY < swipe_det.sY + max_y) && (swipe_det.sY > swipe_det.eY - max_y) && (swipe_det.eX > 0)))) {
+            if ((((swipe_det.eX - min_x > swipe_det.sX) || (swipe_det.eX + min_x < swipe_det.sX)) && ((swipe_det.eY < swipe_det.sY + max_y) && (swipe_det.sY > swipe_det.eY - max_y)))) {
                 if(swipe_det.eX > swipe_det.sX) direc = "right";
                 else direc = "left";
             }
             //vertical detection
-            else if ((((swipe_det.eY - min_y > swipe_det.sY) || (swipe_det.eY + min_y < swipe_det.sY)) && ((swipe_det.eX < swipe_det.sX + max_x) && (swipe_det.sX > swipe_det.eX - max_x) && (swipe_det.eY > 0)))) {
+            if ((((swipe_det.eY - min_y > swipe_det.sY) || (swipe_det.eY + min_y < swipe_det.sY)) && ((swipe_det.eX < swipe_det.sX + max_x) && (swipe_det.sX > swipe_det.eX - max_x)))) {
                 if(swipe_det.eY > swipe_det.sY) direc = "down";
                 else direc = "up";
             }
