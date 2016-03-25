@@ -43,6 +43,7 @@ deepmikoto.UtilityFunctions = Marionette.extend({
 
             if (direc != "") {
                 typeof callback == 'function' ? callback(direc) : null;
+                alert("you swiped on element w to "+direc+" direction");
             }
             direc = "";
             swipe_det.sX = 0; swipe_det.sY = 0; swipe_det.eX = 0; swipe_det.eY = 0;
