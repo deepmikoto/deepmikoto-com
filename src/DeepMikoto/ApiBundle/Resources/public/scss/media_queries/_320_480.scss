@@ -5,6 +5,17 @@
         body {
           &>.app-container {
             padding: 0 5px;
+            .landing-page-container {
+              .landing-page {
+                .welcome {
+                  .scroll-indicator-container {
+                    .scroll-indicator {
+                      opacity: 0;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -44,6 +44,19 @@ html {
       &::-webkit-scrollbar-thumb{
         background-color: rgba(255, 255, 255, 0.2);
       }
+      .app-container {
+        .landing-page-container {
+          .landing-page {
+            .welcome {
+              .scroll-indicator-container {
+                .scroll-indicator {
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+      }
     }
     &>.header-container {
       position: fixed;
@@ -560,10 +573,41 @@ html {
         padding: 0;
         &>.landing-page {
           &>section {
-            .header {
+            &>.header, .scroll-indicator-container {
               position: fixed;
               width: 100%;
+            }
+            &>.header {
               padding: 20px 20px;
+              top: 0;
+              left: 0;
+            }
+            &>.scroll-indicator-container {
+              bottom: 0;
+              left: 0;
+              padding-bottom: 5px;
+              .scroll-indicator {
+                height: 38px;
+                width: 25px;
+                margin: 0 auto;
+                border: 2px solid rgba(255, 255, 255, 0.5);
+                @include border-radius( 20px );
+                position: relative;
+                @include transition( opacity, .2s, ease-in-out );
+                &:after {
+                  position: absolute;
+                  content: ' ';
+                  width: 4px;
+                  height: 8px;
+                  top: 5px;
+                  left: 8px;
+                  background: #fff;
+                  @include border-radius( 5px );
+                  -webkit-animation: scroll_indicator_pulse 2s infinite;
+                  animation: scroll_indicator_pulse 2s infinite;
+                }
+              }
+
             }
             display: table;
             table-layout: fixed;
@@ -616,13 +660,14 @@ html {
     }
     &>.footnote-container {
       position: fixed;
-      width: 100%;
-      bottom: 0;
+      width: 280px;
+      bottom: 10px;
+      right: 10px;
       background-color: #000000;
       color: #ffffff;
       &>.footnote {
         position: relative;
-        padding: 10px 30px;
+        padding: 20px 30px;
         &>.close {
           width: 20px;
           height: 20px;

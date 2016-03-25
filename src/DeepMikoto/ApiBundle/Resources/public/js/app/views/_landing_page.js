@@ -6,7 +6,8 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     className: 'landing-page',
     model: new deepmikoto.LandingPageModel,
     ui: {
-        sections: 'section'
+        sections: 'section',
+        scrollIndicatorWheel: '.scroll-indicator'
     },
     initialize: function()
     {

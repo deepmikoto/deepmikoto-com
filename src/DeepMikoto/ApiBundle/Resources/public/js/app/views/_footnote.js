@@ -20,6 +20,10 @@ deepmikoto.FootNoteView = Marionette.ItemView.extend({
     dismissFootNote: function()
     {
         Cookies.set( this.model.get( 'type' ) + '-notice', true, { expires: 365 } );
-        this.destroy();
+        this.$el.animate({
+            opacity: 0
+        }, 200, $.proxy(function (){
+            this.destroy();
+        }, this ) );
     }
 });
