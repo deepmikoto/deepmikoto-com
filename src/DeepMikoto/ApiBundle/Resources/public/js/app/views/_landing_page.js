@@ -75,7 +75,9 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
                     this.model.set({ scrollInProgress: false });
                     if ( this.model.get( 'resizeAfterScrollEnd' ) === true ) {
                         this.model.set({ resizeAfterScrollEnd: false });
-                        this.adaptSectionsSize();
+                        $('html, body').animate({
+                            scrollTop: this.$el.find('section[data-active]').offset().top
+                        }, 50 );
                     }
                 }, this ) );
             } else {
