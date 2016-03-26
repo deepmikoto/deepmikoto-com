@@ -16,6 +16,17 @@
                 }
               }
             }
+            &>.body-container {
+              &>.photography-timeline {
+                &>.photography-posts {
+                  &>.photography-post {
+                    &>.photos {
+                      height: 200px;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

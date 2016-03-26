@@ -32,3 +32,22 @@
     }
   }
 }
+@media screen and ( max-width: 768px ) {
+  html {
+    body {
+      &>.app-container {
+        &>.body-container {
+          &>.photography-timeline {
+            &>.photography-posts {
+              &>.photography-post {
+                &>.photos {
+                  height: 410px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
