@@ -50,16 +50,19 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     },
     adaptSectionsSize: function ()
     {
-        this.model.get( 'scrollInProgress' ) === true ? this.model.set( 'resizeAfterScrollEnd', true ) : null;
-        this.scrollTimeout != undefined ? clearTimeout( this.scrollTimeout ) : null;
-        this.ui.sections.css({ height: $( window ).height() } );
-        var active_section = this.getActiveSection();
-        //noinspection JSCheckFunctionSignatures
-        window.scrollTo( 0, active_section.offset().top );
-        this.scrollTimeout = setTimeout(function (){
+        if( !this.model.get( 'scrollInProgress' ) === true ) {
+            this.scrollTimeout != undefined ? clearTimeout( this.scrollTimeout ) : null;
+            this.ui.sections.css({ height: $( window ).height() } );
+            var active_section = this.getActiveSection();
             //noinspection JSCheckFunctionSignatures
             window.scrollTo( 0, active_section.offset().top );
-        }, 100 );
+            this.scrollTimeout = setTimeout(function (){
+                //noinspection JSCheckFunctionSignatures
+                window.scrollTo( 0, active_section.offset().top );
+            }, 100 );
+        } else {
+            this.model.set( 'resizeAfterScrollEnd', true );
+        }
     },
     showAppropriateSection: function ( direction )
     {
@@ -80,9 +83,7 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
                     this.model.set({ scrollInProgress: false });
                     if ( this.model.get( 'resizeAfterScrollEnd' ) === true ) {
                         this.model.set({ resizeAfterScrollEnd: false });
-                        $('html, body').animate({
-                            scrollTop: this.getActiveSection().offset().top
-                        }, 50 );
+                        this.adaptSectionsSize();
                     }
                 }, this ) );
             } else {
