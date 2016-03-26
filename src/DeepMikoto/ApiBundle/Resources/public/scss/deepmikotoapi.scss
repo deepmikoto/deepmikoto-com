@@ -217,41 +217,50 @@ html {
                 color: #FFFFFF;
                 @include transition( all, .5s, ease );
                 opacity: 0;
-                &>.title {
-                  &>h3 {
-                    &.title {
-                      text-align: center;
-                    }
-                  }
-                }
-                &>.photos-count {
-                  position: relative;
-                  &>.top-bar, .bottom-bar {
-                    position: absolute;
-                    display: inline-block;
-                    height: 1px;
-                    width: 0;
-                    background-color: #FFFFFF;
-                    @include transition( width, .6s, ease-in-out );
-                  }
-                  &>.top-bar {
-                    top: 0;
-                    left: 0;
-                  }
-                  &>.bottom-bar {
-                    bottom: 0;
-                    right: 0;
-                  }
-                  &>.count {
-                    padding-bottom: 5px;
-                    &>span {
-                      display: block;
-                      text-align: center;
-                      &.number {
-                        font-size: 26px;
+                &>.overlay-canvas {
+                  display: table;
+                  width: 100%;
+                  height: 100%;
+                  &>.overlay-content {
+                    display: table-cell;
+                    vertical-align: middle;
+                    &>.title {
+                      &>h3 {
+                        &.title {
+                          text-align: center;
+                        }
                       }
-                      &.text {
-                        font-size: 10px;
+                    }
+                    &>.photos-count {
+                      position: relative;
+                      &>.top-bar, .bottom-bar {
+                        position: absolute;
+                        display: inline-block;
+                        height: 1px;
+                        width: 0;
+                        background-color: #FFFFFF;
+                        @include transition( width, .6s, ease-in-out );
+                      }
+                      &>.top-bar {
+                        top: 0;
+                        left: 0;
+                      }
+                      &>.bottom-bar {
+                        bottom: 0;
+                        right: 0;
+                      }
+                      &>.count {
+                        padding-bottom: 5px;
+                        &>span {
+                          display: block;
+                          text-align: center;
+                          &.number {
+                            font-size: 26px;
+                          }
+                          &.text {
+                            font-size: 10px;
+                          }
+                        }
                       }
                     }
                   }
@@ -291,9 +300,13 @@ html {
                 }
                 &>.overlay {
                   opacity: 1;
-                  &>.photos-count {
-                    &>.top-bar, .bottom-bar {
-                      width: 100%;
+                  &>.overlay-canvas {
+                    &>.overlay-content {
+                      &>.photos-count {
+                        &>.top-bar, .bottom-bar {
+                          width: 100%;
+                        }
+                      }
                     }
                   }
                 }
