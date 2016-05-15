@@ -185,11 +185,11 @@ class GamingService
         $query = $repository->createQueryBuilder( 'g' );
         $query
             ->select(
-                'g.id, g.slug, g.title, g.date, \'gaming\' as category, ' .
+                'g.id as id, g.slug, g.title, g.date, \'gaming\' as category, ' .
                 'COUNT( DISTINCT gpv.id  ) as HIDDEN views, g.cover'
             )
             ->leftJoin( 'g.views', 'gpv', 'WITH', 'gpv.post = g.id' )
-            ->groupBy( 'g.id' )
+            ->groupBy( 'id' )
             ->where( 'g.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'views', 'DESC' )

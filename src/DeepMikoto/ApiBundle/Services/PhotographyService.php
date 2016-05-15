@@ -106,12 +106,12 @@ class PhotographyService
         $query = $repository->createQueryBuilder( 'p' );
         $query
             ->select(
-                'p.id, p.slug, p.title, p.date, \'photography\' as category, ' .
+                'p.id as id, p.slug, p.title, p.date, \'photography\' as category, ' .
                 'COUNT( DISTINCT ppd.id  ) as HIDDEN downloads, pp.id as imageId, pp.path as imagePath'
             )
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
             ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
-            ->groupBy( 'p.id' )
+            ->groupBy( 'id' )
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'downloads', 'DESC' )

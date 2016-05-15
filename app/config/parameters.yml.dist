@@ -19,7 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     ruby_path: PathToRuby
     sass_bin: PathToSass
-    compass.bin: PathToCompass
+    compass_bin: PathToCompass
     google_api_key: key
     fb_app_id: 1234567890
 
