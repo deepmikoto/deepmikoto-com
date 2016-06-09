@@ -110,8 +110,8 @@ class PhotographyService
                 'COUNT( DISTINCT ppd.id  ) as HIDDEN downloads, pp.id as imageId, pp.path as imagePath'
             )
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
-            ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
             ->groupBy( 'id' )
+            ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'downloads', 'DESC' )
