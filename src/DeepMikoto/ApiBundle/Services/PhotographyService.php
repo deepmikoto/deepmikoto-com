@@ -112,6 +112,7 @@ class PhotographyService
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
             ->groupBy( 'id' )
             ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
+            ->groupBy('pp.id')
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'downloads', 'DESC' )
