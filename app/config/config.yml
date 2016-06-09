@@ -55,7 +55,7 @@ assetic:
             bin: %sass_bin%
             apply_to: '\.scss$'
         compass:
-            bin: %compass.bin%
+            bin: %compass_bin%
         yui_css:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
             apply_to: '\.css$'
