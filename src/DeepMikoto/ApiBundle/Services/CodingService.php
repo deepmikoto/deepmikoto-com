@@ -8,8 +8,10 @@
 
 namespace DeepMikoto\ApiBundle\Services;
 
+use DeepMikoto\ApiBundle\Entity\CodingCategory;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
@@ -50,8 +52,9 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'views', 'content' ]
+            [ 'content' ]
         );
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
         $normalizer->setCallbacks(
             [
                 'date' => function( $date ){
@@ -59,6 +62,21 @@ class CodingService
                     $date = $date->format( 'F dS, Y' );
 
                     return $date;
+                },
+                'categories' => function( PersistentCollection $codingCategories ) use ( $cacheManager ) {
+                    $categories = [];
+                    /** @var CodingCategory $category */
+                    foreach( $codingCategories as $category ) {
+                        $categories[] = [
+                            'name' => $category->getName(),
+                            'image' => $cacheManager->getBrowserPath( $category->getWebPath(), '30_30' )
+                        ];
+                    }
+
+                    return $categories;
+                },
+                'views' => function( PersistentCollection $views ) {
+                    return $views->count();
                 }
             ]
         );
@@ -79,7 +97,7 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'views' ]
+            [ 'views', 'categories' ]
         );
         $normalizer->setCallbacks(
             [

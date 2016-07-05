@@ -40,6 +40,19 @@
               }
             }
           }
+          &.navbar-right {
+            &>li {
+              &>a {
+                &.search-container {
+                  &>label {
+                    &>.search-field {
+                      border-bottom: 2px solid $color;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
       .pulse {

@@ -9,6 +9,19 @@ a {
   }
 }
 
+hr {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 5px;
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left,rgba(0,0,0,0),rgba(161,168,182,0.75),rgba(0,0,0,0));
+  background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(161,168,182,0.75),rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(161,168,182,0.75),rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(161,168,182,0.75),rgba(0,0,0,0));
+}
+
 html {
   height: 100%;
   &.locked {
@@ -118,7 +131,14 @@ html {
                             padding: 0;
                             width: 0;
                             opacity: 0;
+                            background: transparent;
+                            border: none;
+                            border-radius: 0;
+                            color: #FFFFFF;
                             @include transition( all, .3s, ease-in-out );
+                            &:focus {
+                              box-shadow: none;
+                            }
                           }
                         }
                         &>.search-toggle {
@@ -188,6 +208,7 @@ html {
             &>.photography-post {
               padding: 0;
               position: relative;
+              @include box-shadow( 0, 0, 5px, 1px, #131313 );
               &>.photos {
                 position: relative;
                 top: 0;
@@ -399,15 +420,66 @@ html {
                 background-color: #000315;
                 padding: 10px;
                 color: #fff;
-                -webkit-box-shadow: 0 0 5px 1px #131313;
-                -moz-box-shadow: 0 0 5px 1px #131313;
-                box-shadow: 0 0 5px 1px #131313;
+                @include box-shadow( 0, 0, 5px, 1px, #131313 );
                 cursor: pointer;
                 @include border-radius( 3px );
                 &>.title {
                   &>h3 {
                     &.title {
                       margin: 10px 0;
+                    }
+                  }
+                }
+                &>.categories {
+                  overflow: hidden;
+                  &>.category {
+                    display: inline-block;
+                    padding: 10px;
+                    position: relative;
+                    overflow: hidden;
+                    @include transition( all, .4s, ease-in-out );
+                    &>img {
+                      padding-right: 5px;
+                    }
+                    &>.name {
+                      width: 0;
+                      display: inline-block;
+                      color: #000;
+                      overflow: hidden;
+                      text-align: center;
+                      vertical-align: middle;
+                      @include transition( width, .4s, ease-in-out );
+                    }
+                    &:before, &:after {
+                      content: '';
+                      position: absolute;
+                      display: inline-block;
+                      height: 115%;
+                      width: 27px;
+                      background-color: #000315;
+                      @include transition( all, .4s, ease-in-out );
+                    }
+                    &:before {
+                      top: 0;
+                      left: -20px;
+                    }
+                    &:after {
+                      top: -8px;
+                      right: -15px;
+                    }
+                    &:hover {
+                      padding: 10px 30px;
+                      background-color: #faebd7;
+                      &>.name {
+                        width: 100px;
+                      }
+                      &:before, &:after {
+                        @include box-shadow( 0, 0, 3px, 1px, #131313 );
+                        @include transform( rotate( -23deg ) );
+                      }
+                      &:before {
+                        left: -12px;
+                      }
                     }
                   }
                 }
@@ -424,6 +496,7 @@ html {
               cursor: pointer;
               margin-bottom: 20px;
               padding: 0;
+              @include box-shadow( 0, 0, 5px, 1px, #131313 );
               &>.cover {
                 position: relative;
                 @include border-radius( 3px );

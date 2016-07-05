@@ -196,12 +196,13 @@ class GamingService
             ->setMaxResults( $limit )
         ;
         $gamingPosts = $query->getQuery()->getResult();
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
         foreach( $gamingPosts as $key => $gamingPost ){
             $gamingPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_gaming_post', [
                 'id'   => $gamingPost[ 'id' ],
                 'slug' => $gamingPost[ 'slug' ]
             ], $router::ABSOLUTE_PATH );
-            $gamingPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
+            $gamingPosts[ $key ][ 'image' ] = $cacheManager->getBrowserPath(
                 'images/gaming/' . $gamingPost[ 'id' ] . '/' . $gamingPost[ 'cover' ], 'tiny_thumb'
             );
             unset( $gamingPosts[ $key ][ 'id' ] );
