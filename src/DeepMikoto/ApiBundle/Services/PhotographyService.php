@@ -107,11 +107,11 @@ class PhotographyService
         $query
             ->select(
                 'p.id as id, p.slug, p.title, p.date, \'photography\' as category, ' .
-                'pp.id as imageId, pp.path as imagePath'
+                'pp.id as imageId, pp.path as imagePath, COUNT( DISTINCT ppv.id  ) as HIDDEN views'
             )
+            ->leftJoin( 'p.views', 'ppv', 'WITH', 'ppv.post = p.id' )
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
-            ->groupBy( 'p.id' )
-            //->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
+            ->groupBy( 'id' )
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             //->orderBy( 'downloads', 'DESC' )
