@@ -107,11 +107,11 @@ class PhotographyService
         $query
             ->select(
                 'p.id as id, p.slug, p.title, p.date, \'photography\' as category, ' .
-                'pp.id as imageId, pp.path as imagePath, COUNT( DISTINCT ppv.id  ) as HIDDEN views'
+                /*pp.id as imageId, pp.path as imagePath,*/ 'COUNT( DISTINCT ppv.id  ) as HIDDEN views'
             )
             ->leftJoin( 'p.views', 'ppv', 'WITH', 'ppv.post = p.id' )
-            ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
-            //->groupBy( 'id' )
+            //->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
+            ->groupBy( 'id' )
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
             ->orderBy( 'views', 'DESC' )
@@ -123,9 +123,9 @@ class PhotographyService
                 'id'   => $photographyPost[ 'id' ],
                 'slug' => $photographyPost[ 'slug' ]
             ], $router::ABSOLUTE_PATH );
-            $photographyPosts[ $key ][ 'image' ] = $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
+            $photographyPosts[ $key ][ 'image' ] = ''/*$this->container->get('liip_imagine.cache.manager')->getBrowserPath(
                 'images/photography/' . $photographyPost[ 'imageId' ] . '/' . $photographyPost[ 'imagePath' ], 'tiny_thumb'
-            );
+            )*/;
             unset( $photographyPosts[ $key ][ 'id' ] );
             unset( $photographyPosts[ $key ][ 'slug' ] );
             unset( $photographyPosts[ $key ][ 'imageId' ] );
