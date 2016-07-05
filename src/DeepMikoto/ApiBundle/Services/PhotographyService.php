@@ -8,6 +8,7 @@
 
 namespace DeepMikoto\ApiBundle\Services;
 
+use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
@@ -103,12 +104,9 @@ class PhotographyService
         $em = $this->em;
         $router = $this->router;
         $repository = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' );
-        $query = $repository->createQueryBuilder( 'p' );
-        $query
-            ->select(
-                'p.id as id, p.slug, p.title, p.date, \'photography\' as category, ' .
-                'COUNT( DISTINCT ppd.id  ) as HIDDEN downloads'//, pp.id as imageId, pp.path as imagePath'
-            )
+        $photographyPosts = $repository
+            ->createQueryBuilder( 'p' )
+            ->select( 'p', 'COUNT( DISTINCT ppd.id  ) as HIDDEN downloads' )
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
             ->leftJoin( 'pp.downloads', 'ppd', 'WITH', 'ppd.photographyPostPhoto = pp.id' )
             ->groupBy( 'p.id' )
@@ -116,26 +114,28 @@ class PhotographyService
             ->setParameter( 'true', true )
             ->orderBy( 'downloads', 'DESC' )
             ->setMaxResults( $limit )
+            ->getQuery()->getResult()
         ;
-        $photographyPosts = $query->getQuery()->getResult();
-        foreach( $photographyPosts as $key => $photographyPost ){
-            $photographyPosts[ $key ][ 'link' ] = $router->generate( 'deepmikoto_app_photography_post', [
-                'id'   => $photographyPost[ 'id' ],
-                'slug' => $photographyPost[ 'slug' ]
-            ], $router::ABSOLUTE_PATH );
-            $photographyPosts[ $key ][ 'image' ] = ''/*$this->container->get('liip_imagine.cache.manager')->getBrowserPath(
-                'images/photography/' . $photographyPost[ 'imageId' ] . '/' . $photographyPost[ 'imagePath' ], 'tiny_thumb'
-            )*/;
-            unset( $photographyPosts[ $key ][ 'id' ] );
-            unset( $photographyPosts[ $key ][ 'slug' ] );
-            unset( $photographyPosts[ $key ][ 'imageId' ] );
-            unset( $photographyPosts[ $key ][ 'imagePath' ] );
+        $posts = [];
+        /** @var PhotographyPost $post */
+        foreach( $photographyPosts as $post ){
+            $posts[] = [
+                'title' => $post->getTitle(),
+                'date' => $post->getDate(),
+                'link' => $router->generate( 'deepmikoto_app_photography_post', [
+                    'id'   => $post->getId(),
+                    'slug' => $post->getSlug()
+                ], $router::ABSOLUTE_PATH ),
+                'image' => $post->getPhotos()->first() != null ? $this->container->get('liip_imagine.cache.manager')->getBrowserPath(
+                    $post->getPhotos()->first()->getWebPath(), 'tiny_thumb'
+                ) : null
+            ];
         }
 
         if( $limit > 1 ){
-            return $photographyPosts;
+            return $posts;
         } else {
-            return isset( $photographyPosts[0] ) ? $photographyPosts[0] : $photographyPosts;
+            return isset( $posts[0] ) ? $posts[0] : $posts;
         }
     }
 
