@@ -111,10 +111,10 @@ class PhotographyService
             )
             ->leftJoin( 'p.views', 'ppv', 'WITH', 'ppv.post = p.id' )
             ->leftJoin( 'p.photos', 'pp', 'WITH', 'pp.photographyPost = p.id' )
-            ->groupBy( 'id' )
+            //->groupBy( 'id' )
             ->where( 'p.public = :true' )
             ->setParameter( 'true', true )
-            //->orderBy( 'downloads', 'DESC' )
+            ->orderBy( 'views', 'DESC' )
             ->setMaxResults( $limit )
         ;
         $photographyPosts = $query->getQuery()->getResult();
