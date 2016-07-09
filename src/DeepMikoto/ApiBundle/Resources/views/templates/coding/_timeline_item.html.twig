@@ -3,18 +3,14 @@
         <div class="title">
             <h3 class="title"><%=title%></h3>
         </div>
-        <hr>
-        <div class="categories">
-            <% _.each( categories, function( category ) { %>
-                <span class="category">
-                    <img src="{{ '<%=category.image%>' }}" alt="<%=category.name%>" />
-                    <span class="name"><%=category.name%></span>
-                </span>
-            <% }); %>
-        </div>
-        <hr>
         <div class="details">
-            <span><small><i class="glyphicon glyphicon-eye-open"></i>&nbsp;<%=views%></small></span>
+            <div class="categories">
+                <% _.each( categories, function( category ) { %>
+                <span class="category">
+                    <img src="{{ '<%=category.image%>' }}" title="<%=category.name%>" alt="<%=category.name%>" />
+                </span>
+                <% }); %>
+            </div>
             <span class="date pull-right"><small><i class="glyphicon glyphicon-calendar"></i>&nbsp;<%=date%></small></span>
         </div>
     </div>

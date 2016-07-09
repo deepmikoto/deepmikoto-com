@@ -52,7 +52,7 @@ class CodingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'content' ]
+            [ 'content', 'views' ]
         );
         $cacheManager = $this->container->get('liip_imagine.cache.manager');
         $normalizer->setCallbacks(
@@ -69,14 +69,11 @@ class CodingService
                     foreach( $codingCategories as $category ) {
                         $categories[] = [
                             'name' => $category->getName(),
-                            'image' => $cacheManager->getBrowserPath( $category->getWebPath(), '30_30' )
+                            'image' => $cacheManager->getBrowserPath( $category->getWebPath(), '20_20' )
                         ];
                     }
 
                     return $categories;
-                },
-                'views' => function( PersistentCollection $views ) {
-                    return $views->count();
                 }
             ]
         );
