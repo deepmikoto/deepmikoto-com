@@ -97,7 +97,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     },
     showLandingPage: function ()
     {
-        deepmikoto.app.appBody.reset();
+        deepmikoto.app.body.reset();
         deepmikoto.app.landingPage.show( new deepmikoto.LandingPage() );
     },
     showHelpPage: function ()
@@ -112,7 +112,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var helpPage = new deepmikoto.HelpPageView({
                     model: new deepmikoto.HelpPageModel( response )
                 });
-                deepmikoto.app.appBody.show( helpPage );
+                deepmikoto.app.body.show( helpPage );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -145,7 +145,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var codingTimeline = new deepmikoto.CodingTimelineView({
                     collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ] )
                 });
-                deepmikoto.app.appBody.show( codingTimeline );
+                deepmikoto.app.body.show( codingTimeline );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -166,7 +166,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var gamingTimeline = new deepmikoto.GamingTimelineView({
                     collection: new deepmikoto.GamingTimelineCollection( response[ 'payload' ] )
                 });
-                deepmikoto.app.appBody.show( gamingTimeline );
+                deepmikoto.app.body.show( gamingTimeline );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -187,7 +187,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var photographyTimeline = new deepmikoto.PhotographyTimelineView({
                     collection: new deepmikoto.PhotographyTimelineCollection( response[ 'payload' ] )
                 });
-                deepmikoto.app.appBody.show( photographyTimeline );
+                deepmikoto.app.body.show( photographyTimeline );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -213,7 +213,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var photographyPost = new deepmikoto.PhotographyPost({
                     model: new deepmikoto.PhotographyPostModel( response[ 'payload'] )
                 });
-                deepmikoto.app.appBody.show( photographyPost );
+                deepmikoto.app.body.show( photographyPost );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -239,7 +239,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var codingPost = new deepmikoto.CodingPost({
                     model: new deepmikoto.CodingPostModel( response[ 'payload'] )
                 });
-                deepmikoto.app.appBody.show( codingPost );
+                deepmikoto.app.body.show( codingPost );
                 this.scrollPageToTop();
             },
             error: function ()
@@ -265,7 +265,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
                 var gamingPost = new deepmikoto.GamingPost({
                     model: new deepmikoto.GamingPostModel( response[ 'payload'] )
                 });
-                deepmikoto.app.appBody.show( gamingPost );
+                deepmikoto.app.body.show( gamingPost );
                 this.scrollPageToTop();
             },
             error: function ()
