@@ -182,7 +182,7 @@ class CodingService
         $query = $repository->createQueryBuilder( 'c' );
         $query
             ->select(
-                'c.id as id, c.slug, c.title, c.date, \'coding\' as category, ' .
+                'c.id as id, c.slug, c.title, c.date, ' .
                 'COUNT( DISTINCT cpv.id  ) as HIDDEN views'
             )
             ->leftJoin( 'c.views', 'cpv', 'WITH', 'cpv.post = c.id' )
