@@ -7,7 +7,9 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     model: new deepmikoto.LandingPageModel,
     ui: {
         sections: 'section',
-        scrollIndicatorWheel: '.scroll-indicator'
+        welcomeSection: 'section.welcome',
+        scrollIndicatorWheel: '.scroll-indicator',
+        welcomeSectionVideo: '#bgvid'
     },
     initialize: function()
     {
@@ -24,6 +26,7 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
         this.scrollToTopAndDisableScroll();
         this.adaptSectionsSize();
         this.enableSwipeDetection();
+        //this.loadVideoAndOpenWindow();
     },
     onDestroy: function ()
     {
@@ -95,7 +98,18 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
     {
         this.showAppropriateSection( 'down' );
     },
-    showPreviousSection: function(){
+    showPreviousSection: function()
+    {
         this.showAppropriateSection( 'up' );
+    },
+    loadVideoAndOpenWindow: function ()
+    {
+        var _this = this,
+            video = this.ui.welcomeSectionVideo[0];
+        video.addEventListener('loadeddata', function (){
+            console.log('data loaded!');
+            _this.ui.welcomeSection.addClass('open-vid');
+        });
+        video.play();
     }
 });
