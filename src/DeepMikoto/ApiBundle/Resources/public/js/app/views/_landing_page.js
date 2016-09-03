@@ -107,7 +107,6 @@ deepmikoto.LandingPage = Marionette.ItemView.extend({
         var _this = this,
             video = this.ui.welcomeSectionVideo[0];
         video.addEventListener('loadeddata', function (){
-            console.log('data loaded!');
             _this.ui.welcomeSection.addClass('open-vid');
         });
         video.play();

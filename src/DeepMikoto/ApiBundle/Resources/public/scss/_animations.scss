@@ -11,7 +11,8 @@
   80% { opacity: 1; left: 100%; }
   81% { opacity: 0; left: 101%; }
   100% { opacity: 0; left: 101%; }
-}@-webkit-keyframes scroll_indicator_pulse {
+}
+@-webkit-keyframes scroll_indicator_pulse {
   0%   { background-color: #fff10d; }
   50% { background-color: #4eff3c; }
   100% { background-color: #fff10d; }
@@ -20,4 +21,16 @@
   0%   { background-color: #fff10d; }
   50% { background-color: #4eff3c; }
   100% { background-color: #fff10d; }
+}
+@-webkit-keyframes scroll_indicator_arrows {
+  0%   { opacity: 0; }
+  10% { opacity: 1;  }
+  20% { opacity: 0;  }
+  100% { opacity: 0; }
+}
+@keyframes scroll_indicator_arrows {
+  0%   { opacity: 0; }
+  10% { opacity: 1;  }
+  20% { opacity: 0;  }
+  100% { opacity: 0; }
 }

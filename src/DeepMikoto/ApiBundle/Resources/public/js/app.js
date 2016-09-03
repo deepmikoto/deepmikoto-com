@@ -43,7 +43,10 @@ deepmikoto.preLoadAssets = function ( assetsArray )
     }
 };
 deepmikoto.preLoadAssets([
-    '/bundles/deepmikotoapi/images/black_bkg.jpg'
+    '/bundles/deepmikotoapi/images/night.jpg',
+    '/bundles/deepmikotoapi/images/code.jpg',
+    '/bundles/deepmikotoapi/images/wow.jpg',
+    '/bundles/deepmikotoapi/images/cluj.jpg'
 ]);
 
 /** message for users that open the console */

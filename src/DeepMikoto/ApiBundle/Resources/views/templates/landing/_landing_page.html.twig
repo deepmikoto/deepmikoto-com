@@ -6,7 +6,11 @@
             {% endimage %}
         </div>
         <div class="scroll-indicator-container">
-            <div class="scroll-indicator"></div>
+            <div class="scroll-indicator" title="Scroll! :)">
+                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                <i class="glyphicon glyphicon-triangle-bottom"></i>
+                <i class="glyphicon glyphicon-triangle-bottom"></i>
+            </div>
         </div>
         <div class="slices-container">
             <div class="top-slice">
@@ -27,24 +31,30 @@
             </div>
         </div>
     </section>
-    <section>
-        <div class="section-content">
-            <div class="container text-center">
-                <a href="{{ path('deepmikoto_app_coding') }}" >coding</a>
+    <section class="coding">
+        <div class="section-content text-center">
+            <div class="container">
+                <h1>Coding</h1>
+                <h3>Tutorials, Guides, How Tos</h3>
+                <a href="{{ path('deepmikoto_app_coding') }}" class="btn btn-info">explore</a>
             </div>
         </div>
     </section>
-    <section>
+    <section class="gaming">
         <div class="section-content text-center">
             <div class="container">
-                <a href="{{ path('deepmikoto_app_gaming') }}" >gaming</a>
+                <h1>Gaming</h1>
+                <h3>Walkthroughs, Game Guides, Maps and more!</h3>
+                <a href="{{ path('deepmikoto_app_gaming') }}" class="btn btn-info">explore</a>
             </div>
         </div>
     </section>
-    <section>
+    <section class="photography">
         <div class="section-content text-center">
             <div class="container">
-                <a href="{{ path('deepmikoto_app_photography') }}" >photography</a>
+                <h1>Photography</h1>
+                <h3>Free Stock Images & Wallpapers</h3>
+                <a href="{{ path('deepmikoto_app_photography') }}" class="btn btn-info">explore</a>
             </div>
         </div>
     </section>
