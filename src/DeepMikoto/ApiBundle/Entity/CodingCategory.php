@@ -53,6 +53,13 @@ class CodingCategory
      */
     private $created;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50)
+     */
+    private $slug;
+
     /** variables and methods for handling file uploads */
 
     /**
@@ -215,6 +222,7 @@ class CodingCategory
     public function setName($name)
     {
         $this->name = $name;
+        $this->setSlug( $name );
 
         return $this;
     }
@@ -314,5 +322,37 @@ class CodingCategory
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return CodingCategory
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = strtolower(
+            str_replace( ' ', '-',
+                trim(
+                    preg_replace( '/\s+/', ' ',
+                        preg_replace( "/[^A-Za-z0-9 ]/", '', $slug )
+                    )
+                )
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

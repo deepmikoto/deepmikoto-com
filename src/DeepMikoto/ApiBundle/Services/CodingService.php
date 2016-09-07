@@ -205,4 +205,21 @@ class CodingService
             return isset( $codingPosts[0] ) ? $codingPosts[0] : $codingPosts;
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getSidebarTopCodingCategories()
+    {
+        return $this->em->getRepository( 'DeepMikotoApiBundle:CodingCategory' )
+            ->createQueryBuilder( 'cc' )
+            ->select('cc.slug', 'cc.name', 'count( distinct cp.id ) as postsCount', '\'coding\' as type' )
+            ->leftJoin( 'cc.posts', 'cp', 'WITH', 'cp.public = 1' )
+            ->groupBy( 'cc.id' )->having( 'postsCount > 0' )
+            ->orderBy( 'postsCount', 'DESC' )
+            ->setMaxResults( 6 )
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 } 

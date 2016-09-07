@@ -178,6 +178,31 @@ class AppController extends Controller
     }
 
     /**
+     * coding posts by category
+     *
+     * @param $slug
+     * @param Request $request
+     * @return Response
+     */
+    public function codingPostsByCategoryAction( $slug, Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $codingCategory = $em->getRepository( 'DeepMikotoApiBundle:CodingCategory')->findOneBy([
+            'slug'  => $slug,
+        ]);
+        if( !$codingCategory ) throw $this->createNotFoundException();
+        $response = new Response(
+            $this->render( 'DeepMikotoApiBundle:App:coding_post.html.twig',[ 'post' => $codingPost ] )->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
      * static pages ( i.e. Help page )
      *
      * @return Response

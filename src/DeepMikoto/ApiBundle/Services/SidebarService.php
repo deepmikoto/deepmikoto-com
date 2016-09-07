@@ -107,6 +107,28 @@ class SidebarService
     }
 
     /**
+     * @param $page
+     * @return bool
+     * @throws \Exception
+     */
+    public function getSidebarTopCategoriesData( $page )
+    {
+        //$photographyManager = $this->container->get( 'deepmikoto.api.photography_manager' );
+        $codingManager = $this->container->get( 'deepmikoto.api.coding_manager' );
+        //$gamingManager = $this->container->get( 'deepmikoto.api.gaming_manager' );
+        if ( $page == 'coding' ) {
+            $data = [
+                'title' => 'Top Categories',
+                'items' => $codingManager->getSidebarTopCodingCategories()
+            ];
+        } else {
+            $data = [];
+        }
+
+        return $data;
+    }
+
+    /**
      * generates sidebar add block data depending on the current page
      *
      * @param $page

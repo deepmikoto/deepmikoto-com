@@ -42,6 +42,10 @@ class SidebarController extends Controller
                 'DeepMikotoApiBundle:templates:sidebar/_related_block.html.twig',
                 $sidebarManager->getSidebarRelatedBlockData( $page )
             )->getContent(),
+            'categories' => $this->render(
+                '@DeepMikotoApi/templates/sidebar/_categories_block.html.twig',
+                $sidebarManager->getSidebarTopCategoriesData( $page )
+            )->getContent(),
             'adBlock' => $this->render(
                 'DeepMikotoApiBundle:templates:sidebar/_add_block.html.twig',
                 $sidebarManager->getSidebarAddBlockData( $page )

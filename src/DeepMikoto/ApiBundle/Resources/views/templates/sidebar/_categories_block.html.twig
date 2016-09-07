@@ -1,0 +1,15 @@
+{% spaceless %}
+    {% if items is defined %}
+    <div class="title">{{ title }}</div>
+    <div class="items">
+        <ul class="list">
+            {% for item in items %}
+                <li class="item">
+                    <a href="{{ path( 'deepmikoto_app_' ~ item.type ~ '_posts_by_category',{'category': item.slug } ) }}">{{ item.name | title }} ( {{ item.postsCount }} )</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ path('deepmikoto_app_homepage') }}">view all</a>
+    </div>
+    {% endif %}
+{% endspaceless %}

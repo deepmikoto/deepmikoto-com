@@ -8,6 +8,7 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     ui: {
         primary : '#primary',
         related : '#related',
+        categories: '#categories',
         adds    : '#adds'
     },
     getTemplate: function()
@@ -43,6 +44,12 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
                     this.ui.primary.html( response[ 'payload' ][ 'primaryBlock' ] );
                     this.ui.related.html( response[ 'payload' ][ 'relatedBlock' ] );
                     this.ui.adds.html( response[ 'payload' ][ 'adBlock' ] );
+                    if ( response['payload']['categories'] != '' ) {
+                        this.ui.categories.html( response['payload']['categories'] );
+                        this.ui.categories.css( 'display', 'block' );
+                    } else {
+                        this.ui.categories.css( 'display', 'none' );
+                    }
                 }
             });
         }
