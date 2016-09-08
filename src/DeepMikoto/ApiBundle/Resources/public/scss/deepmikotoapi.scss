@@ -412,6 +412,20 @@ html {
           }
         }
         &>.coding-timeline {
+          &>.coding-category {
+            padding: 0 10px;
+            margin-bottom: 10px;
+            .media {
+              width: 100%;
+              max-width: 100%;
+              display: inline-block;
+              background-color: #000315;
+              color: #fff;
+              padding: 15px;
+              @include border-radius( 3px );
+              @include box-shadow( 0, 0, 5px, 1px, #131313 );
+            }
+          }
           &>.coding-posts {
             &>.coding-post {
               padding: 0 10px;

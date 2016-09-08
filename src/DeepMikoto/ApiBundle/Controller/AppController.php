@@ -180,19 +180,39 @@ class AppController extends Controller
     /**
      * coding posts by category
      *
-     * @param $slug
-     * @param Request $request
+     * @param $category
      * @return Response
      */
-    public function codingPostsByCategoryAction( $slug, Request $request )
+    public function codingPostsByCategoryAction( $category )
     {
         $em = $this->getDoctrine()->getManager();
         $codingCategory = $em->getRepository( 'DeepMikotoApiBundle:CodingCategory')->findOneBy([
-            'slug'  => $slug,
+            'slug'  => $category,
         ]);
         if( !$codingCategory ) throw $this->createNotFoundException();
         $response = new Response(
-            $this->render( 'DeepMikotoApiBundle:App:coding_post.html.twig',[ 'post' => $codingPost ] )->getContent(),
+            $this->render( 'DeepMikotoApiBundle:App:coding_posts_by_category.html.twig',[ 'category' => [
+                'name' => $codingCategory->getName(),
+                'slug' => $codingCategory->getSlug(),
+                'image' => $codingCategory->getWebPath()
+            ] ] )->getContent(),
+            200
+        );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     *
+     * @return Response
+     */
+    public function codingCategoriesAction()
+    {
+        $response = new Response(
+            $this->render('@DeepMikotoApi/App/photography.html.twig')->getContent(),
             200
         );
         /** 90 days */

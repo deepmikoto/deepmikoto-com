@@ -14,16 +14,18 @@ var root = root || '/';
 
 /** define api routes */
 deepmikoto.apiRoutes = {
-    TEMPLATES_URL             : '_api/templates',
-    HELP_PAGE_URL             : '_api/help',
-    USER_INFO_URL             : '_api/user-info',
-    SIDEBAR_COMPONENTS_URL    : '_api/sidebar-components',
-    CODING_TIMELINE_URL       : '_api/coding-timeline',
-    CODING_POST_URL           : '_api/coding-post',
-    GAMING_TIMELINE_URL       : '_api/gaming-timeline',
-    GAMING_POST_URL           : '_api/gaming-post',
-    PHOTOGRAPHY_TIMELINE_URL  : '_api/photography-timeline',
-    PHOTOGRAPHY_POST_URL      : '_api/photography-post'
+    TEMPLATES_URL               : '_api/templates',
+    HELP_PAGE_URL               : '_api/help',
+    USER_INFO_URL               : '_api/user-info',
+    SIDEBAR_COMPONENTS_URL      : '_api/sidebar-components',
+    CODING_TIMELINE_URL         : '_api/coding-timeline',
+    CODING_POST_URL             : '_api/coding-post',
+    CODING_CATEGORIES_URL       : '_api/coding-categories',
+    CODING_CATEGORY_TIMELINE_URL: '_api/coding-category-timeline',
+    GAMING_TIMELINE_URL         : '_api/gaming-timeline',
+    GAMING_POST_URL             : '_api/gaming-post',
+    PHOTOGRAPHY_TIMELINE_URL    : '_api/photography-timeline',
+    PHOTOGRAPHY_POST_URL        : '_api/photography-post'
 };
 
 /** define app constants */

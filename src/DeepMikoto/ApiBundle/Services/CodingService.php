@@ -136,6 +136,68 @@ class CodingService
     }
 
     /**
+     * @return string
+     */
+    public function getCodingCategories()
+    {
+        $query = $this->em->getRepository( 'DeepMikotoApiBundle:CodingCategory' )->createQueryBuilder( 'c' );
+        $query
+            ->select( 'c', 'count( distinct p.id ) as hidden posts' )
+            ->join('c.posts', 'p')
+            ->groupBy('c.id')
+            ->orderBy( 'posts', 'DESC' )
+        ;
+        $codingPosts = $query->getQuery()->getResult();
+        $processedPosts = [];
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+        /** @var CodingCategory $codingPost */
+        foreach ( $codingPosts as $codingPost ) {
+            $processedPosts[] = [
+                'name' => $codingPost->getName(),
+                'slug' => $codingPost->getSlug(),
+                'image' => $cacheManager->getBrowserPath( $codingPost->getWebPath(), '200_200' )
+            ];
+        }
+        $codingPosts = $this->processCodingTimelinePosts( [
+            'payload'   => $processedPosts,
+            'response'  => ApiResponseStatus::$ALL_OK
+        ]);
+
+        return $codingPosts;
+    }
+
+    /**
+     * @param CodingCategory $category
+     * @return string
+     */
+    public function getCodingCategoryTimeline( CodingCategory $category )
+    {
+        $em = $this->em;
+        $codingPosts = $em->getRepository( 'DeepMikotoApiBundle:CodingPost' )
+            ->createQueryBuilder( 'c' )
+            ->select( 'c' )
+            ->where( 'c.public = 1' )
+            ->join( 'c.categories', 'cc', 'WITH', 'cc.id = :category' )
+            ->setParameter( 'category', $category )
+            ->orderBy( 'c.date', 'DESC' )
+            ->getQuery()->getResult()
+        ;
+        $codingPosts = $this->processCodingTimelinePosts( [
+            'payload'   => [
+                'title' => 'Tutorials, guides, how tos, for ' . $category->getName(),
+                'category' => [
+                    'name' => $category->getName(),
+                    'image' => $this->container->get('liip_imagine.cache.manager')->getBrowserPath( $category->getWebPath(), 'tiny_thumb_no_crop' )
+                ],
+                'posts' => $codingPosts
+            ],
+            'response'  => ApiResponseStatus::$ALL_OK
+        ]);
+
+        return $codingPosts;
+    }
+
+    /**
      * @param $id
      * @param $slug
      * @param null|Request $request

@@ -9,7 +9,7 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="{{ path('deepmikoto_app_homepage') }}">view all</a>
+        <a href="{{ path('deepmikoto_app_' ~ type ~ '_categories') }}">view all</a>
     </div>
     {% endif %}
 {% endspaceless %}

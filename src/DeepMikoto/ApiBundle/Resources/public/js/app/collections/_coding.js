@@ -5,3 +5,6 @@
 deepmikoto.CodingTimelineCollection = Backbone.Collection.extend({
     model: deepmikoto.CodingPostModel
 });
+deepmikoto.CodingCategoryTimelineCollection = Backbone.Collection.extend({
+    model: deepmikoto.CodingCollectionModel
+});

@@ -118,6 +118,7 @@ class SidebarService
         //$gamingManager = $this->container->get( 'deepmikoto.api.gaming_manager' );
         if ( $page == 'coding' ) {
             $data = [
+                'type' => $page,
                 'title' => 'Top Categories',
                 'items' => $codingManager->getSidebarTopCodingCategories()
             ];

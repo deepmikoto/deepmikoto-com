@@ -10,3 +10,17 @@ deepmikoto.CodingPostModel = Backbone.Model.extend({
         date  : null
     }
 });
+
+deepmikoto.CodingCollectionModel = Backbone.Model.extend({
+    defaults: {
+        slug  : null,
+        name  : null,
+        image : null
+    }
+});
+
+deepmikoto.CodingTimelineModel = Backbone.Model.extend({
+    defaults: {
+        category: null
+    }
+});

@@ -32,6 +32,36 @@ deepmikoto.CodingTimelineView = Marionette.CompositeView.extend({
     }
 });
 
+deepmikoto.CodingCategoriesTimelineItemView = Marionette.ItemView.extend({
+    tagName: 'div',
+    className: 'col-lg-3 col-md-3 col-sm-12 col-xs-12 coding-category',
+    events: {
+        click: 'showCategoryPosts'
+    },
+    getTemplate: function ()
+    {
+        /** @namespace deepmikoto.templates.codingCategoryTimelineItem */
+        return _.template( deepmikoto.templates.codingCategoryTimelineItem );
+    },
+    showCategoryPosts: function ()
+    {
+        Backbone.history.navigate( 'coding/' + this.model.get( 'slug' ), { trigger: true } );
+    }
+});
+
+deepmikoto.CodingCategoriesTimelineView = Marionette.CompositeView.extend({
+    tagName: 'div',
+    className: 'coding-categories-timeline',
+    childView: deepmikoto.CodingCategoriesTimelineItemView,
+    childViewContainer: '.coding-categories',
+    collection: deepmikoto.CodingTimelineCollection,
+    getTemplate: function ()
+    {
+        /** @namespace deepmikoto.templates.codingCategoryTimelineCollection */
+        return _.template( deepmikoto.templates.codingCategoryTimelineCollection );
+    }
+});
+
 deepmikoto.CodingPost = Marionette.LayoutView.extend({
     tagName: 'div',
     className: 'post-details coding-type',

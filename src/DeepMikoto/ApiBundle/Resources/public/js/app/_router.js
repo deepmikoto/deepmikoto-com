@@ -7,6 +7,8 @@ deepmikoto.Router = Marionette.AppRouter.extend({
         'photography/:id--:slug': 'photographyPostAction',
         'coding': 'codingAction',
         'coding/:id--:slug': 'codingPostAction',
+        'coding/categories': 'codingCategoriesAction',
+        'coding/:category': 'codingCategoryPostsAction',
         'gaming': 'gamingAction',
         'gaming/:id--:slug': 'gamingPostAction',
         'help': 'helpAction',
@@ -62,6 +64,16 @@ deepmikoto.Router = Marionette.AppRouter.extend({
     {
         this.updateAwareness( 'coding' );
         this.showCodingPost( id, slug );
+    },
+    codingCategoryPostsAction: function ( category )
+    {
+        this.updateAwareness( 'coding' );
+        this.showCodingCategoryPosts( category );
+    },
+    codingCategoriesAction: function ()
+    {
+        this.updateAwareness( 'coding' );
+        this.showCodingCategories();
     },
     gamingAction: function ()
     {
@@ -143,9 +155,60 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function( response )
             {
                 var codingTimeline = new deepmikoto.CodingTimelineView({
+                    model: new deepmikoto.CodingTimelineModel,
                     collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( codingTimeline );
+                this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
+            }
+        });
+    },
+    showCodingCategories: function ()
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.CODING_CATEGORIES_URL,
+            dataType: 'json',
+            success: function( response )
+            {
+                var codingCategoriesTimeline = new deepmikoto.CodingCategoriesTimelineView({
+                    collection: new deepmikoto.CodingCategoryTimelineCollection( response[ 'payload' ] )
+                });
+                deepmikoto.app.body.show( codingCategoriesTimeline );
+                this.scrollPageToTop();
+            },
+            error: function ()
+            {
+                this.homeAction();
+            }
+        });
+    },
+    showCodingCategoryPosts: function( category )
+    {
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: deepmikoto.apiRoutes.CODING_CATEGORY_TIMELINE_URL,
+            data: {
+                category: category
+            },
+            dataType: 'json',
+            success: function( response )
+            {
+                var codingTimeline = new deepmikoto.CodingTimelineView({
+                    model: new deepmikoto.CodingTimelineModel( {
+                        category: response[ 'payload' ] [ 'category' ]
+                    }),
+                    collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ]['posts'] )
+                });
+                deepmikoto.app.body.show( codingTimeline );
+                this.updatePageTitle( response[ 'payload' ][ 'title' ] );
+
                 this.scrollPageToTop();
             },
             error: function ()

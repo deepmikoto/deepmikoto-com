@@ -41,6 +41,50 @@ class CodingController extends Controller
     }
 
     /**
+     * @return Response
+     */
+    public function codingCategoriesAction()
+    {
+        $response = new Response(
+            $this->get('deepmikoto.api.coding_manager')->getCodingCategories(),
+            200
+        );
+        $response->headers->set( 'Content-Type', 'application/json' );
+        /** 7 days */
+        $response->setSharedMaxAge( 604800 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function codingCategoryTimelineAction( Request $request )
+    {
+        $category = null;
+        $requestedCategory = $request->get('category');
+        if ( !( $requestedCategory != null &&
+            ( $category = $this->getDoctrine()->getRepository('DeepMikotoApiBundle:CodingCategory')->findOneBy([
+                'slug' => $requestedCategory
+            ]) ) != null )
+        ) {
+            return $this->createNotFoundException();
+        }
+        $response = new Response(
+            $this->get('deepmikoto.api.coding_manager')->getCodingCategoryTimeline( $category ),
+            200
+        );
+        $response->headers->set( 'Content-Type', 'application/json' );
+        /** 7 days */
+        $response->setSharedMaxAge( 604800 );
+        $response->setMaxAge( 0 );
+
+        return $response;
+    }
+
+    /**
      * action used for retrieving coding post
      *
      * @param Request $request
