@@ -201,7 +201,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function( response )
             {
                 var codingTimeline = new deepmikoto.CodingTimelineView({
-                    model: new deepmikoto.CodingTimelineModel( {
+                    model: new deepmikoto.CodingTimelineModel({
                         category: response[ 'payload' ] [ 'category' ]
                     }),
                     collection: new deepmikoto.CodingTimelineCollection( response[ 'payload' ]['posts'] )
@@ -227,6 +227,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function( response )
             {
                 var gamingTimeline = new deepmikoto.GamingTimelineView({
+                    model: new deepmikoto.GamingTimelineModel(),
                     collection: new deepmikoto.GamingTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( gamingTimeline );
@@ -248,6 +249,7 @@ deepmikoto.Router = Marionette.AppRouter.extend({
             success: function( response )
             {
                 var photographyTimeline = new deepmikoto.PhotographyTimelineView({
+                    model: new deepmikoto.PhotographyTimelineModel(),
                     collection: new deepmikoto.PhotographyTimelineCollection( response[ 'payload' ] )
                 });
                 deepmikoto.app.body.show( photographyTimeline );

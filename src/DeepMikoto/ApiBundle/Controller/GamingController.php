@@ -23,12 +23,15 @@ class GamingController extends Controller
     /**
      * action used for retrieving gaming timeline
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
-    public function gamingTimelineAction()
+    public function gamingTimelineAction( Request $request )
     {
+        $limit = $request->get( 'limit', 10 );
+        $offset = $request->get( 'offset', 0 );
         $response = new Response(
-            $this->get('deepmikoto.api.gaming_manager')->getGamingTimeline(),
+            $this->get('deepmikoto.api.gaming_manager')->getGamingTimeline( $limit, $offset ),
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );

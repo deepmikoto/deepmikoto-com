@@ -10,3 +10,7 @@ deepmikoto.PhotographyPostModel = Backbone.Model.extend({
         date  : null
     }
 });
+
+deepmikoto.PhotographyTimelineModel = Backbone.Model.extend({
+
+});

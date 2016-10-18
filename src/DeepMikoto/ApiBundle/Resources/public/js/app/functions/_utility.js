@@ -6,6 +6,8 @@ deepmikoto.UtilityFunctions = Marionette.extend({
     constructor: function ()
     {
         //this.enableSwipeUpAndDownSupport();
+        this.windowDOM = $( window );
+        this.htmlDOM = $( 'html' );
     },
     detectSwipe: function ( DOMElement, callback )
     {
@@ -62,8 +64,8 @@ deepmikoto.UtilityFunctions = Marionette.extend({
             return (
                 rect.top >= 0 &&
                 rect.left >= 0 &&
-                rect.bottom <= $( window ).height() &&
-                rect.right <= $( window ).width()
+                rect.bottom <= this.windowDOM.height() &&
+                rect.right <= this.windowDOM.width()
             );
         }
     },
@@ -73,10 +75,50 @@ deepmikoto.UtilityFunctions = Marionette.extend({
     },
     hideHTMLOverflow: function ()
     {
-        $( 'html' ).addClass( 'locked' );
+        this.htmlDOM.addClass( 'locked' );
     },
     showHTMLOverflow: function ()
     {
-        $( 'html' ).removeClass( 'locked' );
+        this.htmlDOM.removeClass( 'locked' );
+    },
+    enableEndlessScroll: function ( view, url, limit )
+    {
+        var _this = this;
+        view.listenTo( deepmikoto.app.windowChannel.vent, 'window:scroll', function () {
+            if (
+                view.model.get( 'resultsAvailable' ) &&
+                !view.model.get( 'fetching' ) &&
+                view.ui.timelineEnd.offset().top < ( _this.windowDOM.height() + _this.windowDOM.scrollTop() + 500 )
+            ){
+                view.model.set( 'fetching', true );
+                $.ajax({
+                    context: view,
+                    type: 'GET',
+                    url: url,
+                    data: {
+                        offset: view.collection.length,
+                        limit: limit
+                    },
+                    dataType: 'json',
+                    success: function( response )
+                    {
+                        if ( !view.isDestroyed ) {
+                            view.collection.add( response['payload'] );
+                            if ( response['payload'].length < limit ) {
+                                view.model.set( 'resultsAvailable', false );
+                            }
+                            view.model.set( 'fetching', false );
+                        }
+                    },
+                    error: function ()
+                    {
+                        if ( !view.isDestroyed ) {
+                            view.model.set( 'fetching', false );
+                        }
+                    }
+                });
+            }
+        });
+        view.model.set( 'resultsAvailable', view.collection.length >= limit );
     }
 });

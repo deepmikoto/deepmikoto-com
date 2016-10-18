@@ -9,8 +9,11 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 
+use DeepMikoto\ApiBundle\Entity\CodingCategory;
+use DeepMikoto\ApiBundle\Entity\CodingPost;
+use DeepMikoto\ApiBundle\Entity\GamingPost;
+use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -95,10 +98,9 @@ class AppController extends Controller
      *
      * @param $id
      * @param $slug
-     * @param Request $request
      * @return Response
      */
-    public function photographyPostAction( $id, $slug, Request $request )
+    public function photographyPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
         $photographyPost = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost')->findOneBy([
@@ -107,7 +109,6 @@ class AppController extends Controller
             'public'=> true
         ]);
         if( !$photographyPost ) throw $this->createNotFoundException();
-        $this->get( 'deepmikoto.api.tracking_manager' )->addPostView( $photographyPost, $request );
         $response = new Response(
             $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[ 'post' => $photographyPost ] )->getContent(),
             200
@@ -124,10 +125,9 @@ class AppController extends Controller
      *
      * @param $id
      * @param $slug
-     * @param Request $request
      * @return Response
      */
-    public function gamingPostAction( $id, $slug, Request $request )
+    public function gamingPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
         $gamingPost = $em->getRepository( 'DeepMikotoApiBundle:GamingPost')->findOneBy([
@@ -136,7 +136,6 @@ class AppController extends Controller
             'public'=> true
         ]);
         if( !$gamingPost ) throw $this->createNotFoundException();
-        $this->get( 'deepmikoto.api.tracking_manager' )->addPostView( $gamingPost, $request );
         $response = new Response(
             $this->render( 'DeepMikotoApiBundle:App:gaming_post.html.twig',[ 'post' => $gamingPost ] )->getContent(),
             200
@@ -153,10 +152,9 @@ class AppController extends Controller
      *
      * @param $id
      * @param $slug
-     * @param Request $request
      * @return Response
      */
-    public function codingPostAction( $id, $slug, Request $request )
+    public function codingPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
         $codingPost = $em->getRepository( 'DeepMikotoApiBundle:CodingPost')->findOneBy([
@@ -165,7 +163,6 @@ class AppController extends Controller
             'public'=> true
         ]);
         if( !$codingPost ) throw $this->createNotFoundException();
-        $this->get( 'deepmikoto.api.tracking_manager' )->addPostView( $codingPost, $request );
         $response = new Response(
             $this->render( 'DeepMikotoApiBundle:App:coding_post.html.twig',[ 'post' => $codingPost ] )->getContent(),
             200
@@ -186,6 +183,7 @@ class AppController extends Controller
     public function codingPostsByCategoryAction( $category )
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var CodingCategory $codingCategory */
         $codingCategory = $em->getRepository( 'DeepMikotoApiBundle:CodingCategory')->findOneBy([
             'slug'  => $category,
         ]);
@@ -212,7 +210,7 @@ class AppController extends Controller
     public function codingCategoriesAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/photography.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/coding.html.twig')->getContent(),
             200
         );
         /** 90 days */

@@ -140,14 +140,18 @@ class PhotographyService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return string
      */
-    public function getPhotographyTimeline()
+    public function getPhotographyTimeline( $limit = 10, $offset = 0 )
     {
         $query = $this->em->getRepository( 'DeepMikotoApiBundle:PhotographyPost' )->createQueryBuilder( 'p' );
         $query
             ->select( 'p' )
             ->where( 'p.public = 1' )
+            ->setMaxResults( $limit )
+            ->setFirstResult( $offset )
             ->orderBy( 'p.date', 'DESC' )
         ;
         $photographyPosts = $query->getQuery()->getResult();

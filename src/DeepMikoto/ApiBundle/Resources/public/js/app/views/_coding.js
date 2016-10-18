@@ -5,8 +5,11 @@
 deepmikoto.CodingTimelineItemView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 coding-post',
+    ui: {
+        self: '.item'
+    },
     events: {
-        click: 'showPostDetails'
+        'click @ui.self': 'showPostDetails'
     },
     getTemplate: function ()
     {
@@ -25,6 +28,13 @@ deepmikoto.CodingTimelineView = Marionette.CompositeView.extend({
     childView: deepmikoto.CodingTimelineItemView,
     childViewContainer: '.coding-posts',
     collection: deepmikoto.CodingTimelineCollection,
+    ui: {
+        timelineEnd: '.timeline-end'
+    },
+    initialize: function ()
+    {
+        deepmikoto.app.utilityFunctions.enableEndlessScroll( this, deepmikoto.apiRoutes.CODING_TIMELINE_URL, deepmikoto.appConstants.CODING_TIMELINE_LIMIT );
+    },
     getTemplate: function ()
     {
         /** @namespace deepmikoto.templates.codingTimelineCollection */
@@ -35,8 +45,11 @@ deepmikoto.CodingTimelineView = Marionette.CompositeView.extend({
 deepmikoto.CodingCategoriesTimelineItemView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'col-lg-3 col-md-3 col-sm-12 col-xs-12 coding-category',
+    ui: {
+        self: '.category'
+    },
     events: {
-        click: 'showCategoryPosts'
+        'click @ui.self': 'showCategoryPosts'
     },
     getTemplate: function ()
     {
@@ -51,7 +64,7 @@ deepmikoto.CodingCategoriesTimelineItemView = Marionette.ItemView.extend({
 
 deepmikoto.CodingCategoriesTimelineView = Marionette.CompositeView.extend({
     tagName: 'div',
-    className: 'coding-categories-timeline',
+    className: 'coding-timeline',
     childView: deepmikoto.CodingCategoriesTimelineItemView,
     childViewContainer: '.coding-categories',
     collection: deepmikoto.CodingTimelineCollection,

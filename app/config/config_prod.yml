@@ -43,20 +43,18 @@ monolog:
         main:
             type:               fingers_crossed
             action_level:       error
-            handler:            grouped
-        grouped:
-            type:               group
-            members:            [streamed, swift]
-        streamed:
-            type:               stream
-            path:               "%kernel.logs_dir%/%kernel.environment%.log"
-            level:              debug
+            handler:            deduplicated
+        deduplicated:
+            type:    deduplication
+            handler: swift
         swift:
             type:               swift_mailer
             from_email:         system-log@deepmikoto.com
             to_email:           deepmikoto@gmail.com
             subject:            "Incident @ deepmikoto.com"
             level:              debug
+            formatter:  monolog.formatter.html
+            content_type: text/html
         login:
             type:               stream
             path:               "%kernel.logs_dir%/auth.log"

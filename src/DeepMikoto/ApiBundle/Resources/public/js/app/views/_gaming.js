@@ -25,6 +25,13 @@ deepmikoto.GamingTimelineView = Marionette.CompositeView.extend({
     childView: deepmikoto.GamingTimelineItemView,
     childViewContainer: '.gaming-posts',
     collection: deepmikoto.GamingTimelineCollection,
+    ui: {
+        timelineEnd: '.timeline-end'
+    },
+    initialize: function ()
+    {
+        deepmikoto.app.utilityFunctions.enableEndlessScroll( this, deepmikoto.apiRoutes.GAMING_TIMELINE_URL, deepmikoto.appConstants.GAMING_TIMELINE_LIMIT );
+    },
     getTemplate: function ()
     {
         /** @namespace deepmikoto.templates.gamingTimelineCollection */

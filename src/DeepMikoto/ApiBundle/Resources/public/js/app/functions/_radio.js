@@ -22,11 +22,18 @@ deepmikoto.RadioFunctions = Marionette.extend({
     },
     broadcastBehaviours: function ()
     {
-        $( window ).on( 'scroll', $.proxy( function(){
+        var $window = $( window );
+        $window.on( 'scroll', $.proxy( function(){
             this.broadcast( 'window', 'window:scroll' );
         }, this ));
-        $( window ).on( 'resize', $.proxy(function (){
+        $window.on( 'resize', $.proxy(function (){
             this.broadcast( 'window', 'window:resize' );
+        }, this ));
+        $window.on( 'click', $.proxy(function () {
+            this.broadcast( 'window', 'window:click' );
+        }, this ));
+        $window.on( 'mouseup', $.proxy(function () {
+            this.broadcast( 'window', 'window:mouseup' );
         }, this ));
         this.watchForMouseWheelMovement();
     },

@@ -111,6 +111,13 @@ deepmikoto.PhotographyTimelineView = Marionette.CompositeView.extend({
     childView: deepmikoto.PhotographyTimelineItemView,
     childViewContainer: '#photography-posts',
     collection: deepmikoto.PhotographyTimelineCollection,
+    ui: {
+        timelineEnd: '.timeline-end'
+    },
+    initialize: function ()
+    {
+        deepmikoto.app.utilityFunctions.enableEndlessScroll( this, deepmikoto.apiRoutes.PHOTOGRAPHY_TIMELINE_URL, deepmikoto.appConstants.PHOTOGRAPHY_TIMELINE_LIMIT );
+    },
     getTemplate: function ()
     {
         /** @namespace deepmikoto.templates.photographyTimelineCollection */

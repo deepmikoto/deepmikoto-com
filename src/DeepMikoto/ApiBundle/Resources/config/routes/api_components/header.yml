@@ -1,0 +1,3 @@
+deepmikoto_api_search_suggestions:
+    path:     /search-suggestions
+    defaults: { _controller: DeepMikotoApiBundle:Api:searchSuggestions }

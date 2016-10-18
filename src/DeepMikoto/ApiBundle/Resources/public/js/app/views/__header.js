@@ -20,12 +20,16 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     events: {
         'click @ui.toggleMenu': 'toggleCollapsedMenu',
         'click @ui.searchContainer': 'preventClick',
-        'click @ui.searchToggle': 'toggleSearchField'
+        'click @ui.searchToggle': 'toggleSearchField',
+        'keyup @ui.searchField': 'getSuggestions',
+        'click @ui.searchField': 'getSuggestions'
     },
     initialize: function()
     {
+        this.bodyDOM = $( 'body' );
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.updateCurrentPage );
         this.listenTo( deepmikoto.app.windowChannel.vent, 'window:scroll', this.indicateScrolling );
+        this.listenTo( deepmikoto.app.windowChannel.vent, 'window:mouseup', this.hideSuggestions );
     },
     getTemplate: function ()
     {
@@ -38,10 +42,11 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     },
     indicateScrolling: function ()
     {
-        $( 'body' ).addClass( 'scrolling' );
+        var _this = this;
+        this.bodyDOM.addClass( 'scrolling' );
         this.scrollingTimeount != undefined ? clearTimeout( this.scrollingTimeount ) : null;
         this.scrollingTimeount = setTimeout( function (){
-            $( 'body' ).removeClass( 'scrolling' );
+            _this.bodyDOM.removeClass( 'scrolling' );
         }, 400 );
     },
     showSearchToggle: function ()
@@ -54,8 +59,10 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     {
         if( !this.ui.searchContainer.hasClass( 'active' ) ){
             this.ui.searchContainer.addClass( 'active' );
+            this.ui.searchField.focus();
         } else {
             this.hideSearchField();
+            this.ui.searchField.val('');
         }
     },
     hideSearchField: function ()
@@ -87,5 +94,43 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
         } else {
             this.ui.collapsed.css( 'display', 'block' );
         }
+    },
+    getSuggestions: function ()
+    {
+        var term = this.ui.searchField.val(),
+            _this = this;
+        this.searchTimeount != undefined ? clearTimeout( this.searchTimeount ) : null;
+        this.searchAjax != undefined ? this.searchAjax.abort() : null;
+        this.hideSuggestions();
+        if ( term.length > 2 ) {
+            this.searchTimeount = setTimeout( function (){
+                _this.searchAjax = $.ajax({
+                    method: 'GET',
+                    url: deepmikoto.apiRoutes.SEARCH_SUGGESTIONS_URL,
+                    data: {
+                        term: term
+                    },
+                    dataType: 'json',
+                    success: function ( response )
+                    {
+                        _this.resultsArea.show(
+                            new deepmikoto.SearchSuggestionsView({
+                                collection: new deepmikoto.SearchSuggestionCollection( response['payload'] )
+                            })
+                        )
+                    },
+                    error: function ()
+                    {
+                        _this.hideSuggestions();
+                    }
+                });
+            }, 200 );
+        } else {
+            _this.hideSuggestions();
+        }
+    },
+    hideSuggestions: function ()
+    {
+        this.resultsArea.reset();
     }
 });

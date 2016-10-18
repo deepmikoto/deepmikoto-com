@@ -122,14 +122,18 @@ class GamingService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return string
      */
-    public function getGamingTimeline()
+    public function getGamingTimeline( $limit = 10, $offset = 0 )
     {
         $query = $this->em->getRepository( 'DeepMikotoApiBundle:GamingPost' )->createQueryBuilder( 'c' );
         $query
             ->select( 'c' )
             ->where( 'c.public = 1' )
+            ->setMaxResults( $limit )
+            ->setFirstResult( $offset )
             ->orderBy( 'c.date', 'DESC' )
         ;
         $gamingPosts = $query->getQuery()->getResult();

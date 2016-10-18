@@ -24,12 +24,15 @@ class CodingController extends Controller
     /**
      * action used for retrieving coding timeline
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
-    public function codingTimelineAction()
+    public function codingTimelineAction( Request $request )
     {
+        $limit = $request->get( 'limit', 20 );
+        $offset = $request->get( 'offset', 0 );
         $response = new Response(
-            $this->get('deepmikoto.api.coding_manager')->getCodingTimeline(),
+            $this->get('deepmikoto.api.coding_manager')->getCodingTimeline( $limit, $offset ),
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );
@@ -70,7 +73,7 @@ class CodingController extends Controller
                 'slug' => $requestedCategory
             ]) ) != null )
         ) {
-            return $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
         $response = new Response(
             $this->get('deepmikoto.api.coding_manager')->getCodingCategoryTimeline( $category ),

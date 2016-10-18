@@ -59,7 +59,9 @@ class TemplatingService
             'footNote' => $twigEngine->render( '@DeepMikotoApi/templates/footnote/_default.html.twig' ),
             'landingPage' => $twigEngine->render( '@DeepMikotoApi/templates/landing/_landing_page.html.twig' ),
             'codingCategoryTimelineItem' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_category_timeline_item.html.twig' ),
-            'codingCategoryTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_categories_timeline_collection.html.twig' )
+            'codingCategoryTimelineCollection' => $twigEngine->render( '@DeepMikotoApi/templates/coding/_categories_timeline_collection.html.twig' ),
+            'searchSuggestionItemView' => $twigEngine->render('@DeepMikotoApi/templates/header/_search_suggestion_item_view.html.twig'),
+            'searchSuggestions' => $twigEngine->render('@DeepMikotoApi/templates/header/_search_suggestions.html.twig')
         ];
 
         return $this->serializer->serialize( $data, 'json' );

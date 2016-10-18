@@ -13,12 +13,12 @@ deepmikoto_app_coding:
 deepmikoto_app_coding_categories:
     path:     /coding/categories
     defaults: { _controller: DeepMikotoApiBundle:App:codingCategories }
-deepmikoto_app_coding_posts_by_category:
-    path:     /coding/{category}
-    defaults: { _controller: DeepMikotoApiBundle:App:codingPostsByCategory }
 deepmikoto_app_coding_post:
     path:     /coding/{id}--{slug}
     defaults: { _controller: DeepMikotoApiBundle:App:codingPost, id:null, slug:null }
+deepmikoto_app_coding_posts_by_category:
+    path:     /coding/{category}
+    defaults: { _controller: DeepMikotoApiBundle:App:codingPostsByCategory }
 deepmikoto_app_gaming:
     path:     /gaming
     defaults: { _controller: DeepMikotoApiBundle:App:gaming }

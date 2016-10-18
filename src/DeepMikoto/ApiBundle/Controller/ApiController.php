@@ -10,9 +10,11 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 
 use DeepMikoto\ApiBundle\Entity\StaticPage;
+use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -55,6 +57,35 @@ class ApiController extends Controller
         $response->setSharedMaxAge( 7776000 );
         $response->setMaxAge( 0 );
         $response->headers->set( 'Content-Type', 'application/json' );
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchSuggestionsAction( Request $request )
+    {
+        $term = $request->get('term', '' );
+        if ( strlen( $term  ) > 2 ) {
+            $suggestions = [
+                [
+                    'title' => 'Coming soon ...',
+                    'url' => '',
+                    'category' => 'Under development'
+                ]
+            ];
+        } else {
+            $suggestions = [];
+        }
+        $response = new JsonResponse( [
+            'payload'   => $suggestions,
+            'response'  => ApiResponseStatus::$ALL_OK
+        ], 200 );
+        /** 90 days */
+        $response->setSharedMaxAge( 7776000 );
+        $response->setMaxAge( 0 );
 
         return $response;
     }

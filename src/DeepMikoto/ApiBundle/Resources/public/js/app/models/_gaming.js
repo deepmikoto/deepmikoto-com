@@ -10,3 +10,7 @@ deepmikoto.GamingPostModel = Backbone.Model.extend({
         date  : null
     }
 });
+
+deepmikoto.GamingTimelineModel = Backbone.Model.extend({
+
+});

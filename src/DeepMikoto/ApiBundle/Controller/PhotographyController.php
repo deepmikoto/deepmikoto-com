@@ -24,12 +24,15 @@ class PhotographyController extends Controller
     /**
      * action used for retrieving photography timeline
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
-    public function photographyTimelineAction()
+    public function photographyTimelineAction( Request $request )
     {
+        $limit = $request->get( 'limit', 10 );
+        $offset = $request->get( 'offset', 0 );
         $response = new Response(
-            $this->get('deepmikoto.api.photography_manager')->getPhotographyTimeline(),
+            $this->get('deepmikoto.api.photography_manager')->getPhotographyTimeline( $limit, $offset ),
             200
         );
         $response->headers->set( 'Content-Type', 'application/json' );

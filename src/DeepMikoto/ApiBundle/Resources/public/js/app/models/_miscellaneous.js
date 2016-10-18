@@ -8,3 +8,11 @@ deepmikoto.HelpPageModel = Backbone.Model.extend({
         updated: null
     }
 });
+
+deepmikoto.SearchSuggestionModel = Backbone.Model.extend({
+    defaults: {
+        title: null,
+        category: null,
+        url: null
+    }
+});

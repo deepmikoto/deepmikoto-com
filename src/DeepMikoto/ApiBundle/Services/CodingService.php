@@ -116,14 +116,18 @@ class CodingService
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
      * @return string
      */
-    public function getCodingTimeline()
+    public function getCodingTimeline( $limit = 20, $offset = 0 )
     {
         $query = $this->em->getRepository( 'DeepMikotoApiBundle:CodingPost' )->createQueryBuilder( 'c' );
         $query
             ->select( 'c' )
             ->where( 'c.public = 1' )
+            ->setMaxResults( $limit )
+            ->setFirstResult( $offset )
             ->orderBy( 'c.date', 'DESC' )
         ;
         $codingPosts = $query->getQuery()->getResult();

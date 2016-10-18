@@ -25,12 +25,16 @@ deepmikoto.apiRoutes = {
     GAMING_TIMELINE_URL         : '_api/gaming-timeline',
     GAMING_POST_URL             : '_api/gaming-post',
     PHOTOGRAPHY_TIMELINE_URL    : '_api/photography-timeline',
-    PHOTOGRAPHY_POST_URL        : '_api/photography-post'
+    PHOTOGRAPHY_POST_URL        : '_api/photography-post',
+    SEARCH_SUGGESTIONS_URL      : '_api/search-suggestions'
 };
 
 /** define app constants */
 deepmikoto.appConstants = {
-    FACEBOOK_APP_ID     : '789069417870836'
+    FACEBOOK_APP_ID         : '789069417870836',
+    CODING_TIMELINE_LIMIT       : 20,
+    GAMING_TIMELINE_LIMIT       : 10,
+    PHOTOGRAPHY_TIMELINE_LIMIT  : 10
 };
 
 /** define the templates variable */
