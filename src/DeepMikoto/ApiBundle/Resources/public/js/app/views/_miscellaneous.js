@@ -15,7 +15,7 @@ deepmikoto.SearchSuggestionItemView = Marionette.ItemView.extend({
     tagName: 'div',
     className: 'suggestion',
     events: {
-        click: 'navigateToItem'
+        mouseup: 'navigateToItem'
     },
     getTemplate: function ()
     {

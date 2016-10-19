@@ -69,13 +69,22 @@ class ApiController extends Controller
     {
         $term = $request->get('term', '' );
         if ( strlen( $term  ) > 2 ) {
-            $suggestions = [
-                [
-                    'title' => 'Coming soon ...',
-                    'url' => '',
-                    'category' => 'Under development'
-                ]
-            ];
+            $codingSuggestions = $this->get('deepmikoto.api.coding_manager')->getSuggestions( $term );
+            $gamingSuggestions = $this->get('deepmikoto.api.gaming_manager')->getSuggestions( $term );
+            $photographySuggestions = $this->get('deepmikoto.api.photography_manager')->getSuggestions( $term );
+            $suggestions = [];
+            $suggestionsLimit = 5;
+            for ( $i = 0; $i < $suggestionsLimit; $i++ ) {
+                if( count( $suggestions ) < $suggestionsLimit && isset( $codingSuggestions[ $i ] ) ) {
+                    $suggestions[] = $codingSuggestions[ $i ];
+                }
+                if( count( $suggestions ) < $suggestionsLimit && isset( $gamingSuggestions[ $i ] ) ) {
+                    $suggestions[] = $gamingSuggestions[ $i ];
+                }
+                if( count( $suggestions ) < $suggestionsLimit && isset( $photographySuggestions[ $i ] ) ) {
+                    $suggestions[] = $photographySuggestions[ $i ];
+                }
+            }
         } else {
             $suggestions = [];
         }

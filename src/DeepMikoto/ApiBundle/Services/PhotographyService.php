@@ -192,4 +192,41 @@ class PhotographyService
 
         return $photographyPost;
     }
+
+    /**
+     * @param $term
+     * @param int $limit
+     * @return array
+     */
+    public function getSuggestions( $term, $limit = 5 )
+    {
+        $posts = $this->em
+            ->getRepository('DeepMikotoApiBundle:PhotographyPost')
+            ->createQueryBuilder('p')
+            ->select('p.id', 'p.slug', 'p.title', 'count( distinct v.id ) as hidden views')
+            ->leftJoin('p.views', 'v')
+            ->groupBy('p.id')
+            ->where('p.public = 1')
+            ->andWhere('p.slug LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->orderBy('views', 'desc')
+            ->setMaxResults( $limit )
+            ->getQuery()
+            ->getResult()
+        ;
+        $processed = [];
+        $router = $this->router;
+        foreach ( $posts as $post ) {
+            $processed[] = [
+                'title' => $post[ 'title' ],
+                'url' => $router->generate( 'deepmikoto_app_photography_post', [
+                    'id' => $post[ 'id' ],
+                    'slug' => $post[ 'slug' ]
+                ]),
+                'category' => 'Photography'
+            ];
+        }
+
+        return $processed;
+    }
 } 

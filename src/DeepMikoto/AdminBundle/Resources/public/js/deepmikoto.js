@@ -1,4 +1,8 @@
 $( function() {
+    if ( typeof CKEDITOR != 'undefined' ) {
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.config.extraAllowedContent = 'pre(language-*)';
+    }
     enableDeployTools();
     enableGoogleAutoComplete( $( '.post-location' ) );
     enableCKEditor( $( '#deepmikoto_apibundle_codingpost_content' ) );

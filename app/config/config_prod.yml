@@ -38,6 +38,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+services:
+    monolog.processor.extra_log:
+        class: DeepMikoto\ApiBundle\Controller\ExtraLogController
+        arguments: []
+        tags:
+            - { name: monolog.processor, method: processRecord }
 monolog:
     handlers:
         main:

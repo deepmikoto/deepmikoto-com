@@ -60,7 +60,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
                     href.substring(0, 7) !== 'http://' && href.substring(0, 8) !== 'https://')
                 {
                     e.preventDefault();
-
+                    console.log( href );
                     deepmikoto.app.router.navigate(href, { trigger: true });
                 }
             }

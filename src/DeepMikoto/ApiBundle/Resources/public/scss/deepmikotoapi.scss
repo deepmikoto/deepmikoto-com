@@ -120,88 +120,87 @@ html {
                 }
                 &.navbar-right {
                   &>li {
-                    &>a {
-                      cursor: default;
-                      &.search-container {
-                        padding: 0;
-                        position: relative;
+                    &>.search-container {
+                      padding: 0;
+                      position: relative;
+                      display: inline-block;
+                      color: #9d9d9d;
+                      &>label {
+                        margin-bottom: 0;
+                        vertical-align: middle;
+                        &>.search-field {
+                          padding: 0;
+                          width: 0;
+                          opacity: 0;
+                          background: transparent;
+                          border: none;
+                          border-radius: 0;
+                          color: #FFFFFF;
+                          @include transition( all, .3s, ease-in-out );
+                          &:focus {
+                            box-shadow: none;
+                          }
+                        }
+                      }
+                      &>.search-toggle {
+                        cursor: pointer;
+                        display: inline-block;
+                        font-size: 15px;
+                        line-height: 20px;
+                        padding: 15px;
+                        @include transition( transform, .2s, ease-in );
+                      }
+                      &:focus {
+                        &>.search-toggle {
+                          color: #9d9d9d;
+                        }
+                      }
+                      &.loading {
+                        &>.search-toggle {
+                          @include transform( scale( 0.1 ) );
+                        }
+                      }
+                      &.active {
                         &>label {
-                          margin-bottom: 0;
-                          vertical-align: middle;
                           &>.search-field {
-                            padding: 0;
-                            width: 0;
-                            opacity: 0;
-                            background: transparent;
-                            border: none;
-                            border-radius: 0;
-                            color: #FFFFFF;
-                            @include transition( all, .3s, ease-in-out );
-                            &:focus {
-                              box-shadow: none;
-                            }
+                            padding: 6px 12px;
+                            width: 165px;
+                            opacity: 1;
+                            font-weight: normal;
                           }
                         }
                         &>.search-toggle {
-                          cursor: pointer;
-                          display: inline-block;
-                          font-size: 15px;
-                          line-height: 20px;
-                          padding: 15px;
-                          @include transition( transform, .2s, ease-in );
+                          color: #fff;
                         }
-                        &:focus {
-                          &>.search-toggle {
-                            color: #9d9d9d;
-                          }
-                        }
-                        &.loading {
-                          &>.search-toggle {
-                            @include transform( scale( 0.1 ) );
-                          }
-                        }
-                        &.active {
-                          &>label {
-                            &>.search-field {
-                              padding: 6px 12px;
-                              width: 165px;
-                              opacity: 1;
-                              font-weight: normal;
-                            }
-                          }
-                          &>.search-toggle {
-                            color: #fff;
-                          }
-                        }
-                        .suggestions-list {
-                          .suggestions {
-                            position: absolute;
-                            width: 100%;
-                            top: 100%;
-                            @include box-shadow( 0px, 0px, 5px, 1px, rgb(3, 53, 255));
-                            background: #000315;
-                            .suggestion {
-                              cursor: pointer;
-                              padding: 10px;
-                              border-bottom: 1px solid rgba(0, 50, 251, 0.39);
-                              .title {
-                                max-height: 40px;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                color: #FFFFFF;
-                                @include transition( all, .10s, ease-in-out );
-                              }
-                              .category {
-                                color: #a0a0a0;
-                                font-style: italic;
-                                font-size: 10px;
-                              }
+                      }
+                      .suggestions-list {
+                        .suggestions {
+                          position: absolute;
+                          width: 100%;
+                          top: 100%;
+                          @include box-shadow( 0px, 0px, 5px, 1px, rgb(3, 53, 255));
+                          background: #000315;
+                          .suggestion {
+                            cursor: pointer;
+                            padding: 10px;
+                            border-bottom: 1px solid rgba(0, 50, 251, 0.39);
+                            .title {
+                              max-height: 40px;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              color: #FFFFFF;
                               @include transition( all, .10s, ease-in-out );
-                              &:hover {
-                                background: rgba(255, 255, 255, 0.11);
-                                .title {
-                                  color: #9d5ce2;
-                                }
+                            }
+                            .category {
+                              color: #a0a0a0;
+                              font-style: italic;
+                              font-size: 10px;
+                            }
+                            @include transition( all, .10s, ease-in-out );
+                            &:hover {
+                              background: rgba(255, 255, 255, 0.11);
+                              .title {
+                                color: #9d5ce2;
                               }
                             }
                           }
