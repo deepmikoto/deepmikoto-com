@@ -95,15 +95,89 @@ deepmikoto.GeneralFunctions = Marionette.extend({
     initServiceWorker: function()
     {
         if ( 'serviceWorker' in navigator ) {
-            try {
-                /** @namespace navigator.serviceWorker */
-                navigator.serviceWorker.register( '/_sw.js' ).then( function( registration ) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                });
-            } catch( err ) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            }
+            /** @namespace navigator.serviceWorker */
+            navigator.serviceWorker.register( './_sw.js' ).then(this.initialiseState);
         }
+    },
+    initialiseState: function ()
+    {
+        // Are Notifications supported in the service worker?
+        if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
+            console.log('Notifications aren\'t supported.');
+            return;
+        }
+
+        // Check the current Notification permission.
+        // If its denied, it's a permanent block until the
+        // user changes the permission
+        if (Notification.permission === 'denied') {
+            console.log('The user has blocked notifications.');
+            return;
+        }
+
+        // Check if push messaging is supported
+        if (!('PushManager' in window)) {
+            console.log('Push messaging isn\'t supported.');
+            return;
+        }
+        var _this = this;
+
+        // We need the service worker registration to check for a subscription
+        navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+            // Do we already have a push message subscription?
+            serviceWorkerRegistration.pushManager.getSubscription()
+                .then(function(subscription) {
+                    if (!subscription) {
+                        // We aren’t subscribed to push, so set UI
+                        // to allow the user to enable push
+                        return;
+                    }
+                    // Keep your server in sync with the latest subscription
+                    _this.sendSubscriptionToServer(subscription);
+                })
+
+        });
+    },
+    sendSubscriptionToServer: function ( subscription )
+    {
+        // TODO: Send the subscription.endpoint
+        // to your server and save it to send a
+        // push message at a later date
+        //
+        // For compatibly of Chrome 43, get the endpoint via
+        // endpointWorkaround(subscription)
+        console.log('TODO: Implement sendSubscriptionToServer()');
+
+        var mergedEndpoint = this.endpointWorkaround(subscription);
+
+        console.log( mergedEndpoint );
+        // This is just for demo purposes / an easy to test by
+        // generating the appropriate cURL command
+    },
+    endpointWorkaround: function (pushSubscription)
+    {
+        var mergedEndpoint = pushSubscription.endpoint;
+        // Chrome 42 + 43 will not have the subscriptionId attached
+        // to the endpoint.
+        if (pushSubscription.subscriptionId &&
+            pushSubscription.endpoint.indexOf(pushSubscription.subscriptionId) === -1) {
+            // Handle version 42 where you have separate subId and Endpoint
+            mergedEndpoint = pushSubscription.endpoint + '/' +
+                pushSubscription.subscriptionId;
+        }
+        return mergedEndpoint;
+    },
+    subscribe: function()
+    {
+        var _this = this;
+        navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+            serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})
+                .then(function(subscription) {
+                    // TODO: Send the subscription subscription.endpoint
+                    // to your server and save it to send a push message
+                    // at a later date
+                    return _this.sendSubscriptionToServer(subscription);
+                })
+        });
     }
 });
