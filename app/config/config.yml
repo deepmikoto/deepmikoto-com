@@ -58,9 +58,11 @@ assetic:
             bin: %compass_bin%
         yui_css:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+            timeout: 3600
             apply_to: '\.css$'
         yui_js:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+            timeout: 3600
             apply_to: '\.js$'
 
 # Doctrine Configuration

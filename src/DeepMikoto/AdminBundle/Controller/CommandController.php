@@ -22,6 +22,9 @@ class CommandController extends Controller
 {
     private $commands;
 
+    /**
+     * defaults
+     */
     public function __construct()
     {
         $this->commands = [
@@ -34,6 +37,10 @@ class CommandController extends Controller
         ];
     }
 
+    /**
+     * @param $name
+     * @return null
+     */
     private function getCommand( $name )
     {
         $command = null;
@@ -77,6 +84,10 @@ class CommandController extends Controller
         return $response;
     }
 
+    /**
+     * @param $commandArray
+     * @return \Symfony\Component\HttpFoundation\Response|StreamedResponse
+     */
     public function executeAction( $commandArray )
     {
         set_time_limit(0);
