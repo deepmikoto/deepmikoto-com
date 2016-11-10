@@ -17,6 +17,7 @@ self.addEventListener('install', function ( event ) {
     )
 });
 self.addEventListener('fetch', function ( event ) {
+    var CACHE_NAME = '0.0.1';
     event.respondWith(
         caches.match(event.request)
             .then(function(response) {
