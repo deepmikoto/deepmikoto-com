@@ -43,6 +43,7 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>
     {% endjavascripts %}
+    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_service_worker.js' output='_sw.js' filter='yui_js' %}{% endjavascripts %}
     </body>
     </html>
 {% endspaceless %}

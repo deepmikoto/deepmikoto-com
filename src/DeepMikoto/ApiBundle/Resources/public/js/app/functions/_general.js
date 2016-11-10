@@ -9,6 +9,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         this.noHashTagsPlease();
         this.enableGoogleAnalytics();
         this.enableFacebookApp();
+        this.initServiceWorker();
     },
     enableGoogleAnalytics: function()
     {
@@ -87,5 +88,22 @@ deepmikoto.GeneralFunctions = Marionette.extend({
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore( js, fjs );
         }( document, 'script', 'facebook-jssdk' ) );
+    },
+    /**
+     * we activate service worker for desktop push notifications
+     */
+    initServiceWorker: function()
+    {
+        if ( 'serviceWorker' in navigator ) {
+            try {
+                /** @namespace navigator.serviceWorker */
+                navigator.serviceWorker.register( '/_sw.js' ).then( function( registration ) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                });
+            } catch( err ) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            }
+        }
     }
 });
