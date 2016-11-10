@@ -79,6 +79,7 @@ class CommandController extends Controller
 
     public function executeAction( $commandArray )
     {
+        set_time_limit(0);
         $commandArray = json_decode( $commandArray );
         if( is_array( $commandArray ) && count( $commandArray ) > 0 ){
             $commands = [];
