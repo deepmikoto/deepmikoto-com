@@ -19,7 +19,7 @@ var __deepmikotoSW__ = {
     registerSW: function ()
     {
         if ('serviceWorker' in navigator && 'PushManager' in window) {
-            navigator.serviceWorker.register('/dmsw.js')
+            navigator.serviceWorker.register('/dmsw.ts')
                 .then( function( swReg ) {
                     __deepmikotoSW__.swRegistration = swReg;
                     __deepmikotoSW__.initialiseUI();
@@ -68,7 +68,7 @@ var __deepmikotoSW__ = {
             url: deepmikoto.apiRoutes.SAVE_PUSH_SUBSCRIPTION,
             data: JSON.parse( JSON.stringify( subscription ) ),
             dataType: 'json'
-        })
+        });
     },
     removeScriptTag: function ()
     {
