@@ -49,7 +49,9 @@ class HomeController extends Controller
                     json_encode([
                         'title' => $title,
                         'body' => $message,
-                        'targetURL' => $url,
+                        'data' => [
+                            'targetURL' => $url
+                        ],
                         'icon' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png',
                         'badge' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png'
                     ]),
