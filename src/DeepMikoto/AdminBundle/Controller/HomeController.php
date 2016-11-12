@@ -40,6 +40,7 @@ class HomeController extends Controller
         if ( $request->isMethod('POST') && !empty( $subscriptions )) {
             $title = $request->get('title');
             $message = $request->get('message');
+            $url = $request->get('url');
             /** @var \Minishlink\WebPush\WebPush */
             $webPush = $this->get('minishlink_web_push');
             foreach ($subscriptions as $subscription) {
@@ -48,6 +49,7 @@ class HomeController extends Controller
                     json_encode([
                         'title' => $title,
                         'body' => $message,
+                        'targetURL' => $url,
                         'icon' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png',
                         'badge' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png'
                     ]),
