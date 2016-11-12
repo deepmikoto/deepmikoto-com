@@ -50,6 +50,13 @@ class PushNotificationSubscription
     private $createdAt;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="user_browser_data", type="array")
+     */
+    private $userBrowserData;
+
+    /**
      * defaults
      */
     public function __construct()
@@ -161,6 +168,22 @@ class PushNotificationSubscription
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserBrowserData()
+    {
+        return $this->userBrowserData;
+    }
+
+    /**
+     * @param array $userBrowserData
+     */
+    public function setUserBrowserData($userBrowserData)
+    {
+        $this->userBrowserData = $userBrowserData;
     }
 }
 

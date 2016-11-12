@@ -4,6 +4,7 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\PushNotificationSubscription;
 use DeepMikoto\ApiBundle\Security\ApiResponseStatus;
+use DeepMikoto\ApiBundle\Security\BrowserDetector;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +28,13 @@ class PushNotificationController extends Controller
             $userPublicKey = $keys[ 'p256dh' ];
             if ( $auth != null && $userPublicKey != null ) {
                 $em = $this->get('doctrine.orm.entity_manager');
+                $browserDetector = new BrowserDetector();
                 $subscription = new PushNotificationSubscription();
                 $subscription
                     ->setEndpoint( $endpoint )
                     ->setUserPublicKey( $userPublicKey )
                     ->setUserAuthToken( $auth )
+                    ->setUserBrowserData( $browserDetector->dataToArray() )
                 ;
                 $em->persist( $subscription );
                 $em->flush();

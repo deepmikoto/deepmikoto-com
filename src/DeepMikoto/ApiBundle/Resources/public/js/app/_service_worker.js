@@ -36,13 +36,18 @@ self.addEventListener('notificationclick', function(event)
         clients.matchAll({
             type: "window"
         }).then( function( clientList ){
-            var targetUrl = event.notification.data.targetURL;
-            for ( var i = 0; i < clientList.length; i++ ) {
-                var client = clientList[i];
-                if ( client.url == targetUrl && 'focus' in client )
-                    return client.focus();
-            }
-            if ( clients.openWindow ) {
+            if ( event.action == 'cats' ) {
+                return clients.openWindow( 'https://www.google.ro/search?q=cute+cats&source=lnms&tbm=isch' );
+            } else if ( event.action == 'dogs' ) {
+                return clients.openWindow( 'https://www.google.ro/search?q=cute+dogs&source=lnms&tbm=isch' );
+            } else {
+                var targetUrl = event.notification.data.targetURL; // received from backend
+                for ( var i = 0; i < clientList.length; i++ ) {
+                    var client = clientList[i];
+                    if ( client.url == targetUrl && 'focus' in client )
+                        return client.focus(); // if the target URL is already in an opened tab, just focus it
+                }
+
                 return clients.openWindow( targetUrl );
             }
         })

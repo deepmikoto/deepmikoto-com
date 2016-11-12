@@ -2,9 +2,7 @@
 
 namespace DeepMikoto\AdminBundle\Controller;
 
-use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
 use DeepMikoto\ApiBundle\Entity\StaticPage;
-use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use DeepMikoto\ApiBundle\Form\StaticPageType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,6 +41,14 @@ class HomeController extends Controller
             $title = $request->get('title');
             $message = $request->get('message');
             $url = $request->get('url');
+            if ( $request->get('simulate-action') == 'yes' ) {
+                $actions = [
+                    [ 'action' => 'cats', 'title' => 'Pictures of cats', 'icon' => '/bundles/deepmikotoapi/images/tiny_cat.png' ],
+                    [ 'action' => 'dogs', 'title' => 'Pictures of dogs', 'icon' => '/bundles/deepmikotoapi/images/tiny_dog.png' ],
+                ];
+            } else {
+                $actions = [];
+            }
             /** @var \Minishlink\WebPush\WebPush */
             $webPush = $this->get('minishlink_web_push');
             foreach ($subscriptions as $subscription) {
@@ -55,7 +61,8 @@ class HomeController extends Controller
                             'targetURL' => $url
                         ],
                         'icon' => '/images/web_push_logo.png',
-                        'badge' => '/images/web_push_logo.png'
+                        'badge' => '/images/web_push_logo.png',
+                        'actions' => $actions
                     ]),
                     $subscription->getUserPublicKey(),
                     $subscription->getUserAuthToken()

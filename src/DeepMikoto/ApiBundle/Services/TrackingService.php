@@ -9,6 +9,7 @@ use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\GamingPostView;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostView;
+use DeepMikoto\ApiBundle\Security\BrowserDetector;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,7 +41,7 @@ class TrackingService
     {
         $clientIp = $request->getClientIp();
         if( $this->isIpPrivate( $clientIp ) ) return false;
-        $clientBrowser = $this->getClientBrowser( $request->headers->get( 'user-agent' ) );
+        $clientBrowser = $this->getClientBrowser();
         $clientRefererDomain = parse_url( $request->headers->get( 'referer' ), PHP_URL_HOST );
         $clientReferer = $request->headers->get( 'referer' );
         if( $clientRefererDomain == $request->getHost() ){
@@ -93,29 +94,12 @@ class TrackingService
     }
 
     /**
-     * @param $user_agent
      * @return string
      */
-    private function getClientBrowser( $user_agent )
+    public function getClientBrowser()
     {
-        if( strpos( $user_agent, 'MSIE' ) !== false )
-            $browser = 'Internet Explorer';
-        elseif( strpos($user_agent, 'Trident' ) !== false ) //For Supporting IE 11
-            $browser = 'Internet explorer';
-        elseif( strpos( $user_agent, 'Firefox' ) !== false )
-            $browser = 'Mozilla Firefox';
-        elseif( strpos( $user_agent, 'Chrome' ) !== false )
-            $browser = 'Google Chrome';
-        elseif( strpos( $user_agent, 'Opera Mini' ) !== false )
-            $browser = "Opera Mini";
-        elseif( strpos( $user_agent, 'Opera' ) !== false )
-            $browser = "Opera";
-        elseif( strpos( $user_agent, 'Safari' ) !== false )
-            $browser = "Safari";
-        else
-            $browser = 'Something else';
-        
-        return $browser;
+        $browser = new BrowserDetector();
 
+        return $browser->getBrowser();
     }
 } 
