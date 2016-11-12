@@ -22,4 +22,5 @@ parameters:
     compass_bin: PathToCompass
     google_api_key: key
     fb_app_id: 1234567890
+    push_publick_key: key
 

@@ -23,7 +23,7 @@
     <body>
     {% block body %}{% endblock %}
     {#'@DeepMikotoApiBundle/Resources/public/js/vendor/createjs-2015.05.21.combined.js'#}
-    <script type="text/javascript">var root = '{{ path('deepmikoto_app_homepage') }}';</script>
+    <script type="text/javascript">var root = '{{ path('deepmikoto_app_homepage') }}';var psk = '{{ push_public_key }}';</script>
     {% javascripts
         '@DeepMikotoApiBundle/Resources/public/js/app.js'
         '@DeepMikotoApiBundle/Resources/public/js/vendor/jquery-2.2.2.min.js'
@@ -43,7 +43,8 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>
     {% endjavascripts %}
-    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_service_worker.js' output='_sw.js' filter='yui_js' %}{% endjavascripts %}
+    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_register_sw.js' output='register_sw.js' %}{% endjavascripts %}
+    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_service_worker.js' output='dmsw.js' filter='yui_js' %}{% endjavascripts %}
     </body>
     </html>
 {% endspaceless %}

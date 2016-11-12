@@ -41,6 +41,7 @@ twig:
         site_title:   deepmikoto
         google_api_key: "%google_api_key%"
         fb_app_id: "%fb_app_id%"
+        push_public_key: "%push_publick_key%"
 
 # Assetic Configuration
 assetic:
@@ -63,7 +64,6 @@ assetic:
         yui_js:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
             timeout: 3600
-            apply_to: '\.js$'
 
 # Doctrine Configuration
 doctrine:

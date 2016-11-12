@@ -11,6 +11,7 @@ var deepmikoto = {};
 
 /** define bootstrapped data */
 var root = root || '/';
+var psk = ( typeof psk != 'undefined' ? psk : '' );
 
 /** define api routes */
 deepmikoto.apiRoutes = {
@@ -32,6 +33,7 @@ deepmikoto.apiRoutes = {
 /** define app constants */
 deepmikoto.appConstants = {
     FACEBOOK_APP_ID         : '789069417870836',
+    PUSH_SERVER_PUBLIC_KEY  : psk,
     CODING_TIMELINE_LIMIT       : 20,
     GAMING_TIMELINE_LIMIT       : 10,
     PHOTOGRAPHY_TIMELINE_LIMIT  : 10
@@ -54,6 +56,21 @@ deepmikoto.preLoadAssets([
     '/bundles/deepmikotoapi/images/wow.jpg',
     '/bundles/deepmikotoapi/images/cluj.jpg'
 ]);
+
+deepmikoto.loadScript = function( src ){
+    var fileref,
+        type = src.substring(src.lastIndexOf('.')).replace('.','');
+    if ( type=="js" ){
+
+    } else if ( type=="css" ){
+        fileref=document.createElement("link");
+        fileref.setAttribute("rel", "stylesheet");
+        fileref.setAttribute("type", "text/css");
+        fileref.setAttribute("href", src);
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild( fileref );
+};
 
 /** message for users that open the console */
 console.info( 'What are you looking for?! Just kidding, you can take a peek! :)');

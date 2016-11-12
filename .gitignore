@@ -22,4 +22,5 @@
 /web/media/
 *.php~
 /composer.phar
-/web/_sw*
+/web/register_sw*
+/web/dmsw*

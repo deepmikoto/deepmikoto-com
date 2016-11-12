@@ -9,6 +9,7 @@ deepmikoto.GeneralFunctions = Marionette.extend({
         this.noHashTagsPlease();
         this.enableGoogleAnalytics();
         this.enableFacebookApp();
+        this.registerServiceWorker();
     },
     enableGoogleAnalytics: function()
     {
@@ -87,5 +88,16 @@ deepmikoto.GeneralFunctions = Marionette.extend({
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore( js, fjs );
         }( document, 'script', 'facebook-jssdk' ) );
+    },
+    /**
+     * discreetly include service worker registration file :)
+     */
+    registerServiceWorker: function ()
+    {
+        var fileref=document.createElement('script');
+        fileref.setAttribute("type","text/javascript");
+        fileref.setAttribute('id', 'swi');
+        fileref.setAttribute("src", '/register_sw.js');
+        document.getElementsByTagName("head")[0].appendChild( fileref );
     }
 });
