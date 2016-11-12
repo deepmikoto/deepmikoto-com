@@ -1,0 +1,56 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/home_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h4>Push messages</h4>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ flashMessage | raw }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <code>
+                        {{ dump(flashMessage) }}
+                    </code>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <form method="post" action="">
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <input type="text" class="form-control" name="message" id="message">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-12">
+            <table class="table">
+                <tr>
+                    <th>Endpoint</th>
+                    <th>User Public Key</th>
+                    <th>User Auth Token</th>
+                    <th>Created At</th>
+                </tr>
+                {% for subscription in subscriptions %}
+                <tr>
+                    <td>{{ subscription.endpoint }}</td>
+                    <td>{{ subscription.userPublicKey }}</td>
+                    <td>{{ subscription.userAuthToken }}</td>
+                    <td>{{ subscription.createdAt|date('d-m-Y H:i:s') }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

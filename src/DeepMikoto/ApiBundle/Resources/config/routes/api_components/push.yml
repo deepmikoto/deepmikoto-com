@@ -1,0 +1,4 @@
+deepmikoto_api_save_push_subscription:
+    methods:  [POST]
+    path:     /sps
+    defaults: { _controller: DeepMikotoApiBundle:PushNotification:saveSubscriptionToDB }

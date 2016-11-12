@@ -13,6 +13,9 @@ deepmikoto_gaming:
 deepmikoto_photography:
     resource: "@DeepMikotoApiBundle/Resources/config/routes/api_components/photography.yml"
     prefix:   /
+deepmikoto_push:
+    resource: "@DeepMikotoApiBundle/Resources/config/routes/api_components/push.yml"
+    prefix:   /
 deepmikoto_api_templates:
     path:     /templates
     defaults: { _controller: DeepMikotoApiBundle:Api:templates }

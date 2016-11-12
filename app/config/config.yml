@@ -41,7 +41,7 @@ twig:
         site_title:   deepmikoto
         google_api_key: "%google_api_key%"
         fb_app_id: "%fb_app_id%"
-        push_public_key: "%push_publick_key%"
+        push_public_key: "%push_public_key%"
 
 # Assetic Configuration
 assetic:
@@ -143,12 +143,12 @@ liip_imagine:
                 thumbnail: { size: [200, 200], mode: inset }
 
 minishlink_web_push:
-  api_keys:                       # you should put api keys in your "app/config/parameters.yml" file
-    GCM: "%push_publick_key%"
+  api_keys:
+    GCM: "%push_public_key%"
   VAPID:
-    subject: "https://deepmikoto.com" # can be an URL or a mailto:
-    publicKey: "%push_publick_key%"       # uncompressed public key P-256 encoded in Base64-URL
-    privateKey: "nNCcJTYmSOuEL1KnfBqYs-VVpmZyw2W-4bnkPY2P8zs"       # the secret multiplier of the private key encoded in Base64-URL
+    subject: "https://deepmikoto.com"
+    publicKey: "%push_public_key%"
+    privateKey: "%push_private_key%"
     #pemFile: path/to/pem          # if you have a PEM file and can link to it on your filesystem
     #pem: pemFileContent           # if you have a PEM file and want to hardcode its content
   ttl: 2419200                    # Time to Live of notifications in seconds

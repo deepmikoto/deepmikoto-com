@@ -2,11 +2,13 @@
  * Created by MiKoRiza-OnE on 11/10/2016.
  */
 'use strict';
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function(event)
+{
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data: "${event.data.text()}"');
 
-    console.log( event );
+    console.log( event.data );
+    console.log( event.data.text() );
     const title = 'Push Codelab';
     const options = {
         body: 'Yay it works.',
@@ -17,12 +19,11 @@ self.addEventListener('push', function(event) {
     event.waitUntil(self.registration.showNotification(title, options));
 });
 
-self.addEventListener('notificationclick', function(event) {
-    console.log('[Service Worker] Notification click Received.');
-    console.log(event);
+self.addEventListener('notificationclick', function(event)
+{
     event.notification.close();
 
     event.waitUntil(
-        clients.openWindow('https://deepmikoto.com/coding')
+        clients.openWindow('https://deepmikoto.com')
     );
 });

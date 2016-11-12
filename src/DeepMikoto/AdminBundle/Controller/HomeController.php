@@ -6,6 +6,7 @@ use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
 use DeepMikoto\ApiBundle\Entity\StaticPage;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use DeepMikoto\ApiBundle\Form\StaticPageType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,7 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HomeController extends Controller
 {
-
     /**
      *  Main admin page
      *
@@ -24,21 +24,49 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        /** @var \Minishlink\WebPush\WebPush */
-        $webPush = $this->get('minishlink_web_push');
-        var_dump($webPush->sendNotification(
-            'https://fcm.googleapis.com/fcm/send/eqEHGaKmogo:APA91bGsy2Ox-0sa3aFzEcl5rX5-UcTHQtdr_XSzSYJ88uN0LWDSBtpDs0OVE0NFGeeXjAjwT1wcCo7Kp1zbDwHq7b6lCJ3I5uq8zVwg927gIc0d3874e_P8MzGA7nQpU7V7oIf6iopW',
-            json_encode([
-                'body' => 'Yay!',
-                'icon' => '/icon.png',
-                'badge' => '/badge.png'
-            ]),
-            'BNQd6rR0CRMagYgLiUQ-OEcv7kb7aTJqZODXa1Ff1njFFBrBTPV5YYKncyoL6GuMHKQHJI-20sqddC9jN4Xbih0=',
-            '3voJrzTr-xWrudRDHntl8w==',
-            true
-        ));
-
         return $this->render('DeepMikotoAdminBundle:Home:index.html.twig');
+    }
+
+    /**
+     *  push messaging page
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function pushNotificationAction(Request $request)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $subscriptions = $em->getRepository('DeepMikotoApiBundle:PushNotificationSubscription')->findBy( [], [ 'createdAt' => 'DESC' ] );
+        if ( $request->isMethod('POST') && !empty( $subscriptions )) {
+            $message = $request->get('message');
+            /** @var \Minishlink\WebPush\WebPush */
+            $webPush = $this->get('minishlink_web_push');
+            foreach ($subscriptions as $subscription) {
+                $webPush->sendNotification(
+                    $subscription->getEndpoint(),
+                    json_encode([
+                        'title' => 'Push Notification',
+                        'body' => $message,
+                        'icon' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png',
+                        'badge' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png'
+                    ]),
+                    $subscription->getUserPublicKey(),
+                    $subscription->getUserAuthToken()
+                );
+            }
+            $sendStatus = $webPush->flush();
+            if ( $sendStatus == true ) {
+                $this->addFlash('success', 'Successfully sent ' . count( $subscriptions ) . ' notifications');
+            } else {
+                $this->addFlash( 'error', $sendStatus );
+            }
+
+            $this->redirectToRoute('deepmikoto_admin_push_notifications');
+        }
+
+        return $this->render('DeepMikotoAdminBundle:Home:push_notifications.html.twig',[
+            'subscriptions' => $subscriptions
+        ]);
     }
 
     public function helpPageAction()

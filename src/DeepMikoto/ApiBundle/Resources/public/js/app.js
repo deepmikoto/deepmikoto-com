@@ -27,7 +27,8 @@ deepmikoto.apiRoutes = {
     GAMING_POST_URL             : '_api/gaming-post',
     PHOTOGRAPHY_TIMELINE_URL    : '_api/photography-timeline',
     PHOTOGRAPHY_POST_URL        : '_api/photography-post',
-    SEARCH_SUGGESTIONS_URL      : '_api/search-suggestions'
+    SEARCH_SUGGESTIONS_URL      : '_api/search-suggestions',
+    SAVE_PUSH_SUBSCRIPTION      : '_api/sps'
 };
 
 /** define app constants */
@@ -56,21 +57,6 @@ deepmikoto.preLoadAssets([
     '/bundles/deepmikotoapi/images/wow.jpg',
     '/bundles/deepmikotoapi/images/cluj.jpg'
 ]);
-
-deepmikoto.loadScript = function( src ){
-    var fileref,
-        type = src.substring(src.lastIndexOf('.')).replace('.','');
-    if ( type=="js" ){
-
-    } else if ( type=="css" ){
-        fileref=document.createElement("link");
-        fileref.setAttribute("rel", "stylesheet");
-        fileref.setAttribute("type", "text/css");
-        fileref.setAttribute("href", src);
-    }
-    if (typeof fileref!="undefined")
-        document.getElementsByTagName("head")[0].appendChild( fileref );
-};
 
 /** message for users that open the console */
 console.info( 'What are you looking for?! Just kidding, you can take a peek! :)');

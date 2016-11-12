@@ -4,6 +4,9 @@ deepmikoto_admin_homepage:
 deepmikoto_admin_help_page:
     path:     /help-page
     defaults: { _controller: DeepMikotoAdminBundle:Home:helpPage }
+deepmikoto_admin_push_notifications:
+    path:     /push_notifications
+    defaults: { _controller: DeepMikotoAdminBundle:Home:pushNotification }
 deepmikoto_admin_help_page_edit:
     path:     /help-page-edit
     defaults: { _controller: DeepMikotoAdminBundle:Home:helpPageEdit }
