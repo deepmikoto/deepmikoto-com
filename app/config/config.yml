@@ -144,13 +144,13 @@ liip_imagine:
 
 minishlink_web_push:
   api_keys:                       # you should put api keys in your "app/config/parameters.yml" file
-    GCM: "nNCcJTYmSOuEL1KnfBqYs-VVpmZyw2W-4bnkPY2P8zs"
-#  VAPID:
-#    subject: https://deepmikoto.com # can be an URL or a mailto:
-#    publicKey: ""       # uncompressed public key P-256 encoded in Base64-URL
-#    privateKey: ""       # the secret multiplier of the private key encoded in Base64-URL
-#    pemFile: path/to/pem          # if you have a PEM file and can link to it on your filesystem
-#    pem: pemFileContent           # if you have a PEM file and want to hardcode its content
+    GCM: "%push_publick_key%"
+  VAPID:
+    subject: "https://deepmikoto.com" # can be an URL or a mailto:
+    publicKey: "%push_publick_key%"       # uncompressed public key P-256 encoded in Base64-URL
+    privateKey: "nNCcJTYmSOuEL1KnfBqYs-VVpmZyw2W-4bnkPY2P8zs"       # the secret multiplier of the private key encoded in Base64-URL
+    #pemFile: path/to/pem          # if you have a PEM file and can link to it on your filesystem
+    #pem: pemFileContent           # if you have a PEM file and want to hardcode its content
   ttl: 2419200                    # Time to Live of notifications in seconds
   urgency: ~                      # can be very-low / low / normal / high
   topic: ~                        # default identifier for your notifications
