@@ -12,9 +12,12 @@ self.addEventListener('push', function(event)
 
 self.addEventListener('notificationclick', function(event)
 {
+    console.log( event );
+    console.log( event.notification );
+    console.log( event.notification.data );
     event.notification.close();
-    var data = JSON.parse( event.data.text() );
+    //var data = JSON.parse( event.data.text() );
     event.waitUntil(
-        clients.openWindow(data.targetURL)
+        clients.openWindow('https://deepmikoto.com')
     );
 });

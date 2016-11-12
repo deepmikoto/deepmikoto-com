@@ -64,7 +64,7 @@ class HomeController extends Controller
                 $this->addFlash( 'error', $sendStatus );
             }
 
-            $this->redirectToRoute('deepmikoto_admin_push_notifications');
+            return $this->redirectToRoute('deepmikoto_admin_push_notifications');
         }
 
         return $this->render('DeepMikotoAdminBundle:Home:push_notifications.html.twig',[
