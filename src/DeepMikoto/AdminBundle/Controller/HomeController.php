@@ -33,8 +33,8 @@ class HomeController extends Controller
                 'icon' => '/icon.png',
                 'badge' => '/badge.png'
             ]),
-            $this->getParameter('push_publick_key'),
-            'nNCcJTYmSOuEL1KnfBqYs-VVpmZyw2W-4bnkPY2P8zs',
+            'BNQd6rR0CRMagYgLiUQ-OEcv7kb7aTJqZODXa1Ff1njFFBrBTPV5YYKncyoL6GuMHKQHJI-20sqddC9jN4Xbih0=',
+            '3voJrzTr-xWrudRDHntl8w==',
             true
         ));
 
