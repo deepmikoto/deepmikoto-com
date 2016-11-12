@@ -38,6 +38,7 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $subscriptions = $em->getRepository('DeepMikotoApiBundle:PushNotificationSubscription')->findBy( [], [ 'createdAt' => 'DESC' ] );
         if ( $request->isMethod('POST') && !empty( $subscriptions )) {
+            $title = $request->get('title');
             $message = $request->get('message');
             /** @var \Minishlink\WebPush\WebPush */
             $webPush = $this->get('minishlink_web_push');
@@ -45,7 +46,7 @@ class HomeController extends Controller
                 $webPush->sendNotification(
                     $subscription->getEndpoint(),
                     json_encode([
-                        'title' => 'Push Notification',
+                        'title' => $title,
                         'body' => $message,
                         'icon' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png',
                         'badge' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png'
