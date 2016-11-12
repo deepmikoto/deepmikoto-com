@@ -30,9 +30,11 @@ class HomeController extends Controller
     /**
      *  push messaging page
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \ErrorException
      */
-    public function pushNotificationAction(Request $request)
+    public function pushNotificationAction( Request $request )
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -52,8 +54,8 @@ class HomeController extends Controller
                         'data' => [
                             'targetURL' => $url
                         ],
-                        'icon' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png',
-                        'badge' => '/bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png'
+                        'icon' => '/images/web_push_logo.png',
+                        'badge' => '/images/web_push_logo.png'
                     ]),
                     $subscription->getUserPublicKey(),
                     $subscription->getUserAuthToken()
@@ -74,6 +76,9 @@ class HomeController extends Controller
         ]);
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function helpPageAction()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -91,6 +96,10 @@ class HomeController extends Controller
         return $this->render('@DeepMikotoAdmin/Home/help_page.html.twig',[ 'help_page' => $helpPage ] );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function helpPageEditAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
