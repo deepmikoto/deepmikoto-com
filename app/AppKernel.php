@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new \DeepMikoto\AdminBundle\DeepMikotoAdminBundle(),
-            new \DeepMikoto\ApiBundle\DeepMikotoApiBundle()
+            new \DeepMikoto\ApiBundle\DeepMikotoApiBundle(),
+            new \Minishlink\Bundle\WebPushBundle\MinishlinkWebPushBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

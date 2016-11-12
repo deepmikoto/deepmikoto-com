@@ -24,6 +24,20 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
+        /** @var \Minishlink\WebPush\WebPush */
+        $webPush = $this->get('minishlink_web_push');
+        var_dump($webPush->sendNotification(
+            'https://fcm.googleapis.com/fcm/send/eqEHGaKmogo:APA91bGsy2Ox-0sa3aFzEcl5rX5-UcTHQtdr_XSzSYJ88uN0LWDSBtpDs0OVE0NFGeeXjAjwT1wcCo7Kp1zbDwHq7b6lCJ3I5uq8zVwg927gIc0d3874e_P8MzGA7nQpU7V7oIf6iopW',
+            json_encode([
+                'body' => 'Yay!',
+                'icon' => '/icon.png',
+                'badge' => '/badge.png'
+            ]),
+            $this->getParameter('push_publick_key'),
+            'nNCcJTYmSOuEL1KnfBqYs-VVpmZyw2W-4bnkPY2P8zs',
+            true
+        ));
+
         return $this->render('DeepMikotoAdminBundle:Home:index.html.twig');
     }
 
