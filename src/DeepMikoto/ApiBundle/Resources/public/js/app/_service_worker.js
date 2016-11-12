@@ -13,7 +13,6 @@ self.addEventListener('push', function(event)
 self.addEventListener('notificationclick', function(event)
 {
     event.notification.close();
-    //var data = JSON.parse( event.data.text() );
     event.waitUntil(
         clients.openWindow(event.notification.data.targetURL)
     );
