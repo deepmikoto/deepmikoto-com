@@ -54,10 +54,10 @@
                 </tr>
                 {% for subscription in subscriptions %}
                 <tr>
-                    <td style="word-break: normal">{{ subscription.endpoint }}</td>
-                    <td style="word-break: normal">{{ subscription.userPublicKey }}</td>
-                    <td style="word-break: normal">{{ subscription.userAuthToken }}</td>
-                    <td style="word-break: normal">{{ subscription.createdAt|date('d-m-Y H:i:s') }}</td>
+                    <td style="word-break: break-all">{{ subscription.endpoint }}</td>
+                    <td style="word-break: break-all">{{ subscription.userPublicKey }}</td>
+                    <td style="word-break: break-all">{{ subscription.userAuthToken }}</td>
+                    <td style="word-break: break-all">{{ subscription.createdAt|date('d-m-Y H:i:s') }}</td>
                 </tr>
                 {% endfor %}
             </table>
