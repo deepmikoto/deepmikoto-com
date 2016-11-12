@@ -64,6 +64,7 @@ var __deepmikotoSW__ = {
     updateSubscriptionOnServer: function ( subscription )
     {
         console.log( subscription );
+        console.log( JSON.stringify(subscription) );
     },
     removeScriptTag: function ()
     {
@@ -91,7 +92,10 @@ var __deepmikotoSW__ = {
     getSubscription: function ()
     {
         if ( this.swRegistration ) {
-            return this.swRegistration.pushManager.getSubscription();
+            this.swRegistration.pushManager.getSubscription()
+                .then(function (subscription) {
+                    return subscription;
+                });
         } else {
             console.log( 'Service Worker is not registered' );
         }
