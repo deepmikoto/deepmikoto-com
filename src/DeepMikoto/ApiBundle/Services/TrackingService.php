@@ -41,7 +41,6 @@ class TrackingService
     {
         $clientIp = $request->getClientIp();
         if( $this->isIpPrivate( $clientIp ) ) return false;
-        $clientBrowser = $this->getClientBrowser();
         $clientRefererDomain = parse_url( $request->headers->get( 'referer' ), PHP_URL_HOST );
         $clientReferer = $request->headers->get( 'referer' );
         if( $clientRefererDomain == $request->getHost() ){
@@ -59,7 +58,13 @@ class TrackingService
             return false;
         }
 
-        $view->setPost( $post )->setIp( $clientIp )->setBrowser( $clientBrowser )->setRefererDomain( $clientRefererDomain )->setRefererUrl( $clientReferer );
+        $view
+            ->setPost( $post )
+            ->setIp( $clientIp )
+            ->setRefererDomain( $clientRefererDomain )
+            ->setRefererUrl( $clientReferer )
+            ->setUserBrowserData( $this->getUserBrowserInfo() )
+        ;
         $this->em->persist( $view );
         $this->em->flush( $view );
 
@@ -96,10 +101,10 @@ class TrackingService
     /**
      * @return string
      */
-    public function getClientBrowser()
+    public function getUserBrowserInfo()
     {
         $browser = new BrowserDetector();
 
-        return $browser->getBrowser();
+        return $browser->dataToArray();
     }
 } 

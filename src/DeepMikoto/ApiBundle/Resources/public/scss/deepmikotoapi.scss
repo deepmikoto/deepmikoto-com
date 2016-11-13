@@ -84,7 +84,6 @@ html {
         &>.navbar-inverse {
           background-color: transparent;
           &>.container {
-            padding: 0 5px 0 5px;
             &>.navbar-header {
               &>a.navbar-brand {
                 padding: 10px 15px;
@@ -505,8 +504,8 @@ html {
               clear: both;
             }
             &>.coding-post {
-              padding: 0 10px;
-              margin-bottom: 20px;
+              padding: 0 5px;
+              margin-bottom: 10px;
               &>.item{
                 background-color: #000315;
                 padding: 10px;

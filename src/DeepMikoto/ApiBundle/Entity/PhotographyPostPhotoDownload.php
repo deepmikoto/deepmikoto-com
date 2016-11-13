@@ -43,10 +43,18 @@ class PhotographyPostPhotoDownload
     private $date;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="user_browser_data", type="array")
+     */
+    private $userBrowserData;
+
+    /**
      * @ORM\PrePersist()
      */
     public function onPrePersist()
     {
+        parent::_construct();
         $this->setDate( new \DateTime() );
     }
 
@@ -127,5 +135,24 @@ class PhotographyPostPhotoDownload
     public function getPhotographyPostPhoto()
     {
         return $this->photographyPostPhoto;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserBrowserData()
+    {
+        return $this->userBrowserData;
+    }
+
+    /**
+     * @param array $userBrowserData
+     * @return $this
+     */
+    public function setUserBrowserData($userBrowserData)
+    {
+        $this->userBrowserData = $userBrowserData;
+
+        return $this;
     }
 }
