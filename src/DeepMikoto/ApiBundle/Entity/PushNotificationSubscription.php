@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="push_notification_subscription")
  * @ORM\Entity()
  */
-class PushNotificationSubscription
+class PushNotificationSubscription extends TrackingEntity
 {
     /**
      * @var int
@@ -50,26 +50,12 @@ class PushNotificationSubscription
     private $createdAt;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="user_browser_data", type="array")
-     */
-    private $userBrowserData;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ip", type="string", length=50)
-     */
-    private $ip;
-
-    /**
      * defaults
      */
     public function __construct()
     {
+        parent::__construct();
         $this->setCreatedAt( new \DateTime() );
-        $this->setUserBrowserData([]);
     }
 
     /**
@@ -176,44 +162,6 @@ class PushNotificationSubscription
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @return array
-     */
-    public function getUserBrowserData()
-    {
-        return $this->userBrowserData;
-    }
-
-    /**
-     * @param array $userBrowserData
-     * @return $this
-     */
-    public function setUserBrowserData($userBrowserData)
-    {
-        $this->userBrowserData = $userBrowserData;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIp()
-    {
-        return $this->ip;
-    }
-
-    /**
-     * @param string $ip
-     * @return $this
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-
-        return $this;
     }
 }
 

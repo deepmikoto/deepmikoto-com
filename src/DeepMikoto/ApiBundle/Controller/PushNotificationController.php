@@ -28,13 +28,12 @@ class PushNotificationController extends Controller
             $userPublicKey = $keys[ 'p256dh' ];
             if ( $auth != null && $userPublicKey != null ) {
                 $em = $this->get('doctrine.orm.entity_manager');
-                $browserDetector = new BrowserDetector();
                 $subscription = new PushNotificationSubscription();
                 $subscription
                     ->setEndpoint( $endpoint )
                     ->setUserPublicKey( $userPublicKey )
                     ->setUserAuthToken( $auth )
-                    ->setUserBrowserData( $browserDetector->dataToArray() )
+                    ->setUserBrowserData( $this->get('deepmikoto.api.tracking_manager')->getUserBrowserInfo() )
                     ->setIp( $request->getClientIp() )
                 ;
                 $em->persist( $subscription );

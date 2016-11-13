@@ -9,7 +9,6 @@
 namespace DeepMikoto\ApiBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhotoDownload;
-use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,10 +80,17 @@ class PhotographyController extends Controller
         $photographyPostPhoto = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPostPhoto' )
             ->findOneBy([ 'id' => $id, 'path' => $path ]);
         if( $photographyPostPhoto == null ) throw $this->createNotFoundException();
-        $download = new PhotographyPostPhotoDownload();
-        $download->setPhotographyPostPhoto( $photographyPostPhoto )->setIp( $request->getClientIp() );
-        $em->persist( $download );
-        $em->flush( $download );
+        $trackingManager = $this->get('deepmikoto.api.tracking_manager');
+        if ( !$trackingManager->isIpPrivate( $request->getClientIp() ) ) {
+            $download = new PhotographyPostPhotoDownload();
+            $download
+                ->setPhotographyPostPhoto( $photographyPostPhoto )
+                ->setIp( $request->getClientIp() )
+                ->setUserBrowserData( $trackingManager->getUserBrowserInfo() )
+            ;
+            $em->persist( $download );
+            $em->flush( $download );
+        }
         $image = file_get_contents( $photographyPostPhoto->getUploadDir() . '/' . $photographyPostPhoto->getPath() );
         $response = new Response( $image, 200 );
         $ext = strtolower( substr( strrchr( $photographyPostPhoto->getPath(), "." ), 1 ) );

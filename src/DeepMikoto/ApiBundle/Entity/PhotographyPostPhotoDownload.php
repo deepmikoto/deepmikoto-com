@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  */
-class PhotographyPostPhotoDownload
+class PhotographyPostPhotoDownload extends TrackingEntity
 {
     /**
      * @var integer
@@ -29,13 +29,6 @@ class PhotographyPostPhotoDownload
     private $photographyPostPhoto;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ip", type="string", length=50)
-     */
-    private $ip;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -43,18 +36,17 @@ class PhotographyPostPhotoDownload
     private $date;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="user_browser_data", type="array")
+     * defaults
      */
-    private $userBrowserData;
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * @ORM\PrePersist()
      */
     public function onPrePersist()
     {
-        parent::_construct();
         $this->setDate( new \DateTime() );
     }
 
@@ -66,29 +58,6 @@ class PhotographyPostPhotoDownload
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ip
-     *
-     * @param string $ip
-     * @return PhotographyPostPhotoDownload
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
-    /**
-     * Get ip
-     *
-     * @return string 
-     */
-    public function getIp()
-    {
-        return $this->ip;
     }
 
     /**
@@ -135,24 +104,5 @@ class PhotographyPostPhotoDownload
     public function getPhotographyPostPhoto()
     {
         return $this->photographyPostPhoto;
-    }
-
-    /**
-     * @return array
-     */
-    public function getUserBrowserData()
-    {
-        return $this->userBrowserData;
-    }
-
-    /**
-     * @param array $userBrowserData
-     * @return $this
-     */
-    public function setUserBrowserData($userBrowserData)
-    {
-        $this->userBrowserData = $userBrowserData;
-
-        return $this;
     }
 }

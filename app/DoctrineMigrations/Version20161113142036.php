@@ -70,6 +70,14 @@ class Version20161113142036 extends AbstractMigration implements ContainerAwareI
             ->getQuery()
             ->execute()
         ;
+        $em
+            ->createQueryBuilder()
+            ->update('DeepMikotoApiBundle:PhotographyPostPhotoDownload', 'd')
+            ->set('d.userBrowserData', ':array')
+            ->setParameter('array', serialize([]))
+            ->getQuery()
+            ->execute()
+        ;
     }
 
     /**

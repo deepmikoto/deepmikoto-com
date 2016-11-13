@@ -75,7 +75,7 @@ class TrackingService
      * @param $ip
      * @return bool
      */
-    private function isIpPrivate ( $ip )
+    public function isIpPrivate ( $ip )
     {
         $pri_addrs = [
             '10.0.0.0|10.255.255.255',      // single class A network
