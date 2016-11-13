@@ -41,7 +41,7 @@ class HomeController extends Controller
             $title = $request->get('title');
             $message = $request->get('message');
             $url = $request->get('url');
-            if ( $request->get('simulate-action') == 'yes' ) {
+            if ( $request->get('simulate-actions') == 'yes' ) {
                 $actions = [
                     [ 'action' => 'cats', 'title' => 'Pictures of cats', 'icon' => '/bundles/deepmikotoapi/images/tiny_cat.png' ],
                     [ 'action' => 'dogs', 'title' => 'Pictures of dogs', 'icon' => '/bundles/deepmikotoapi/images/tiny_dog.png' ],
