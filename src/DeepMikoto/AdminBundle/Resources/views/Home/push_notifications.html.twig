@@ -78,7 +78,13 @@
                                 {% for name, value in subscription.userBrowserData %}
                                     <tr>
                                         <td style="border: none;">{{ name }}</td>
-                                        <td style="word-break: break-all;border: none;">{{ value }}</td>
+                                        <td style="word-break: break-all;border: none;">
+                                            {% if value|length == 0 %}
+                                                {{ value ? 'yes' : 'no' }}
+                                            {% else %}
+                                                {{ value }}
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </table>
