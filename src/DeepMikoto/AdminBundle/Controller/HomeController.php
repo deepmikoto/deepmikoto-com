@@ -61,7 +61,7 @@ class HomeController extends Controller
                             'targetURL' => $url
                         ],
                         'icon' => '/images/web_push_logo.png',
-                        'badge' => '/images/web_push_logo.png',
+                        'badge' => '/images/web_push_badge.png',
                         'actions' => $actions
                     ]),
                     $subscription->getUserPublicKey(),
