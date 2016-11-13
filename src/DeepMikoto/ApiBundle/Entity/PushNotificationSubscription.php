@@ -62,6 +62,7 @@ class PushNotificationSubscription
     public function __construct()
     {
         $this->setCreatedAt( new \DateTime() );
+        $this->setUserBrowserData([]);
     }
 
     /**

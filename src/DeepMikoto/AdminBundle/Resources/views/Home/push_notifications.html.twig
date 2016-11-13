@@ -53,20 +53,40 @@
             </form>
         </div>
         <div class="col-xs-12">
-            <table class="table">
-                <tr>
-                    <th>Endpoint</th>
-                    <th>User Public Key</th>
-                    <th>User Auth Token</th>
-                    <th>Created At</th>
-                </tr>
+            <table class="table table-bordered" style="font-size: smaller;">
                 {% for subscription in subscriptions %}
-                <tr>
-                    <td style="word-break: break-all">{{ subscription.endpoint }}</td>
-                    <td style="word-break: break-all">{{ subscription.userPublicKey }}</td>
-                    <td style="word-break: break-all">{{ subscription.userAuthToken }}</td>
-                    <td style="word-break: break-all">{{ subscription.createdAt|date('d-m-Y H:i:s') }}</td>
-                </tr>
+                    <tr>
+                        <th width="130">Endpoint</th>
+                        <td style="word-break: break-all">{{ subscription.endpoint }}</td>
+                    </tr>
+                    <tr>
+                        <th>User Public Key</th>
+                        <td style="word-break: break-all">{{ subscription.userPublicKey }}</td>
+                    </tr>
+                    <tr>
+                        <th>User Auth Token</th>
+                        <td style="word-break: break-all">{{ subscription.userAuthToken }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created At</th>
+                        <td style="word-break: break-all">{{ subscription.createdAt|date('d-m-Y H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Browser Info</th>
+                        <td>
+                            <table class="table" style="margin: 0;">
+                                {% for name, value in subscription.userBrowserData %}
+                                    <tr>
+                                        <td style="border: none;">{{ name }}</td>
+                                        <td style="word-break: break-all;border: none;">{{ value }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top-color: transparent;"></td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
