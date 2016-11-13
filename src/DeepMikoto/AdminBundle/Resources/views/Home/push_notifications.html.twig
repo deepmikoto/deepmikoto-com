@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
     <div class="page-header">
-        <h4>Push messages</h4>
+        <h4>Push Notifications</h4>
     </div>
     <div class="row">
         <div class="col-xs-12">
@@ -51,6 +51,12 @@
                     <button class="btn btn-primary" type="submit">Send</button>
                 </div>
             </form>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div class="jumbotron">
+                <h1 class="text-center">{{ subscriptions|length }}</h1>
+                <h3 class="text-center">push notification subscriptions</h3>
+            </div>
         </div>
         <div class="col-xs-12">
             <table class="table table-bordered" style="font-size: smaller;">
