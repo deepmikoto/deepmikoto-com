@@ -3,7 +3,7 @@
         <a href="{{ path('deepmikoto_admin_help_page') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_help_page' or app.request.get('_route') == 'deepmikoto_admin_help_page_edit' %}active{% endif %}">
             <i class="glyphicon glyphicon-briefcase"></i> Help page
         </a>
-        <a href="{{ path('deepmikoto_admin_push_notifications') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_help_page' or app.request.get('_route') == 'deepmikoto_admin_help_page_edit' %}active{% endif %}">
+        <a href="{{ path('deepmikoto_admin_push_notifications') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_push_notifications' %}active{% endif %}">
             <i class="glyphicon glyphicon-plane"></i> Push Notifications
         </a>
         <a href="#" class="list-group-item">
