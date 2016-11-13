@@ -57,6 +57,13 @@ class PushNotificationSubscription
     private $userBrowserData;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=50)
+     */
+    private $ip;
+
+    /**
      * defaults
      */
     public function __construct()
@@ -181,10 +188,32 @@ class PushNotificationSubscription
 
     /**
      * @param array $userBrowserData
+     * @return $this
      */
     public function setUserBrowserData($userBrowserData)
     {
         $this->userBrowserData = $userBrowserData;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param string $ip
+     * @return $this
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
     }
 }
 

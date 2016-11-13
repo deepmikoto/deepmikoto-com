@@ -35,6 +35,7 @@ class PushNotificationController extends Controller
                     ->setUserPublicKey( $userPublicKey )
                     ->setUserAuthToken( $auth )
                     ->setUserBrowserData( $browserDetector->dataToArray() )
+                    ->setIp( $request->getClientIp() )
                 ;
                 $em->persist( $subscription );
                 $em->flush();
