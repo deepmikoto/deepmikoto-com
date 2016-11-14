@@ -1,21 +1,4 @@
-{% extends 'DeepMikotoApiBundle::layout.html.twig' %}
-{% block meta_title %}
-    <title>{{ post.title }}</title>
-    <link rel=”author” href=”https://plus.google.com/117552068412499585385“ />
-    <meta name="author" content="deepmikoto" />
-    <meta name="description" content="{{ post.location }}" />
-    <meta property="og:title" content="{{ post.title }}" />
-    <meta property="og:description" content="{{ post.location }}" />
-    <meta property="og:url" content="{{ url( 'deepmikoto_app_photography_post',{ 'id': post.id, 'slug': post.slug } ) }}" />
-    <meta property="fb:app_id" content="{{ fb_app_id }}" />
-    <meta name="twitter:title" content="{{ post.title }}" />
-    <meta name="twitter:description" content="{{ post.location }}" />
-    <meta itemprop="name" content="{{ post.title }}" />
-    <meta itemprop="description" content="{{ post.location }}" />
-    <meta property="og:image" content="{{ asset( post.photos[0].getWebPath() ) | imagine_filter( 'timeline_picture' ) }}" />
-    <meta name="twitter:image" content="{{ asset( post.photos[0].getWebPath() ) | imagine_filter( 'timeline_picture' ) }}" />
-    <meta itemprop="image" content="{{ asset( post.photos[0].getWebPath() ) | imagine_filter( 'timeline_picture' ) }}" />
-{% endblock %}
+{% extends 'DeepMikotoApiBundle:App:meta_tags.html.twig' %}
 {% block body %}
     {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' with { 'show_header': true, 'header_theme': 'photography' } %}
 {% endblock %}

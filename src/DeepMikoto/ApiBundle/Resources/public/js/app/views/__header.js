@@ -102,7 +102,7 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
         this.searchTimeount != undefined ? clearTimeout( this.searchTimeount ) : null;
         this.searchAjax != undefined ? this.searchAjax.abort() : null;
         this.hideSuggestions();
-        if ( term.length > 2 ) {
+        if ( term.length >= 2 ) {
             this.searchTimeount = setTimeout( function (){
                 _this.searchAjax = $.ajax({
                     method: 'GET',

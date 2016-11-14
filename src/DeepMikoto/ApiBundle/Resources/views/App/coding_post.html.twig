@@ -1,21 +1,4 @@
-{% extends 'DeepMikotoApiBundle::layout.html.twig' %}
-{% block meta_title %}
-    <title>{{ post.title }}</title>
-    <link rel=”author” href=”https://plus.google.com/117552068412499585385“ />
-    <meta name="author" content="deepmikoto" />
-    <meta name="description" content="{{ post.title }}" />
-    <meta property="og:title" content="{{ post.title }}" />
-    <meta property="og:description" content="{{ post.title }}" />
-    <meta property="og:url" content="{{ url( 'deepmikoto_app_coding_post',{ 'id': post.id, 'slug': post.slug } ) }}" />
-    <meta property="fb:app_id" content="{{ fb_app_id }}" />
-    <meta name="twitter:title" content="{{ post.title }}" />
-    <meta name="twitter:description" content="{{ post.title }}" />
-    <meta itemprop="name" content="{{ post.title }}" />
-    <meta itemprop="description" content="{{ post.title }}" />
-    <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png' ) }}" />
-    <meta name="twitter:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png' ) }}" />
-    <meta itemprop="image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( 'bundles/deepmikotoapi/images/deepmikoto_logo_300_300.png' ) }}" />
-{% endblock %}
+{% extends 'DeepMikotoApiBundle:App:meta_tags.html.twig' %}
 {% block body %}
     {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' with { 'show_header': true, 'header_theme': 'coding' } %}
 {% endblock %}

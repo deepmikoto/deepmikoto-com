@@ -51,7 +51,9 @@ class ApiController extends Controller
         if( $helpPage === null )
             throw $this->createNotFoundException();
 
-        $response = new JsonResponse( [ 'content' => $helpPage->getContent(), 'updated' => $helpPage->getModified()->format( 'M jS, Y' ) ], 200 );
+        $response = new JsonResponse( [
+            'content' => $helpPage->getContent(), 'updated' => $helpPage->getModified()->format( 'M jS, Y' )
+        ], 200 );
         /** 90 days */
         $response->setSharedMaxAge( 7776000 );
         $response->setMaxAge( 0 );
@@ -67,7 +69,7 @@ class ApiController extends Controller
     public function searchSuggestionsAction( Request $request )
     {
         $term = $request->get('term', '' );
-        if ( strlen( $term  ) > 2 ) {
+        if ( strlen( $term  ) >= 2 ) {
             $codingSuggestions = $this->get('deepmikoto.api.coding_manager')->getSuggestions( $term );
             $gamingSuggestions = $this->get('deepmikoto.api.gaming_manager')->getSuggestions( $term );
             $photographySuggestions = $this->get('deepmikoto.api.photography_manager')->getSuggestions( $term );

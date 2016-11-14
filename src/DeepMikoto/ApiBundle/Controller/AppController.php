@@ -15,6 +15,7 @@ use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * handles app routes
@@ -32,7 +33,14 @@ class AppController extends Controller
     public function homeAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/landing.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/landing.html.twig',[
+                'meta'  => [
+                    'title'         => 'deepmikoto',
+                    'description'   => 'Coding Tutorials, Coding Guides, Coding How Tos. Game Walkthroughs, Game Guides, Maps and more. Free Stock Images & Wallpapers.',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => null
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -110,7 +118,20 @@ class AppController extends Controller
         ]);
         if( !$photographyPost ) throw $this->createNotFoundException();
         $response = new Response(
-            $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[ 'post' => $photographyPost ] )->getContent(),
+            $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[
+                'post' => $photographyPost,
+                'meta'  => [
+                    'title'         => $photographyPost->getTitle(),
+                    'description'   => $photographyPost->getLocation() . ' - ' . $photographyPost->getDate()->format('F jS, Y'),
+                    'url'           => $this->generateUrl( 'deepmikoto_app_photography_post', [
+                        'id'    => $photographyPost->getId(),
+                        'slug'  => $photographyPost->getSlug()
+                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'     => $photographyPost->getPhotos()->first() != null
+                        ? $photographyPost->getPhotos()->first()->getWebPath()
+                        : null
+                ]
+            ] )->getContent(),
             200
         );
         /** 90 days */
@@ -137,7 +158,18 @@ class AppController extends Controller
         ]);
         if( !$gamingPost ) throw $this->createNotFoundException();
         $response = new Response(
-            $this->render( 'DeepMikotoApiBundle:App:gaming_post.html.twig',[ 'post' => $gamingPost ] )->getContent(),
+            $this->render( 'DeepMikotoApiBundle:App:gaming_post.html.twig',[
+                'post'  => $gamingPost,
+                'meta'  => [
+                    'title'         => $gamingPost->getTitle(),
+                    'description'   => $this->trimContent( $gamingPost->getContent() ),
+                    'url'           => $this->generateUrl( 'deepmikoto_app_gaming_post', [
+                        'id'    => $gamingPost->getId(),
+                        'slug'  => $gamingPost->getSlug()
+                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'     => $gamingPost->getWebPath()
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -164,7 +196,18 @@ class AppController extends Controller
         ]);
         if( !$codingPost ) throw $this->createNotFoundException();
         $response = new Response(
-            $this->render( 'DeepMikotoApiBundle:App:coding_post.html.twig',[ 'post' => $codingPost ] )->getContent(),
+            $this->render( 'DeepMikotoApiBundle:App:coding_post.html.twig',[
+                'post' => $codingPost,
+                'meta' => [
+                    'title'         => $codingPost->getTitle(),
+                    'description'   => $this->trimContent( $codingPost->getContent() ),
+                    'url'           => $this->generateUrl( 'deepmikoto_app_coding_post', [
+                        'id'    => $codingPost->getId(),
+                        'slug'  => $codingPost->getSlug()
+                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'     => null
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -227,7 +270,10 @@ class AppController extends Controller
      */
     public function helpPageAction()
     {
-        if( $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findBy( [ 'name' => 'help' ] ) === null )
+        if( $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findBy( [
+                'name' => 'help'
+            ]) === null
+        )
             throw $this->createNotFoundException();
 
         $response = new Response( // todo: add a separate help page template with metadata
@@ -239,5 +285,27 @@ class AppController extends Controller
         $response->setMaxAge( 0 );
 
         return $response;
+    }
+
+    /**
+     * trim a post's content and return a text-only value
+     *
+     * @param string $content
+     * @param int $limit
+     * @return string
+     */
+    public function trimContent( $content, $limit = 250 )
+    {
+        $content = trim( strip_tags( $content ) );
+        $content = htmlspecialchars_decode( $content, ENT_QUOTES );
+        if( strlen( $content ) > $limit ){
+            $pos = strpos( $content . ' ', ' ', $limit );
+            $content = rtrim( substr( $content, 0, $pos ) ) . ' ...';
+            if( strpos( $content, '&nbsp;' ) == 0 ){
+                $content =  preg_replace( '/&nbsp;/', '', $content, 1 );
+            }
+        }
+
+        return trim( preg_replace( '/\s+/', ' ', $content ) );
     }
 } 
