@@ -1,21 +1,4 @@
-{% extends 'DeepMikotoApiBundle::layout.html.twig' %}
-{% block meta_title %}
-    <title>{{ category.name ~ ' - deepmikoto.com' }}</title>
-    <link rel="author" href="https://plus.google.com/117552068412499585385" />
-    <meta name="author" content="deepmikoto" />
-    <meta name="description" content="{{ 'Tutorials, guides, how tos, for ' ~ category.name }}" />
-    <meta property="og:title" content="{{ category.name ~ ' - deepmikoto.com' }}" />
-    <meta property="og:description" content="{{ 'Tutorials, guides, how tos, for ' ~ category.name }}" />
-    <meta property="og:url" content="{{ url( 'deepmikoto_app_coding_posts_by_category',{ 'category': category.slug } ) }}" />
-    <meta property="fb:app_id" content="{{ fb_app_id }}" />
-    <meta name="twitter:title" content="{{ category.name ~ ' - deepmikoto.com' }}" />
-    <meta name="twitter:description" content="{{ 'Tutorials, guides, how tos, for ' ~ category.name }}" />
-    <meta itemprop="name" content="{{ category.name ~ ' - deepmikoto.com' }}" />
-    <meta itemprop="description" content="{{ 'Tutorials, guides, how tos, for ' ~ category.name }}" />
-    <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( category.image ) }}" />
-    <meta name="twitter:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( category.image ) }}" />
-    <meta itemprop="image" content="{{ app.request.getSchemeAndHttpHost() ~ asset( category.image ) }}" />
-{% endblock %}
+{% extends 'DeepMikotoApiBundle:App:meta_tags.html.twig' %}
 {% block body %}
     {% include '@DeepMikotoApi/templates/body/_body_frame.html.twig' with { 'show_header': true, 'header_theme': 'coding' } %}
 {% endblock %}

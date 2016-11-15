@@ -13,6 +13,7 @@ use DeepMikoto\ApiBundle\Entity\CodingCategory;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
+use DeepMikoto\ApiBundle\Entity\StaticPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -37,8 +38,7 @@ class AppController extends Controller
                 'meta'  => [
                     'title'         => 'deepmikoto',
                     'description'   => 'Coding Tutorials, Coding Guides, Coding How Tos. Game Walkthroughs, Game Guides, Maps and more. Free Stock Images & Wallpapers.',
-                    'url'           => $this->generateUrl( 'deepmikoto_app_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL ),
-                    'image'         => null
+                    'url'           => $this->generateUrl( 'deepmikoto_app_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL )
                 ]
             ])->getContent(),
             200
@@ -57,7 +57,13 @@ class AppController extends Controller
     public function codingAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/coding.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/coding.html.twig',[
+                'meta' => [
+                    'title'         => 'Coding',
+                    'description'   => 'Coding Tutorials, Guides, How Tos and more',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_coding', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -74,7 +80,13 @@ class AppController extends Controller
     public function gamingAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/gaming.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/gaming.html.twig', [
+                'meta' => [
+                    'title'         => 'Gaming',
+                    'description'   => 'Game Walkthroughs, Guides, Maps and more',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_gaming', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -91,7 +103,13 @@ class AppController extends Controller
     public function photographyAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/photography.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/photography.html.twig', [
+                'meta' => [
+                    'title'         => 'Photography',
+                    'description'   => 'Free Stock Images & Wallpapers',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_photography', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -204,8 +222,7 @@ class AppController extends Controller
                     'url'           => $this->generateUrl( 'deepmikoto_app_coding_post', [
                         'id'    => $codingPost->getId(),
                         'slug'  => $codingPost->getSlug()
-                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
-                    'image'     => null
+                    ], UrlGeneratorInterface::ABSOLUTE_URL )
                 ]
             ])->getContent(),
             200
@@ -232,11 +249,16 @@ class AppController extends Controller
         ]);
         if( !$codingCategory ) throw $this->createNotFoundException();
         $response = new Response(
-            $this->render( 'DeepMikotoApiBundle:App:coding_posts_by_category.html.twig',[ 'category' => [
-                'name' => $codingCategory->getName(),
-                'slug' => $codingCategory->getSlug(),
-                'image' => $codingCategory->getWebPath()
-            ] ] )->getContent(),
+            $this->render( 'DeepMikotoApiBundle:App:coding_posts_by_category.html.twig',[
+                'meta' => [
+                    'title'         => $codingCategory->getName() . ' - Coding Category',
+                    'description'   => $codingCategory->getName() . ' tutorials, guides and more',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_coding_posts_by_category', [
+                        'category'  => $codingCategory->getSlug()
+                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => $codingCategory->getWebPath()
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -253,7 +275,13 @@ class AppController extends Controller
     public function codingCategoriesAction()
     {
         $response = new Response(
-            $this->render('@DeepMikotoApi/App/coding.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/coding.html.twig',[
+                'meta' => [
+                    'title'         => 'Coding Categories',
+                    'description'   => 'Explore Coding Categories and discover the right tutorial or guide for you.',
+                    'url'           => $this->generateUrl( 'deepmikoto_app_coding', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */
@@ -270,14 +298,21 @@ class AppController extends Controller
      */
     public function helpPageAction()
     {
-        if( $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findBy( [
+        /** @var StaticPage $page */
+        if( ( $page = $this->getDoctrine()->getManager()->getRepository( 'DeepMikotoApiBundle:StaticPage' )->findOneBy( [
                 'name' => 'help'
-            ]) === null
+            ]) ) === null
         )
             throw $this->createNotFoundException();
 
         $response = new Response( // todo: add a separate help page template with metadata
-            $this->render('@DeepMikotoApi/App/help.html.twig')->getContent(),
+            $this->render('@DeepMikotoApi/App/help.html.twig', [
+                'meta' => [
+                    'title'         => 'Help',
+                    'description'   => $this->trimContent( $page->getContent() ),
+                    'url'           => $this->generateUrl( 'deepmikoto_app_help_page', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                ]
+            ])->getContent(),
             200
         );
         /** 90 days */

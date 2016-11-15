@@ -14,16 +14,16 @@
     <meta property="og:site_name" content="deepmikoto.com">
     <meta property="fb:app_id" content="{{ fb_app_id }}" />
     <meta name="twitter:title" content="{{ meta.title }}" />
-    <meta name="twitter:description" content="{{ meta.description|raw }}" />
+    <meta name="twitter:description" content="{{ meta.description }}" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@deepmikoto">
     <meta name="twitter:image:alt" content="meta.title">
     <meta itemprop="name" content="{{ meta.title }}" />
     <meta itemprop="description" content="{{ meta.description }}" />
-    {% if meta.image is not null %}
-        <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ meta.image }}" />
-        <meta name="twitter:image" content="{{ app.request.getSchemeAndHttpHost() ~ meta.image }}" />
-        <meta itemprop="image" content="{{ app.request.getSchemeAndHttpHost() ~ meta.image }}" />
+    {% if meta.image is defined and meta.image is not null %}
+        <meta property="og:image" content="{{ url('deepmikoto_app_homepage') ~ meta.image }}" />
+        <meta name="twitter:image" content="{{ url('deepmikoto_app_homepage') ~ meta.image }}" />
+        <meta itemprop="image" content="{{ url('deepmikoto_app_homepage') ~ meta.image }}" />
     {% else %}
         {% image '@DeepMikotoApiBundle/Resources/public/images/share_image.png' output="images/share_image.png" %}
             <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset_url }}" />
