@@ -1,0 +1,11 @@
+{# images #}
+{% image '@DeepMikotoApiBundle/Resources/public/images/web_push_logo.png' output="images/web_push_logo.png" %}{% endimage %}
+{% image '@DeepMikotoApiBundle/Resources/public/images/web_push_badge.png' output="images/web_push_badge.png" %}{% endimage %}
+{% image '@DeepMikotoApiBundle/Resources/public/images/cluj.jpg' output="images/cluj.jpg" %}{% endimage %}
+{% image '@DeepMikotoApiBundle/Resources/public/images/wow.jpg' output="images/wow.jpg" %}{% endimage %}
+{% image '@DeepMikotoApiBundle/Resources/public/images/code.jpg' output="images/code.jpg" %}{% endimage %}
+{% image '@DeepMikotoApiBundle/Resources/public/images/night.jpg' output="images/night.jpg" %}{% endimage %}
+
+{# js #}
+{% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_register_sw.js' output='register_sw.js' %}{% endjavascripts %}
+{% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_service_worker.js' output='dmsw.js' filter='yui_js' %}{% endjavascripts %}

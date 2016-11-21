@@ -61,7 +61,8 @@ class AppController extends Controller
                 'meta' => [
                     'title'         => 'Coding',
                     'description'   => 'Coding Tutorials, Guides, How Tos and more',
-                    'url'           => $this->generateUrl( 'deepmikoto_app_coding', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                    'url'           => $this->generateUrl( 'deepmikoto_app_coding', [], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => 'images/code.jpg'
                 ]
             ])->getContent(),
             200
@@ -84,7 +85,8 @@ class AppController extends Controller
                 'meta' => [
                     'title'         => 'Gaming',
                     'description'   => 'Game Walkthroughs, Guides, Maps and more',
-                    'url'           => $this->generateUrl( 'deepmikoto_app_gaming', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                    'url'           => $this->generateUrl( 'deepmikoto_app_gaming', [], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => 'images/wow.jpg'
                 ]
             ])->getContent(),
             200
@@ -107,7 +109,8 @@ class AppController extends Controller
                 'meta' => [
                     'title'         => 'Photography',
                     'description'   => 'Free Stock Images & Wallpapers',
-                    'url'           => $this->generateUrl( 'deepmikoto_app_photography', [], UrlGeneratorInterface::ABSOLUTE_URL )
+                    'url'           => $this->generateUrl( 'deepmikoto_app_photography', [], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => 'images/cluj.jpg'
                 ]
             ])->getContent(),
             200
@@ -129,6 +132,7 @@ class AppController extends Controller
     public function photographyPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var PhotographyPost $photographyPost */
         $photographyPost = $em->getRepository( 'DeepMikotoApiBundle:PhotographyPost')->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
@@ -207,6 +211,7 @@ class AppController extends Controller
     public function codingPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var CodingPost $codingPost */
         $codingPost = $em->getRepository( 'DeepMikotoApiBundle:CodingPost')->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
@@ -305,7 +310,7 @@ class AppController extends Controller
         )
             throw $this->createNotFoundException();
 
-        $response = new Response( // todo: add a separate help page template with metadata
+        $response = new Response(
             $this->render('@DeepMikotoApi/App/help.html.twig', [
                 'meta' => [
                     'title'         => 'Help',

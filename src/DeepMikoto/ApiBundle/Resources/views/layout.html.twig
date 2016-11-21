@@ -15,8 +15,6 @@
         {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_16.png' output='images/favicon.png' %}
             <link rel="icon" type="image/png" href="{{ asset_url }}">
         {% endimage %}
-        {% image '@DeepMikotoApiBundle/Resources/public/images/web_push_logo.png' output="images/web_push_logo.png" %}{% endimage %}
-        {% image '@DeepMikotoApiBundle/Resources/public/images/web_push_badge.png' output="images/web_push_badge.png" %}{% endimage %}
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
@@ -42,8 +40,7 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}" ></script>
     {% endjavascripts %}
-    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_register_sw.js' output='register_sw.js' %}{% endjavascripts %}
-    {% javascripts '@DeepMikotoApiBundle/Resources/public/js/app/_service_worker.js' output='dmsw.js' filter='yui_js' %}{% endjavascripts %}
     </body>
     </html>
+    {% include '@DeepMikotoApi/miscellaneous/_assetic_resources.html.twig' %}
 {% endspaceless %}

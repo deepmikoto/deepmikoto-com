@@ -846,7 +846,7 @@ html {
               background: rgba(0, 0, 0, 0.25) none repeat scroll 0 0;
             }
             &.welcome {
-              background-image: url("../images/night.jpg");
+              background-image: url("/images/night.jpg");
               position: relative;
               font-size: 2em;
               .slices-container {
@@ -958,7 +958,7 @@ html {
               }
             }
             &.coding {
-              background-image: url("../images/code.jpg");
+              background-image: url("/images/code.jpg");
               .btn {
                 background-color: #0335ff;
                 &:hover {
@@ -967,7 +967,7 @@ html {
               }
             }
             &.gaming {
-              background-image: url("../images/wow.jpg");
+              background-image: url("/images/wow.jpg");
               .btn {
                 background-color: #ff001a;
                 &:hover {
@@ -976,7 +976,7 @@ html {
               }
             }
             &.photography {
-              background-image: url("../images/cluj.jpg");
+              background-image: url("/images/cluj.jpg");
               .btn {
                 background-color: #00ff06;
                 &:hover {
