@@ -9,6 +9,7 @@
             {{ flashMessage | raw }}
         </div>
     {% endfor %}
+    <img src="{{ asset(form.vars.data.webPath) }}" style="max-width: 500px">
     {{ form(form) }}
 {% endblock %}
 {% block extra_js %}

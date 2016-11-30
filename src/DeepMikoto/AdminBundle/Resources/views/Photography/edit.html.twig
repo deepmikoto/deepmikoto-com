@@ -9,5 +9,10 @@
             {{ flashMessage | raw }}
         </div>
     {% endfor %}
+    {% for photo in form.vars.data.photos %}
+        <a href="{{ path('deepmikoto_admin_photography_edit_post_photo',{'id':photo.id}) }}">
+            <img src="{{ asset(photo.webPath) }}" style="max-width: 200px">
+        </a>
+    {% endfor %}
     {{ form(form) }}
 {% endblock %}

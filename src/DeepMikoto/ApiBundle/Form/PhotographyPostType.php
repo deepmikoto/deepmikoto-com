@@ -35,7 +35,8 @@ class PhotographyPostType extends AbstractType
             ])
             ->add('public', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-control post-longitude'
+                    'class' => 'form-control post-longitude',
+                    'style' => 'width: 20px;height: 20px;display: inline-block;'
                 ]
             ])
             ->add('save', SubmitType::class, [
