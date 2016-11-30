@@ -62,6 +62,27 @@ class CodingController extends Controller
     }
 
     /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    public function deletePostAction( $id )
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $post = $em->find('DeepMikotoApiBundle:CodingPost', intval( $id ) );
+        if ( $post == null ) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove( $post );
+        $em->flush();
+        $this->addFlash('success', 'Post successfully deleted!');
+
+        return $this->redirectToRoute('deepmikoto_admin_coding_drafted_posts');
+    }
+
+    /**
      * New coding post form
      *
      * @param Request $request
@@ -183,6 +204,9 @@ class CodingController extends Controller
         return $this->redirectToRoute( $public ? 'deepmikoto_admin_coding_submitted_posts' : 'deepmikoto_admin_coding_drafted_posts');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function categoriesAction()
     {
         $categories = $this->getDoctrine()->getManager()->getRepository('DeepMikotoApiBundle:CodingCategory')->findBy( [], [ 'name' => 'ASC' ] );
@@ -190,6 +214,10 @@ class CodingController extends Controller
         return $this->render('@DeepMikotoAdmin/Coding/categories.html.twig', [ 'categories' => $categories ] );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function addCategoryAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -210,6 +238,14 @@ class CodingController extends Controller
         return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView(), 'picture' => null ] );
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
     public function editCategoryAction( $id, Request $request )
     {
         /** @var \Doctrine\ORM\EntityManager $em */

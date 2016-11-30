@@ -255,4 +255,52 @@ class PhotographyController extends Controller
 
         return $this->redirectToRoute( $public ? 'deepmikoto_admin_photography_submitted_posts' : 'deepmikoto_admin_photography_drafted_posts');
     }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    public function deletePostAction( $id )
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $post = $em->find('DeepMikotoApiBundle:PhotographyPost', intval( $id ) );
+        if ( $post == null ) {
+            throw $this->createNotFoundException();
+        }
+        /** @var PhotographyPostPhoto $photo */
+        foreach ( $post->getPhotos() as $photo ) {
+            $photo->setPhotographyPost( null );
+            $post->removePhoto( $photo );
+            $em->persist( $photo );
+        }
+        $em->remove( $post );
+        $em->flush();
+        $this->addFlash('success', 'Post successfully deleted!');
+
+        return $this->redirectToRoute('deepmikoto_admin_photography_drafted_posts');
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    public function deletePhotoAction( $id )
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $post = $em->find('DeepMikotoApiBundle:PhotographyPostPhoto', intval( $id ) );
+        if ( $post == null ) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove( $post );
+        $em->flush();
+        $this->addFlash('success', 'Photo successfully deleted!');
+
+        return $this->redirectToRoute('deepmikoto_admin_photography_post_photo_list');
+    }
 }

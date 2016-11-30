@@ -34,3 +34,13 @@ deepmikoto_admin_photography_make_public_or_drafted:
     defaults: { _controller: DeepMikotoAdminBundle:Photography:makePublicOrDrafted }
     requirements:
         id:  \d+
+deepmikoto_admin_delete_photography_post:
+    path:     /delete/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:deletePost }
+    requirements:
+        id:  \d+
+deepmikoto_admin_delete_photography_photo:
+    path:     /delete-photo/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Photography:deletePhoto }
+    requirements:
+        id:  \d+

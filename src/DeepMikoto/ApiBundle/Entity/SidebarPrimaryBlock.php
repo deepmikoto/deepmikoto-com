@@ -186,7 +186,7 @@ class SidebarPrimaryBlock
     public function removeUpload()
     {
         $file = $this->getAbsolutePath();
-        if ( $file ) {
+        if ( $file && file_exists( $file ) && is_file( $file ) ) {
             unlink( $file );
         }
     }

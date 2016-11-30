@@ -34,3 +34,8 @@ deepmikoto_admin_coding_edit_category:
     defaults: { _controller: DeepMikotoAdminBundle:Coding:editCategory }
     requirements:
         id:  \d+
+deepmikoto_admin_delete_coding_post:
+    path:     /delete/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:deletePost }
+    requirements:
+        id:  \d+

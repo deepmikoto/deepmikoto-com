@@ -6,6 +6,7 @@ use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
 use DeepMikoto\ApiBundle\Form\GamingPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -95,6 +96,7 @@ class GamingController extends Controller
      */
     public function editPostAction( Request $request, $id )
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var \DeepMikoto\ApiBundle\Entity\GamingPost $gamingPost */
         $gamingPost = $em->find( 'DeepMikotoApiBundle:GamingPost', $id );
@@ -163,5 +165,26 @@ class GamingController extends Controller
         ;
 
         return $this->redirectToRoute( $public ? 'deepmikoto_admin_gaming_submitted_posts' : 'deepmikoto_admin_gaming_drafted_posts');
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    public function deletePostAction( $id )
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $post = $em->find('DeepMikotoApiBundle:GamingPost', intval( $id ) );
+        if ( $post == null ) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove( $post );
+        $em->flush();
+        $this->addFlash('success', 'Post successfully deleted!');
+
+        return $this->redirectToRoute('deepmikoto_admin_gaming_drafted_posts');
     }
 }
