@@ -181,7 +181,7 @@ class SidebarPrimaryBlock
     }
 
     /**
-     * @ORM\PostRemove()
+     * @ORM\PreRemove()
      */
     public function removeUpload()
     {

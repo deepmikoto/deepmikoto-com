@@ -157,7 +157,7 @@ class PhotographyPostPhoto
     }
 
     /**
-     * @ORM\PostRemove()
+     * @ORM\PreRemove()
      */
     public function removeUpload()
     {

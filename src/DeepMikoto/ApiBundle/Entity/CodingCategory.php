@@ -163,7 +163,7 @@ class CodingCategory
     }
 
     /**
-     * @ORM\PostRemove()
+     * @ORM\PreRemove()
      */
     public function removeUpload()
     {
