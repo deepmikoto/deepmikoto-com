@@ -39,6 +39,18 @@ deepmikoto.HeaderView = Marionette.LayoutView.extend({
     onShow: function ()
     {
         this.showSearchToggle();
+        this.preLoadLandingPageImages();
+    },
+    preLoadLandingPageImages: function ()
+    {
+        setTimeout( function () {
+            deepmikoto.preLoadAssets([
+                '/images/night.jpg',
+                '/images/code.jpg',
+                '/images/wow.jpg',
+                '/images/cluj.jpg'
+            ]);
+        }, 2000 );
     },
     indicateScrolling: function ()
     {
