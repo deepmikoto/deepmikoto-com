@@ -24,4 +24,6 @@ parameters:
     fb_app_id: 1234567890
     push_public_key: key
     push_private_key: key
+    web_host: deepmikoto.com
+
 
