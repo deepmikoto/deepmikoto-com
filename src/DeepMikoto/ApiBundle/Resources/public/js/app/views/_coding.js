@@ -80,8 +80,12 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
     className: 'post-details coding-type',
     onShow: function ()
     {
-        /** @namespace FB.XFBML */
-        typeof FB == 'object' ? FB.XFBML.parse() : null;
+        try {
+            /** @namespace FB.XFBML */
+            typeof FB == 'object' ? FB.XFBML.parse() : null;
+        } catch ( e ) {
+
+        }
         typeof Prism == 'object' ? Prism.highlightAll() : null;
     },
     getTemplate: function()
