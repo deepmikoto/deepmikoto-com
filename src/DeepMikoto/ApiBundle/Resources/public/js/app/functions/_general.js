@@ -74,12 +74,16 @@ deepmikoto.GeneralFunctions = Marionette.extend({
     {
         window.fbAsyncInit = function()
         {
-            /** @namespace FB */
-            FB.init({
-                appId      : deepmikoto.appConstants.FACEBOOK_APP_ID,
-                xfbml      : true,
-                version    : 'v2.4'
-            });
+            try {
+                /** @namespace FB */
+                FB.init({
+                    appId      : deepmikoto.appConstants.FACEBOOK_APP_ID,
+                    xfbml      : true,
+                    version    : 'v2.4'
+                });
+            } catch ( e ) {
+
+            }
         };
         (function( d, s, id ){
             var js, fjs = d.getElementsByTagName(s)[0];
