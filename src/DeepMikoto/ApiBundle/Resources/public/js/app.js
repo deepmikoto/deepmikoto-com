@@ -52,10 +52,10 @@ deepmikoto.preLoadAssets = function ( assetsArray )
     }
 };
 deepmikoto.preLoadAssets([
-    '/images/night.jpg',
+   /*'/images/night.jpg',
     '/images/code.jpg',
     '/images/wow.jpg',
-    '/images/cluj.jpg'
+    '/images/cluj.jpg'*/
 ]);
 
 /** message for users that open the console */

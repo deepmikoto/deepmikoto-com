@@ -173,6 +173,7 @@ class AppController extends Controller
     public function gamingPostAction( $id, $slug )
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var GamingPost $gamingPost */
         $gamingPost = $em->getRepository( 'DeepMikotoApiBundle:GamingPost')->findOneBy([
             'id'    => $id,
             'slug'  => $slug,
