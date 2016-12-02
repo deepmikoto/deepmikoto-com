@@ -31,9 +31,10 @@ class CommandController extends Controller
             'git-pull-master' => 'git pull origin master',
             'composer-install' => 'php composer.phar install',
             'cache-clear' => 'php bin/console cache:clear --env=prod',
-            'migrations-migrate' => 'php bin/console doctrine:migrations:migrate --no-interaction',
+            'migrations-migrate' => 'php bin/console doctrine:migrations:migrate --no-interaction --env=prod',
             'assets-install' => 'php bin/console assets:install --symlink',
-            'assetic-dump' => 'php bin/console assetic:dump --env=prod'
+            'assetic-dump' => 'php bin/console assetic:dump --env=prod',
+            'generate-sitemap' => 'php bin/console run:sitemap:generator --first-run --env=prod'
         ];
     }
 

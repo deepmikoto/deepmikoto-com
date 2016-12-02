@@ -154,6 +154,18 @@ function enableDeployTools()
         startCommandChain();
     });
 }
+
+/**
+ *
+ */
+function enableSitemapGeneratorTools()
+{
+    if ( deepmikoto.home.buttons.generateSitemaps.length == 0 ) return;
+    deepmikoto.home.buttons.generateSitemaps.on( 'click', function () {
+        openPopup( [ deepmikoto.home.commands.GENERATE_SITEMAP ] );
+    });
+}
+
 /**
  * @param autoComplete
  */

@@ -4,6 +4,7 @@ $( function() {
         CKEDITOR.config.extraAllowedContent = 'pre(language-*)';
     }
     enableDeployTools();
+    enableSitemapGeneratorTools();
     enableGoogleAutoComplete( $( '.post-location' ) );
     enableCKEditor( $( '#deepmikoto_apibundle_codingpost_content' ) );
     enableCKEditor( $( '#deepmikoto_apibundle_gamingpost_content' ) );

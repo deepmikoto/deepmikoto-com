@@ -3,55 +3,99 @@
     {% include 'DeepMikotoAdminBundle:Parts:sidebars/home_sidebar.html.twig' %}
 {% endblock %}
 {% block content %}
-    <div class="commands">
-        <h4>Deploy tools</h4>
-        <div class="form-group">
-            <a href="#" id="full-deploy">Full deploy</a>
-        </div>
-        <div class="jumbotron">
-            <table class="table">
-                <tr>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="git-pull-master">Git pull origin master
-                        </label>
-                    </td>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="composer-install">Composer install
-                        </label>
-                    </td>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="cache-clear">Cache clear
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="migrations">Migrations migrate
-                        </label>
-                    </td>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="assets-install">Assets install
-                        </label>
-                    </td>
-                    <td>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="assetic-dump">Assetic dump
-                        </label>
-                    </td>
-                </tr>
-            </table>
-            <div class="status">
-                <div class="log" id="command-log"></div>
-                <div class="current" id="current-command"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="commands">
+                <h4>Deploy tools</h4>
+                <div class="form-group">
+                    <a href="#" id="full-deploy">Full deploy</a>
+                </div>
+                <div class="jumbotron">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="git-pull-master">Git pull origin master
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="composer-install">Composer install
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="cache-clear">Cache clear
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="migrations">Migrations migrate
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="assets-install">Assets install
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="assetic-dump">Assetic dump
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="status">
+                        <div class="log" id="command-log"></div>
+                        <div class="current" id="current-command"></div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn btn-primary pull-right" id="run-deploy">Run</button>
+                </div>
             </div>
         </div>
-        <div class="buttons">
-            <button type="button" class="btn btn-primary pull-right" id="run-deploy">Run</button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Sitemaps</h3>
+            <p>
+                Main <a href="{{ '/sitemap.xml' }}" target="_blank">sitemap.xml</a> file.
+            </p>
+            <h4>Sitemap Link Sets</h4>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Link count</th>
+                </tr>
+                {% for set in sitemapLinkSets %}
+                    <tr>
+                        <td>
+                            <a href="{{ '/sitemap/' ~ set.name }}" target="_blank"> {{ set.name }}</a>
+                        </td>
+                        <td>
+                            {{ set.createdAt|date('d-m-Y H:i:s') }}
+                        </td>
+                        <td>
+                            {{ set.updatedAt|date('d-m-Y H:i:s') }}
+                        </td>
+                        <td>
+                            {{ set.linkCount|number_format }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button type="button" class="btn btn-primary" id="generate-sitemaps">generate sitemaps</button>
+        </div>
+    </div>
+    <hr>
 {% endblock %}

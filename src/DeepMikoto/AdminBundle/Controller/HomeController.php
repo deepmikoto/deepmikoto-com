@@ -134,6 +134,12 @@ class HomeController extends Controller
      */
     public function administrationAction()
     {
-        return $this->render( 'DeepMikotoAdminBundle:Home:administration.html.twig' );
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $sitemapLinkSets = $em->getRepository('DeepMikotoApiBundle:SiteMapLinkSet')->findBy([],[ 'id' => 'ASC' ] );
+
+        return $this->render( 'DeepMikotoAdminBundle:Home:administration.html.twig',[
+            'sitemapLinkSets' => $sitemapLinkSets
+        ]);
     }
 }
