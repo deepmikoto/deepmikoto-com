@@ -4,6 +4,7 @@ namespace DeepMikoto\ApiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Eventviva\ImageResize;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,9 +45,16 @@ class PhotographyPostPhoto
     private $downloads;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="10000000")
      */
     private $file;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="alt_text", type="string", length=255)
+     */
+    private $altText;
 
     /**
      * @var \DateTime
@@ -78,11 +86,31 @@ class PhotographyPostPhoto
     /**
      * @return null|string
      */
+    public function getOriginalFileAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'. 'original_' . $this->path;
+    }
+
+    /**
+     * @return null|string
+     */
     public function getWebPath()
     {
         return null === $this->path
             ? null
             : $this->getUploadDir().'/'.$this->path;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getOriginalFileWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.'original_' . $this->path;
     }
 
     /**
@@ -134,8 +162,8 @@ class PhotographyPostPhoto
     public function preUpload()
     {
         if ( null !== $this->getFile() ){
-            $filename = 'photography_' . sha1( uniqid( mt_rand(), true ) ) . '_' . microtime( true );
-            $this->path = $filename.'.'.$this->getFile()->getClientOriginalExtension();
+            $this->path = $this->getFile()->getClientOriginalName();
+            //$this->path = $filename.'.'.$this->getFile()->getClientOriginalExtension();
         }
     }
 
@@ -148,12 +176,19 @@ class PhotographyPostPhoto
         if (null === $this->getFile()) {
             return;
         }
-        $this->getFile()->move( $this->getUploadRootDir(), $this->path );
-        if (isset( $this->temp )) {
-            unlink( $this->getUploadRootDir().'/'.$this->temp );
-            $this->temp = null;
+        try {
+            $this->getFile()->move( $this->getUploadRootDir(), 'original_' . $this->path );
+            $resizedImage = new ImageResize( $this->getUploadRootDir() . '/' . 'original_' . $this->path );
+            $resizedImage->resizeToBestFit( 1920, 1080 );
+            $resizedImage->save( $this->getUploadRootDir() . '/' . $this->path );
+            if (isset( $this->temp )) {
+                unlink( $this->getUploadRootDir().'/'.$this->temp );
+                $this->temp = null;
+            }
+            $this->file = null;
+        } catch ( \Exception $e ) {
+            // let it be :)
         }
-        $this->file = null;
     }
 
     /**
@@ -164,6 +199,10 @@ class PhotographyPostPhoto
         $file = $this->getAbsolutePath();
         if ( $file && file_exists( $file ) && is_file( $file ) ) {
             unlink( $file );
+        }
+        $originalFile = $this->getOriginalFileAbsolutePath();
+        if ( $originalFile && file_exists( $originalFile ) && is_file( $originalFile ) ) {
+            unlink( $originalFile );
         }
     }
 
@@ -285,5 +324,29 @@ class PhotographyPostPhoto
     public function getDownloads()
     {
         return $this->downloads;
+    }
+
+    /**
+     * Set altText
+     *
+     * @param string $altText
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Get altText
+     *
+     * @return string
+     */
+    public function getAltText()
+    {
+        return $this->altText;
     }
 }

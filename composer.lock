@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "328374b2ee91bba2cf540aac45d42fc4",
-    "content-hash": "44921442f9f4812a7bbd1a52ce82a160",
+    "hash": "94cce6ff44f621bfec60bc9c6e62fda9",
+    "content-hash": "3ecf118629cfac098a705f58eb584c16",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -963,6 +963,51 @@
                 "orm"
             ],
             "time": "2016-09-10 18:51:13"
+        },
+        {
+            "name": "eventviva/php-image-resize",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eventviva/php-image-resize.git",
+                "reference": "d46bc5a68a19d995ef3c6cde161baac22f015b43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eventviva/php-image-resize/zipball/d46bc5a68a19d995ef3c6cde161baac22f015b43",
+                "reference": "d46bc5a68a19d995ef3c6cde161baac22f015b43",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-gd": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aditya Patadia",
+                    "homepage": "http://aditya.patadia.org/"
+                }
+            ],
+            "description": "PHP class to re-size and scale images",
+            "homepage": "https://github.com/eventviva/php-image-resize",
+            "keywords": [
+                "image",
+                "php",
+                "resize",
+                "scale"
+            ],
+            "time": "2016-10-14 18:27:53"
         },
         {
             "name": "fgrosse/phpasn1",
