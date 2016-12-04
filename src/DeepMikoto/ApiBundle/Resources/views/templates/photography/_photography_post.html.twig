@@ -16,7 +16,7 @@
             <% _.each( photos, function( photo ) { %>
             <div class="photo">
                 <div class="image col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <a href="{{ '<%=photo.url%>' }}" data-lightbox="<%=id%>">
+                    <a href="{{ '<%=photo.fullSizeUrl%>' }}" data-lightbox="<%=id%>">
                         <img src="{{ '<%=photo.url%>' }}" alt="{{ '<%=photo.altText%>' }}"  />
                     </a>
                 </div>

@@ -80,7 +80,8 @@ class PhotographyService
                                 'exposure'      => $photo->getExposure(),
                                 'iso'           => $photo->getIso(),
                                 'aperture'      => $photo->getAperture(),
-                                'focalLength'   => $photo->getFocalLength()
+                                'focalLength'   => $photo->getFocalLength(),
+                                'fullSizeUrl'   => '/' . $photo->getWebPath()
                             ]);
                         }
                         $processedPhotos[] = $details;
