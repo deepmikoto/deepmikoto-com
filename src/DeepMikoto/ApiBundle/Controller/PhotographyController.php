@@ -91,7 +91,7 @@ class PhotographyController extends Controller
             $em->persist( $download );
             $em->flush( $download );
         }
-        $image = file_get_contents( $photographyPostPhoto->getUploadDir() . '/' . $photographyPostPhoto->getPath() );
+        $image = file_get_contents( $photographyPostPhoto->getUploadDir() . '/original_' . $photographyPostPhoto->getPath() );
         $response = new Response( $image, 200 );
         $ext = strtolower( substr( strrchr( $photographyPostPhoto->getPath(), "." ), 1 ) );
         $response->headers->set( 'Content-Type', 'image/' . ( $ext == 'jpeg' || $ext == 'jpg' ? 'jpeg'

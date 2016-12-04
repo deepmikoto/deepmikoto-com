@@ -45,9 +45,10 @@ class PhotographyService
 
     /**
      * @param $posts
+     * @param bool $extendedPhotoDetails
      * @return string
      */
-    private function processPhotographyTimelinePosts( $posts )
+    private function processPhotographyTimelinePosts( $posts, $extendedPhotoDetails = false )
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
@@ -57,20 +58,32 @@ class PhotographyService
         $router = $this->router;
         $normalizer->setCallbacks(
             [
-                'photos' => function( $photos ) use( $container, $router ){
+                'photos' => function( $photos ) use( $container, $router, $extendedPhotoDetails ){
                     $processedPhotos = [];
                     /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
                     foreach( $photos as $photo ){
-                        $processedPhotos[] = [
+                        $details = [
                             'downLink'  => $router->generate( 'deepmikoto_api_photography_cache', [
                                 'id'   => $photo->getId(),
                                 'path' => $photo->getPath()
                             ], $router::ABSOLUTE_URL ),
+                            'altText'   => $photo->getAltText(),
                             'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
                                 $photo->getWebPath(), 'timeline_picture'
                             ),
                             'downloads' => $photo->getDownloads()->count()
                         ];
+                        if ( $extendedPhotoDetails == true ) {
+                            $details = array_merge( $details, [
+                                'resolution'    => $photo->getResolution(),
+                                'camera'        => $photo->getCamera(),
+                                'exposure'      => $photo->getExposure(),
+                                'iso'           => $photo->getIso(),
+                                'aperture'      => $photo->getAperture(),
+                                'focalLength'   => $photo->getFocalLength()
+                            ]);
+                        }
+                        $processedPhotos[] = $details;
                     }
 
                     return $processedPhotos;
@@ -158,7 +171,7 @@ class PhotographyService
         $photographyPosts = $this->processPhotographyTimelinePosts( [
             'payload'   => $photographyPosts,
             'response'  => ApiResponseStatus::$ALL_OK
-        ] );
+        ]);
 
         return $photographyPosts;
     }
@@ -180,7 +193,7 @@ class PhotographyService
             $photographyPost = $this->processPhotographyTimelinePosts( [
                 'payload'   => $photographyPostEntity,
                 'response'  => ApiResponseStatus::$ALL_OK
-            ]);
+            ], true );
             if( $request != null )
                 $this->container->get( 'deepmikoto.api.tracking_manager' )->addPostView( $photographyPostEntity, $request );
         } else {

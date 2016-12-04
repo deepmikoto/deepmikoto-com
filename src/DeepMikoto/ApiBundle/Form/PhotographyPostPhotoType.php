@@ -43,6 +43,36 @@ class PhotographyPostPhotoType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('resolution', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('camera', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('exposure', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('iso', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('aperture', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('focalLength', TextType::class,[
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('file', FileType::class, [
                 'required' => false,
             ])

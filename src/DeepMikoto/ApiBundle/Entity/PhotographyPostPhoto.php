@@ -63,6 +63,48 @@ class PhotographyPostPhoto
      */
     private $date;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="camera", type="string", length=50, nullable=true)
+     */
+    private $camera;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="exposure", type="string", length=20, nullable=true)
+     */
+    private $exposure;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="iso", type="string", length=10, nullable=true)
+     */
+    private $iso;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aperture", type="string", length=10, nullable=true)
+     */
+    private $aperture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="focal_length", type="string", length=15, nullable=true)
+     */
+    private $focalLength;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resolution", type="string", length=20, nullable=true)
+     */
+    private $resolution;
+
     private $temp;
 
     /**
@@ -348,5 +390,149 @@ class PhotographyPostPhoto
     public function getAltText()
     {
         return $this->altText;
+    }
+
+    /**
+     * Set camera
+     *
+     * @param string $camera
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setCamera($camera)
+    {
+        $this->camera = $camera;
+
+        return $this;
+    }
+
+    /**
+     * Get camera
+     *
+     * @return string
+     */
+    public function getCamera()
+    {
+        return $this->camera;
+    }
+
+    /**
+     * Set exposure
+     *
+     * @param string $exposure
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setExposure($exposure)
+    {
+        $this->exposure = $exposure;
+
+        return $this;
+    }
+
+    /**
+     * Get exposure
+     *
+     * @return string
+     */
+    public function getExposure()
+    {
+        return $this->exposure;
+    }
+
+    /**
+     * Set iso
+     *
+     * @param string $iso
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setIso($iso)
+    {
+        $this->iso = $iso;
+
+        return $this;
+    }
+
+    /**
+     * Get iso
+     *
+     * @return string
+     */
+    public function getIso()
+    {
+        return $this->iso;
+    }
+
+    /**
+     * Set aperture
+     *
+     * @param string $aperture
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setAperture($aperture)
+    {
+        $this->aperture = $aperture;
+
+        return $this;
+    }
+
+    /**
+     * Get aperture
+     *
+     * @return string
+     */
+    public function getAperture()
+    {
+        return $this->aperture;
+    }
+
+    /**
+     * Set focalLength
+     *
+     * @param string $focalLength
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setFocalLength($focalLength)
+    {
+        $this->focalLength = $focalLength;
+
+        return $this;
+    }
+
+    /**
+     * Get focalLength
+     *
+     * @return string
+     */
+    public function getFocalLength()
+    {
+        return $this->focalLength;
+    }
+
+    /**
+     * Set resolution
+     *
+     * @param string $resolution
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setResolution($resolution)
+    {
+        $this->resolution = $resolution;
+
+        return $this;
+    }
+
+    /**
+     * Get resolution
+     *
+     * @return string
+     */
+    public function getResolution()
+    {
+        return $this->resolution;
     }
 }

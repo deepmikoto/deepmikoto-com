@@ -16,26 +16,34 @@
             <% _.each( photos, function( photo ) { %>
             <div class="photo">
                 <div class="image col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <img src="{{ '<%=photo.url%>' }}" />
+                    <img src="{{ '<%=photo.url%>' }}" alt="{{ '<%=photo.altText%>' }}" />
                 </div>
                 <div class="image-stats col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <h4>Specs</h4>
+                    <h4>Details</h4>
                     <table class="table">
                         <tr>
+                            <td>resolution</td>
+                            <td><%=photo.resolution%></td>
+                        </tr>
+                        <tr>
+                            <td>camera</td>
+                            <td><%=photo.camera%></td>
+                        </tr>
+                        <tr>
                             <td>exposure</td>
-                            <td>1/30 sec</td>
+                            <td><%=photo.exposure%></td>
                         </tr>
                         <tr>
                             <td>iso</td>
-                            <td>200</td>
+                            <td><%=photo.iso%></td>
                         </tr>
                         <tr>
                             <td>aperture</td>
-                            <td>1.8</td>
+                            <td><%=photo.aperture%></td>
                         </tr>
                         <tr>
                             <td>focal length</td>
-                            <td>35mm</td>
+                            <td><%=photo.focalLength%></td>
                         </tr>
                     </table>
                 </div>
