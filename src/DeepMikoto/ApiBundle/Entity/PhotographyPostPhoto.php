@@ -45,7 +45,7 @@ class PhotographyPostPhoto
     private $downloads;
 
     /**
-     * @Assert\File(maxSize="10000000")
+     * @Assert\File(maxSize="15000000")
      */
     private $file;
 
