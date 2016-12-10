@@ -105,6 +105,13 @@ class PhotographyPostPhoto
      */
     private $resolution;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_taken", type="date", nullable=true)
+     */
+    private $dateTaken;
+
     private $temp;
 
     /**
@@ -534,5 +541,29 @@ class PhotographyPostPhoto
     public function getResolution()
     {
         return $this->resolution;
+    }
+
+    /**
+     * Set dateTaken
+     *
+     * @param \DateTime $dateTaken
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setDateTaken($dateTaken)
+    {
+        $this->dateTaken = $dateTaken;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTaken
+     *
+     * @return \DateTime
+     */
+    public function getDateTaken()
+    {
+        return $this->dateTaken;
     }
 }

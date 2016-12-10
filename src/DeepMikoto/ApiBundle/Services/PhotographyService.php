@@ -81,7 +81,9 @@ class PhotographyService
                                 'iso'           => $photo->getIso(),
                                 'aperture'      => $photo->getAperture(),
                                 'focalLength'   => $photo->getFocalLength(),
-                                'fullSizeUrl'   => '/' . $photo->getWebPath()
+                                'fullSizeUrl'   => '/' . $photo->getWebPath(),
+                                'dateTaken'     => $photo->getDateTaken() != null ?
+                                    $photo->getDateTaken()->format('F jS, Y') : 'not specified'
                             ]);
                         }
                         $processedPhotos[] = $details;

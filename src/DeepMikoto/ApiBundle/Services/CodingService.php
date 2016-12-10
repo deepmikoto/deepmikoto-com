@@ -69,7 +69,7 @@ class CodingService
                     foreach( $codingCategories as $category ) {
                         $categories[] = [
                             'name' => $category->getName(),
-                            'image' => $cacheManager->getBrowserPath( $category->getWebPath(), '20_20' )
+                            'image' => $cacheManager->getBrowserPath( $category->getWebPath(), 'r_20_20' )
                         ];
                     }
 
@@ -159,7 +159,7 @@ class CodingService
             $processedPosts[] = [
                 'name' => $codingPost->getName(),
                 'slug' => $codingPost->getSlug(),
-                'image' => $cacheManager->getBrowserPath( $codingPost->getWebPath(), '200_200' )
+                'image' => $cacheManager->getBrowserPath( $codingPost->getWebPath(), 'r_200_200' )
             ];
         }
         $codingPosts = $this->processCodingTimelinePosts( [

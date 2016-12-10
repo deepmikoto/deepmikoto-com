@@ -129,15 +129,15 @@ liip_imagine:
             quality: 80
             filters:
                 thumbnail: { size: [820, 600], mode: inset }
-        30_30:
+        r_30_30:
             quality: 80
             filters:
                 thumbnail: { size: [30, 30], mode: inset }
-        20_20:
+        r_20_20:
             quality: 80
             filters:
                 thumbnail: { size: [20, 20], mode: inset }
-        200_200:
+        r_200_200:
             quality: 80
             filters:
                 thumbnail: { size: [200, 200], mode: inset }

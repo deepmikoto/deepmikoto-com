@@ -36,7 +36,7 @@
             {% for category in categories %}
                 <tr>
                     <td>{{ category.name }}</td>
-                    <td class="text-left"><img src="{{ ( category.webPath ) | imagine_filter( '30_30' ) }}" /></td>
+                    <td class="text-left"><img src="{{ ( category.webPath ) | imagine_filter( 'r_30_30' ) }}" /></td>
                     <td>{{ category.created | date( 'd F Y H:i:s' ) }}</td>
                     <td>
                         <a href="{{ path('deepmikoto_admin_coding_edit_category', { 'id': category.id }) }}">
