@@ -5,6 +5,7 @@ namespace DeepMikoto\ApiBundle\Form;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -81,6 +82,12 @@ class PhotographyPostPhotoType extends AbstractType
             ])
             ->add('file', FileType::class, [
                 'required' => false,
+            ])
+            ->add('cover', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-control post-longitude',
+                    'style' => 'width: 20px;height: 20px;display: inline-block;'
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [

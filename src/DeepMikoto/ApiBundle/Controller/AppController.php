@@ -13,6 +13,7 @@ use DeepMikoto\ApiBundle\Entity\CodingCategory;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
+use DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto;
 use DeepMikoto\ApiBundle\Entity\StaticPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -139,6 +140,16 @@ class AppController extends Controller
             'public'=> true
         ]);
         if( !$photographyPost ) throw $this->createNotFoundException();
+        $image = null;
+        if ( $photographyPost->getPhotos()->count() > 0 ) {
+            $image = $photographyPost->getPhotos()->first()->getWebPath();
+            /** @var PhotographyPostPhoto $photo */
+            foreach ( $photographyPost->getPhotos() as $photo ) {
+                if ( $photo->getCover() == true ) {
+                    $image = $photo->getWebPath();
+                }
+            }
+        }
         $response = new Response(
             $this->render( 'DeepMikotoApiBundle:App:photography_post.html.twig',[
                 'post' => $photographyPost,
@@ -149,9 +160,7 @@ class AppController extends Controller
                         'id'    => $photographyPost->getId(),
                         'slug'  => $photographyPost->getSlug()
                     ], UrlGeneratorInterface::ABSOLUTE_URL ),
-                    'image'     => $photographyPost->getPhotos()->first() != null
-                        ? $photographyPost->getPhotos()->first()->getWebPath()
-                        : null
+                    'image'     => $image
                 ]
             ] )->getContent(),
             200

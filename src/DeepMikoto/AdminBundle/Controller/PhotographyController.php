@@ -136,6 +136,14 @@ class PhotographyController extends Controller
             if( $form->isValid() ){
                 $em->persist( $photographyPostPhoto );
                 $em->flush( $photographyPostPhoto );
+                if ( $photographyPostPhoto->getPhotographyPost() != null && $photographyPostPhoto->getCover() == true ) {
+                    /** @var PhotographyPostPhoto $photo */
+                    foreach( $photographyPostPhoto->getPhotographyPost()->getPhotos()->toArray() as $photo ){
+                        $photo->setCover( false );
+                        $em->persist( $photo );
+                        $em->flush();
+                    }
+                }
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You created a new photography post photo!' );
 
                 return $this->redirectToRoute( 'deepmikoto_admin_photography_new_post_photo' );
@@ -165,6 +173,14 @@ class PhotographyController extends Controller
             if( $form->isValid() ){
                 $em->persist( $photographyPostPhoto );
                 $em->flush( $photographyPostPhoto );
+                if ( $photographyPostPhoto->getPhotographyPost() != null && $photographyPostPhoto->getCover() == true ) {
+                    /** @var PhotographyPostPhoto $photo */
+                    foreach( $photographyPostPhoto->getPhotographyPost()->getPhotos()->toArray() as $photo ){
+                        $photo->setCover( false );
+                        $em->persist( $photo );
+                        $em->flush();
+                    }
+                }
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You updated the photography post photo!' );
 
                 return $this->redirectToRoute( 'deepmikoto_admin_photography_edit_post_photo', [ 'id' => $id ] );

@@ -60,8 +60,9 @@ class PhotographyService
             [
                 'photos' => function( $photos ) use( $container, $router, $extendedPhotoDetails ){
                     $processedPhotos = [];
+                    $coverIndex = null;
                     /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
-                    foreach( $photos as $photo ){
+                    foreach( $photos as $key => $photo ){
                         $details = [
                             'downLink'  => $router->generate( 'deepmikoto_api_photography_cache', [
                                 'id'   => $photo->getId(),
@@ -86,7 +87,15 @@ class PhotographyService
                                     $photo->getDateTaken()->format('F jS, Y') : 'not specified'
                             ]);
                         }
+                        if ( $photo->getCover() == true ) {
+                            $coverIndex = $key;
+                        }
                         $processedPhotos[] = $details;
+                    }
+                    if ( $coverIndex != null ) {
+                        $cover = $processedPhotos[ $coverIndex ];
+                        unset( $processedPhotos[ $coverIndex ] );
+                        $processedPhotos = array_merge( [ $cover ], array_values( $processedPhotos) );
                     }
 
                     return $processedPhotos;

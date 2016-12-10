@@ -112,6 +112,13 @@ class PhotographyPostPhoto
      */
     private $dateTaken;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="cover", type="boolean")
+     */
+    private $cover;
+
     private $temp;
 
     /**
@@ -120,6 +127,7 @@ class PhotographyPostPhoto
     public function __construct()
     {
         $this->downloads = new ArrayCollection();
+        $this->setCover( false );
     }
 
     /**
@@ -565,5 +573,29 @@ class PhotographyPostPhoto
     public function getDateTaken()
     {
         return $this->dateTaken;
+    }
+
+    /**
+     * Set cover
+     *
+     * @param boolean $cover
+     *
+     * @return PhotographyPostPhoto
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * Get cover
+     *
+     * @return boolean
+     */
+    public function getCover()
+    {
+        return $this->cover;
     }
 }
