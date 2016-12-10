@@ -84,6 +84,7 @@ class PhotographyPostPhotoType extends AbstractType
                 'required' => false,
             ])
             ->add('cover', CheckboxType::class, [
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control post-longitude',
                     'style' => 'width: 20px;height: 20px;display: inline-block;'
