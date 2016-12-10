@@ -167,7 +167,7 @@ class GamingPost
             return;
         }
         $this->getFile()->move( $this->getUploadRootDir(), $this->cover );
-        if (isset( $this->temp )) {
+        if (isset( $this->temp ) && file_exists( $this->getUploadRootDir().'/'.$this->temp ) && is_file( $this->getUploadRootDir().'/'.$this->temp )) {
             unlink( $this->getUploadRootDir().'/'.$this->temp );
             $this->temp = null;
         }
