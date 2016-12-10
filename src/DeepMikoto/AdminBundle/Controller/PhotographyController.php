@@ -139,9 +139,11 @@ class PhotographyController extends Controller
                 if ( $photographyPostPhoto->getPhotographyPost() != null && $photographyPostPhoto->getCover() == true ) {
                     /** @var PhotographyPostPhoto $photo */
                     foreach( $photographyPostPhoto->getPhotographyPost()->getPhotos()->toArray() as $photo ){
-                        $photo->setCover( false );
-                        $em->persist( $photo );
-                        $em->flush();
+                        if ( $photo != $photographyPostPhoto ) {
+                            $photo->setCover( false );
+                            $em->persist( $photo );
+                            $em->flush();
+                        }
                     }
                 }
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You created a new photography post photo!' );
@@ -176,9 +178,11 @@ class PhotographyController extends Controller
                 if ( $photographyPostPhoto->getPhotographyPost() != null && $photographyPostPhoto->getCover() == true ) {
                     /** @var PhotographyPostPhoto $photo */
                     foreach( $photographyPostPhoto->getPhotographyPost()->getPhotos()->toArray() as $photo ){
-                        $photo->setCover( false );
-                        $em->persist( $photo );
-                        $em->flush();
+                        if ( $photo != $photographyPostPhoto ) {
+                            $photo->setCover( false );
+                            $em->persist( $photo );
+                            $em->flush();
+                        }
                     }
                 }
                 $this->addFlash( 'success', '<strong>Awesome!</strong> You updated the photography post photo!' );
