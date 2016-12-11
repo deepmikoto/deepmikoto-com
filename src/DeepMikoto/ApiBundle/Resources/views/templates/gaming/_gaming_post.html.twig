@@ -1,10 +1,10 @@
 {% spaceless %}
     <div class="header">
-        <h3 class="title"><%=title%></h3>
         <div class="date">
-            <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+            <span class="date" title="date published"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
             <div class="fb-share-button" data-layout="button_count"></div>
         </div>
+        <h2 class="title"><%=title%></h2>
     </div>
     <% if( webPath != false ) { %>
         <div class="cover text-center">

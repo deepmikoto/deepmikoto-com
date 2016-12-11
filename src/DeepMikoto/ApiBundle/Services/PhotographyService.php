@@ -64,29 +64,75 @@ class PhotographyService
                     /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
                     foreach( $photos as $key => $photo ){
                         $details = [
+                            'altText'   => $photo->getAltText(),
+                            'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
+                                $photo->getWebPath(), 'timeline_picture'
+                            )
+                        ];
+                        $processedPhotos[] = $details;
+                    }
+
+                    return $processedPhotos;
+                },
+                'date' => function( $date ){
+                    /** @var \DateTime $date */
+                    $date = $date->format( 'F jS, Y' );
+
+                    return $date;
+                }
+            ]
+        );
+        $serializer = new Serializer(
+            [ $normalizer ],
+            [ new JsonEncoder() ]
+        );
+        $posts = $serializer->serialize( $posts, 'json' );
+
+        return $posts;
+    }
+
+    /**
+     * @param $post
+     * @return string
+     * @internal param $posts
+     * @internal param bool $extendedPhotoDetails
+     */
+    private function processPhotographyPost( $post )
+    {
+        $normalizer = new GetSetMethodNormalizer();
+        $normalizer->setIgnoredAttributes(
+            [ 'views' ]
+        );
+        $container = $this->container;
+        $router = $this->router;
+        $normalizer->setCallbacks(
+            [
+                'photos' => function( $photos ) use( $container, $router ){
+                    $processedPhotos = [];
+                    $coverIndex = null;
+                    /** @var \DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto $photo */
+                    foreach( $photos as $key => $photo ){
+                        $details = [
                             'downLink'  => $router->generate( 'deepmikoto_api_photography_cache', [
                                 'id'   => $photo->getId(),
                                 'path' => $photo->getPath()
                             ], $router::ABSOLUTE_URL ),
                             'altText'   => $photo->getAltText(),
-                            'url'       => $container->get('liip_imagine.cache.manager')->getBrowserPath(
-                                $photo->getWebPath(), 'timeline_picture'
+                            'url'           => $container->get('liip_imagine.cache.manager')->getBrowserPath(
+                                $photo->getWebPath(), 'photography_picture'
                             ),
-                            'downloads' => $photo->getDownloads()->count()
+                            'downloads' => $photo->getDownloads()->count(),
+                            'resolution'    => $photo->getResolution(),
+                            'camera'        => $photo->getCamera(),
+                            'exposure'      => $photo->getExposure(),
+                            'iso'           => $photo->getIso(),
+                            'aperture'      => $photo->getAperture(),
+                            'focalLength'   => $photo->getFocalLength(),
+                            'fullSizeUrl'   => '/' . $photo->getWebPath(),
+                            'dateTaken'     => $photo->getDateTaken() != null ?
+                                $photo->getDateTaken()->format('F jS, Y') : 'not specified'
                         ];
-                        if ( $extendedPhotoDetails == true ) {
-                            $details = array_merge( $details, [
-                                'resolution'    => $photo->getResolution(),
-                                'camera'        => $photo->getCamera(),
-                                'exposure'      => $photo->getExposure(),
-                                'iso'           => $photo->getIso(),
-                                'aperture'      => $photo->getAperture(),
-                                'focalLength'   => $photo->getFocalLength(),
-                                'fullSizeUrl'   => '/' . $photo->getWebPath(),
-                                'dateTaken'     => $photo->getDateTaken() != null ?
-                                    $photo->getDateTaken()->format('F jS, Y') : 'not specified'
-                            ]);
-                        }
+
                         if ( $photo->getCover() == true ) {
                             $coverIndex = $key;
                         }
@@ -102,7 +148,7 @@ class PhotographyService
                 },
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'F dS, Y' );
+                    $date = $date->format( 'F jS, Y' );
 
                     return $date;
                 }
@@ -112,7 +158,7 @@ class PhotographyService
             [ $normalizer ],
             [ new JsonEncoder() ]
         );
-        $posts = $serializer->serialize( $posts, 'json' );
+        $posts = $serializer->serialize( $post, 'json' );
 
         return $posts;
     }
@@ -202,10 +248,10 @@ class PhotographyService
             'public'=> true
         ]);
         if( $photographyPostEntity != null ){
-            $photographyPost = $this->processPhotographyTimelinePosts( [
+            $photographyPost = $this->processPhotographyPost( [
                 'payload'   => $photographyPostEntity,
                 'response'  => ApiResponseStatus::$ALL_OK
-            ], true );
+            ]);
             if( $request != null )
                 $this->container->get( 'deepmikoto.api.tracking_manager' )->addPostView( $photographyPostEntity, $request );
         } else {

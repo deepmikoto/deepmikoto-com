@@ -56,7 +56,7 @@ class GamingService
             [
                 'date' => function( $date ){
                     /** @var \DateTime $date */
-                    $date = $date->format( 'F dS, Y' );
+                    $date = $date->format( 'F jS, Y' );
 
                     return $date;
                 },

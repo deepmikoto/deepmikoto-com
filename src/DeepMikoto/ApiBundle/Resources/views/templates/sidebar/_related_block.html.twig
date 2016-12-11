@@ -14,7 +14,7 @@
                     <div class="media-body">
                         <a class="media-heading" href="{{ item.link }}">{{ item.title }}</a>
                         <div class="category">
-                            {{ item.date | date( 'F dS, Y') }}
+                            {{ item.date | date( 'F jS, Y') }}
                             {% if item.category is defined %}
                                 in <a href="{{ path( 'deepmikoto_app_' ~ item.category ) }}">{{ item.category | title }}</a>
                             {% endif %}

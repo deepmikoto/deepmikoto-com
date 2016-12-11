@@ -1,15 +1,15 @@
 {% spaceless %}
     <div class="header">
-        <h3 class="title"><%=title%></h3>
         <div class="date-and-location">
-            <span class="date"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
+            <span class="date" title="date published"><i class="glyphicon glyphicon-calendar"></i> <%=date%></span>
             <span class="location">
                 <a href="http://maps.google.com/maps?&q=<%=location%>" target="_blank" title="view on Google Maps">
-                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;<%=location%>
+                    <%=location%>
                 </a>
             </span>
             <div class="fb-share-button" data-layout="button_count"></div>
         </div>
+        <h2 class="title"><%=title%></h2>
     </div>
     <div class="body">
         <div class="photos">
