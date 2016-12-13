@@ -72,6 +72,13 @@ class GamingPost
      */
     private $views;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="h_c_i_p", type="boolean")
+     */
+    private $hideCoverInPost;
+
     /** variables and methods for handling file uploads */
 
     /**
@@ -198,6 +205,7 @@ class GamingPost
      */
     public function __construct(){
         $this->views = new ArrayCollection();
+        
         $this->setPublic( false );
     }
 
@@ -221,7 +229,7 @@ class GamingPost
     {
         $this->title = $title;
         $this->setSlug($title);
-
+        $this->setHideCoverInPost(false);
         return $this;
     }
 
@@ -392,5 +400,29 @@ class GamingPost
     public function getViews()
     {
         return $this->views;
+    }
+
+    /**
+     * Set hideCoverInPost
+     *
+     * @param boolean $hideCoverInPost
+     *
+     * @return GamingPost
+     */
+    public function setHideCoverInPost($hideCoverInPost)
+    {
+        $this->hideCoverInPost = $hideCoverInPost;
+
+        return $this;
+    }
+
+    /**
+     * Get hideCoverInPost
+     *
+     * @return boolean
+     */
+    public function getHideCoverInPost()
+    {
+        return $this->hideCoverInPost;
     }
 }

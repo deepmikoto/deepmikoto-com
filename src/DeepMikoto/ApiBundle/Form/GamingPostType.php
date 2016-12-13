@@ -3,6 +3,7 @@
 namespace DeepMikoto\ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -34,6 +35,13 @@ class GamingPostType extends AbstractType
             ->add('content', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
+                ]
+            ])
+            ->add('hideCoverInPost', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control post-longitude',
+                    'style' => 'width: 20px;height: 20px;display: inline-block;'
                 ]
             ])
             ->add('save', SubmitType::class, [
