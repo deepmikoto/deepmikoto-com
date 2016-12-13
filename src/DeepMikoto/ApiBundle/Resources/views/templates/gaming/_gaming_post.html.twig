@@ -8,7 +8,9 @@
     </div>
     <% if( webPath != false ) { %>
         <div class="cover text-center">
-            <img src="{{ '<%=webPath.timelineSize%>' }}">
+            <a data-lightbox="gaming-<%=id%>" href="{{ '<%=webPath.timelineSize%>' }}" >
+                <img src="{{ '<%=webPath.timelineSize%>' }}">
+            </a>
         </div>
     <% } %>
     <div class="body">
