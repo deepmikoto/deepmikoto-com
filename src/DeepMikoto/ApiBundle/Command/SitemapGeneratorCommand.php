@@ -42,8 +42,6 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
     private $childPIDs;
     private $baseDir;
     private $firstRun;
-    private $week;
-    private $year;
     private $linkSetLimit;
 
     /**
@@ -76,8 +74,6 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
         $this->startedAt = new \DateTime();
         $this->oneWeekAgo = new \DateTime('-1 week');
         $this->oneWeekAgo->setTime( 0, 0, 0 );
-        $this->week = $this->startedAt->format('W');
-        $this->year = $this->startedAt->format('Y');
         $this->linkSetLimit = 49999;
     }
 
@@ -441,7 +437,7 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
             $linkSetEntity = new SiteMapLinkSet( $type );
         }
         if ( $linkSetEntity->getId() == null ) {
-            $fileName = $linkSetEntity->getType() . '_' . $this->week . '_' . $this->year . '.xml';
+            $fileName = $linkSetEntity->getType() . '.xml';
             $linkSetEntity->setName( $fileName );
 
             $newEntries = $this->$newEntriesAction();
@@ -462,10 +458,10 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
                     $linkSetEntity->setLinkCount( $addedLinks );
                     $addedLinks = 0;
                     if ( $linkSetEntity->getId() == null ) {
-                        $fileName = $linkSetEntity->getType() . '_' . $this->week . '_' . $this->year . '_' . $completedCycles . '.xml';
+                        $fileName = $linkSetEntity->getType() . '_' . $completedCycles . '.xml';
                     } else {
                         $completedCycles--;
-                        $fileName = $linkSetEntity->getType() . '_' . $this->week . '_' . $this->year . '.xml';
+                        $fileName = $linkSetEntity->getType() . '.xml';
                     }
                     $linkSetEntity = new SiteMapLinkSet( $type );
                     $linkSetEntity
