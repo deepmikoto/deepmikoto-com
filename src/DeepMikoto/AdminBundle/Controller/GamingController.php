@@ -2,8 +2,10 @@
 
 namespace DeepMikoto\AdminBundle\Controller;
 
+use DeepMikoto\ApiBundle\Entity\GamingPhoto;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
+use DeepMikoto\ApiBundle\Form\GamingPhotoType;
 use DeepMikoto\ApiBundle\Form\GamingPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Doctrine\ORM\EntityManager;
@@ -85,6 +87,79 @@ class GamingController extends Controller
         }
 
         return $this->render( 'DeepMikotoAdminBundle:Gaming:new.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * New gaming photo form
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newGamingPhotoAction( Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $gamingPhoto = new GamingPhoto();
+        $form = $this->createForm( GamingPhotoType::class, $gamingPhoto );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $gamingPhoto );
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    '<strong>Awesome!</strong> You created a new gaming photo!'
+                );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_gaming_new_photo' );
+            }
+        }
+
+        return $this->render( 'DeepMikotoAdminBundle:Gaming:new_photo.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * edit gaming photo form
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editGamingPhotoAction( Request $request, $id )
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var \DeepMikoto\ApiBundle\Entity\GamingPhoto $gamingPhoto */
+        $gamingPhoto = $em->find( 'DeepMikotoApiBundle:GamingPhoto', $id );
+        $gamingPhoto == null ? $this->createNotFoundException() : null;
+        $form = $this->createForm( GamingPhotoType::class, $gamingPhoto );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $gamingPhoto );
+                $em->flush();
+                $this->addFlash( 'success', '<strong>Awesome!</strong> Editing successfull' );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_photography_edit_post_photo', [
+                    'id' => $gamingPhoto->getId()
+                ]);
+            }
+        }
+
+        return $this->render( 'DeepMikotoAdminBundle:Gaming:edit_photo.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * gaming photos
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function gamingPhotosAction()
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $photos = $em->getRepository( 'DeepMikotoApiBundle:GamingPhoto' )->findBy([], [ 'date' => 'DESC' ] );
+
+        return $this->render( 'DeepMikotoAdminBundle:Gaming:photos.html.twig', [ 'photos' => $photos ] );
     }
 
     /**

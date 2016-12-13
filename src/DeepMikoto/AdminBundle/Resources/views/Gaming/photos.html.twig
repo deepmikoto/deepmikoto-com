@@ -1,0 +1,47 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/gaming_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>date</th>
+            <th>path</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if photos|length == 0 %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Nothing to show, <a href="{{ path('deepmikoto_admin_gaming_new_photo') }}"><i class="glyphicon glyphicon-save"></i> create new gaming photo</a>
+                </td>
+            </tr>
+        {% else %}
+            {% for photo in photos %}
+                <tr>
+                    <td><img src="{{ asset(photo.getWebPath()) | imagine_filter( 'tiny_thumb' ) }}" /></td>
+                    <td>{{ photo.date | date( 'd F Y H:i:s' ) }}</td>
+                    <td>
+                        {{ app.request.schemeAndHttpHost ~ '/' ~ photo.webPath() }}
+                        <a href="{{ app.request.schemeAndHttpHost ~ '/' ~ photo.webPath() }}" target="_blank"><i class="glyphicon glyphicon-link"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ path('deepmikoto_admin_gaming_edit_photo', { 'id': photo.id }) }}">
+                            <i class="glyphicon glyphicon-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

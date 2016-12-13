@@ -12,5 +12,11 @@
         <a href="{{ path('deepmikoto_admin_gaming_drafted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_drafted_posts' %}active{% endif %}">
             <i class="glyphicon glyphicon-folder-open"></i> Drafted posts
         </a>
+        <a href="{{ path('deepmikoto_admin_gaming_new_photo') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_new_photo' %}active{% endif %}">
+            <i class="glyphicon glyphicon-picture"></i> New Gaming Photo
+        </a>
+        <a href="{{ path('deepmikoto_admin_gaming_photos') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_gaming_photos' %}active{% endif %}">
+            <i class="glyphicon glyphicon-list"></i> Gaming Photos
+        </a>
     </div>
 </div>

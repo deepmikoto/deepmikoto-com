@@ -12,6 +12,17 @@ deepmikoto_admin_gaming_edit_post:
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:editPost }
     requirements:
         id:  \d+
+deepmikoto_admin_gaming_new_photo:
+    path:     /new-photo
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:newGamingPhoto }
+deepmikoto_admin_gaming_edit_photo:
+    path:     /edit-photo-{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:editGamingPhoto }
+    requirements:
+        id:  \d+
+deepmikoto_admin_gaming_photos:
+    path:     /photos
+    defaults: { _controller: DeepMikotoAdminBundle:Gaming:gamingPhotos }
 deepmikoto_admin_gaming_submitted_posts:
     path:     /submitted-posts
     defaults: { _controller: DeepMikotoAdminBundle:Gaming:submittedPosts }
