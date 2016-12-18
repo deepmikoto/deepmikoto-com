@@ -7,6 +7,7 @@ use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\CodingPostView;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\GamingPostView;
+use DeepMikoto\ApiBundle\Entity\IPApiCall;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostView;
 use DeepMikoto\ApiBundle\Security\BrowserDetector;
@@ -106,5 +107,24 @@ class TrackingService
         $browser = new BrowserDetector();
 
         return $browser->dataToArray();
+    }
+
+    /**
+     * @param $ip
+     * @return array|mixed
+     */
+    public function getIpData( $ip )
+    {
+        try {
+            $ch = curl_init( 'http://ip-api.com/json/' . $ip );
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            $output = json_decode( curl_exec ( $ch ), true );
+            curl_close( $ch );
+            if( !is_array( $output ) ) $output = [];
+        } catch( \Exception $e ) {
+            $output = [];
+        }
+
+        return $output;
     }
 } 

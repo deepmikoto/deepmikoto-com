@@ -92,7 +92,7 @@ class GamingService
     {
         $normalizer = new GetSetMethodNormalizer();
         $normalizer->setIgnoredAttributes(
-            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'date', 'public', 'views', 'content' ]
+            [ 'cover', 'uploadDir', 'absolutePath', 'file', 'date', 'public', 'views', 'content', 'hideCoverInPost' ]
         );
         $container = $this->container;
         $normalizer->setCallbacks(

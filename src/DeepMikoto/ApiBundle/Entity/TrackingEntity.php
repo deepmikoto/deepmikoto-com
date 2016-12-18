@@ -30,11 +30,27 @@ abstract class TrackingEntity
     private $userBrowserData;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="has_ip_data", type="boolean")
+     */
+    private $hasIpData;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="ip_data", type="array")
+     */
+    private $ipData;
+
+    /**
      * defaults
      */
     public function __construct()
     {
         $this->setUserBrowserData([]);
+        $this->setHasIpData( false );
+        $this->setIpData([]);
     }
     /**
      * Set ip
@@ -76,5 +92,53 @@ abstract class TrackingEntity
         $this->userBrowserData = $userBrowserData;
 
         return $this;
+    }
+
+    /**
+     * Set hasIpData
+     *
+     * @param boolean $hasIpData
+     *
+     * @return TrackingEntity
+     */
+    public function setHasIpData($hasIpData)
+    {
+        $this->hasIpData = $hasIpData;
+
+        return $this;
+    }
+
+    /**
+     * Get hasIpData
+     *
+     * @return boolean
+     */
+    public function getHasIpData()
+    {
+        return $this->hasIpData;
+    }
+
+    /**
+     * Set ipData
+     *
+     * @param array $ipData
+     *
+     * @return TrackingEntity
+     */
+    public function setIpData($ipData)
+    {
+        $this->ipData = $ipData;
+
+        return $this;
+    }
+
+    /**
+     * Get ipData
+     *
+     * @return array
+     */
+    public function getIpData()
+    {
+        return $this->ipData;
     }
 }
