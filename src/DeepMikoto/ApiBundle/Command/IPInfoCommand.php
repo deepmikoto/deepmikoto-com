@@ -42,7 +42,7 @@ class IPInfoCommand extends ContainerAwareCommand
         $apiCalls = 0;
         /** @var TrackingEntity $trackingEntity */
         foreach ( $trackingEntities as $trackingEntity ) {
-            if ( ! ( $apiCalls < $apiCallsLimit ) ) continue;
+            if ( ! ( $apiCalls < $apiCallsLimit ) || $trackingService->isIpPrivate( $trackingEntity->getIp() ) ) continue;
             $apiCall = new IPApiCall( $trackingEntity->getIp() );
             $data = $trackingService->getIpData( $trackingEntity->getIp() );
             $apiCalls++;
