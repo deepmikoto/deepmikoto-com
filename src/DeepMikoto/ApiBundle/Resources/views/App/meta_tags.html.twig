@@ -1,4 +1,4 @@
-{% extends 'DeepMikotoApiBundle::layout.html.twig' %}
+{% extends 'DeepMikotoApiBundle::' ~ ( overrideLayout is not defined ? '' : overrideLayout ) ~ 'layout.html.twig' %}
 {% block meta %}
     <meta charset="utf-8" />
     <meta name="robots" content="index,follow" />

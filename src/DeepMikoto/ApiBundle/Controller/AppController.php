@@ -10,12 +10,14 @@ namespace DeepMikoto\ApiBundle\Controller;
 
 
 use DeepMikoto\ApiBundle\Entity\CodingCategory;
+use DeepMikoto\ApiBundle\Entity\CodingDemoPage;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto;
 use DeepMikoto\ApiBundle\Entity\StaticPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -336,6 +338,38 @@ class AppController extends Controller
         $response->setMaxAge( 0 );
 
         return $response;
+    }
+
+    /**
+     * @param $slug
+     * @param Request $request
+     * @return Response
+     */
+    public function codingDemoPageAction($slug, Request $request)
+    {
+        /** @var  $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var CodingDemoPage $codingDemoPage */
+        $codingDemoPage = $em->getRepository('DeepMikotoApiBundle:CodingDemoPage')->findOneBy([ 'slug' => $slug ]);
+        if ($codingDemoPage == null || $codingDemoPage->getCodingPost() == null ) throw $this->createNotFoundException();
+        $codingPost = $codingDemoPage->getCodingPost();
+        $this->get('deepmikoto.api.tracking_manager')->addPostView($codingDemoPage, $request);
+
+        return $this->render('@DeepMikotoApi/App/coding_demo_page.html.twig', [
+            'overrideLayout' => 'coding_demo_',
+            'post'  => $codingPost,
+            'style' => $codingDemoPage->getStyle(),
+            'html'  => $codingDemoPage->getHtml(),
+            'js'    => $codingDemoPage->getJs(),
+            'meta'  => [
+                'title'         => $codingDemoPage->getTitle(),
+                'description'   => "Demo page for '" . $codingPost->getTitle() . "' article",
+                'url'           => $this->generateUrl( 'deepmikoto_app_coding_demo_page', [
+                    'slug'  => $codingPost->getSlug()
+                ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                'image'         => 'images/code.jpg'
+            ]
+        ]);
     }
 
     /**

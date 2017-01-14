@@ -16,5 +16,11 @@
         <a href="{{ path('deepmikoto_admin_coding_drafted_posts') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_drafted_posts' %}active{% endif %}">
             <i class="glyphicon glyphicon-folder-open"></i> Drafted posts
         </a>
+        <a href="{{ path('deepmikoto_admin_coding_demo_pages') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_demo_pages' %}active{% endif %}">
+            <i class="glyphicon glyphicon-blackboard"></i> Demo pages
+        </a>
+        <a href="{{ path('deepmikoto_admin_coding_new_demo_page') }}" class="list-group-item {% if app.request.get('_route') == 'deepmikoto_admin_coding_new_demo_page' %}active{% endif %}">
+            <i class="glyphicon glyphicon-blackboard"></i> New demo page
+        </a>
     </div>
 </div>

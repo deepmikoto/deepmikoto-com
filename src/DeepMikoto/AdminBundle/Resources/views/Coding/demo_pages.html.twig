@@ -1,0 +1,46 @@
+{% extends 'DeepMikotoAdminBundle:Parts:divided_layout.html.twig' %}
+{% block sidebar %}
+    {% include 'DeepMikotoAdminBundle:Parts:sidebars/coding_sidebar.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ flashMessage | raw }}
+        </div>
+    {% endfor %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>title</th>
+            <th>coding post title</th>
+            <th>url</th>
+            <th>date</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if pages|length == 0 %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    Nothing to show, <a href="{{ path('deepmikoto_admin_coding_new_demo_page') }}"><i class="glyphicon glyphicon-save"></i> create new demo page</a>
+                </td>
+            </tr>
+        {% else %}
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.title }}</td>
+                    <td>{{ page.codingPostTitle }}</td>
+                    <td>{{ page.url }} <a href="{{ page.url }}" target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
+                    <td>{{ page.date | date( 'd F Y H:i:s' ) }}</td>
+                    <td>
+                        <a href="{{ path('deepmikoto_admin_coding_edit_demo_page', { 'id': page.id }) }}">
+                            <i class="glyphicon glyphicon-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

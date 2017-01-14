@@ -39,3 +39,19 @@ deepmikoto_admin_delete_coding_post:
     defaults: { _controller: DeepMikotoAdminBundle:Coding:deletePost }
     requirements:
         id:  \d+
+deepmikoto_admin_coding_new_demo_page:
+    path:     /new-demo-page
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:newDemoPage }
+deepmikoto_admin_coding_edit_demo_page:
+    path:     /edit-demo-page-{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:editDemoPage }
+    requirements:
+        id:  \d+
+deepmikoto_admin_coding_demo_pages:
+    path:     /demo-pages
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:demoPages }
+deepmikoto_admin_delete_coding_demo_page:
+    path:     /demo-page-delete/{id}
+    defaults: { _controller: DeepMikotoAdminBundle:Coding:deleteDemoPage }
+    requirements:
+        id:  \d+

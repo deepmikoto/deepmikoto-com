@@ -10,6 +10,9 @@ deepmikoto_app_photography_post:
 deepmikoto_app_coding:
     path:     /coding
     defaults: { _controller: DeepMikotoApiBundle:App:coding }
+deepmikoto_app_coding_demo_page:
+    path:     /coding/demo-{slug}
+    defaults: { _controller: DeepMikotoApiBundle:App:codingDemoPage }
 deepmikoto_app_coding_categories:
     path:     /coding/categories
     defaults: { _controller: DeepMikotoApiBundle:App:codingCategories }

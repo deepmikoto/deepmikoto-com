@@ -3,6 +3,8 @@
 
 namespace DeepMikoto\ApiBundle\Services;
 
+use DeepMikoto\ApiBundle\Entity\CodingDemoPage;
+use DeepMikoto\ApiBundle\Entity\CodingDemoPageView;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\CodingPostView;
 use DeepMikoto\ApiBundle\Entity\GamingPost;
@@ -34,7 +36,7 @@ class TrackingService
     }
 
     /**
-     * @param CodingPost | GamingPost | PhotographyPost $post
+     * @param CodingPost | GamingPost | PhotographyPost | CodingDemoPage $post
      * @param Request $request
      * @return bool
      */
@@ -55,6 +57,8 @@ class TrackingService
             $view = new GamingPostView();
         } elseif ( $post instanceof PhotographyPost ){
             $view = new PhotographyPostView();
+        } elseif ( $post instanceof CodingDemoPage ){
+            $view = new CodingDemoPageView();
         } else {
             return false;
         }

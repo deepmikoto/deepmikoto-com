@@ -3,13 +3,16 @@
 namespace DeepMikoto\AdminBundle\Controller;
 
 use DeepMikoto\ApiBundle\Entity\CodingCategory;
+use DeepMikoto\ApiBundle\Entity\CodingDemoPage;
 use DeepMikoto\ApiBundle\Entity\CodingPost;
 use DeepMikoto\ApiBundle\Entity\SidebarPrimaryBlock;
 use DeepMikoto\ApiBundle\Form\CodingCategoryType;
+use DeepMikoto\ApiBundle\Form\CodingDemoPageType;
 use DeepMikoto\ApiBundle\Form\CodingPostType;
 use DeepMikoto\ApiBundle\Form\SidebarPrimaryBlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class CodingController
@@ -265,5 +268,111 @@ class CodingController extends Controller
         }
 
         return $this->render('@DeepMikotoAdmin/Coding/new_or_edit_category.html.twig', [ 'form' => $form->createView(), 'picture' => $category->getWebPath() ] );
+    }
+
+
+    /**
+     * New coding demo page
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newDemoPageAction( Request $request )
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $demoPage = new CodingDemoPage();
+        $form = $this->createForm( CodingDemoPageType::class, $demoPage );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $demoPage );
+                $em->flush( $demoPage );
+                $this->addFlash(
+                    'success',
+                    '<strong>Awesome!</strong> You created a new coding demo page!'
+                );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_coding_new_demo_page' );
+            }
+        }
+
+        return $this->render( '@DeepMikotoAdmin/Coding/new_demo_page.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * edit coding demo page form
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editDemoPageAction( Request $request, $id )
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var \DeepMikoto\ApiBundle\Entity\CodingDemoPage $demoPage */
+        $demoPage = $em->find( 'DeepMikotoApiBundle:CodingDemoPage', $id );
+        $demoPage == null ? $this->createNotFoundException() : null;
+        $form = $this->createForm( CodingDemoPageType::class, $demoPage );
+        if( $request-> isMethod( 'POST' ) ){
+            $form->handleRequest( $request );
+            if( $form->isValid() ){
+                $em->persist( $demoPage );
+                $em->flush( $demoPage );
+                $this->addFlash( 'success', '<strong>Awesome!</strong> Editing successfull' );
+
+                return $this->redirectToRoute( 'deepmikoto_admin_coding_edit_demo_page', [
+                    'id' => $demoPage->getId()
+                ]);
+            }
+        }
+
+        return $this->render( '@DeepMikotoAdmin/Coding/edit_demo_page.html.twig', [ 'form' => $form->createView() ] );
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    public function deleteDemoPageAction( $id )
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $post = $em->find('DeepMikotoApiBundle:CodingDemoPage', intval( $id ) );
+        if ( $post == null ) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove( $post );
+        $em->flush();
+        $this->addFlash('success', 'Coding demo page successfully deleted!');
+
+        return $this->redirectToRoute('deepmikoto_admin_coding_demo_pages');
+    }
+
+    /**
+     * demo pages
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function demoPagesAction()
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository( 'DeepMikotoApiBundle:CodingDemoPage' )->createQueryBuilder( 'p' );
+        $query
+            ->select( 'p.id, p.title, p.date, p.slug', 'cp.title as codingPostTitle' )
+            ->leftJoin('p.codingPost', 'cp')
+            ->orderBy( 'p.date', 'DESC' )
+        ;
+        $posts = $query->getQuery()->getResult();
+        foreach($posts as &$post){
+            $post['url'] = $this->get('router')->generate('deepmikoto_app_coding_demo_page', [ 'slug' => $post['slug'] ], UrlGeneratorInterface::ABSOLUTE_URL );
+            unset($post['slug']);
+        }
+
+        return $this->render( '@DeepMikotoAdmin/Coding/demo_pages.html.twig', [ 'pages' => $posts ] );
     }
 }

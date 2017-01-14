@@ -1,0 +1,32 @@
+{% include 'DeepMikotoApiBundle:miscellaneous:source_signature.html.twig' %}
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {% block meta %}{% endblock %}
+        {% image '@DeepMikotoApiBundle/Resources/public/images/deepmikoto_logo_16.png' output='images/favicon.png' %}
+            <link rel="icon" type="image/png" href="{{ asset_url }}">
+        {% endimage %}
+        {% stylesheets
+            'bundles/deepmikotoapi/css/bootstrap.css'
+
+            output='css/coding-demo.css' filter='cssrewrite'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+
+        <!-- demo styles -->
+        {% block style %}{% endblock %}
+    </head>
+    <body>
+    {% block content %}{% endblock %}
+
+    <!-- demo html -->
+    {% block html %}{% endblock %}
+
+    <!-- demo js -->
+    {% block js %}{% endblock %}
+    </body>
+    </html>
+{% endspaceless %}

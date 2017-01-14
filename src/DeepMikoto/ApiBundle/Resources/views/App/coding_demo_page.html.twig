@@ -1,0 +1,18 @@
+{% extends 'DeepMikotoApiBundle:App:meta_tags.html.twig' %}
+{% block content %}
+    <div class="row">
+        <h3 class="text-center">DEMO - {{ post.title }}<small> - <a href="{{ path('deepmikoto_app_coding_post',{'id': post.id, 'slug': post.slug}) }}">back to post</a></small></h3>
+        <hr>
+    </div>
+{% endblock %}
+{% block style %}
+{{ style|raw }}
+{% endblock %}
+{% block html %}
+    <div class="row">
+        {{ html|raw }}
+    </div>
+{% endblock %}
+{% block js %}
+{{ js|raw }}
+{% endblock %}
