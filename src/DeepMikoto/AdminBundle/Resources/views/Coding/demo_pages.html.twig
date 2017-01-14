@@ -37,6 +37,9 @@
                         <a href="{{ path('deepmikoto_admin_coding_edit_demo_page', { 'id': page.id }) }}">
                             <i class="glyphicon glyphicon-edit"></i> Edit
                         </a>
+                        <a href="{{ path('deepmikoto_admin_delete_coding_demo_page',{'id': post.id}) }}">
+                            <i class="glyphicon glyphicon-trash"></i> Delete
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
