@@ -386,7 +386,7 @@ class AppController extends Controller
         if( strlen( $content ) > $limit ){
             $pos = strpos( $content . ' ', ' ', $limit );
             $content = rtrim( substr( $content, 0, $pos ) ) . ' ...';
-            if( strpos( $content, '&nbsp;' ) !== -1 ){
+            if( strpos( $content, '&nbsp;' ) !== false ){
                 $content =  str_replace( '&nbsp;', ' ', $content );
             }
         }
