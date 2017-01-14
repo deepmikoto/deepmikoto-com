@@ -237,7 +237,8 @@ class AppController extends Controller
                     'url'           => $this->generateUrl( 'deepmikoto_app_coding_post', [
                         'id'    => $codingPost->getId(),
                         'slug'  => $codingPost->getSlug()
-                    ], UrlGeneratorInterface::ABSOLUTE_URL )
+                    ], UrlGeneratorInterface::ABSOLUTE_URL ),
+                    'image'         => 'images/code.jpg'
                 ]
             ])->getContent(),
             200
