@@ -19,25 +19,34 @@
         <!-- demo styles -->
 
         {% block style %}{% endblock %}
+
+        <!-- end demo styles -->
+
     </head>
     <body>
-    <div class="row">
-        <div class="col-xs-12">
-            {% block postInfo %}{% endblock %}
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                {% block postInfo %}{% endblock %}
+            </div>
         </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- demo html -->
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- demo html -->
 
-            {% block html %}{% endblock %}
+                {% block html %}{% endblock %}
+
+                <!-- end demo html -->
+            </div>
         </div>
     </div>
 
     <!-- demo js -->
 
     {% block js %}{% endblock %}
+
+    <!-- end demo js -->
 
     <!-- Google Analytics -->
 
