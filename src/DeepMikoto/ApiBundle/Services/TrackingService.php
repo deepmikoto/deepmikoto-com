@@ -50,7 +50,7 @@ class TrackingService
             $clientRefererDomain = null;
             $clientReferer = null;
         }
-
+        $viewParentSetter = 'setPost';
         if( $post instanceof CodingPost ){
             $view = new CodingPostView();
         } else if ( $post instanceof GamingPost ){
@@ -59,12 +59,13 @@ class TrackingService
             $view = new PhotographyPostView();
         } elseif ( $post instanceof CodingDemoPage ){
             $view = new CodingDemoPageView();
+            $viewParentSetter = 'setDemoPage';
         } else {
             return false;
         }
 
         $view
-            ->setPost( $post )
+            ->{$viewParentSetter}( $post )
             ->setIp( $clientIp )
             ->setRefererDomain( $clientRefererDomain )
             ->setRefererUrl( $clientReferer )
