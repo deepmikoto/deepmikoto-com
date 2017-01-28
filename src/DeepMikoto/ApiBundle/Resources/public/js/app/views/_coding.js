@@ -87,13 +87,6 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
 
         }
         typeof Prism == 'object' ? Prism.highlightAll() : null;
-        var _this = this;
-        setTimeout(function () {
-            if (!_this.isDestroyed) {
-                /** @namespace twttr.widgets */
-                typeof twttr == 'object' ? twttr.widgets.load(_this.el) : null;
-            }
-        }, 500);
     },
     getTemplate: function()
     {

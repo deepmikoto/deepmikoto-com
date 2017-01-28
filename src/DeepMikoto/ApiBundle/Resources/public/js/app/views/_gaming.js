@@ -44,8 +44,15 @@ deepmikoto.GamingPost = Marionette.LayoutView.extend({
     className: 'post-details gaming-type',
     onShow: function ()
     {
-        /** @namespace FB.XFBML */
-        typeof FB == 'object' ? FB.XFBML.parse() : null;
+        try {
+            /** @namespace FB.XFBML */
+            typeof FB == 'object' ? FB.XFBML.parse() : null;
+        } catch(e) {
+
+        }
+
+        /** @namespace twttr.widgets */
+        typeof twttr == 'object' ? twttr.widgets.load() : null;
     },
     getTemplate: function()
     {
