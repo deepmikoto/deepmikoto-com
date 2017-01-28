@@ -91,7 +91,7 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
         setTimeout(function () {
             if (!_this.isDestroyed) {
                 /** @namespace twttr.widgets */
-                typeof twttr == 'object' ? twttr.widgets.load() : null;
+                typeof twttr == 'object' ? twttr.widgets.load(_this.el) : null;
             }
         }, 500);
     },
