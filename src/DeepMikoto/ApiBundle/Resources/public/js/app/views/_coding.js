@@ -83,12 +83,17 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
         try {
             /** @namespace FB.XFBML */
             typeof FB == 'object' ? FB.XFBML.parse() : null;
-            /** @namespace twttr.widgets */
-            typeof twttr == 'object' ? twttr.widgets.load() : null;
         } catch ( e ) {
 
         }
         typeof Prism == 'object' ? Prism.highlightAll() : null;
+        var _this = this;
+        setTimeout(function () {
+            if (!_this.isDestroyed) {
+                /** @namespace twttr.widgets */
+                typeof twttr == 'object' ? twttr.widgets.load() : null;
+            }
+        }, 500);
     },
     getTemplate: function()
     {

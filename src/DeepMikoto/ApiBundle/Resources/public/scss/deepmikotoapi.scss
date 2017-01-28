@@ -638,6 +638,11 @@ html {
               max-width: 100%;
             }
           }
+          &>.body {
+            .twitter-tweet-rendered {
+              margin: 20px auto!important;
+            }
+          }
         }
         &>.help-page {
           padding-top: 10px;
