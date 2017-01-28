@@ -83,6 +83,8 @@ deepmikoto.CodingPost = Marionette.LayoutView.extend({
         try {
             /** @namespace FB.XFBML */
             typeof FB == 'object' ? FB.XFBML.parse() : null;
+            /** @namespace twttr.widgets */
+            typeof twttr == 'object' ? twttr.widgets.load() : null;
         } catch ( e ) {
 
         }
