@@ -20,6 +20,15 @@ deepmikoto.SidebarView = Marionette.LayoutView.extend({
     {
         this.listenTo( deepmikoto.app.routerChannel.vent, 'change:page', this.adaptContentToPage );
     },
+    onShow: function ()
+    {
+        try {
+            /** @namespace FB.XFBML */
+            typeof FB == 'object' ? FB.XFBML.parse() : null;
+        } catch(e) {
+
+        }
+    },
     adaptContentToPage: function( page )
     {
         if( this.model.get( 'context' ) != page ){

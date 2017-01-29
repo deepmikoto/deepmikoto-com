@@ -1,11 +1,25 @@
 {% spaceless %}
-<div class="block primary" id="primary"></div>
-<div class="block related" id="related"></div>
-<div class="block categories" id="categories"></div>
-<div class="block adds" id="adds"></div>
-<div class="about">
-    <a href="{{ path('deepmikoto_app_help_page') }}">Help</a> | FAQ | Contact{#|
-    <a href="{{ '/faq' }}">FAQ</a> |
-    <a href="{{ '/contact' }}">Contact</a>#}
+    <div class="block primary" id="primary"></div>
+    <div class="block related" id="related"></div>
+    <div class="block categories" id="categories"></div>
+    <div class="block adds" id="adds"></div>
+    <div class="block fb">
+        <h5>Like us on <a href="https://www.facebook.com/deepmikotoontheweb" target="_blank">Facebook</a> to stay in the loop!</h5>
+        <div
+            class="fb-like"
+            data-href="https://www.facebook.com/deepmikotoontheweb"
+            data-layout="standard"
+            data-action="like"
+            data-size="small"
+            data-show-faces="true"
+            data-share="true"
+            data-width="250"
+            data-colorscheme="dark"
+        ></div>
+    </div>
+    <div class="about">
+        <a href="{{ path('deepmikoto_app_help_page') }}">Help</a> | FAQ | Contact{#|
+        <a href="{{ '/faq' }}">FAQ</a> |
+        <a href="{{ '/contact' }}">Contact</a>#}
 </div>
 {% endspaceless %}

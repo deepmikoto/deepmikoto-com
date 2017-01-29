@@ -79,8 +79,10 @@ deepmikoto.GeneralFunctions = Marionette.extend({
                 FB.init({
                     appId      : deepmikoto.appConstants.FACEBOOK_APP_ID,
                     xfbml      : true,
-                    version    : 'v2.4'
+                    version    : 'v2.8'
                 });
+                /** @namespace FB.AppEvents.logPageView */
+                FB.AppEvents.logPageView();
             } catch ( e ) {
 
             }

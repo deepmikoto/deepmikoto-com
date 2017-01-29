@@ -661,6 +661,9 @@ html {
               font-style: italic;
               border-left: 5px solid #ff001a;
             }
+            img {
+              max-width: 100%;
+            }
           }
         }
         &>.help-page {
@@ -674,18 +677,18 @@ html {
         &>.sidebar {
           margin-bottom: 15px;
           a {
-            color: #337ab7;;
+            color: #337ab7;
             text-decoration: none;
             &:active {
-              color: #337ab7;;
+              color: #337ab7;
               text-decoration: none;
             }
             &:focus {
-              color: #337ab7;;
+              color: #337ab7;
               text-decoration: none;
             }
             &:visited {
-              color: #337ab7;;
+              color: #337ab7;
               text-decoration: none;
             }
           }
@@ -794,7 +797,9 @@ html {
                 }
               }
             }
-
+            &.fb {
+              min-height: 10px;
+            }
           }
           &>.about {
             text-align: right;
