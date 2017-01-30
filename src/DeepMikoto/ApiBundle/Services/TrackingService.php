@@ -44,8 +44,8 @@ class TrackingService
     {
         $clientIp = $request->getClientIp();
         if( $this->isIpPrivate( $clientIp ) ) return false;
-        $clientRefererDomain = parse_url( $request->headers->get( 'referer' ), PHP_URL_HOST );
-        $clientReferer = $request->headers->get( 'referer' );
+        $clientRefererDomain = parse_url( $request->server->get( 'http-referer' ), PHP_URL_HOST );
+        $clientReferer = $request->server->get( 'http-referer' );
         if( $clientRefererDomain == $request->getHost() ){
             $clientRefererDomain = null;
             $clientReferer = null;
