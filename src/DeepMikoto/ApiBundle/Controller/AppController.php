@@ -157,7 +157,7 @@ class AppController extends Controller
                 'post' => $photographyPost,
                 'meta'  => [
                     'title'         => $photographyPost->getTitle(),
-                    'description'   => $photographyPost->getLocation() . ' - ' . $photographyPost->getDate()->format('F jS, Y'),
+                    'description'   => $photographyPost->getLocation(),
                     'url'           => $this->generateUrl( 'deepmikoto_app_photography_post', [
                         'id'    => $photographyPost->getId(),
                         'slug'  => $photographyPost->getSlug()
