@@ -408,9 +408,28 @@ class AppController extends Controller
 
         if ($this->check_facebook($request)) {
 
+            $message = \Swift_Message::newInstance()
+                ->setSubject('facebook test'.mt_rand(1,4600))
+                ->setFrom('noreply@deepmikoto.com')
+                ->setTo('deepmikoto@gmail.com')
+                ->setBody(
+                    'is facebook',
+                    'text/plain'
+                )
+            ;
+            $this->get('mailer')->send($message);
             return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
         } else {
-
+            $message = \Swift_Message::newInstance()
+                ->setSubject('facebook test' .mt_rand(1,4600))
+                ->setFrom('noreply@deepmikoto.com')
+                ->setTo('deepmikoto@gmail.com')
+                ->setBody(
+                    'is not facebook',
+                    'text/plain'
+                )
+            ;
+            $this->get('mailer')->send($message);
             return $this->redirect($params['url']);
         }
     }
@@ -420,7 +439,7 @@ class AppController extends Controller
         $isFacebook = false;
         $userAgent = $request->headers->get('user-agent');
         $message = \Swift_Message::newInstance()
-            ->setSubject('facebook test')
+            ->setSubject('facebook test'.mt_rand(1,4600))
             ->setFrom('noreply@deepmikoto.com')
             ->setTo('deepmikoto@gmail.com')
             ->setBody(
