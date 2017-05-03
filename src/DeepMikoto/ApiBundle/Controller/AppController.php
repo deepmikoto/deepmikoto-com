@@ -415,13 +415,10 @@ class AppController extends Controller
     }
 
     function check_facebook() {
-        $IP = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : false;
-        $UA = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : false;
-        if (!$IP || !$UA) return false;
-        $UAs = ['facebookexternalhit', 'Facebot', 'visionutils'];
-        $UAs = array_map('preg_quote', $UAs);
-        if (!preg_match('#^' . implode('|', $UAs) .'#i', $UA)) return false;
 
-        return true;
+        return
+            strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||
+            strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false
+        ;
     }
 } 
