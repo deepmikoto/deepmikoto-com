@@ -405,20 +405,7 @@ class AppController extends Controller
             'fb_app_id' => '789069417870836'
         ];
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('facebook test')
-            ->setFrom('noreply@deepmikoto.com')
-            ->setTo('deepmikoto@gmail.com')
-            ->setBody(
-                $this->renderView(
-                    '@DeepMikotoApi/miscellaneous/dump.html.twig', ['headers' => $request->headers]
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
-
-        if ($this->check_facebook()) {
+        if ($this->check_facebook($request->headers)) {
 
             return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
         } else {
@@ -427,12 +414,23 @@ class AppController extends Controller
         }
     }
 
-    function check_facebook()
+    function check_facebook($headers)
     {
+        $isFacebook = false;
+        if (array_key_exists('user-agent', $headers) && !empty($headers['user-agent'])) {
+            if (is_array($headers['user-agent'])) {
+                foreach ($headers['user-agent'] as $userAgent) {
+                    if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
+                        $isFacebook = true;
+                    }
+                }
+            } else if (is_string($headers['user-agent'])) {
+                if (strpos($headers['user-agent'], 'facebookexternalhit') !== false || strpos($headers['user-agent'], 'Facebot') !== false) {
+                    $isFacebook = true;
+                }
+            }
+        }
 
-        return
-            strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||
-            strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false
-        ;
+        return $isFacebook;
     }
 } 
