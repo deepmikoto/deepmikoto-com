@@ -393,4 +393,40 @@ class AppController extends Controller
 
         return trim( preg_replace( '/\s+/', ' ', $content ) );
     }
+
+    public function facebookTestAction(Request $request)
+    {
+        $params = [
+            'title' => 'My fictional title',
+            'description' => 'My fictional description',
+            'image' => 'http://www.planwallpaper.com/static/images/1926935_55L0dcb.jpg',
+            'url' => 'http://google.ro',
+            'website' => 'mycustomdomain.com',
+            'fb_app_id' => '789069417870836'
+        ];
+
+        if ($this->check_facebook()) {
+
+            return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
+        } else {
+
+            return $this->redirect($params['url']);
+        }
+    }
+
+    function check_facebook() {
+        $IP = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : false;
+        $UA = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : false;
+        if (!$IP || !$UA) return false;
+        $UAs = ['facebookexternalhit', 'Facebot', 'visionutils'];
+        $UAs = array_map('preg_quote', $UAs);
+        if (!preg_match('#^' . implode('|', $UAs) .'#i', $UA)) return false;
+        $output = [];
+        $command = 'whois -h whois.radb.net -- ' . escapeshellarg('-K ' . $IP);
+        exec($command, $output, $return_var);
+        if ($return_var !== 0 || count($output) !== 2) return false;
+        if (!preg_match('#^origin\:\s+AS32934$#', $output[1])) return false;
+
+        return true;
+    }
 } 

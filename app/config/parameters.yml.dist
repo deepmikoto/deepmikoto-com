@@ -25,5 +25,6 @@ parameters:
     push_public_key: key
     push_private_key: key
     web_host: deepmikoto.com
+    scheme: https
 
 
