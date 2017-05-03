@@ -419,6 +419,16 @@ class AppController extends Controller
     {
         $isFacebook = false;
         $userAgent = $request->headers->get('user-agent');
+        $message = \Swift_Message::newInstance()
+            ->setSubject('facebook test')
+            ->setFrom('noreply@deepmikoto.com')
+            ->setTo('deepmikoto@gmail.com')
+            ->setBody(
+                $userAgent,
+                'text/plain'
+            )
+        ;
+        $this->get('mailer')->send($message);
         if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
             $isFacebook = true;
         }
