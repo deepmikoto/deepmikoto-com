@@ -16,5 +16,10 @@
 </head>
 <body>
     <h3 style="text-align: center">Redirecting to {{ website }} ...</h3>
+    {% if isFacebook == false %}
+        <script type="application/javascript">
+            window.location = "{{ url }}";
+        </script>
+    {% endif %}
 </body>
 </html>

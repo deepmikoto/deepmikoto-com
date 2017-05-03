@@ -398,6 +398,7 @@ class AppController extends Controller
     public function facebookTestAction(Request $request)
     {
         $params = [
+            'isFacebook' => false,
             'title' => 'My fictional title',
             'description' => 'My fictional description',
             'image' => 'http://www.planwallpaper.com/static/images/1926935_55L0dcb.jpg',
@@ -407,8 +408,7 @@ class AppController extends Controller
         ];
 
         if ($this->check_facebook($request)) {
-
-            $message = \Swift_Message::newInstance()
+            /*$message = \Swift_Message::newInstance()
                 ->setSubject('facebook test'.mt_rand(1,4600))
                 ->setFrom('noreply@deepmikoto.com')
                 ->setTo('deepmikoto@gmail.com')
@@ -417,9 +417,9 @@ class AppController extends Controller
                     'text/plain'
                 )
             ;
-            $this->get('mailer')->send($message);
-            return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
-        } else {
+            $this->get('mailer')->send($message);*/
+           $params['isFacebook'] = true;
+        } /*else {
             $message = \Swift_Message::newInstance()
                 ->setSubject('facebook test' .mt_rand(1,4600))
                 ->setFrom('noreply@deepmikoto.com')
@@ -431,7 +431,9 @@ class AppController extends Controller
             ;
             $this->get('mailer')->send($message);
             return $this->redirect($params['url']);
-        }
+        }*/
+
+        return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
     }
 
     function check_facebook(Request $request)
