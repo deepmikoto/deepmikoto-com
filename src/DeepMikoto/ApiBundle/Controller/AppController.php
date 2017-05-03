@@ -17,6 +17,7 @@ use DeepMikoto\ApiBundle\Entity\PhotographyPost;
 use DeepMikoto\ApiBundle\Entity\PhotographyPostPhoto;
 use DeepMikoto\ApiBundle\Entity\StaticPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -405,7 +406,7 @@ class AppController extends Controller
             'fb_app_id' => '789069417870836'
         ];
 
-        if ($this->check_facebook($request->headers)) {
+        if ($this->check_facebook($request)) {
 
             return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
         } else {
@@ -414,21 +415,12 @@ class AppController extends Controller
         }
     }
 
-    function check_facebook($headers)
+    function check_facebook(Request $request)
     {
         $isFacebook = false;
-        if (array_key_exists('user-agent', $headers) && !empty($headers['user-agent'])) {
-            if (is_array($headers['user-agent'])) {
-                foreach ($headers['user-agent'] as $userAgent) {
-                    if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
-                        $isFacebook = true;
-                    }
-                }
-            } else if (is_string($headers['user-agent'])) {
-                if (strpos($headers['user-agent'], 'facebookexternalhit') !== false || strpos($headers['user-agent'], 'Facebot') !== false) {
-                    $isFacebook = true;
-                }
-            }
+        $userAgent = $request->headers->get('user-agent');
+        if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
+            $isFacebook = true;
         }
 
         return $isFacebook;
