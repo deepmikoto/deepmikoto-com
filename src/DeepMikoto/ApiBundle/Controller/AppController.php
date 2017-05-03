@@ -395,61 +395,31 @@ class AppController extends Controller
         return trim( preg_replace( '/\s+/', ' ', $content ) );
     }
 
-    public function facebookTestAction(Request $request)
+    public function facebookTestAction($slug,Request $request)
     {
         $params = [
-            'isFacebook' => false,
             'title' => 'My fictional title',
             'description' => 'My fictional description',
             'image' => 'http://www.planwallpaper.com/static/images/1926935_55L0dcb.jpg',
             'url' => 'http://google.ro',
+            'ogurl' => $this->generateUrl('deepmikoto_app_facebook_test', ['slug' => $slug]),
             'website' => 'mycustomdomain.com',
             'fb_app_id' => '789069417870836'
         ];
 
         if ($this->check_facebook($request)) {
-            /*$message = \Swift_Message::newInstance()
-                ->setSubject('facebook test'.mt_rand(1,4600))
-                ->setFrom('noreply@deepmikoto.com')
-                ->setTo('deepmikoto@gmail.com')
-                ->setBody(
-                    'is facebook',
-                    'text/plain'
-                )
-            ;
-            $this->get('mailer')->send($message);*/
-           $params['isFacebook'] = true;
-        } /*else {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('facebook test' .mt_rand(1,4600))
-                ->setFrom('noreply@deepmikoto.com')
-                ->setTo('deepmikoto@gmail.com')
-                ->setBody(
-                    'is not facebook',
-                    'text/plain'
-                )
-            ;
-            $this->get('mailer')->send($message);
-            return $this->redirect($params['url']);
-        }*/
 
-        return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
+            return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
+        } else {
+
+            return $this->redirect($params['url']);
+        }
     }
 
     function check_facebook(Request $request)
     {
         $isFacebook = false;
         $userAgent = $request->headers->get('user-agent');
-        $message = \Swift_Message::newInstance()
-            ->setSubject('facebook test'.mt_rand(1,4600))
-            ->setFrom('noreply@deepmikoto.com')
-            ->setTo('deepmikoto@gmail.com')
-            ->setBody(
-                $userAgent,
-                'text/plain'
-            )
-        ;
-        $this->get('mailer')->send($message);
         if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
             $isFacebook = true;
         }
