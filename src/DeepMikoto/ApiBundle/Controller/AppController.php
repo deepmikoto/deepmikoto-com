@@ -421,11 +421,6 @@ class AppController extends Controller
         $UAs = ['facebookexternalhit', 'Facebot', 'visionutils'];
         $UAs = array_map('preg_quote', $UAs);
         if (!preg_match('#^' . implode('|', $UAs) .'#i', $UA)) return false;
-        $output = [];
-        $command = 'whois -h whois.radb.net -- ' . escapeshellarg('-K ' . $IP);
-        exec($command, $output, $return_var);
-        if ($return_var !== 0 || count($output) !== 2) return false;
-        if (!preg_match('#^origin\:\s+AS32934$#', $output[1])) return false;
 
         return true;
     }
