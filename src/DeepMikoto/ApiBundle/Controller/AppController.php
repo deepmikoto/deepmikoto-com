@@ -405,6 +405,19 @@ class AppController extends Controller
             'fb_app_id' => '789069417870836'
         ];
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('facebook test')
+            ->setFrom('noreply@deepmikoto.com')
+            ->setTo('deepmikoto@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    '@DeepMikotoApi/miscellaneous/dump.html.twig', ['headers' => $request->headers]
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
         if ($this->check_facebook()) {
 
             return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
@@ -414,7 +427,8 @@ class AppController extends Controller
         }
     }
 
-    function check_facebook() {
+    function check_facebook()
+    {
 
         return
             strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||
