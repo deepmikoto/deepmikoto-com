@@ -394,36 +394,4 @@ class AppController extends Controller
 
         return trim( preg_replace( '/\s+/', ' ', $content ) );
     }
-
-    public function facebookTestAction($slug,Request $request)
-    {
-        $params = [
-            'title' => 'My fictional title',
-            'description' => 'My fictional description',
-            'image' => 'http://www.planwallpaper.com/static/images/1926935_55L0dcb.jpg',
-            'url' => 'http://google.ro',
-            'ogurl' => $this->generateUrl('deepmikoto_app_facebook_test', ['slug' => $slug]),
-            'website' => 'mycustomdomain.com',
-            'fb_app_id' => '789069417870836'
-        ];
-
-        if ($this->check_facebook($request)) {
-
-            return $this->render('@DeepMikotoApi/miscellaneous/facebook_test.html.twig', $params);
-        } else {
-
-            return $this->redirect($params['url']);
-        }
-    }
-
-    function check_facebook(Request $request)
-    {
-        $isFacebook = false;
-        $userAgent = $request->headers->get('user-agent');
-        if (strpos($userAgent, 'facebookexternalhit') !== false || strpos($userAgent, 'Facebot') !== false) {
-            $isFacebook = true;
-        }
-
-        return $isFacebook;
-    }
 } 

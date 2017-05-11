@@ -31,8 +31,5 @@ deepmikoto_app_gaming_post:
 deepmikoto_app_help_page:
     path:     /help
     defaults: { _controller: DeepMikotoApiBundle:App:helpPage }
-deepmikoto_app_facebook_test:
-    path:     /facebook-test/{slug}
-    defaults: { _controller: DeepMikotoApiBundle:App:facebookTest }
 deepmikoto_app_logout:
     path:     /logout
