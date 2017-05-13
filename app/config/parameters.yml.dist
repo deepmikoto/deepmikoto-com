@@ -26,5 +26,7 @@ parameters:
     push_private_key: key
     web_host: deepmikoto.com
     scheme: https
+    dizda_cloud_archive_password: password
+    dropbox_accesss_token: token
 
 
