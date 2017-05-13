@@ -28,7 +28,9 @@
         "paragonie/random_compat": "2.0.2",
         "mdanter/ecc": "^0.4.0",
         "minishlink/web-push-bundle": "^1.3",
-        "eventviva/php-image-resize": "^1.6"
+        "eventviva/php-image-resize": "^1.6",
+        "dizda/cloud-backup-bundle": "^3.5",
+        "dropbox/dropbox-sdk": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
