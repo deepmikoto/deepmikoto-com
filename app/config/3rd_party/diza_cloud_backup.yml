@@ -5,7 +5,7 @@ dizda_cloud_backup:
     timeout: 300
     restore: true # Set to true to enable restore command
     processor:
-        type: tar # Required: tar|zip|7z
+        type: zip # Required: tar|zip|7z
         options:
             compression_ratio: 6
             password: '%dizda_cloud_archive_password%'
