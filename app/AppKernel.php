@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new \DeepMikoto\AdminBundle\DeepMikotoAdminBundle(),
             new \DeepMikoto\ApiBundle\DeepMikotoApiBundle(),
             new \Minishlink\Bundle\WebPushBundle\MinishlinkWebPushBundle(),
-            new \Dizda\CloudBackupBundle\DizdaCloudBackupBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
