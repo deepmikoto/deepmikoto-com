@@ -132,10 +132,52 @@ deepmikoto.PhotographyPost = Marionette.LayoutView.extend({
     {
         /** @namespace FB.XFBML */
         typeof FB == 'object' ? FB.XFBML.parse() : null;
+        this.enableGallery();
     },
     getTemplate: function()
     {
         /** @namespace deepmikoto.templates.photographyPost */
         return _.template( deepmikoto.templates.photographyPost );
+    },
+    enableGallery: function ()
+    {
+        $('.photos .photo .image a').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $this = $(this),
+                index = 0,
+                pswpElement = document.querySelectorAll('.pswp')[0],
+                items = []
+            ;
+
+            $('.photos .photo .image a').each(function (idx, link) {
+                var thumb = $(link).find('img')[0];
+                items.push({
+                    src: $(link).attr('href'),
+                    h: thumb.width > thumb.height ? 1080 : 1920,
+                    w: thumb.width > thumb.height ? 1920 : 1080,
+                });
+
+                if (link.href == $this.attr('href')) {
+                    index = idx;
+                }
+            });
+
+            var options = {
+                mainClass: 'pswp--minimal--dark',
+                barsSize: {top:0,bottom:0},
+                captionEl: false,
+                fullscreenEl: false,
+                shareEl: false,
+                bgOpacity: 0.85,
+                tapToClose: true,
+                tapToToggleControls: false,
+                index: index
+            };
+
+            // Initializes and opens PhotoSwipe
+            var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+            gallery.init();
+        });
     }
 });
